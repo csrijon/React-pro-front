@@ -54,9 +54,8 @@
   line-height: 1.8;
   color: #555;
   max-width: 80%; 
-  align-self: center
-  ; /* Pushes text to the right within its column */
-  margin-top: 10px; /* Adjust as needed to align with the image */
+  align-self: center; 
+  margin-top: 10px; 
 }
 
 .about-image-right img {
