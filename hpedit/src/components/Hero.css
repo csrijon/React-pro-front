@@ -1,0 +1,59 @@
+/* src/components/Hero.css */
+.hero-section {
+  position: relative;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* You can replace this URL with your own image */
+  background-image: url('https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2127&q=80');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+/* Adds a dark overlay for better text readability */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hero-content {
+  position: relative; /* Places content above the overlay */
+  z-index: 1;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 4.5rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content .light-text {
+  font-weight: 400;
+}
+
+.outline-container {
+  display: inline-block;
+  border: 2px solid white;
+  border-radius: 50px;
+  padding: 5px 25px 0px 25px; /* Adjusted padding for better vertical alignment */
+  margin-left: 10px;
+}
+
+.outline-text {
+  font-weight: 400;
+  color: transparent;
+  -webkit-text-stroke: 1.5px white; /* The outline effect */
+  text-stroke: 1.5px white;
+  text-shadow: none; /* Remove the main text shadow from this part */
+}

@@ -1,0 +1,59 @@
+/* src/components/Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fff;
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -5px; /* Brings letters closer together */
+  cursor: pointer;
+}
+
+.header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 35px; /* Space between nav items */
+}
+
+.header nav ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 1.5px;
+  transition: color 0.3s ease;
+}
+
+.header nav ul li a:hover {
+  color: #888;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.contact-btn {
+  background-color: #252525;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #555;
+}
