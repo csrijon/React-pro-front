@@ -1,0 +1,99 @@
+/* Main container for the contact section */
+.contact-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4.5rem 1rem;
+  gap: 30px;
+  background-color: #282c34; /* Dark background */
+  color: #abb2bf; /* Light grey text */
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  position: relative;
+}
+
+/* Add the decorative dots on the left */
+.contact-container::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 5%;
+  width: 50px;
+  height: 50px;
+  background-image: radial-gradient(#abb2bf 1px, transparent 1px);
+  background-size: 12px 12px;
+  opacity: 0.4;
+}
+
+/* Left side content: heading and description */
+.contact-content {
+  max-width: 500px;
+}
+
+.contact-heading {
+  font-size: 32px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Purple '#' symbol */
+.contact-heading .accent-text {
+  color: #c778dd; /* Accent purple color */
+}
+
+/* Purple line after the heading */
+.contact-heading::after {
+  content: '';
+  height: 1px;
+  flex-grow: 1;
+  background-color: #c778dd;
+  margin-left: 16px;
+  min-width: 150px;
+}
+
+.contact-description {
+  line-height: 1.6;
+}
+
+/* Right side contact box */
+.contact-box {
+  border: 1px solid #abb2bf;
+  padding: 16px;
+  min-width: 250px;
+}
+
+.contact-box-title {
+  color: #ffffff;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* Individual contact items (Discord, Email) */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.contact-item:last-child {
+  margin-bottom: 0;
+}
+
+.contact-icon {
+  font-size: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-heading::after {
+    display: none;
+  }
+}
