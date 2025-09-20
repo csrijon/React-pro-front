@@ -1,0 +1,23 @@
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #555; 
+  padding: 0.4rem 0.6rem;
+  background-color: #282c33; 
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #fff;
+  width: fit-content;
+}
+
+.status-icon {
+  width: 10px;
+  height: 10px;
+  background-color: #a78bfa; 
+  display: inline-block;
+}
+
+.status-text strong {
+  font-weight: bold;
+}

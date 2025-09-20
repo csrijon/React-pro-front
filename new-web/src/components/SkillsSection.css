@@ -1,0 +1,30 @@
+.skills-container {
+    width: 50%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  /* background-color: #1e222a; dark background */
+  color: #fff;
+  font-family: monospace;
+}
+
+.skills-box {
+  border: 1px solid #ABB2BF;
+  border-radius: 6px;
+}
+
+.skills-box h3 {
+    padding: 10px;
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: bold;
+  border-bottom: 1px solid #ABB2BF;
+}
+
+.skills-box p {
+  margin: 0;
+  padding: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+}

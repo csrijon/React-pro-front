@@ -1,0 +1,30 @@
+.skill-section {
+    width: 100%;
+}
+
+.skill-section .top-section {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+.top-section span{
+    color: #C778DD;
+}
+.top-section h3{
+    font-size: 32px;
+    font-family: 'Fira Code', monospace;
+}
+.top-section .line {
+    width: 500px;
+    height: 1px;
+    background-color: #C778DD;
+}
+.middle-skill{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+    padding: 25px;
+    align-items: center;
+}

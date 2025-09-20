@@ -1,0 +1,30 @@
+.projet-section{
+  width: 100%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 4.5rem 1rem;
+
+}
+.projet-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.left-heading{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.left-heading .line{
+  width: 500px;
+  height: 1px;
+  background-color: #C778DD;
+}
+.left-heading span{
+  color: #C778DD;
+}
+.left-heading h3{
+  font-size: 32px;
+  font-family: 'Fira Code', monospace;
+}
