@@ -1,0 +1,124 @@
+/* General container and layout */
+.about-me-container {
+  background-color: #282c34; /* Dark background color */
+  color: #abb2bf; /* Light grey text color for readability */
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4.5rem 1rem;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left side content section */
+.about-me-content {
+  max-width: 550px;
+  z-index: 2;
+}
+
+.about-me-heading {
+  font-size: 32px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+/* The '#' symbol with accent color */
+.about-me-heading .accent-text {
+  color: #c778dd; /* Accent purple color */
+  margin-right: 8px;
+}
+
+/* The line after the heading */
+.about-me-heading::after {
+  content: '';
+  display: block;
+  flex-grow: 1;
+  height: 1px;
+  background-color: #c778dd;
+  margin-left: 16px;
+  min-width: 200px; /* Adjust as needed */
+}
+
+/* Text styling */
+.about-me-text p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* 'Read more' button styling */
+.read-more-btn {
+  background-color: transparent;
+  border: 1px solid #c778dd;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 10px;
+}
+
+.read-more-btn:hover {
+  background-color: #c778dd;
+  color: #282c34;
+}
+
+.read-more-btn .arrow {
+  margin-left: 8px;
+}
+
+/* Right side image section */
+.about-me-image-section {
+  position: relative;
+  z-index: 1;
+}
+
+.profile-image {
+  max-width: 350px;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1; /* Ensure image is above the background dots */
+}
+
+/* Decorative dot patterns */
+.dots {
+  width: 84px;
+  height: 84px;
+  position: absolute;
+  background-image: radial-gradient(#abb2bf 1px, transparent 1px);
+  background-size: 12px 12px;
+  opacity: 0.4;
+  z-index: 1000000;
+}
+
+.dots-top {
+  top: 20px;
+  left: 40px;
+}
+
+.dots-bottom {
+  bottom: 20px;
+  right: 40px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+  .about-me-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .about-me-heading::after {
+    display: none; /* Hide the line on smaller screens */
+  }
+
+  .about-me-image-section {
+    margin-top: 40px;
+  }
+}
