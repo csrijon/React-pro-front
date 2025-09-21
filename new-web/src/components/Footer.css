@@ -1,0 +1,92 @@
+/* Main footer container */
+.footer-container {
+  background-color: #282c34; /* Dark background */
+  color: #abb2bf; /* Light grey text */
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  border-top: 1px solid #abb2bf;
+}
+
+/* Wrapper for the main content to apply padding */
+.footer-content {
+  padding: 32px 10%;
+}
+
+/* Top section containing info and media links */
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+  gap: 20px;
+}
+
+/* Left side: Developer info */
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-logo-icon {
+  font-size: 24px;
+  color: #fff;
+}
+
+.footer-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer-email {
+  color: #abb2bf;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-email:hover {
+  color: #c778dd; /* Accent purple on hover */
+}
+
+.footer-description {
+  margin: 0;
+}
+
+/* Right side: Media links */
+.footer-media {
+  text-align: left;
+}
+
+.media-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 12px 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.social-icons a {
+  color: #abb2bf;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #c778dd; /* Accent purple on hover */
+}
+
+/* Bottom section with copyright info */
+.footer-bottom {
+  text-align: center;
+  padding: 16px 10%;
+}

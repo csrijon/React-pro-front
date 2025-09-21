@@ -6,6 +6,7 @@ import ProjectSection from './components/ProjectSection'
 import Skillsection from './components/Skillsection'
 import AboutMe from './components/AboutMe'
 import Contact from './components/Contact'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Skillsection />
       <AboutMe />
       <Contact />
+      <Footer/>
     </>
   )
 }
