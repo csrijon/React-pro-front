@@ -5,6 +5,8 @@ header{
     max-width: 1380px;
     padding: 1rem 1rem;
     width: 100%;
+    position: fixed;
+    z-index: 111;
 }
 .left{
     display: flex;

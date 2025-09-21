@@ -24,7 +24,7 @@ const Contact = () => {
         </div>
         <div className="contact-item">
           <MdEmail className="contact-icon" />
-          <span>elias@elias.me</span>
+          <span>csrijon92@gmail.com</span>
         </div>
       </div>
     </section>

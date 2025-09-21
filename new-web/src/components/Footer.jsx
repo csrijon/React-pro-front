@@ -3,7 +3,7 @@ import './Footer.css';
 // Importing icons from react-icons
 import { FaGithub, FaFigma, FaDiscord } from 'react-icons/fa';
 // Using a generic icon for the logo as a placeholder
-import { FiCode } from 'react-icons/fi';
+import logo from "../assets/Logo.png"
 
 const Footer = () => {
   return (
@@ -12,14 +12,15 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-info">
             <div className="footer-title">
-              <FiCode className="footer-logo-icon" />
-              <span className="footer-name">Elias</span>
+              {/* <FiCode className="footer-logo-icon" />`   */}
+              <img src= {logo} alt="" />
+              <span className="footer-name">Srijon</span>
               <a href="mailto:elias@elias-dev.ml" className="footer-email">
                 elias@elias-dev.ml
               </a>
             </div>
             <p className="footer-description">
-              Web designer and front-end developer
+              Full-Stack Web Developer And App Developer
             </p>
           </div>
 
@@ -40,7 +41,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© Copyright 2022. Made by Elias</p>
+        <p>© Copyright 2022. Made by Srijon</p>
       </div>
     </footer>
   );
