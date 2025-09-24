@@ -1,0 +1,141 @@
+/* Main section container */
+.products-section-container {
+  background-color: #F8F6F1; /* Light beige background */
+  padding: 80px 5%;
+  font-family: 'Montserrat', sans-serif;
+  color: #333333; /* Dark text for contrast */
+}
+
+/* Main heading for the section */
+.products-main-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 500;
+  color: #333333;
+  text-align: left;
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.heading-number {
+  font-size: 1.2rem; /* Larger size for the number */
+  font-weight: 700; /* Bold the number */
+  color: white;
+  margin-right: 20px;
+  position: relative;
+  padding: 10px 20px ;
+  border-radius: 50px;
+  background-color: black; 
+}
+
+
+/* Grid for product cards */
+.product-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Responsive grid */
+  gap: 40px;
+  justify-content: center; /* Center cards horizontally if there are fewer */
+}
+
+/* Individual product card styling */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: #FFFFFF; /* White background for cards */
+  padding: 20px; /* Internal padding for text */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px); /* Lift card slightly on hover */
+}
+
+.product-image-wrapper {
+  margin-bottom: 20px;
+  overflow: hidden; /* Ensures image doesn't break layout */
+}
+
+.product-card-image {
+  width: 100%;
+  height: 250px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  display: block;
+}
+
+.product-pre-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888888; /* Lighter grey for pre-title */
+  margin: 0 0 8px 0;
+}
+
+.product-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0 0 20px 0;
+}
+
+/* Explore button styling */
+.explore-btn {
+  background: transparent;
+  border: 1px solid #C19A6B; /* Accent color border */
+  color: #C19A6B;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  align-self: flex-start; /* Align button to the left */
+}
+
+.explore-btn:hover {
+  background-color: #C19A6B;
+  color: #FFFFFF;
+}
+
+.explore-btn .arrow {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.explore-btn:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .products-main-heading {
+    flex-direction: column; /* Stack number and text vertically */
+    align-items: center;
+    text-align: center;
+    font-size: 40px;
+  }
+
+  .heading-number {
+    font-size: 60px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .product-cards-grid {
+    grid-template-columns: 1fr; /* Single column on small screens */
+  }
+
+  .product-card {
+    align-items: center;
+    text-align: center;
+  }
+
+  .explore-btn {
+    align-self: center; /* Center button on small screens */
+  }
+}

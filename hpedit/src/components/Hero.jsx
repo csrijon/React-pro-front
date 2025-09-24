@@ -11,7 +11,7 @@ const Hero = () => {
           <br />
           <span className="light-text">JOY OF </span>
           <span className="outline-container">
-            <span className="outline-text">(LIVING.)</span>
+            <span className="outline-text">LIVING</span>
           </span>
         </h1>
       </div>

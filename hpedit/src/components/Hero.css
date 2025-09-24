@@ -54,6 +54,6 @@
   font-weight: 400;
   color: transparent;
   -webkit-text-stroke: 1.5px white; /* The outline effect */
-  text-stroke: 1.5px white;
+  /* text-stroke: 1.5px white; */
   text-shadow: none; /* Remove the main text shadow from this part */
 }
