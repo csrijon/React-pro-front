@@ -9,6 +9,8 @@ import CustomFurnitureSection from './components/CustomFurnitureSection';
 import RealEstateSection from './components/RealEstateSection';
 import VillasSection from './components/VillasSection';
 import ProductsSection from './components/ProductsSection';
+import CaseStudiesSection from './components/CaseStudiesSection';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <RealEstateSection />
       <VillasSection />
       <ProductsSection/>
+      <CaseStudiesSection />
+      <Footer />
     </div>
   );
 }
