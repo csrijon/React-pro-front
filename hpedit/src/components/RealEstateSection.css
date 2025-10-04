@@ -110,13 +110,15 @@
   font-size: 3.5rem;
   margin: 0 0 25px 0;
   line-height: 1.1;
+  text-align: left;
 }
 
 .real-estate-details p {
   font-size: 0.9rem;
   line-height: 1.9;
-  color: rgba(244, 242, 239, 0.8); /* Slightly transparent for softer text */
+  color: rgba(244, 242, 239, 0.8); 
   margin-bottom: 30px;
+  text-align: left;
 }
 
 /* Reusing the button styles for consistency */

@@ -20,7 +20,7 @@ const Header = () => {
             <li><a href="#about">ABOUT</a></li>
           </ul>
         </nav>
-        <button className="contact-btn">CONTACT US</button>
+        <button className="contact-btn wow animate_animated animate_bounceIn ">CONTACT US</button>
       </div>
     </header>
   );

@@ -40,7 +40,8 @@
 
 .service-details {
   position: relative;
-  padding-left: 50px; /* Space for the decorative line */
+  padding-left: 50px; 
+  flex: 1;
 }
 
 /* Creates the small horizontal line before the title */
@@ -59,6 +60,7 @@
   font-size: 3.5rem;
   margin: 0 0 25px 0;
   line-height: 1.1;
+  text-align: left;
 }
 
 .service-details p {
@@ -66,6 +68,7 @@
   line-height: 1.9;
   color: rgba(244, 242, 239, 0.8); /* Slightly transparent for softer text */
   margin-bottom: 30px;
+  text-align: left;
 }
 
 .learn-more-btn {
@@ -79,6 +82,8 @@
   font-size: 0.8rem;
   letter-spacing: 1.5px;
   transition: all 0.3s ease;
+  display: block;
+  margin-left: 0;
 }
 
 .learn-more-btn:hover {

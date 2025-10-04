@@ -4,7 +4,7 @@ import './Hero.css';
 
 const Hero = () => {
   return (
-    <section className="hero-section">
+    <section className="hero-section wow animate_animated animate_bounceIn ">
       <div className="hero-content">
         <h1>
           ADD THE GREATEST
