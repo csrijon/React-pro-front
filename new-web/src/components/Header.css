@@ -24,7 +24,12 @@ header{
   margin: 0;
   gap: 1.5rem;              
 }
-
+.right ul button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* opacity: 0; */
+}
 .right li {
   display: flex;
   align-items: center;

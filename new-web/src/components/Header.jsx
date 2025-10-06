@@ -1,8 +1,16 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import logo from "../assets/Logo.png"
 import '../components/Header.css'
+import menu from "../assets/menu.svg"
+import close from "../assets/close.svg"
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <>
       <header>
@@ -17,6 +25,7 @@ const Header = () => {
             <li><span>#</span><a href="">about-me</a></li>
             <li><span>#</span><a href="">contact</a></li>
             <li><span>#</span><a href="">chat-me</a></li>
+             <button onClick={toggleMenu} ><img src = {isOpen ? close: menu} alt="menu_icon" /></button>
             </ul>
         </div>
       </header>
