@@ -1,16 +1,17 @@
 /* src/components/Hero.css */
+
 .hero-section {
+  /* 👇 এই তিনটি লাইন খুবই জরুরি */
   position: relative;
-  height: 75vh;
+  overflow: hidden;
+  height: 100vh;
+  
+  /* এগুলি কন্টেনারের ভেতরের কন্টেন্টকে মাঝখানে আনে */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* You can replace this URL with your own image */
-  background-image: url('https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2127&q=80');
-  background-size: cover;
-  background-position: center;
-  text-align: center;
 }
+
 
 /* Adds a dark overlay for better text readability */
 .hero-section::before {
@@ -20,12 +21,18 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(0, 0, 0, 0.2); */
 }
 
+/* ... বাকি CSS কোড অপরিবর্তিত থাকবে ... */
+
 .hero-content {
-  position: relative; /* Places content above the overlay */
+  /* 👇 লেখাগুলোকে ছবির উপরে রাখার জন্য এটি প্রয়োজন */
+  position: relative; 
   z-index: 1;
+  
+  /* আপনার লেখার অন্যান্য স্টাইল */
+  text-align: center;
   color: white;
 }
 
@@ -56,4 +63,14 @@
   -webkit-text-stroke: 1.5px white; /* The outline effect */
   /* text-stroke: 1.5px white; */
   text-shadow: none; /* Remove the main text shadow from this part */
+}
+.hero-background-image {
+  /* 👇 এই প্রোপার্টিগুলো ছবিকে ব্যাকগ্রাউন্ডে পাঠায় */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }

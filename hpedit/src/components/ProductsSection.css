@@ -139,3 +139,42 @@
     align-self: center; /* Center button on small screens */
   }
 }
+
+/* --- নতুন বাটনের জন্য CSS --- */
+
+/* বাটনটিকে মাঝখানে আনার জন্য কন্টেইনার */
+.view-all-container {
+  text-align: center; /* Horizontally centers the button */
+  margin-top: 50px;   /* উপরের কার্ডগুলো থেকে দূরত্ব */
+}
+
+/* 'View All' বাটনের স্টাইল */
+.view-all-btn {
+  background: black;
+  border: 1px solid #D4CFC6; /* আপনার ওয়েবসাইটের থিমের সাথে মিলিয়ে একটি রঙ */
+  color: #D4CFC6;
+  padding: 14px 32px;
+  border-radius: 50px; /* গোল আকৃতির জন্য */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.view-all-btn:hover {
+  background-color: #D4CFC6;
+  color: #211F1E; /* হোভার করলে ব্যাকগ্রাউন্ডের রঙ */
+}
+
+/* বাটনের ভিতরের Arrow স্টাইল */
+.view-all-btn .arrow {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.view-all-btn:hover .arrow {
+  transform: translateX(5px);
+}

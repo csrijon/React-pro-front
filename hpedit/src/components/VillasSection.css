@@ -1,38 +1,47 @@
+/* src/components/VillasSection.css */
+
 /* Main container for the section */
 .villas-section-container {
-  display: flex;
+  display: grid; /* পরিবর্তন: Flex থেকে Grid করা হয়েছে */
+  grid-template-columns: 1fr 1fr; /* পরিবর্তন: দুটি সমান কলাম */
   align-items: center;
-  justify-content: center;
   gap: 60px;
-  padding: 80px 5%;
-  background-color: #211F1E; /* Very dark brown/charcoal */
-  color: #D4CFC6; /* Off-white / light beige text color */
-  overflow: hidden;
-  font-family: 'Montserrat', sans-serif; /* Default font for the section */
+  padding: 80px 100px;
+  background-color: #211F1E;
+  color: #D4CFC6;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Left side: Image container with border */
 .villas-image-wrapper {
-  flex-shrink: 0;
   padding: 12px;
 }
 
 /* Image styling */
 .villa-image {
   display: block;
-  max-width: 480px;
+  width: 100%; /* পরিবর্তন: max-width এর পরিবর্তে 100% করা হয়েছে */
   height: auto;
 }
 
 /* Right side: Text content */
 .villas-content-wrapper {
-  max-width: 500px;
+  position: relative; /* নতুন: ::before pseudo-element এর জন্য */
+  padding-left: 74px; /* নতুন: ডেকোরেটিভ লাইনের জন্য জায়গা */
+}
+
+/* নতুন: Real Estate সেকশনের মতো ডেকোরেটিভ লাইন */
+.villas-content-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20px; /* আপনার হেডিং এর সাথে মিলিয়ে অ্যাডজাস্ট করতে পারেন */
+  width: 50px;
+  height: 1px;
+  background-color: #D4CFC6;
 }
 
 .villas-heading {
-  display: flex;
-  align-items: center;
-  gap: 24px;
   font-family: 'Playfair Display', serif;
   font-size: 48px;
   font-weight: 500;
@@ -43,13 +52,7 @@
   text-align: left;
 }
 
-/* The decorative line next to the heading */
-.heading-line {
-  display: block;
-  width: 50px;
-  height: 1px;
-  background-color: #D4CFC6;
-}
+/* .heading-line স্টাইলটি মুছে ফেলা হয়েছে কারণ আমরা ::before ব্যবহার করছি */
 
 .villas-description {
   text-transform: uppercase;
@@ -60,7 +63,7 @@
   text-align: left;
 }
 
-/* "Learn More" button styling */
+/* Button styling অপরিবর্তিত রাখা হয়েছে */
 .learn-more-btn {
   background: transparent;
   border: 1px solid #D4CFC6;
@@ -93,22 +96,24 @@
 /* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
   .villas-section-container {
-    flex-direction: column;
+    grid-template-columns: 1fr; /* পরিবর্তন: কলামগুলো একটির নিচে একটি আসবে */
     text-align: center;
   }
 
+  .villas-content-wrapper {
+    padding-left: 0; /* ছোট স্ক্রিনে প্যাডিং থাকবে না */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* টেক্সট সেন্টারে আনার জন্য */
+  }
+
+  .villas-content-wrapper::before {
+    display: none; /* ছোট স্ক্রিনে লাইনটি হাইড করা হলো */
+  }
+
   .villas-heading {
-    justify-content: center;
+    text-align: center;
     font-size: 40px;
-    gap: 16px;
-  }
-
-  .heading-line {
-    width: 30px;
-  }
-
-  .villa-image {
-    max-width: 90vw;
   }
 }
 
@@ -120,7 +125,7 @@
   .villas-heading {
     font-size: 32px;
   }
-
+  
   .villas-description {
     font-size: 12px;
     letter-spacing: 1px;

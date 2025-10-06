@@ -1,26 +1,75 @@
-// src/components/CustomFurnitureSection.js
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 import './CustomFurnitureSection.css';
 
 const CustomFurnitureSection = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const mainControls = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      mainControls.start("visible");
+    }
+  }, [isInView, mainControls]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 75 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
+  // ছবির জন্য "Zoom In" ভ্যারিয়েন্ট (পরিবর্তিত)
+  const imageVariants = {
+    hidden: { opacity: 0, y: 75, scale: 0.8 }, // পরিবর্তন: 1.2 থেকে 0.8 করা হয়েছে
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.8, ease: 'easeOut' },
+    },
+  };
+
   return (
-    <section className="custom-furniture-section">
+    <motion.section
+      className="custom-furniture-section"
+      ref={ref}
+      initial="hidden"
+      animate={mainControls}
+      variants={containerVariants}
+    >
       <div className="custom-furniture-content">
         <div className="custom-furniture-image">
-          {/* Replace with your image path or a placeholder */}
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Interior design with teal sofa" />
+          <motion.img
+            src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto-format&fit=crop&w=1470&q=80"
+            alt="Interior design with teal sofa"
+            variants={imageVariants}
+          />
         </div>
         <div className="custom-furniture-details">
-          <h3>CUSTOM FURNITURE</h3>
-          <p>
+          <motion.h3 variants={textVariants}>CUSTOM FURNITURE</motion.h3>
+          <motion.p variants={textVariants}>
             WE CREATE CUSTOM-MADE FURNITURE, DESIGNED SPECIFICALLY TO FIT THE SPACE AND STYLE OF EACH PROJECT. OUR SKILLED CRAFTSMEN HANDLE THE MANUFACTURING OF EACH PIECE USING THE HIGHEST QUALITY MATERIALS AND CUTTING-EDGE FABRICATION TECHNIQUES, ENSURING DURABILITY AND EXCEPTIONAL AESTHETICS.
-          </p>
-          <button className="learn-more-btn">
+          </motion.p>
+          <motion.button className="learn-more-btn" variants={textVariants}>
             LEARN MORE →
-          </button>
+          </motion.button>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

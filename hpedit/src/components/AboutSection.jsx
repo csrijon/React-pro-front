@@ -1,4 +1,3 @@
-// src/components/AboutSection.js
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import './AboutSection.css';
@@ -24,7 +23,7 @@ const AboutSection = () => {
     },
   };
 
-  // টেক্সটের জন্য "Fade in up" ভ্যারিয়েন্ট
+  // টেক্সটের জন্য "Fade in up" ভ্যারিয়েন্ট
   const textVariants = {
     hidden: { opacity: 0, y: 75 },
     visible: {
@@ -34,9 +33,9 @@ const AboutSection = () => {
     },
   };
 
-  // ছবির জন্য "Zoom out" ভ্যারিয়েন্ট
+  // ছবির জন্য "Zoom In" ভ্যারিয়েন্ট (পরিবর্তিত)
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 1.2 },
+    hidden: { opacity: 0, y: 75, scale: 0.8 }, // পরিবর্তন: 1.2 থেকে 0.8 করা হয়েছে
     visible: {
       opacity: 1,
       y: 0,
@@ -47,7 +46,6 @@ const AboutSection = () => {
 
   return (
     <motion.section initial="hidden" variants={containerVariants} ref={ref} className="about-section" animate={mainControls}>
-      {/* টেক্সটের জন্য textVariants ব্যবহার করা হয়েছে */}
       <motion.div className="about-header" variants={textVariants}>
         <div className="about-number">01</div>
         <h2>ABOUT OTTO</h2>
@@ -55,7 +53,6 @@ const AboutSection = () => {
 
       <div className="about-content">
         <div className="about-image-left">
-          {/* ছবির জন্য imageVariants ব্যবহার করা হয়েছে */}
           <motion.img
             src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto-format&fit=crop&w=1000&q=80"
             alt="Modern living room with blue sofa"
@@ -64,12 +61,10 @@ const AboutSection = () => {
         </div>
 
         <div className="about-text-and-image-right">
-          {/* টেক্সটের জন্য textVariants ব্যবহার করা হয়েছে */}
           <motion.p className="about-description" variants={textVariants}>
             AT OTTO, WE OFFER A WIDE RANGE OF INTERIOR DESIGN AND CUSTOM FURNITURE MANUFACTURING SERVICES TO MEET THE NEEDS AND EXPECTATIONS OF OUR CLIENTS.
           </motion.p>
           <div className="about-image-right">
-            {/* ছবির জন্য imageVariants ব্যবহার করা হয়েছে */}
             <motion.img
               src="https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%D&auto-format&fit=crop&w=1000&q=80"
               alt="Modern living room with blue sofa"

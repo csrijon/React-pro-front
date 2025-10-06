@@ -66,6 +66,7 @@
   height: 300px; /* Fixed height for consistency */
   object-fit: cover;
   display: block;
+  overflow: hidden;
 }
 
 .case-study-title {

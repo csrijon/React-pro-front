@@ -41,6 +41,7 @@
   display: block;
   object-fit: cover;
   border-radius: 5px; 
+  border: 5 px solid red;
 }
 
 .about-text-and-image-right {

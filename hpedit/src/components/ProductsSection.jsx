@@ -54,6 +54,14 @@ const ProductsSection = () => {
           </div>
         ))}
       </div>
+
+      {/* --- নতুন বাটন এখানে যোগ করা হয়েছে --- */}
+      <div className="view-all-container">
+        <button className="view-all-btn">
+          View All <span className="arrow">→</span>
+        </button>
+      </div>
+      
     </section>
   );
 };
