@@ -155,3 +155,7 @@
     height: 60px;
   }
 }
+.footer-contact-button svg {
+  color: black; /* Or any color that is visible against your button's background */
+  font-size: 80px;
+}

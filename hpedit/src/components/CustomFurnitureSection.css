@@ -14,10 +14,9 @@
     border-bottom: 1px solid rgba(244, 242, 239, 0.2);
 }
 
-
 .custom-furniture-content {
   display: grid;
-  grid-template-columns: 1.2fr 1fr; /* Image on left, text on right (reversed from ServicesSection) */
+  grid-template-columns: 1.2fr 1fr; /* Image on left, text on right */
   gap: 60px;
   align-items: center;
 }
@@ -77,4 +76,55 @@
 .learn-more-btn:hover {
   background-color: #f4f2ef;
   color: #2c2a2a;
+}
+
+/* --- Responsive Styles --- */
+
+/* For Tablets and below */
+@media (max-width: 992px) {
+  .custom-furniture-section {
+    padding: 60px 40px; /* Reduce horizontal padding */
+  }
+
+  .custom-furniture-content {
+    grid-template-columns: 1fr; /* Stack the grid into one column */
+  }
+  
+  .custom-furniture-section::after {
+    width: calc(100% - 80px); /* Adjust divider width to match new padding */
+  }
+
+  .custom-furniture-details h3 {
+    font-size: 2.8rem; /* Reduce heading size */
+  }
+}
+
+/* For Mobile phones */
+@media (max-width: 768px) {
+  .custom-furniture-section {
+    padding: 40px 20px; /* Further reduce padding */
+  }
+  
+  .custom-furniture-section::after {
+    width: calc(100% - 40px); /* Adjust divider width again for mobile */
+    margin-top: 40px;
+  }
+
+  .custom-furniture-details {
+    padding-left: 0; /* Remove side padding */
+    text-align: center; /* Center-align the text block */
+  }
+
+  .custom-furniture-details::before {
+    display: none; /* Hide the decorative line */
+  }
+
+  .custom-furniture-details h3,
+  .custom-furniture-details p {
+    text-align: center; /* Ensure all text is centered */
+  }
+
+  .custom-furniture-details h3 {
+    font-size: 2.2rem; /* Further reduce heading size */
+  }
 }

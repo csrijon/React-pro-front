@@ -1,17 +1,26 @@
 /* src/components/Header.css */
 .header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-evenly; /* Your original alignment is kept */
   align-items: center;
   padding: 20px 40px;
+  align-items: center;
   background-color: #fff;
+  position: relative; /* Crucial for absolute positioning */
+  z-index: 100;
 }
 
 .logo {
   font-size: 2.5rem;
   font-weight: 700;
-  letter-spacing: -5px; /* Brings letters closer together */
+  letter-spacing: -5px;
   cursor: pointer;
+}
+
+/* This new wrapper helps us hide nav items on mobile */
+.desktop-nav-group {
+  display: flex;
+  align-items: center;
 }
 
 .header nav ul {
@@ -19,7 +28,7 @@
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 35px; /* Space between nav items */
+  gap: 35px;
 }
 
 .header nav ul li a {
@@ -56,4 +65,39 @@
 
 .contact-btn:hover {
   background-color: #555;
+}
+
+/* --- Mobile Menu Icon --- */
+.menu-icon-btn {
+  display: none; /* Hidden by default */
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 110;
+  
+  /* NEW: Absolute positioning */
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* --- Mobile Navigation Menu Panel --- */
+.mobile-nav {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: white; z-index: 99; display: flex;
+  flex-direction: column; justify-content: center; align-items: center;
+}
+.mobile-nav ul { list-style: none; padding: 0; text-align: center; }
+.mobile-nav ul li { margin: 20px 0; }
+.mobile-nav ul li a { color: #333; text-decoration: none; font-size: 1.5rem; }
+
+/* --- Responsive Media Query --- */
+@media (max-width: 992px) {
+  .desktop-nav-group {
+    display: none; /* Hide desktop nav groups */
+  }
+  .menu-icon-btn {
+    display: block; /* Show menu icon */
+  }
 }

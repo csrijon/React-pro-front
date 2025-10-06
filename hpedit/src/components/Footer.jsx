@@ -1,9 +1,10 @@
 import React from 'react';
 import './Footer.css';
-import { BsArrowRight, BsArrowUp } from 'react-icons/bs'; // Importing icons
+// 1. Import FaArrowRight instead of BsArrowRight
+import { FaArrowRight } from 'react-icons/fa'; 
+import { BsArrowUp } from 'react-icons/bs';
 
 const Footer = () => {
-  // A simple function for the back-to-top button
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -15,10 +16,13 @@ const Footer = () => {
     <footer className="footer-section-container">
       <div className="footer-header">
         <h2 className="footer-main-title">CONTACT US</h2>
-        <button className="footer-contact-button">
-          <BsArrowRight />
-        </button>
+        {/* <button className="footer-contact-button"> */}
+          {/* 2. Use the new icon here */}
+          <FaArrowRight />
+        {/* </button> */}
       </div>
+
+      {/* ...rest of your code remains the same... */}
 
       <div className="footer-links-grid">
         <div className="footer-column">

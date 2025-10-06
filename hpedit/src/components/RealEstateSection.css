@@ -41,75 +41,6 @@
   font-size: 3.5rem;
   margin: 0 0 25px 0;
   line-height: 1.1;
-}
-
-.real-estate-details p {
-  font-size: 0.9rem;
-  line-height: 1.9;
-  color: rgba(244, 242, 239, 0.8); /* Slightly transparent for softer text */
-  margin-bottom: 30px;
-}
-
-/* Reusing the button styles for consistency */
-.learn-more-btn {
-  background: transparent;
-  border: 1px solid #f4f2ef;
-  color: #f4f2ef;
-  padding: 12px 24px;
-  border-radius: 50px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 0.8rem;
-  letter-spacing: 1.5px;
-  transition: all 0.3s ease;
-}
-
-.learn-more-btn:hover {
-  background-color: #f4f2ef;
-  color: #2c2a2a;
-}/* src/components/RealEstateSection.css */
-.real-estate-section {
-  padding: 80px 100px;
-  background-color: #2c2a2a; /* Dark background from image */
-  color: #f4f2ef; /* Off-white text color */
-  border-top: 1px solid rgba(244, 242, 239, 0.2); /* Separator line from the section above */
-}
-
-.real-estate-content {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr; /* Text on left, image on right */
-  gap: 60px;
-  align-items: center;
-}
-
-.real-estate-image img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 5px;
-}
-
-.real-estate-details {
-  position: relative;
-  padding-left: 50px; /* Space for the decorative line */
-}
-
-/* Creates the small horizontal line before the title */
-.real-estate-details::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 12px; /* Align with the middle of the first line of text */
-  width: 30px;
-  height: 2px;
-  background-color: #f4f2ef;
-}
-
-.real-estate-details h3 {
-  font-family: 'Playfair Display', serif; /* Elegant serif font */
-  font-size: 3.5rem;
-  margin: 0 0 25px 0;
-  line-height: 1.1;
   text-align: left;
 }
 
@@ -138,4 +69,51 @@
 .learn-more-btn:hover {
   background-color: #f4f2ef;
   color: #2c2a2a;
+}
+
+/* --- Responsive Styles --- */
+
+/* For Tablets and below */
+@media (max-width: 992px) {
+  .real-estate-section {
+    padding: 60px 40px; /* Reduce horizontal padding */
+  }
+
+  .real-estate-content {
+    grid-template-columns: 1fr; /* Stack the grid into one column */
+    gap: 40px;
+  }
+
+  .real-estate-details h3 {
+    font-size: 2.8rem; /* Reduce heading size */
+  }
+}
+
+/* For Mobile phones */
+@media (max-width: 768px) {
+  .real-estate-section {
+    padding: 40px 20px; /* Further reduce padding */
+  }
+
+  .real-estate-details {
+    padding-left: 0; /* Remove side padding on mobile */
+    text-align: center; /* Center-align the text block */
+  }
+
+  .real-estate-details::before {
+    display: none; /* Hide the decorative line on mobile */
+  }
+
+  .real-estate-details h3,
+  .real-estate-details p {
+    text-align: center; /* Ensure all text is centered */
+  }
+
+  .real-estate-details h3 {
+    font-size: 2.2rem; /* Further reduce heading size */
+  }
+
+  .learn-more-btn {
+    margin: 0 auto; /* Center the button */
+  }
 }

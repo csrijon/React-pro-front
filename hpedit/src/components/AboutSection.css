@@ -41,7 +41,7 @@
   display: block;
   object-fit: cover;
   border-radius: 5px; 
-  border: 5 px solid red;
+  /* border: 5px solid red;  */
 }
 
 .about-text-and-image-right {
@@ -65,4 +65,49 @@
   display: block;
   object-fit: cover;
   border-radius: 5px;
+}
+
+/* --- Responsive Styles --- */
+
+/* For Tablets and below */
+@media (max-width: 992px) {
+  .about-section {
+    padding: 60px 40px; /* Reduce horizontal padding */
+  }
+
+  .about-content {
+    grid-template-columns: 1fr; /* Stack the grid into one column */
+  }
+  
+  .about-description {
+    max-width: 100%; /* Use full width for the description */
+    text-align: center; /* Center text when stacked */
+  }
+
+  .about-image-left img,
+  .about-image-right img {
+    height: 400px; /* Optionally adjust image height */
+  }
+}
+
+/* For Mobile phones */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 40px 20px; /* Further reduce padding */
+  }
+
+  .about-header {
+    flex-direction: column; /* Stack the header content */
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .about-header h2 {
+    font-size: 2rem; /* Reduce heading size */
+  }
+
+  .about-content {
+    gap: 30px; /* Reduce gap between stacked items */
+  }
 }
