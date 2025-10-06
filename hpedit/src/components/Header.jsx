@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars 
 import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
 
@@ -64,7 +65,7 @@ const Header = () => {
         </div>
 
         {/* --- Mobile Menu Icon --- */}
-        <motion.button className="menu-icon-btn" onClick={() => setIsOpen(!isOpen)} whileTap={{ scale: 0.9 }}>
+        <motion.button className="menu-icon-btn" onClick={() => setIsOpen(!isOpen)} >
           <motion.svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <motion.path d="M4 6H20" stroke="black" strokeWidth="2" strokeLinecap="round" variants={{ open: { rotate: 45, y: 5 }, closed: { rotate: 0, y: 0 } }} animate={isOpen ? "open" : "closed"} />
             <motion.path d="M4 12H20" stroke="black" strokeWidth="2" strokeLinecap="round" variants={{ open: { opacity: 0 }, closed: { opacity: 1 } }} animate={isOpen ? "open" : "closed"} transition={{ duration: 0.1 }} />
