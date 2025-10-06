@@ -1,13 +1,12 @@
 /* Main footer container */
 .footer-section-container {
-  background-color: #F8F6F1; /* Light beige background */
+  background-color: #F8F6F1; 
   padding: 60px 5%;
   font-family: 'Montserrat', sans-serif;
-  color: #333333; /* Dark text */
-  border-top: 1px solid #e0e0e0; /* A very light top border */
+  color: #333333; 
+  border-top: 1px solid #e0e0e0; 
 }
 
-/* Header section with "CONTACT US" */
 .footer-header {
   display: flex;
   justify-content: center;
@@ -19,10 +18,9 @@
 
 .footer-main-title {
   font-family: 'Playfair Display', serif;
-  font-size: 6vw; /* Responsive font size */
-  max-font-size: 90px; /* Max font size */
+  font-size: 6vw; 
   font-weight: 500;
-  letter-spacing: 0.1em; /* Spaced out letters */
+  letter-spacing: 0.1em; 
   margin: 0;
 }
 
