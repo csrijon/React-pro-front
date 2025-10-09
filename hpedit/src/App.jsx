@@ -10,6 +10,7 @@ import VillasSection from './components/VillasSection';
 import ProductsSection from './components/ProductsSection';
 import CaseStudiesSection from './components/CaseStudiesSection';
 import Footer from './components/Footer';
+import IndianNavySection from './components/IndianNavySection';
 
 function App() {
   // Main container-er class name change kora hoyeche.
@@ -46,6 +47,9 @@ function App() {
       </section>
       <section className="scroll-section">
         <Footer />
+      </section>
+      <section className="scroll-section">
+<IndianNavySection/>
       </section>
     </div>
   );

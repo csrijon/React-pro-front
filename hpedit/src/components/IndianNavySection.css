@@ -1,0 +1,77 @@
+.indian-navy-section-container {
+  display: flex;
+  /* flex-direction: column; Stacks content and images vertically on small screens */
+  max-width: 1200px; /* Or whatever max-width your design needs */
+  margin: 0 auto; /* Center the container */
+  padding: 20px;
+  font-family: Arial, sans-serif; /* Example font */
+}
+
+.indian-navy-content {
+  flex: 1; /* Allows content to take available space */
+  padding-right: 20px; /* Space between text and images on larger screens */
+}
+
+.indian-navy-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.details-group {
+  margin-bottom: 15px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  color: #777;
+  line-height: 1.5;
+}
+
+/* Image Gallery */
+.indian-navy-image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* 250px min width, grows to fill */
+  gap: 20px;
+  margin-top: 40px; /* Space between text and images */
+}
+
+.gallery-image {
+  width: 100%;
+  height: 200px; /* Fixed height for consistent grid, adjust as needed */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  border-radius: 8px; /* Slightly rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* --- Responsive Adjustments --- */
+
+/* For screens larger than a certain breakpoint (e.g., 768px for tablets/desktops) */
+@media (min-width: 768px) {
+  .indian-navy-section-container {
+    flex-direction: row; /* Content and images side-by-side */
+    justify-content: space-between;
+  }
+
+  .indian-navy-content {
+    flex: 0.4; /* Content takes about 40% width */
+    max-width: 400px; /* Limit content width */
+  }
+
+  .indian-navy-image-gallery {
+    flex: 0.6; /* Images take about 60% width */
+    margin-top: 0; /* No top margin when side-by-side */
+  }
+}
+
+/* Further adjustments for very large screens if needed */
+@media (min-width: 1024px) {
+  .indian-navy-content {
+    padding-right: 50px;
+  }
+}
