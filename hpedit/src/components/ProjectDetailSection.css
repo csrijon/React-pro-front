@@ -1,0 +1,89 @@
+/* Main container - No longer a flex layout for desktop */
+.project-detail-container {
+  /* margin: 40px auto; */
+  padding: 80px 100px ;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+/* Text Content Styling */
+.project-content {
+  margin-bottom: 40px; 
+}
+.project-content h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: left;
+}
+.details-grid {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.detail-label {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0 0 4px 0;
+  text-align: left;
+}
+
+.detail-value {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* --- নতুন: ব্যানার ইমেজ স্টাইল --- */
+.banner-image-container {
+  width: 100%;
+  margin-bottom: 40px; /* গ্যালারি থেকে দূরত্ব */
+}
+.banner-image {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+/* --- ছবির গ্যালারি স্টাইল --- */
+.project-image-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 8px;
+}
+
+/* --- নতুন: Next Project লিঙ্ক স্টাইল --- */
+.next-project-container {
+  display: flex;
+  justify-content: flex-end; /* লিঙ্কটিকে ডানদিকে পাঠায় */
+  margin-top: 50px;
+}
+.next-project-link {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.next-project-link:hover {
+  color: #007bff;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 500px) {
+  .project-image-gallery {
+    grid-template-columns: 1fr; /* ছোট স্ক্রিনে ছবিগুলো একটির নিচে একটি আসবে */
+  }
+}
