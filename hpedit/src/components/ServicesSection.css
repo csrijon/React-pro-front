@@ -3,6 +3,7 @@
   padding: 80px 100px;
   background-color: #2c2a2a; /* Dark background from image */
   color: #f4f2ef; /* Off-white text color */
+  position: relative;
 }
 
 .services-header {
@@ -49,7 +50,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 12px; /* Align with the middle of the first line of text */
+  top: 63px; /* Align with the middle of the first line of text */
   width: 30px;
   height: 2px;
   background-color: #f4f2ef;

@@ -1,7 +1,8 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './ProductsSection.css';
 
-// Data for your product cards with Google image search links
+// Data for your product cards
 const products = [
   {
     id: 1,
@@ -18,14 +19,14 @@ const products = [
     linkText: 'EXPLORE THE COLLECTION',
   },
   {
-    id: 3, // Added this card
+    id: 3,
     image: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     preTitle: 'COMFORT & STYLE',
     title: 'BEDROOM DESIGNS',
     linkText: 'VIEW SOLUTIONS',
   },
   {
-    id: 4, // Added this card
+    id: 4,
     image: 'https://images.pexels.com/photos/3754438/pexels-photo-3754438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
     preTitle: 'LUXURY RETREAT',
     title: 'BATHROOMS',
@@ -33,37 +34,90 @@ const products = [
   },
 ];
 
+// Animation variants for the main heading
+const headingVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 }
+  },
+};
+
+// Stagger container for the grid
+const gridVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.4, // Cards animation starts after the heading
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+// Animation variants for each product card
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' }
+  },
+};
+
 const ProductsSection = () => {
   return (
     <section className="products-section-container">
-      <h2 className="products-main-heading">
+      <motion.h2
+        className="products-main-heading"
+        variants={headingVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <span className="heading-number">03</span> Our Products
-      </h2>
+      </motion.h2>
 
-      <div className="product-cards-grid">
+      <motion.div
+        className="product-cards-grid"
+        variants={gridVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {products.map((product) => (
-          <div key={product.id} className="product-card">
+          <motion.div
+            key={product.id}
+            className="product-card"
+            variants={cardVariants}
+            whileHover={{ y: -10, scale: 1.03, transition: { duration: 0.3 } }} // Card lift on hover
+          >
             <div className="product-image-wrapper">
-              <img src={product.image} alt={product.title} className="product-card-image" />
+              <motion.img
+                src={product.image}
+                alt={product.title}
+                className="product-card-image"
+                initial={{ scale: 1.15 }}
+                whileHover={{ scale: 1.0 }} // Image zoom-out on hover
+                transition={{ duration: 0.5, ease: 'easeInOut' }}
+              />
             </div>
             <p className="product-pre-title">{product.preTitle}</p>
             <h3 className="product-title">{product.title}</h3>
             <button className="explore-btn">
               {product.linkText} <span className="arrow">→</span>
             </button>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      {/* --- নতুন বাটন এখানে যোগ করা হয়েছে --- */}
       <div className="view-all-container">
         <button className="view-all-btn">
           View All <span className="arrow">→</span>
         </button>
       </div>
-      
     </section>
   );
 };
 
 export default ProductsSection;
+

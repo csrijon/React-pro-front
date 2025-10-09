@@ -19,11 +19,16 @@ body {
   box-sizing: border-box;
 }
 /* src/App.css */
-.app-container {
-  /* max-width: 1600px; */
+
+.scroll-snap-container {
+  /* height: 100vh;  */
+  /* overflow-y: scroll;  */
+  scroll-snap-type: y mandatory; /* Snap vertically, mandatory snap */
+  scroll-behavior: smooth; /* Smooth scrolling between sections */
+}
+.scroll-section {
   width: 100%;
-  margin: 2rem auto;
-  border: 12px solid white;
-  background-color: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: start; /* Snap to the beginning of the element */
+  position: relative; /* For positioning content within the section if needed */
+  overflow: auto; /* Allows scrolling within a section if content is larger than the viewport */
 }

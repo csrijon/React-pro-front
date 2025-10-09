@@ -38,7 +38,7 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 12px; /* Align with the middle of the first line of text */
+  top: 57px; /* Align with the middle of the first line of text */
   width: 30px;
   height: 2px;
   background-color: #f4f2ef;
