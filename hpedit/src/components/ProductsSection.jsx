@@ -1,6 +1,7 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars 
 import { motion } from 'framer-motion';
-// import { useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import './ProductsSection.css';
 
 // Data for your product cards
@@ -45,10 +46,10 @@ const cardVariants = {
 };
 
 const ProductsSection = () => {
-  //  let navigate = useNavigate()
-  // const showedtalis = ()=>{
-  //    navigate("/explore")
-  //  }
+   let navigate = useNavigate()
+  const showedtalis = ()=>{
+     navigate("/explore")
+   }
   return (
     <section className="products-section-container">
       <motion.h2
@@ -87,8 +88,8 @@ const ProductsSection = () => {
             </div>
             <p className="product-pre-title">{product.preTitle}</p>
             <h3 className="product-title">{product.title}</h3>
-            <button   className="explore-btn">
-              {product.linkText} <span className="arrow">→</span>
+            <button onClick={showedtalis}  className="explore-btn">
+               {product.linkText} <span className="arrow">→</span>
             </button>
           </motion.div>
         ))}

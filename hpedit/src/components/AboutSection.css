@@ -11,21 +11,22 @@
 }
 
 .about-number {
+   font-family: 'Playfair Display', serif;
   background-color: #252525;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
+  color: #D4CFC6;
+  font-size: 72px;
+  font-weight: 700;
   padding: 10px 20px;
   border-radius: 50px;
   margin-right: 20px;
 }
 
 .about-header h2 {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 500;
   margin: 0;
   letter-spacing: 2px;
-  color: #333;
+  color: #333333;
 }
 
 .about-content {
@@ -51,7 +52,7 @@
 }
 
 .about-description {
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.8;
   color: #555;
   max-width: 80%; 

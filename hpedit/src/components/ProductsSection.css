@@ -1,7 +1,7 @@
 /* Main section container */
 .products-section-container {
   background-color: #F8F6F1; /* Light beige background */
-  padding: 80px 5%;
+  padding: 80px 100px;
   font-family: 'Montserrat', sans-serif;
   color: #333333; /* Dark text for contrast */
 }

@@ -1,89 +1,182 @@
-/* Main container - No longer a flex layout for desktop */
+/* --- 🎨 NEW: CSS Custom Properties (Variables) --- */
+/* Using variables makes it easy to manage colors and spacing */
+:root {
+  --text-primary: #333;
+  --text-secondary: #777;
+  --border-color: #eee;
+  --accent-color: #007bff;
+  --bg-light: #f9f9f9;
+  --spacing-md: 20px;
+  --spacing-lg: 40px;
+  --border-radius: 12px; /* Slightly larger radius for a modern look */
+}
+
+/* --- Main Container with max-width --- */
 .project-detail-container {
-  /* margin: 40px auto; */
-  padding: 80px 100px ;
+  max-width: 1400px; /* Prevents layout from being too wide on large screens */
+  margin: 0 auto; /* Centers the container */
+  padding: 80px 100px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
-/* Text Content Styling */
+
+/* --- Text Content Styling with Better Hierarchy --- */
 .project-content {
-  margin-bottom: 40px; 
+  margin-bottom: var(--spacing-lg);
+  max-width: 800px; /* Constrains text width for readability */
 }
+
 .project-content h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  font-weight: 600;
-  color: #333;
+  font-size: clamp(2.8rem, 6vw, 4rem); /* Slightly larger for more impact */
+  font-weight: 700;
+  color: var(--text-primary);
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: var(--spacing-md);
   text-align: left;
+  position: relative;
+  padding-bottom: var(--spacing-md);
 }
+
+/* NEW: Adds a subtle underline for the heading */
+.project-content h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background-color: var(--accent-color);
+}
+
+/* UPDATED: Details Grid for better layout on larger screens */
 .details-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
   text-align: left;
-  gap: 25px;
-  margin-bottom: 30px;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  border-left: 3px solid var(--border-color);
+  padding-left: var(--spacing-md);
 }
 
 .detail-label {
   font-size: 0.9rem;
-  color: #777;
-  margin: 0 0 4px 0;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
   text-align: left;
+  font-weight: 500;
 }
 
 .detail-value {
-  font-size: 1rem;
-  color: #333;
+  font-size: 1.1rem; /* Slightly larger */
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.6;
   text-align: left;
+  font-weight: 400;
 }
 
-/* --- নতুন: ব্যানার ইমেজ স্টাইল --- */
+/* --- Banner Image Style --- */
 .banner-image-container {
   width: 100%;
-  margin-bottom: 40px; /* গ্যালারি থেকে দূরত্ব */
+  margin-bottom: var(--spacing-lg);
 }
 .banner-image {
   width: 100%;
   display: block;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
 }
 
-/* --- ছবির গ্যালারি স্টাইল --- */
+/* --- ⭐ NEW: "Unique" Asymmetrical Image Gallery --- */
 .project-image-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr); /* Based on a 3-column grid */
+  grid-auto-rows: 300px; /* Gives a consistent row height */
+  gap: var(--spacing-md);
 }
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
 .gallery-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 8px;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
 }
 
-/* --- নতুন: Next Project লিঙ্ক স্টাইল --- */
+.gallery-item:hover img {
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+/* Creating the asymmetrical layout using grid spanning */
+.gallery-item:nth-child(1) {
+  grid-column: span 2; /* This item spans 2 columns */
+  grid-row: span 1;
+}
+.gallery-item:nth-child(2) {
+  grid-column: span 1;
+  grid-row: span 2; /* This item is taller, spanning 2 rows */
+}
+.gallery-item:nth-child(3) {
+  grid-column: span 1;
+  grid-row: span 2; /* This item is also taller */
+}
+.gallery-item:nth-child(4) {
+  grid-column: span 1;
+  grid-row: span 1;
+}
+
+/* --- Improved "Next Project" Link as a Button --- */
 .next-project-container {
   display: flex;
-  justify-content: flex-end; /* লিঙ্কটিকে ডানদিকে পাঠায় */
+  justify-content: flex-end;
   margin-top: 50px;
 }
 .next-project-link {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--text-primary);
   text-decoration: none;
-  transition: color 0.3s ease;
+  padding: 15px 30px;
+  border-radius: 50px; /* Pill shape */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .next-project-link:hover {
-  color: #007bff;
+  background-color: var(--accent-color);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.2);
+  transform: translateY(-3px);
 }
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 500px) {
+@media (max-width: 1024px) {
+  .project-detail-container {
+    padding: 60px 40px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  /* On smaller screens, the unique gallery becomes a simple column */
   .project-image-gallery {
-    grid-template-columns: 1fr; /* ছোট স্ক্রিনে ছবিগুলো একটির নিচে একটি আসবে */
+    grid-template-columns: 1fr;
+    grid-auto-rows: 350px;
+  }
+  /* Reset all spans for mobile */
+  .gallery-item:nth-child(n) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,6 +1,9 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import 'animate.css';
-import Root from './Root.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 
-createRoot(document.getElementById('root')).render(<Root />);
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
