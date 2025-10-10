@@ -120,7 +120,6 @@
 }
 
 .back-to-top-button {
-  background: transparent;
   border: 1px solid #333;
   border-radius: 50%;
   width: 40px;
@@ -154,8 +153,4 @@
     width: 60px;
     height: 60px;
   }
-}
-.footer-contact-button svg {
-  color: black; /* Or any color that is visible against your button's background */
-  font-size: 80px;
 }
