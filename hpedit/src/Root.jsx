@@ -13,13 +13,13 @@ import Footer from './components/Footer';
 import ProjectDetailSection from "./components/ProjectDetailSection";
 
 const Root = ({pageName}) => {
+    console.log('Root কম্পোনেন্টে যে prop এসেছে:', pageName);
   return (
     <div className="scroll-snap-container">
       <Header />
       {/* Prottekta full-page component ekta scroll-section */}
       <section className="scroll-section">
         {pageName === 'explore'? <ProjectDetailSection/> : <Hero />}
-        {/* <Hero /> */}
       </section>
       <section className="scroll-section">
         <AboutSection />

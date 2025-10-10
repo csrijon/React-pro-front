@@ -37,6 +37,7 @@ const Hero = () => {
         variants={imageVariants}
         initial="hidden"
         animate="visible"
+        whileInView= "visible"
       />
       <motion.div className="hero-content" variants={textVariants} initial="hidden" animate="visible">
         <h1>
