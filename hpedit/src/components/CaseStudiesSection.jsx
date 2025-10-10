@@ -50,9 +50,9 @@ const CaseStudiesSection = () => {
     },
   };
 
- //zoom in variant for images
+  //zoom in variant for images
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 0.8 }, 
+    hidden: { opacity: 0, y: 75, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,

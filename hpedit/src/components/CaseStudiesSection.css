@@ -1,9 +1,11 @@
 /* Main section container */
 .case-studies-section-container {
-  background-color: #211F1E; /* Dark brown/charcoal background */
+  background-color: #211F1E;
+  /* Dark brown/charcoal background */
   padding: 80px 5%;
   font-family: 'Montserrat', sans-serif;
-  color: #D4CFC6; /* Light beige text color */
+  color: #D4CFC6;
+  /* Light beige text color */
 }
 
 /* Main heading for the section */
@@ -11,7 +13,8 @@
   font-family: 'Playfair Display', serif;
   font-size: 48px;
   font-weight: 500;
-  color: #D4CFC6; /* Light color for heading */
+  color: #D4CFC6;
+  /* Light color for heading */
   text-align: left;
   margin-bottom: 60px;
   display: flex;
@@ -19,8 +22,10 @@
 }
 
 .heading-number {
-  font-size: 72px; /* Larger size for the number */
-  font-weight: 700; /* Bold the number */
+  font-size: 72px;
+  /* Larger size for the number */
+  font-weight: 700;
+  /* Bold the number */
   color: #D4CFC6;
   margin-right: 20px;
   position: relative;
@@ -29,9 +34,11 @@
 /* Grid for case study cards */
 .case-study-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  /* Responsive grid */
   gap: 40px;
-  justify-content: center; /* Center cards horizontally */
+  justify-content: center;
+  /* Center cards horizontally */
 }
 
 /* Individual case study card styling */
@@ -39,20 +46,24 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  background-color: transparent; /* No background for the card itself */
+  background-color: transparent;
+  /* No background for the card itself */
   transition: transform 0.3s ease;
 }
 
 .case-study-image-wrapper {
   margin-bottom: 20px;
   overflow: hidden;
-  padding: 12px; /* Border padding as seen in image */
-  border: 1px solid #D4CFC6; /* Border color */
+  padding: 12px;
+  /* Border padding as seen in image */
+  border: 1px solid #D4CFC6;
+  /* Border color */
 }
 
 .case-study-card-image {
   width: 100%;
-  height: 300px; /* Fixed height for consistency */
+  height: 300px;
+  /* Fixed height for consistency */
   object-fit: cover;
   display: block;
   overflow: hidden;
@@ -62,15 +73,18 @@
   font-family: 'Playfair Display', serif;
   font-size: 28px;
   font-weight: 700;
-  color: #FFFFFF; /* White color for title */
+  color: #FFFFFF;
+  /* White color for title */
   margin: 0 0 20px 0;
-  text-transform: uppercase; /* As seen in image */
+  text-transform: uppercase;
+  /* As seen in image */
 }
 
 /* View Case Study button styling */
 .view-case-study-btn {
   background: transparent;
-  border: 1px solid #C19A6B; /* Accent color border */
+  border: 1px solid #C19A6B;
+  /* Accent color border */
   color: #C19A6B;
   padding: 10px 20px;
   font-family: 'Montserrat', sans-serif;
@@ -79,7 +93,8 @@
   letter-spacing: 1.2px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  align-self: flex-start; /* Align button to the left */
+  align-self: flex-start;
+  /* Align button to the left */
 }
 
 .view-case-study-btn:hover {
@@ -99,7 +114,8 @@
 /* Responsive adjustments */
 @media (max-width: 992px) {
   .case-studies-main-heading {
-    flex-direction: column; /* Stack number and text vertically */
+    flex-direction: column;
+    /* Stack number and text vertically */
     align-items: center;
     text-align: center;
     font-size: 40px;
@@ -112,7 +128,8 @@
   }
 
   .case-study-cards-grid {
-    grid-template-columns: 1fr; /* Single column on small screens */
+    grid-template-columns: 1fr;
+    /* Single column on small screens */
   }
 
   .case-study-card {
@@ -121,7 +138,8 @@
   }
 
   .view-case-study-btn {
-    align-self: center; /* Center button on small screens */
+    align-self: center;
+    /* Center button on small screens */
   }
 }
 
@@ -139,7 +157,8 @@
   }
 
   .case-study-card-image {
-    height: 250px; /* Adjust image height for smaller screens */
+    height: 250px;
+    /* Adjust image height for smaller screens */
   }
 
   .case-study-title {

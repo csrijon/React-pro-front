@@ -12,7 +12,7 @@ const Header = () => {
   const scrollsmooth = (sectionRef) => {
     sectionRef.current.scrollintoView({ behavior: 'smooth' })
   }
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -46,8 +46,8 @@ const Header = () => {
           <motion.nav className="nav-left" variants={itemVariants} initial="hidden" animate="visible">
             <ul>
               <li><a href="#home">HOME</a></li>
-              <li><a onClick={()=>scrollsmooth(services)} href="#services">SERVICES</a></li>
-              <li><a onClick={()=>scrollsmooth(products)} href="#product">PRODUCTS</a></li>
+              <li><a onClick={() => scrollsmooth(services)} href="#services">SERVICES</a></li>
+              <li><a onClick={() => scrollsmooth(products)} href="#product">PRODUCTS</a></li>
             </ul>
           </motion.nav>
         </div>
@@ -62,7 +62,7 @@ const Header = () => {
             <motion.nav variants={itemVariants} initial="hidden" animate="visible">
               <ul>
                 <li><a href="#portfolio">PORTFOLIO</a></li>
-                <li><a onClick={()=>scrollsmooth(about)}href="#about">ABOUT</a></li>
+                <li><a onClick={() => scrollsmooth(about)} href="#about">ABOUT</a></li>
               </ul>
             </motion.nav>
             <motion.button className="contact-btn" variants={itemVariants} initial="hidden" animate="visible">

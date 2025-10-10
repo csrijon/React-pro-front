@@ -34,7 +34,7 @@ const ServicesSection = () => {
   };
 
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 0.8 }, 
+    hidden: { opacity: 0, y: 75, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,
@@ -45,7 +45,7 @@ const ServicesSection = () => {
 
   return (
     <motion.section
-    id='services'
+      id='services'
       initial="hidden"
       variants={containerVariants}
       ref={ref}

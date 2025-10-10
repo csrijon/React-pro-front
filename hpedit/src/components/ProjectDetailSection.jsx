@@ -1,8 +1,8 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars 
 import { motion } from 'framer-motion';
-import { useParams, Link } from 'react-router-dom'; 
-import { projectsData } from '../data.js'; 
+import { useParams, Link } from 'react-router-dom';
+import { projectsData } from '../data.js';
 import './ProjectDetailSection.css';
 
 
@@ -28,7 +28,7 @@ const zoomOut = {
 
 const ProjectDetailSection = () => {
   const { projectId } = useParams();
-  
+
   const project = projectsData.find(p => p.id == projectId);
 
   if (!project) {
@@ -46,10 +46,10 @@ const ProjectDetailSection = () => {
         className="project-content"
         variants={staggerContainer}
         initial="hidden"
-        animate="visible" 
+        animate="visible"
       >
         <motion.h1 variants={fadeInUp}>{project.title}</motion.h1>
-        
+
         <motion.div variants={fadeInUp} className="details-grid">
           <div className="details-group">
             <p className="detail-label">Location</p>

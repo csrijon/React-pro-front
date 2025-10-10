@@ -3,13 +3,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router";
 import './ProductsSection.css';
-import { projectsData } from '../data.js'; 
+import { projectsData } from '../data.js';
 
 // Animation variants for the main heading
 const headingVariants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.8, ease: 'easeOut', delay: 0.2 }
   },
@@ -30,8 +30,8 @@ const gridVariants = {
 // Animation variants for each product card
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: 'easeOut' }
   },
@@ -40,7 +40,7 @@ const cardVariants = {
 const ProductsSection = () => {
   let navigate = useNavigate();
   const showedtalis = () => {
-     navigate("/explore");
+    navigate("/explore");
   }
 
   const showProjectDetails = (projectId) => {
@@ -53,8 +53,8 @@ const ProductsSection = () => {
         className="products-main-heading"
         variants={headingVariants}
         initial="hidden"
-        whileInView="visible" 
-        viewport={{ once: true, amount: 0.5 }} 
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
       >
         <span className="heading-number">03</span> Our Products
       </motion.h2>
@@ -63,10 +63,10 @@ const ProductsSection = () => {
         className="product-cards-grid"
         variants={gridVariants}
         initial="hidden"
-        whileInView="visible" 
-        viewport={{ once: true, amount: 0.2 }} 
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
       >
-  
+
         {projectsData.map((project) => (
           <motion.div
             key={project.id}
@@ -86,8 +86,8 @@ const ProductsSection = () => {
             </div>
             <p className="product-pre-title">{project.preTitle}</p>
             <h3 className="product-title">{project.title}</h3>
-            <button onClick={() => showProjectDetails(project.id)}  className="explore-btn">
-               {project.linkText} <span className="arrow">→</span>
+            <button onClick={() => showProjectDetails(project.id)} className="explore-btn">
+              {project.linkText} <span className="arrow">→</span>
             </button>
           </motion.div>
         ))}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './Root.jsx';
-import ProjectDetailSection from './components/ProjectDetailSection.jsx'; 
+import ProjectDetailSection from './components/ProjectDetailSection.jsx';
 
 const Homepage = () => {
   return <Root pageName='home' />;

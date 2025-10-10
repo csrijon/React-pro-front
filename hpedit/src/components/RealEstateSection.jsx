@@ -34,7 +34,7 @@ const RealEstateSection = () => {
   };
 
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 0.8 }, 
+    hidden: { opacity: 0, y: 75, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,

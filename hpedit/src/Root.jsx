@@ -17,7 +17,7 @@ const Root = ({ pageName }) => {
   console.log("Root কম্পোনেন্টে যে prop এসেছে:", pageName);
 
   return (
-    
+
     <div className="scroll-snap-container">
       <ScrollToTop />
       <Header />
@@ -62,7 +62,7 @@ const Root = ({ pageName }) => {
         </>
       )}
     </div>
-    
+
   );
 };
 

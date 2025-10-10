@@ -1,6 +1,6 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars 
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 import './Footer.css';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -36,7 +36,7 @@ const Footer = () => {
 
   return (
     // Add motion to the main container to detect when it's in view
-    <motion.footer 
+    <motion.footer
       className="footer-section-container"
       initial="hidden"
       whileInView="visible"
