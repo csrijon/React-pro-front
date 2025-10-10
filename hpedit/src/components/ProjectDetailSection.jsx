@@ -1,65 +1,92 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars 
+import { motion } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom'; 
+import { projectsData } from '../data.js'; 
 import './ProjectDetailSection.css';
 
-// --- IMPORTANT ---
-// Replace these placeholder paths with the actual paths to your four images.
-// You can put your images in an 'assets' folder inside 'src'.
-// For example: import image1 from '../assets/navy-interior-1.jpg';
-import image1 from '../assets/image 1.jpg';
-import image2 from '../assets/image 1.jpg';
-import image3 from '../assets/image 1.jpg';
-import image4 from '../assets/image 1.jpg';
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
+};
+
+const zoomOut = {
+  hidden: { opacity: 0, scale: 1.1 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } },
+};
+
 
 const ProjectDetailSection = () => {
-  // An array makes it easy to manage the images
-  const projectImages = [image1, image2, image3, image4];
+  const { projectId } = useParams();
+  
+  const project = projectsData.find(p => p.id == projectId);
+
+  if (!project) {
+    return (
+      <div style={{ padding: '40px', textAlign: 'center' }}>
+        <h2>Project Not Found</h2>
+        <Link to="/">Go back to Homepage</Link>
+      </div>
+    );
+  }
 
   return (
     <section className="project-detail-container">
-      {/* ===== Text Content ===== */}
-      <div className="project-content">
-        <h1>Indian Navy</h1>
+      <motion.div
+        className="project-content"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible" 
+      >
+        <motion.h1 variants={fadeInUp}>{project.title}</motion.h1>
         
-        <div className="details-grid">
+        <motion.div variants={fadeInUp} className="details-grid">
           <div className="details-group">
             <p className="detail-label">Location</p>
-            <p className="detail-value">Kolkata</p>
+            <p className="detail-value">{project.location}</p>
           </div>
           <div className="details-group">
             <p className="detail-label">Project type</p>
-            <p className="detail-value">Commercial</p>
+            <p className="detail-value">{project.projectType}</p>
           </div>
           <div className="details-group">
             <p className="detail-label">Status</p>
-            <p className="detail-value">Completed</p>
+            <p className="detail-value">{project.status}</p>
           </div>
           <div className="details-group">
             <p className="detail-label">Year</p>
-            <p className="detail-value">2024</p>
+            <p className="detail-value">{project.year}</p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="details-group">
+        <motion.div variants={fadeInUp} className="details-group">
           <p className="detail-label">Details</p>
           <p className="detail-value">
-            ABN Designz Studio had the privilege of designing key interior spaces for the most senior
-            officer of the Indian Navy in Kolkata. The brief emphasized a clean, contemporary aesthetic
-            with a strong sense of authority and elegance. We designed a modern reception area and a
-            dignified officer's room, combining sharp lines, premium materials, and subtle naval-inspired
-            elements. Additionally, we completed the officer's dining hall, ensuring a refined ambiance
-            that reflected both prestige and functionality for formal dining and interactions.
+            {project.details}
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* ===== Image Gallery ===== */}
-      <div className="project-image-gallery">
-        {projectImages.map((src, index) => (
-          <div key={index} className="gallery-item">
-            <img src={src} alt={`Indian Navy Project Image ${index + 1}`} />
-          </div>
-        ))}
-      </div>
+      <motion.div
+        className="project-image-gallery"
+        variants={zoomOut}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="gallery-item">
+          <img src={project.image} alt={project.title} />
+        </div>
+      </motion.div>
     </section>
   );
 };

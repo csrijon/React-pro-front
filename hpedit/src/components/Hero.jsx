@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import './Hero.css';
 
 const Hero = () => {
-  // ছবির অ্যানিমেশন
+  // Zoom In
   const imageVariants = {
     hidden: { scale: 0.2, opacity: 0 },
     visible: {
@@ -13,12 +13,12 @@ const Hero = () => {
       transition: {
         duration: 1.5,
         ease: [0.25, 1, 0.5, 1],
-        delay: 0.2, // 👇 শুধু এই লাইনটি যোগ করা হয়েছে
+        delay: 0.2, 
       },
     },
   };
 
-  // লেখার অ্যানিমেশন
+
   const textVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: {

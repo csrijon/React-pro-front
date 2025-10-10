@@ -73,25 +73,22 @@
   color: #211F1E;
 }
 
-
-/* 👇👇👇 এই অংশটিই রেসপন্সিভ করার জন্য প্রয়োজনীয় কোড 👇👇👇 */
-
 /* Responsive adjustments for smaller screens */
 @media (max-width: 992px) {
   .villas-section-container {
-    grid-template-columns: 1fr; /* দুটি কলামকে একটি কলামে পরিবর্তন করে */
+    grid-template-columns: 1fr;
     text-align: center;
   }
 
   .villas-content-wrapper {
-    padding-left: 0; /* সাইডের প্যাডিং সরিয়ে দেয় */
+    padding-left: 0; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* টেক্সট সেন্টারে আনে */
+    align-items: center; 
   }
 
   .villas-content-wrapper::before {
-    display: none; /* ডেকোরেটিভ লাইনটি লুকিয়ে ফেলে */
+    display: none; 
   }
 
   .villas-heading {
@@ -102,7 +99,7 @@
 
 @media (max-width: 768px) {
   .villas-section-container {
-    padding: 60px 20px; /* প্যাডিং আরও কমিয়ে দেয় */
+    padding: 60px 20px; 
   }
 
   .villas-heading {

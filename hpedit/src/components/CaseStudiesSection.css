@@ -26,17 +26,6 @@
   position: relative;
 }
 
-/* Underline effect for the number */
-/* .heading-number::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #C19A6B; 
-} */
-
 /* Grid for case study cards */
 .case-study-cards-grid {
   display: grid;

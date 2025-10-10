@@ -1,14 +1,23 @@
-/* src/components/Header.css */
+
 .header {
+  position: sticky; 
+  top: 0;           
   display: flex;
-  justify-content: space-evenly; /* Your original alignment is kept */
+  justify-content: space-evenly; 
   align-items: center;
-  padding: 20px 40px;
-  align-items: center;
-  background-color: #fff;
-  position: relative; /* Crucial for absolute positioning */
-  z-index: 100;
+  padding: 15px 40px;
+  width: 100%;
+  background-color: #fff; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: all 0.3s ease; 
 }
+/* Optional: shrink header on scroll */
+.header.shrink {
+  padding: 8px 40px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
 
 .logo {
   font-size: 2.5rem;

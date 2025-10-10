@@ -3,15 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from "react-router";
 import './ProductsSection.css';
-
-// Data for your product cards
-const products = [
-  
-  { id: 1, image: 'https://images.pexels.com/photos/3144580/pexels-photo-3144580.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', preTitle: 'EXQUISITE', title: 'KITCHENS', linkText: 'EXPLORE THE COLLECTION' },
-  { id: 2, image: 'https://images.pexels.com/photos/6588923/pexels-photo-6588923.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', preTitle: 'PERFECT MATCH', title: 'FITTED FURNITURE', linkText: 'EXPLORE THE COLLECTION' },
-  { id: 3, image: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', preTitle: 'COMFORT & STYLE', title: 'BEDROOM DESIGNS', linkText: 'VIEW SOLUTIONS' },
-  { id: 4, image: 'https://images.pexels.com/photos/3754438/pexels-photo-3754438.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', preTitle: 'LUXURY RETREAT', title: 'BATHROOMS', linkText: 'DISCOVER MORE' },
-];
+import { projectsData } from '../data.js'; 
 
 // Animation variants for the main heading
 const headingVariants = {
@@ -46,12 +38,17 @@ const cardVariants = {
 };
 
 const ProductsSection = () => {
-   let navigate = useNavigate()
-  const showedtalis = ()=>{
-     navigate("/explore")
-   }
+  let navigate = useNavigate();
+  const showedtalis = () => {
+     navigate("/explore");
+  }
+
+  const showProjectDetails = (projectId) => {
+    navigate(`/project/${projectId}`);
+  }
+
   return (
-    <section className="products-section-container">
+    <section id='product' className="products-section-container">
       <motion.h2
         className="products-main-heading"
         variants={headingVariants}
@@ -69,34 +66,35 @@ const ProductsSection = () => {
         whileInView="visible" 
         viewport={{ once: true, amount: 0.2 }} 
       >
-        {products.map((product) => (
+  
+        {projectsData.map((project) => (
           <motion.div
-            key={product.id}
+            key={project.id}
             className="product-card"
             variants={cardVariants}
             whileHover={{ y: -10, scale: 1.03, transition: { duration: 0.3 } }}
           >
             <div className="product-image-wrapper">
               <motion.img
-                src={product.image}
-                alt={product.title}
+                src={project.image}
+                alt={project.title}
                 className="product-card-image"
                 initial={{ scale: 1.15 }}
                 whileHover={{ scale: 1.0 }}
                 transition={{ duration: 0.5, ease: 'easeInOut' }}
               />
             </div>
-            <p className="product-pre-title">{product.preTitle}</p>
-            <h3 className="product-title">{product.title}</h3>
-            <button onClick={showedtalis}  className="explore-btn">
-               {product.linkText} <span className="arrow">→</span>
+            <p className="product-pre-title">{project.preTitle}</p>
+            <h3 className="product-title">{project.title}</h3>
+            <button onClick={() => showProjectDetails(project.id)}  className="explore-btn">
+               {project.linkText} <span className="arrow">→</span>
             </button>
           </motion.div>
         ))}
       </motion.div>
 
       <div className="view-all-container">
-        <button className="view-all-btn">
+        <button onClick={showedtalis} className="view-all-btn">
           View All <span className="arrow">→</span>
         </button>
       </div>

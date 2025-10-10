@@ -33,9 +33,8 @@ const ServicesSection = () => {
     },
   };
 
-  // ছবির জন্য "Zoom In" ভ্যারিয়েন্ট (পরিবর্তিত)
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 0.8 }, // পরিবর্তন: 1.2 থেকে 0.8 করা হয়েছে
+    hidden: { opacity: 0, y: 75, scale: 0.8 }, 
     visible: {
       opacity: 1,
       y: 0,
@@ -46,6 +45,7 @@ const ServicesSection = () => {
 
   return (
     <motion.section
+    id='services'
       initial="hidden"
       variants={containerVariants}
       ref={ref}

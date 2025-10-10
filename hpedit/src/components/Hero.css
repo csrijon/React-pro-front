@@ -1,12 +1,9 @@
 /* src/components/Hero.css */
 
 .hero-section {
-  /* 👇 এই তিনটি লাইন খুবই জরুরি */
   position: relative;
   overflow: hidden;
-  height: 91vh;
-  
-  /* এগুলি কন্টেনারের ভেতরের কন্টেন্টকে মাঝখানে আনে */
+  height: 92vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,14 +21,9 @@
   /* background-color: rgba(0, 0, 0, 0.2); */
 }
 
-/* ... বাকি CSS কোড অপরিবর্তিত থাকবে ... */
-
 .hero-content {
-  /* 👇 লেখাগুলোকে ছবির উপরে রাখার জন্য এটি প্রয়োজন */
   position: relative; 
   z-index: 1;
-  
-  /* আপনার লেখার অন্যান্য স্টাইল */
   text-align: center;
   color: white;
 }
@@ -61,11 +53,9 @@
   font-weight: 400;
   color: transparent;
   -webkit-text-stroke: 1.5px white; /* The outline effect */
-  /* text-stroke: 1.5px white; */
   text-shadow: none; /* Remove the main text shadow from this part */
 }
 .hero-background-image {
-  /* 👇 এই প্রোপার্টিগুলো ছবিকে ব্যাকগ্রাউন্ডে পাঠায় */
   position: absolute;
   top: 0;
   left: 0;

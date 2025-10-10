@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // eslint-disable-next-line no-unused-vars 
 import { motion, AnimatePresence } from 'framer-motion';
 import './Header.css';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const about = useRef(null);
+  const services = useRef(null);
+  const products = useRef(null);
 
+  const scrollsmooth = (sectionRef) => {
+    sectionRef.current.scrollintoView({ behavior: 'smooth' })
+  }
+  
   const itemVariants = {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -39,8 +46,8 @@ const Header = () => {
           <motion.nav className="nav-left" variants={itemVariants} initial="hidden" animate="visible">
             <ul>
               <li><a href="#home">HOME</a></li>
-              <li><a href="#services">SERVICES</a></li>
-              <li><a href="#products">PRODUCTS</a></li>
+              <li><a onClick={()=>scrollsmooth(services)} href="#services">SERVICES</a></li>
+              <li><a onClick={()=>scrollsmooth(products)} href="#product">PRODUCTS</a></li>
             </ul>
           </motion.nav>
         </div>
@@ -48,14 +55,14 @@ const Header = () => {
         <motion.div className="logo" variants={itemVariants} initial="hidden" animate="visible">
           OTO
         </motion.div>
-        
+
         {/* 2. Added a wrapper div for easy hiding on mobile */}
         <div className="desktop-nav-group">
           <div className="nav-right">
             <motion.nav variants={itemVariants} initial="hidden" animate="visible">
               <ul>
                 <li><a href="#portfolio">PORTFOLIO</a></li>
-                <li><a href="#about">ABOUT</a></li>
+                <li><a onClick={()=>scrollsmooth(about)}href="#about">ABOUT</a></li>
               </ul>
             </motion.nav>
             <motion.button className="contact-btn" variants={itemVariants} initial="hidden" animate="visible">

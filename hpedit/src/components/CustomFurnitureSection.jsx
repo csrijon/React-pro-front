@@ -33,9 +33,9 @@ const CustomFurnitureSection = () => {
     },
   };
 
-  // ছবির জন্য "Zoom In" ভ্যারিয়েন্ট (পরিবর্তিত)
+  // zoom in variant for images
   const imageVariants = {
-    hidden: { opacity: 0, y: 75, scale: 0.8 }, // পরিবর্তন: 1.2 থেকে 0.8 করা হয়েছে
+    hidden: { opacity: 0, y: 75, scale: 0.8 }, 
     visible: {
       opacity: 1,
       y: 0,
