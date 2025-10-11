@@ -18,8 +18,8 @@ body {
 */
 #root {
   width: 100%;
-  max-width: 1380px; /* This controls the maximum width of your content */
-  margin: 0 auto;    /* This centers the container on the page */
+   /* max-width: 1380px; */
+  /* margin: 0 auto;     */
   
   /* This padding creates space on the inside of the container */
   padding: 1rem 2rem; 

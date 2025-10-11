@@ -94,7 +94,7 @@
 /* For Mobile phones */
 @media (max-width: 768px) {
   .about-section {
-    padding: 40px 20px; /* Further reduce padding */
+    padding: 80px 20px; /* Further reduce padding */
   }
 
   .about-header {
