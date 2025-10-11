@@ -122,7 +122,7 @@
 /* For Mobile phones */
 @media (max-width: 768px) {
   .services-section {
-    padding: 40px 20px; /* Further reduce padding */
+    padding: 80px 20px; /* Further reduce padding */
   }
 
   .services-header h2 {
