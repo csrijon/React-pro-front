@@ -1,7 +1,7 @@
 import React from 'react';
 import './Quote.css';
 import quoteStart from '../assets/“.png';
-import box from '../assets/Rectangle 26.png'
+// import box from '../assets/Rectangle 26.png'
 
 
 const Quote = () => {
@@ -17,9 +17,9 @@ const Quote = () => {
       <div className="quote-author">
         <span className="author-text">- Dr. Who</span>
       </div>
-      <div className="box">
+      {/* <div className="box">
         <img src={box} alt="" />
-      </div>
+      </div> */}
     </div>
   );
 };

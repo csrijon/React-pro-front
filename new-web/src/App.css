@@ -1,17 +1,35 @@
-*{
+/* --- Global Styles for your entire application --- */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; /* Ensures padding doesn't affect the final width */
 }
-body{
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
+
+body {
   background-color: #282C33;
-  overflow-x: hidden;
+  color: #fff; /* A good default text color for the dark background */
+  font-family: sans-serif; /* A modern, readable default font */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
+  width: 100vw;
 }
+
+/* This #root container holds your entire React application.
+  It creates a consistent, centered layout with a maximum width.
+*/
 #root {
-  max-width: 1380px;
-  padding: 1rem 2rem ;
+  width: 100%;
+  max-width: 1380px; /* This controls the maximum width of your content */
+  margin: 0 auto;    /* This centers the container on the page */
+  
+  /* This padding creates space on the inside of the container */
+  padding: 1rem 2rem; 
 }
+
+
+/* --- Responsive Adjustments for Mobile --- */
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem 1rem; /* Less padding on smaller screens for more space */
+  }
+}
+
