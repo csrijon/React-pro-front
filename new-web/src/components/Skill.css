@@ -1,5 +1,6 @@
 .skill-section {
     width: 100%;
+    max-width: 1380px;
     padding: 4.5rem 1rem;
 }
 
@@ -28,4 +29,13 @@
     width: 100%;
     padding: 25px;
     align-items: center;
+    flex-wrap: wrap;
+}
+@media (max-width: 992px) {
+    .middle-skill{
+        justify-content: center;
+    }
+    .top-section .line {
+        width: 200px;
+    }
 }
