@@ -71,9 +71,6 @@
   border-radius: 4px;
 }
 
-/* --- Added For Responsiveness --- */
-
-/* For Tablets and smaller screens */
 @media (max-width: 992px) {
   .hero {
     /* Change to a vertical layout */
