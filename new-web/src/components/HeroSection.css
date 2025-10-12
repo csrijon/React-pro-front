@@ -1,9 +1,9 @@
 .hero {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: space-around;
   width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   max-width: 1380px;
   padding: 4.5rem 1rem;
   background-color: #282c33; 
@@ -80,7 +80,7 @@
     text-align: center;
     gap: 2.5rem; /* Add space between the text and image sections */
     padding: 3rem 1.5rem;
-    width: 90%;
+    /* width: 100%; */
   }
 
   .hero-left, .hero-right {
@@ -88,7 +88,9 @@
     flex: 1 1 100%;
     align-items: center; /* Center content inside */
   }
-  
+  .hero-right img{
+    width: 70%; 
+  }
   .status {
       /* Center the status badge */
       margin-left: auto;
@@ -104,5 +106,6 @@
   
   .hero {
       padding: 2.5rem 1rem;
+      width: 100%;
   }
 }
