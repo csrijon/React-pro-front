@@ -10,7 +10,7 @@ body {
   color: #fff; /* A good default text color for the dark background */
   font-family: sans-serif; /* A modern, readable default font */
   overflow-x: hidden; /* Prevents horizontal scrolling */
-  width: 100vw;
+  /* width: 100vw; */
 }
 
 /* This #root container holds your entire React application.

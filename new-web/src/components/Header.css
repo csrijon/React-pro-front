@@ -5,14 +5,12 @@
   --text-secondary: #cccccc;
   --border-color: rgba(255, 255, 255, 0.1);
 }
-
 /* --- Header --- */
 header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
-  max-width: 1380px;
   padding: 1rem 1.5rem;
   position: fixed;
   top: 0;

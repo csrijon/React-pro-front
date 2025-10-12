@@ -1,7 +1,7 @@
 /* Main footer container */
 .footer-container {
-  background-color: #282c34; /* Dark background */
-  color: #abb2bf; /* Light grey text */
+  background-color: #282c34; 
+  color: #abb2bf; 
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   border-top: 1px solid #abb2bf;
 }
@@ -10,7 +10,6 @@
 .footer-content {
   padding: 32px 10%;
 }
-
 /* Top section containing info and media links */
 .footer-top {
   display: flex;
@@ -19,7 +18,6 @@
   flex-wrap: wrap; /* Allows items to wrap on smaller screens */
   gap: 20px;
 }
-
 /* Left side: Developer info */
 .footer-info {
   display: flex;
