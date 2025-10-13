@@ -4,6 +4,9 @@
   color: #abb2bf; 
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   border-top: 1px solid #abb2bf;
+  width: 100%;
+  max-width: 1380px;
+  margin: auto;
 }
 
 /* Wrapper for the main content to apply padding */

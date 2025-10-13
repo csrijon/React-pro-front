@@ -6,7 +6,7 @@
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 2.5rem 0; /* Adjusted padding for mobile */
+  padding: 4.5rem 1rem; 
 }
 
 .projet-heading {
@@ -43,7 +43,7 @@
 /* --- Tablet & Desktop Styles --- */
 @media (min-width: 768px) {
   .projet-section {
-    padding: 4.5rem 0; /* Restore original padding */
+    padding: 4.5rem 1rem; /* Restore original padding */
   }
 
   .projet-heading {
