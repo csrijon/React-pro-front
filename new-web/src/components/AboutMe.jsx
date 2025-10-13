@@ -12,7 +12,7 @@ const AboutMe = () => {
           <span className="accent-text">#</span>about-me
         </h2>
         <div className="about-me-text">
-          <p>Hello, I'm Elias!</p>
+          <p>Hello, I'm Srijon!</p>
           <p>
             I'm a self-taught front-end developer based in Kyiv, Ukraine. I can
             develop responsive websites from scratch and raise them into modern

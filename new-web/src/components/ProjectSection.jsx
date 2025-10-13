@@ -1,5 +1,6 @@
 import React from "react";
-import view from "../assets/View all ~~_.png"
+// import view from "../assets/View all ~~_.png"
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "./Project.css"
 import "./Projects.css"
 import oneimage from "../assets/oneimage1.jpg"
@@ -49,7 +50,8 @@ const ProjectSection = () => {
                         <div className="line"></div>
                     </div>
                     <div className="right-heading">
-                        <img src={view} alt="" />
+                        {/* <img src={view} alt="" /> */}
+                        <a href="#">View All <KeyboardDoubleArrowRightIcon /></a>
                     </div>
                 </div>
                  <div className="projects-container">
