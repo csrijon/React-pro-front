@@ -1,9 +1,8 @@
 import React from 'react';
-import './DotGrid.css'; // CSS ফাইলটি ইম্পোর্ট করা হচ্ছে
+import './DotGrid.css'; 
 
-const DotGrid = () => {
-  // 4x4 = 16 টি ডট তৈরি করার জন্য একটি array তৈরি করা হচ্ছে
-  const dots = Array.from({ length: 8 });
+const DotGrid = ({length}) => {
+  const dots = Array.from({ length });
 
   return (
     <div className="grid-container">
