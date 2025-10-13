@@ -9,6 +9,9 @@
   color: #abb2bf; /* Light grey text */
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   position: relative;
+  max-width: 1380px;
+  width: 100%;
+  margin: auto;
 }
 
 /* Add the decorative dots on the left */
