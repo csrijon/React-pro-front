@@ -1,8 +1,6 @@
-
 import './AboutMe.css';
-// You can find a similar image on royalty-free sites like Pexels or Unsplash
-// For example: https://images.pexels.com/photos/159844/cellular-tissue-human-behavior-report-159844.jpeg
 import profileImage from '../assets/Image.png';
+import DotGrid from './DotGrid';
 
 const AboutMe = () => {
   return (
@@ -33,6 +31,9 @@ const AboutMe = () => {
         <div className="dots dots-top"></div>
         <img src={profileImage} alt="Elias" className="profile-image" />
         <div className="dots dots-bottom"></div>
+      </div>
+      <div className="dot-boxes">
+        <DotGrid />
       </div>
     </section>
   );

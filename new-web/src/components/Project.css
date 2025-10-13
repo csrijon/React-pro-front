@@ -24,6 +24,21 @@
   gap: 1rem;
   width: 100%;
 }
+.right-heading a {
+  display: flex; /* লেখা এবং আইকনকে পাশাপাশি রাখে */
+  align-items: center; /* লেখা এবং আইকনকে উল্লম্বভাবে (vertically) মাঝখানে আনে */
+  gap: 8px; /* লেখা এবং আইকনের মধ্যে একটু ফাঁকা জায়গা তৈরি করে */
+  
+  /* নিচের স্টাইলগুলো আপনার ডিজাইন অনুযায়ী পরিবর্তন করতে পারেন */
+  color: #fff; /* লিঙ্কের রং */
+  text-decoration: none; /* নিচের আন্ডারলাইন তুলে দেওয়ার জন্য */
+  font-family: 'Fira Code', monospace; 
+  transition: text-decoration 0.3s ease;
+  padding: 5px;
+}
+.right-heading a:hover {
+  text-decoration: underline; /* হোভার করলে আন্ডারলাইন দেখানোর জন্য */
+}
 
 .left-heading .line {
   height: 1px;
