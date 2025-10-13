@@ -33,7 +33,7 @@ const AboutMe = () => {
         <div className="dots dots-bottom"></div>
       </div>
       <div className="dot-boxes">
-        <DotGrid />
+        <DotGrid length = {16} />
       </div>
     </section>
   );
