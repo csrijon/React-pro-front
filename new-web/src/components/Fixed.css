@@ -1,0 +1,43 @@
+.fixed-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    padding: 10px 20px;
+    z-index: 100; /* Ensure it stays above other content */
+}
+.linne{
+    width: 1px;
+    height: 191px;
+    background-color: #ABB2BF;
+    margin: 0 10px;
+}
+.social-icon{
+    color: #ffffff;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-direction: column;
+}
+.social-icon a{
+    color: inherit;
+    text-decoration: none;
+}
+.social-icon a:hover{
+    color: #C778DD;
+
+}
+@media (max-width: 1500px) {
+  .fixed-container {
+    left: 5px;             
+    top: 50px;
+    padding: 8px 10px;    
+    gap: 8px;             
+  }
+}

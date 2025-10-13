@@ -6,6 +6,7 @@ import "./Projects.css"
 import oneimage from "../assets/oneimage1.jpg"
 import twoimage from "../assets/oneimage2.png"
 import threeimage from "../assets/oneimage3.png"
+import DotGrid from "./DotGrid";
 
 
 const ProjectSection = () => {
@@ -75,6 +76,7 @@ const ProjectSection = () => {
         </div>
       ))}
     </div>
+    <div className="dot-box"><DotGrid/></div>
             </section>
         </>
     )
