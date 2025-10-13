@@ -8,7 +8,6 @@ import AboutMe from './components/AboutMe'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Fixed from './components/Fixed'
-import DotGrid from './components/DotGrid'
 
 function App() {
 
@@ -16,14 +15,12 @@ function App() {
     <>
       <Header />
       <HeroSection />
-      {/* <Quote /> */}
       <ProjectSection />
       <Skillsection />
       <AboutMe />
       <Contact />
       <Footer/>
       <Fixed />
-      <DotGrid/>
     </>
   )
 }

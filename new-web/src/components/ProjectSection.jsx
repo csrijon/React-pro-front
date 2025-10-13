@@ -52,7 +52,7 @@ const ProjectSection = () => {
                     </div>
                     <div className="right-heading">
                         {/* <img src={view} alt="" /> */}
-                        <a href="#">View All <KeyboardDoubleArrowRightIcon /></a>
+                        <a href="#">View <KeyboardDoubleArrowRightIcon /></a>
                     </div>
                 </div>
                  <div className="projects-container">
