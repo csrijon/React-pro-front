@@ -9,6 +9,9 @@
   padding: 4.5rem 1rem;
   gap: 40px;
   position: relative;
+  max-width: 1380px;
+  width: 100%;
+  margin: auto;
   overflow: hidden;
 }
 

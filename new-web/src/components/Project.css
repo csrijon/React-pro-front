@@ -2,6 +2,7 @@
 .projet-section {
   width: 100%;
   max-width: 1380px;
+  margin: auto;
   color: #fff;
   display: flex;
   flex-direction: column;
