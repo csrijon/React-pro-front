@@ -1,7 +1,7 @@
 .grid-container {
   display: grid;
   /* ৪টি সমান কলাম তৈরি করবে */
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   /* ডটগুলোর মধ্যে ফাঁকা জায়গা */
   gap: 25px;
   /* ছবির মতো ব্যাকগ্রাউন্ড কালার */

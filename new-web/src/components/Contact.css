@@ -5,8 +5,10 @@
   align-items: center;
   padding: 4.5rem 1rem;
   gap: 30px;
-  background-color: #282c34; /* Dark background */
-  color: #abb2bf; /* Light grey text */
+  background-color: #282c34;
+  /* Dark background */
+  color: #abb2bf;
+  /* Light grey text */
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   position: relative;
   max-width: 1380px;
@@ -43,7 +45,8 @@
 
 /* Purple '#' symbol */
 .contact-heading .accent-text {
-  color: #c778dd; /* Accent purple color */
+  color: #c778dd;
+  /* Accent purple color */
 }
 
 /* Purple line after the heading */
@@ -87,6 +90,12 @@
 
 .contact-icon {
   font-size: 24px;
+}
+.dot-boxes {
+  position: absolute;
+  top: 150px;
+  right: -220px;
+  width: 50px;
 }
 
 /* Responsive adjustments */

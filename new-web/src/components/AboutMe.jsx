@@ -1,6 +1,6 @@
 import './AboutMe.css';
 import profileImage from '../assets/Image.png';
-import DotGrid from './DotGrid';
+
 
 const AboutMe = () => {
   return (
@@ -31,9 +31,6 @@ const AboutMe = () => {
         <div className="dots dots-top"></div>
         <img src={profileImage} alt="Elias" className="profile-image" />
         <div className="dots dots-bottom"></div>
-      </div>
-      <div className="dot-boxes">
-        <DotGrid length = {16} />
       </div>
     </section>
   );
