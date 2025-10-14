@@ -5,25 +5,32 @@
     margin: auto;
 }
 
-.skill-section .top-section {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-}
-.top-section span{
-    color: #C778DD;
-}
-.top-section h3{
+.top-section {
     font-size: 32px;
-    font-family: 'Fira Code', monospace;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
 }
-.top-section .line {
-    width: 500px;
+
+.top-section .accent-text {
+    color: #c778dd;
+    /* Accent purple color */
+    margin-right: 8px;
+}
+
+.top-section ::after {
+    content: '';
+    display: block;
+    flex-grow: 1;
     height: 1px;
-    background-color: #C778DD;
+    background-color: #c778dd;
+    margin-left: 16px;
+    min-width: 200px;
 }
-.middle-skill{
+
+.middle-skill {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -32,10 +39,12 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
 @media (max-width: 992px) {
-    .middle-skill{
+    .middle-skill {
         justify-content: center;
     }
+
     .top-section .line {
         width: 200px;
     }

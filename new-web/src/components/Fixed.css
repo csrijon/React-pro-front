@@ -28,6 +28,7 @@
 .social-icon a{
     color: inherit;
     text-decoration: none;
+    transition: color ease 0.3s;
 }
 .social-icon a:hover{
     color: #C778DD;

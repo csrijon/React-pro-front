@@ -3,6 +3,7 @@ import './Contact.css';
 // Importing icons from the react-icons library
 import { FaDiscord } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
+import DotGrid from './DotGrid';
 
 const Contact = () => {
   return (
@@ -26,6 +27,9 @@ const Contact = () => {
           <MdEmail className="contact-icon" />
           <span>csrijon92@gmail.com</span>
         </div>
+      </div>
+      <div className="dot-boxes">
+        <DotGrid length={16} />
       </div>
     </section>
   );

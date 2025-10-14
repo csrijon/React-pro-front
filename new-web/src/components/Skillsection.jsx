@@ -6,10 +6,11 @@ import SkillsSection from './SkillsSection'
 const Skillsection = () => {
     return (
         <div className='skill-section' >
-            <div className="top-section">
-                <h3><span>#</span>skills</h3>
-                <div className="line"></div>
-            </div>
+            {/* <div className=""> */}
+                <h2 className="top-section">
+          <span className="accent-text">#</span>about-me
+        </h2>
+            {/* </div> */}
             <div className="middle-skill">
                 <div className="left-skill">
                     <img src={skills} alt="" />

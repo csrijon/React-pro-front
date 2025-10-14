@@ -1,10 +1,9 @@
-
 /* container of all cards */
 .projects-container {
   display: flex;
- justify-content: space-evenly;
- align-items: center;
- flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   justify-items: center;
   padding: 40px;
@@ -71,11 +70,13 @@
   border-radius: 4px;
   transition: background 0.2s ease;
 }
+
 .btn.primary {
   /* background-color: #a78bfa; */
   color: #fff;
   border: 1px solid #C778DD;
 }
+
 .btn.secondary {
   background-color: transparent;
   color: #fff;

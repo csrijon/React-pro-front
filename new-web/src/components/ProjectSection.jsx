@@ -76,7 +76,7 @@ const ProjectSection = () => {
         </div>
       ))}
     </div>
-    <div className="dot-box"><DotGrid length={8} /></div>
+    <div className="dot-box"><DotGrid length={16} /></div>
             </section>
         </>
     )
