@@ -4,7 +4,6 @@
     padding: 4.5rem 1rem;
     margin: auto;
 }
-
 .top-section {
     font-size: 32px;
     font-weight: 500;
@@ -12,15 +11,15 @@
     margin-bottom: 30px;
     display: flex;
     align-items: center;
+    max-width: 550px;
 }
 
 .top-section .accent-text {
     color: #c778dd;
-    /* Accent purple color */
     margin-right: 8px;
 }
 
-.top-section ::after {
+.top-section::after {
     content: '';
     display: block;
     flex-grow: 1;
@@ -29,6 +28,7 @@
     margin-left: 16px;
     min-width: 200px;
 }
+
 
 .middle-skill {
     display: flex;
@@ -45,7 +45,4 @@
         justify-content: center;
     }
 
-    .top-section .line {
-        width: 200px;
-    }
 }
