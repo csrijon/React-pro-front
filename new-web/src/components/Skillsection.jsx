@@ -7,9 +7,10 @@ const Skillsection = () => {
     return (
         <div className='skill-section' >
             {/* <div className=""> */}
-                <h2 className="top-section">
-          <span className="accent-text">#</span>about-me
-        </h2>
+            <h2 className="top-section">
+                <span className="accent-text">#</span>skills
+            </h2>
+
             {/* </div> */}
             <div className="middle-skill">
                 <div className="left-skill">
