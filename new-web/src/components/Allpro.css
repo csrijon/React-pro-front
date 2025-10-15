@@ -1,0 +1,127 @@
+:root {
+  --bg-color: #282C34;
+  --card-bg-color: #1f242b;
+  --border-color: #5d6371;
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #ABB2BF;
+  --accent-color: #C778DD;
+}
+
+/* body {
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
+  font-family: 'Fira Code', 'Consolas', monospace;
+  margin: 0;
+  padding: 2rem;
+} */
+
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+}
+
+.project-section h2 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.project-section h2::before {
+  content: '#';
+  color: #C778DD;
+  margin-right: 0.5rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.project-card {
+  background-color: #1f242b;
+  border: 1px solid #5d6371;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.project-image {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 1px solid #5d6371;
+}
+
+.project-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: #ABB2BF;
+  font-size: 0.85rem;
+}
+
+.project-tags span {
+  padding: 0.2rem 0.5rem;
+  border: 1px solid #ABB2BF;
+  border-radius: 4px;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+  color: #FFFFFF;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #ABB2BF;
+  margin: 0;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.project-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-buttons a {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #C778DD;
+  border-radius: 4px;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.project-buttons a:hover {
+  background-color: #C778DD;
+  color: #282C34;
+}
