@@ -8,6 +8,7 @@ import AboutMe from './components/AboutMe'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Fixed from './components/Fixed'
+// import Allproject from './components/Allproject'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Contact />
       <Footer/>
       <Fixed />
+      {/* <Allproject /> */}
     </>
   )
 }
