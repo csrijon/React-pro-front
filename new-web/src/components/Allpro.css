@@ -120,7 +120,6 @@ h1 {
   font-weight: 500;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-
 .project-buttons a:hover {
   background-color: #C778DD;
   color: #282C34;
