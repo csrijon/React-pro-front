@@ -1,11 +1,11 @@
-:root {
+/* :root {
   --bg-color: #282C34;
   --card-bg-color: #1f242b;
   --border-color: #5d6371;
   --primary-text-color: #FFFFFF;
   --secondary-text-color: #ABB2BF;
   --accent-color: #C778DD;
-}
+} */
 
 /* body {
   background-color: var(--bg-color);
@@ -47,17 +47,19 @@ h1 {
   margin-bottom: 4rem;
 }
 
-.project-card {
+.project-cards {
   background-color: #1f242b;
-  border: 1px solid #5d6371;
-  border-radius: 4px;
+  border: 1px solid #ABB2BF;
+  border-radius: 6px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  width: 320px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.project-card:hover {
+.project-cards:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProjectCard = ({ project }) => {
   return (
-    <div className="project-card">
+    <div className="project-cards">
       {project.image && <img src={project.image} alt={`${project.title} preview`} className="project-image" />}
       <div className="project-content">
         <div className="project-tags">
