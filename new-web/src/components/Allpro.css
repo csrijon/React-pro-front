@@ -88,13 +88,11 @@ h1 {
   padding: 8px;
   border-bottom: 1px solid #ABB2BF;
 }
-
 /* .project-tags span {
   padding: 0.2rem 0.5rem;
   border: 1px solid #ABB2BF;
   border-radius: 4px;
 } */
-
 .project-title {
   font-size: 1.5rem;
   /* margin: 0 0 0.5rem 0; */
@@ -110,13 +108,11 @@ h1 {
   /* margin-bottom: 1.5rem; */
   padding: 0 16px 16px 16px;
 }
-
 .project-buttons {
   display: flex;
   gap: 1rem;
   padding: 0 16px 16px 16px;
 }
-
 .project-buttons a {
   display: inline-block;
   padding: 0.6rem 1.2rem;
