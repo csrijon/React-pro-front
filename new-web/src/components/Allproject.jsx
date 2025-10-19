@@ -6,8 +6,10 @@ import "./Allpro.css"
 const Allproject = () => {
    return (
     <div className="portfolio-container">
-      <h1>/projects</h1>
-
+      <div className="top-project-section">
+        <h1>/projects</h1>
+      <p>list of my project</p>
+      </div>
       <section className="project-section">
         <h2 id="complete-apps">complete-apps</h2>
         <div className="projects-grid">
@@ -18,7 +20,7 @@ const Allproject = () => {
       </section>
 
       <section className="project-section">
-        <h2 id="small-projects">#small-projects</h2>
+        <h2 id="small-projects">small-projects</h2>
         <div className="projects-grid">
           {smallProjects.map((project) => (
             <ProjectCard key={project.title} project={project} />

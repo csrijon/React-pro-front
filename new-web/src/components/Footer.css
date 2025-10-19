@@ -2,7 +2,7 @@
 .footer-container {
   background-color: #282c34; 
   color: #abb2bf; 
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-family: 'Fira Code',  monospace;
   border-top: 1px solid #abb2bf;
   width: 100%;
   max-width: 1380px;

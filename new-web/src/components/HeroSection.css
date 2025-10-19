@@ -8,7 +8,7 @@
   padding: 5rem 1rem;
   background-color: #282c33; 
   color: #fff;
-  font-family: monospace, sans-serif;
+   font-family: "Fira Code", monospace;
   flex-wrap: wrap;
 }
 
