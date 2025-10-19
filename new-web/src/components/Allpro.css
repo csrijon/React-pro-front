@@ -1,19 +1,3 @@
-/* :root {
-  --bg-color: #282C34;
-  --card-bg-color: #1f242b;
-  --border-color: #5d6371;
-  --primary-text-color: #FFFFFF;
-  --secondary-text-color: #ABB2BF;
-  --accent-color: #C778DD;
-} */
-
-/* body {
-  background-color: var(--bg-color);
-  color: var(--primary-text-color);
-  font-family: 'Fira Code', 'Consolas', monospace;
-  margin: 0;
-  padding: 2rem;
-} */
 
 .portfolio-container {
   max-width: 1200px;
@@ -59,11 +43,6 @@ h1 {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.project-cards:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
 .project-image {
   width: 100%;
   height: 160px;
@@ -88,11 +67,7 @@ h1 {
   padding: 8px;
   border-bottom: 1px solid #ABB2BF;
 }
-/* .project-tags span {
-  padding: 0.2rem 0.5rem;
-  border: 1px solid #ABB2BF;
-  border-radius: 4px;
-} */
+
 .project-title {
   font-size: 1.5rem;
   /* margin: 0 0 0.5rem 0; */
@@ -115,15 +90,15 @@ h1 {
 }
 .project-buttons a {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
+  padding: 6px 10px ;
   border: 1px solid #C778DD;
   border-radius: 4px;
   color: #FFFFFF;
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
 }
 .project-buttons a:hover {
-  background-color: #C778DD;
-  color: #282C34;
+  background-color: #333;
 }
