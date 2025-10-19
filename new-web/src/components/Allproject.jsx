@@ -9,7 +9,7 @@ const Allproject = () => {
       <h1>/projects</h1>
 
       <section className="project-section">
-        <h2 id="complete-apps">#complete-apps</h2>
+        <h2 id="complete-apps">complete-apps</h2>
         <div className="projects-grid">
           {completeApps.map((project) => (
             <ProjectCard key={project.title} project={project} />
