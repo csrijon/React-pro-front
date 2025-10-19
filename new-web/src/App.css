@@ -8,7 +8,7 @@
 body {
   background-color: #282C33;
   color: #fff; /* A good default text color for the dark background */
-  font-family: sans-serif; /* A modern, readable default font */
+   font-family: "Fira Code", monospace;
   overflow-x: hidden; /* Prevents horizontal scrolling */
   /* width: 100vw; */
 }
@@ -24,6 +24,7 @@ body {
   /* This padding creates space on the inside of the container */
   padding: 1rem 2rem; 
   overflow-x: hidden;
+   font-family: "Fira Code", monospace;
 }
 
 

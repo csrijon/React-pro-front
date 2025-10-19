@@ -5,6 +5,7 @@
   --text-secondary: #cccccc;
   --border-color: rgba(255, 255, 255, 0.1);
 }
+
 /* --- Header --- */
 header {
   display: flex;
@@ -30,7 +31,7 @@ header {
   font-size: 1.2rem;
   font-weight: bold;
   color: var(--text-primary);
-  font-family: monospace;
+  font-family: "Fira Code", monospace;
 }
 
 .left img {
@@ -77,7 +78,8 @@ header {
   border: none;
   cursor: pointer;
   z-index: 200;
-  color: white; /* Added for MUI icon color */
+  color: white;
+  /* Added for MUI icon color */
 }
 
 /* --- Mobile Navigation --- */
@@ -89,7 +91,7 @@ header {
   max-width: 300px;
   height: 100vh;
   background: #282c33;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -102,9 +104,11 @@ header {
 .mobile-nav.is-open {
   transform: translateX(0);
 }
+
 .mobile-nav.is-off {
   transform: translateX(100%);
 }
+
 .mobile-nav .nav-links {
   flex-direction: column;
   text-align: center;
@@ -126,6 +130,7 @@ header {
   .desktop-nav {
     display: none;
   }
+
   .menu-btn {
     display: flex;
     align-items: center;
@@ -134,9 +139,10 @@ header {
 
 /* --- Responsive Media Query for Desktop --- */
 @media (min-width: 768px) {
+
   /* 👇 শুধুমাত্র এই নতুন কোডটি যোগ করা হয়েছে */
   .mobile-nav {
-    display: none; /* বড় স্ক্রিনে মোবাইল মেনুটি পুরোপুরি লুকিয়ে ফেলবে */
+    display: none;
+    /* বড় স্ক্রিনে মোবাইল মেনুটি পুরোপুরি লুকিয়ে ফেলবে */
   }
 }
-
