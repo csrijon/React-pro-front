@@ -23,6 +23,20 @@ export const completeApps = [
     description: 'Discord anti-crash bot',
     buttons: [{ text: 'cached', link: '#' }],
   },
+  {
+    image: 'https://i.imgur.com/o25if8z.png', // Placeholder for ProtectX
+    tags: ['React', 'Express', 'Discord.js', 'Node.js'],
+    title: 'ProtectX',
+    description: 'Discord anti-crash bot',
+    buttons: [{ text: 'cached', link: '#' }],
+  },
+  {
+    image: 'https://i.imgur.com/o25if8z.png', // Placeholder for ProtectX
+    tags: ['React', 'Express', 'Discord.js', 'Node.js'],
+    title: 'ProtectX',
+    description: 'Discord anti-crash bot',
+    buttons: [{ text: 'cached', link: '#' }],
+  },
 ];
 
 export const smallProjects = [

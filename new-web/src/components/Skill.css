@@ -44,5 +44,8 @@
     .middle-skill {
         justify-content: center;
     }
+    .top-section::after{
+        display: none;
+    }
 
 }

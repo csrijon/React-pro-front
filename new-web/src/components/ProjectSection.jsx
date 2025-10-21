@@ -47,8 +47,9 @@ const ProjectSection = () => {
       <section className="projet-section" >
         <div className="projet-heading">
           <div className="left-heading">
-            <h3><span>#</span>Project</h3>
-            <div className="line"></div>
+             <h2 className="about-me-heading">
+          <span className="accent-text">#</span>projects
+        </h2>
           </div>
           <div className="right-heading">
             {/* <img src={view} alt="" /> */}

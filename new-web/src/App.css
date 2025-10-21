@@ -2,36 +2,27 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 body {
   background-color: #282C33;
-  color: #fff; /* A good default text color for the dark background */
-   font-family: "Fira Code", monospace;
-  overflow-x: hidden; /* Prevents horizontal scrolling */
-  /* width: 100vw; */
+  color: #fff;
+  font-family: "Fira Code", monospace;
+  overflow-x: hidden;
 }
 
-/* This #root container holds your entire React application.
-  It creates a consistent, centered layout with a maximum width.
-*/
 #root {
   width: 100%;
-   /* max-width: 1380px;
-  margin: 0 auto;     */
-  
-  /* This padding creates space on the inside of the container */
-  padding: 1rem 2rem; 
+  padding: 1rem 2rem;
   overflow-x: hidden;
-   font-family: "Fira Code", monospace;
+  font-family: "Fira Code", monospace;
 }
-
 
 /* --- Responsive Adjustments for Mobile --- */
 @media (max-width: 768px) {
   #root {
-    padding: 1rem 1rem; /* Less padding on smaller screens for more space */
+    padding: 1rem 1rem;
+    /* Less padding on smaller screens for more space */
   }
 }
-
