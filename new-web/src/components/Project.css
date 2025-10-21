@@ -12,8 +12,9 @@
 
 .projet-heading {
   display: flex;
-  flex-direction: column; /* Stacks the title and link on mobile */
-  align-items: flex-start;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: center;
   gap: 1.5rem; /* Provides space when stacked */
   width: 100%;
 }
@@ -69,7 +70,7 @@
   }
 
   .projet-heading {
-    flex-direction: row; /* Side-by-side layout for larger screens */
+    flex-direction: row; 
     justify-content: space-between;
     align-items: center;
   }

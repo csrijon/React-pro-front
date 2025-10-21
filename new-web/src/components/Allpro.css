@@ -1,8 +1,10 @@
-
 .portfolio-container {
-  max-width: 1200px;
-  margin: 0 auto;
-   font-family: "Fira Code", monospace;
+  max-width: 1380px;
+  margin: auto;
+  font-family: "Fira Code", monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
@@ -17,17 +19,20 @@ h1 {
   position: relative;
   display: inline-block;
 }
-.top-project-section{
+
+.top-project-section {
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
 }
-.top-project-section p{
+
+.top-project-section p {
   color: #ABB2BF;
   font-size: 16px;
 }
+
 .project-section h2::before {
   content: '#';
   color: #C778DD;
@@ -93,14 +98,16 @@ h1 {
   /* margin-bottom: 1.5rem; */
   padding: 0 16px 16px 16px;
 }
+
 .project-buttons {
   display: flex;
   gap: 1rem;
   padding: 0 16px 16px 16px;
 }
+
 .project-buttons a {
   display: inline-block;
-  padding: 6px 10px ;
+  padding: 6px 10px;
   border: 1px solid #C778DD;
   border-radius: 4px;
   color: #FFFFFF;
@@ -109,6 +116,7 @@ h1 {
   font-size: 14px;
   transition: background-color 0.2s ease;
 }
+
 .project-buttons a:hover {
   background-color: #333;
 }
