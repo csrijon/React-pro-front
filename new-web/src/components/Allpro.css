@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 5rem 1rem;
 }
 
 h1 {
@@ -44,6 +45,7 @@ h1 {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 4rem;
+  /* place-items: center; */
 }
 
 .project-cards {
@@ -119,4 +121,9 @@ h1 {
 
 .project-buttons a:hover {
   background-color: #333;
+}
+@media (max-width: 768px){
+  .projects-grid  {
+    place-items: center;
+  }
 }

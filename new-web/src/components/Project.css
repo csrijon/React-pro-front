@@ -13,7 +13,7 @@
 .projet-heading {
   display: flex;
   flex-direction: row; 
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 1.5rem; /* Provides space when stacked */
   width: 100%;
@@ -25,6 +25,9 @@
   gap: 1rem;
   width: 100%;
 }
+/* .left-heading h2{
+  line-height: 1;
+} */
 .right-heading a {
   display: flex; /* লেখা এবং আইকনকে পাশাপাশি রাখে */
   align-items: center; /* লেখা এবং আইকনকে উল্লম্বভাবে (vertically) মাঝখানে আনে */
