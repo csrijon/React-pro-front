@@ -4,7 +4,7 @@ import profileImage from '../assets/Image.png';
 
 const AboutMe = () => {
   return (
-    <section className="about-me-container">
+    <section id='about' className="about-me-container">
       <div className="about-me-content">
         <h2 className="about-me-heading">
           <span className="accent-text">#</span>about-me

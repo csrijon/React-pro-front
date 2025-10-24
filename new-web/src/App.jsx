@@ -9,7 +9,8 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Fixed from './components/Fixed'
 import Allproject from './components/Allproject'
-import { createBrowserRouter, RouterProvider } from "react-router";
+import Scrolltop from './components/Scrolltop'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
@@ -21,17 +22,21 @@ const router = createBrowserRouter([
       <AboutMe />
       <Contact />
       <Footer />
-      <Fixed />
-      <Allproject /></>
+      <Fixed /></>
   },
   {
     path: "/allprojects",
-    element: <><Header/><Allproject/><Contact/><Footer /></>
+    element: <><Header /><Allproject /><Contact /><Footer /><Scrolltop /></>
+  },
+  {
+
   }
 ])
 function App() {
   return (
-    <RouterProvider router={router} />
+    <RouterProvider router={router} >
+      <Scrolltop />
+    </RouterProvider>
   )
 }
 

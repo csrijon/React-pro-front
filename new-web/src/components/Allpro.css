@@ -12,6 +12,9 @@ h1 {
   font-size: 2rem;
   font-weight: 500;
 }
+h1 span{
+  color: #C778DD;
+}
 
 .project-section h2 {
   font-size: 1.8rem;
