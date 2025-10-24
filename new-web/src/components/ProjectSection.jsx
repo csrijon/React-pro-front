@@ -7,6 +7,7 @@ import oneimage from "../assets/oneimage1.jpg"
 import twoimage from "../assets/oneimage2.png"
 import threeimage from "../assets/oneimage3.png"
 import DotGrid from "./DotGrid";
+import { NavLink } from "react-router-dom";
 
 
 const ProjectSection = () => {
@@ -53,7 +54,7 @@ const ProjectSection = () => {
           </div>
           <div className="right-heading">
             {/* <img src={view} alt="" /> */}
-            <a href="#">View <KeyboardDoubleArrowRightIcon /></a>
+            <NavLink to="/allprojects">View <KeyboardDoubleArrowRightIcon /></NavLink>
           </div>
         </div>
         <div className="projects-container">

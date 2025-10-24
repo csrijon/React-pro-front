@@ -7,7 +7,7 @@ const Allproject = () => {
    return (
     <div className="portfolio-container">
       <div className="top-project-section">
-        <h1>/projects</h1>
+        <h1><span>/</span>projects</h1>
       <p>list of my project</p>
       </div>
       <section className="project-section">
