@@ -1,5 +1,7 @@
 import './AboutMe.css';
-import profileImage from '../assets/Image.png';
+// import profileImage from '../assets/Image.png';
+import Aboutme from '../ui/Aboutme';
+import Aboutmeimage from '../ui/Aboutmeimage';
 
 
 const AboutMe = () => {
@@ -9,7 +11,7 @@ const AboutMe = () => {
         <h2 className="about-me-heading">
           <span className="accent-text">#</span>about-me
         </h2>
-        <div className="about-me-text">
+        {/* <div className="about-me-text">
           <p>Hello, I'm Srijon!</p>
           <p>
             I'm a self-taught front-end developer based in Kyiv, Ukraine. I can
@@ -22,16 +24,19 @@ const AboutMe = () => {
             establish their presence online. I always strive to learn about the
             newest technologies and frameworks.
           </p>
-          <button className="read-more-btn">
+          </div> */}
+        {/* <button className="read-more-btn">
             Read more <span className="arrow">→</span>
-          </button>
-        </div>
+          </button> */}
+        <Aboutme />
+
       </div>
-      <div className="about-me-image-section">
+      {/* <div className="about-me-image-section">
         <div className="dots dots-top"></div>
         <img src={profileImage} alt="Elias" className="profile-image" />
         <div className="dots dots-bottom"></div>
-      </div>
+      </div> */}
+      <Aboutmeimage/>
     </section>
   );
 };
