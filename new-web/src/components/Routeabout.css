@@ -1,0 +1,27 @@
+.about-section-route {
+  background-color: #2b2e34;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px;
+  font-family: "Fira Code", monospace;
+}
+
+.section-title-route {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.slash-route{
+  color: #b48ef7; 
+}
+
+.subtitle-route {
+  color: #c9c9c9;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
