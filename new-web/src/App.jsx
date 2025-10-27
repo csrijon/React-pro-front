@@ -11,6 +11,7 @@ import Fixed from './components/Fixed'
 import Allproject from './components/Allproject'
 import Scrolltop from './components/Scrolltop'
 import Routeabout from './components/Routeabout'
+import Funfact from './ui/Funfact'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -24,7 +25,8 @@ const router = createBrowserRouter([
       <Contact />
       <Footer />
       <Fixed />
-      <Routeabout/></>
+      <Routeabout/>
+      <Funfact/></>
   },
   {
     path: "/allprojects",

@@ -1,12 +1,18 @@
 .about-section-route {
-  background-color: #2b2e34;
   color: #fff;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px;
+  padding: 5rem 1rem;
   font-family: "Fira Code", monospace;
+  margin: auto;
+  max-width: 1380px;
+}
+.about-route-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .section-title-route {
@@ -16,7 +22,7 @@
 }
 
 .slash-route{
-  color: #b48ef7; 
+  color: #C778DD; 
 }
 
 .subtitle-route {
