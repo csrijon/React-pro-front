@@ -7,16 +7,16 @@ import './AboutMe.css';
 
 const Routeabout = () => {
     return (
-            <section className="about-section-route">
-                <h1 className="section-title-route">
-                    <span className="slash-route">/</span>about-me
-                </h1>
-                <p className="subtitle-route">Who am i?</p>
-                <div>
-                    <AboutMe />
-            <Aboutmeimage />
-                </div>
-            </section>
+        <section className="about-section-route">
+            <h1 className="section-title-route">
+                <span className="slash-route">/</span>about-me
+            </h1>
+            <p className="subtitle-route">Who am i?</p>
+            <div className="about-route-content"> 
+                <AboutMe />
+                <Aboutmeimage />
+            </div>
+        </section>
     )
 }
 
