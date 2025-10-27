@@ -1,0 +1,9 @@
+.about-fun-text{
+    max-width: 1380px;
+    margin: auto;
+}
+.funfact-content{
+    display: flex;
+    justify-content: space-around;
+    align-items: "center"
+}
