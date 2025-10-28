@@ -29,3 +29,6 @@
     color: #ABB2BF;
     border-radius: 5px;
 }
+.right-section-funfact img {
+    max-width: 300px;
+}

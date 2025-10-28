@@ -26,7 +26,7 @@ const Funfact = () => {
                     }
                 </div>
                 <div className="right-section-funfact">
-                    <img src={aboutlogo} alt="" />
+                    <img src={aboutlogo} alt="about" />
                 </div>
             </div>
         </div>
