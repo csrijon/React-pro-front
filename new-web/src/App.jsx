@@ -24,16 +24,15 @@ const router = createBrowserRouter([
       <AboutMe />
       <Contact />
       <Footer />
-      <Fixed />
-      <Routeabout/>
-      <Funfact/></>
+      <Fixed /></>
   },
   {
     path: "/allprojects",
     element: <><Header /><Allproject /><Contact /><Footer /><Scrolltop /></>
   },
   {
-
+    path: "/aboutme",
+    element: <><Header /><Routeabout /><Funfact/><Contact /><Footer /><Scrolltop /></>
   }
 ])
 function App() {
