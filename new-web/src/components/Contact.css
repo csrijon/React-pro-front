@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4.5rem 1rem;
+  padding: 2rem 1rem;
   gap: 30px;
   background-color: #282c34;
   /* Dark background */
@@ -62,6 +62,7 @@
 
 .contact-description {
   line-height: 1.6;
+  padding: 20px;
 }
 
 /* Right side contact box */

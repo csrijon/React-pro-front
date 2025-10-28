@@ -1,7 +1,7 @@
 .skill-section {
     width: 100%;
     max-width: 1380px;
-    padding: 4.5rem 1rem;
+    padding: 2rem 1rem;
     margin: auto;
 }
 .top-section {
@@ -35,7 +35,7 @@
     justify-content: space-between;
     /* margin-top: 20px; */
     width: 100%;
-    padding: 40px;
+    padding: 20px;
     align-items: center;
     flex-wrap: wrap;
 }
