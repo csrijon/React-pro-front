@@ -1,9 +1,30 @@
-.about-fun-text{
+.about-fun-text {
     max-width: 1380px;
     margin: auto;
 }
-.funfact-content{
+.about-fun-text h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 30px;
+}
+.funfact-content {
     display: flex;
-    justify-content: space-around;
-    align-items: "center"
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.left-section-funfact {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 750px;
+    gap: 5px;
+}
+
+.left-section-funfact p {
+    border: 1px solid #ABB2BF;
+    max-width: max-content;
+    padding: 8px 8px;
+    font-size: 16px;
+    color: #ABB2BF;
 }
