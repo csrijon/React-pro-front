@@ -18,7 +18,7 @@
     display: flex;
     flex-wrap: wrap;
     max-width: 750px;
-    gap: 5px;
+    gap: 10px;
 }
 
 .left-section-funfact p {
@@ -27,4 +27,5 @@
     padding: 8px 8px;
     font-size: 16px;
     color: #ABB2BF;
+    border-radius: 5px;
 }
