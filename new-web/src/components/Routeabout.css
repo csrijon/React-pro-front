@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 5rem 1rem;
+  padding: 5rem 1rem 2rem 1rem;
   font-family: "Fira Code", monospace;
   margin: auto;
   max-width: 1380px;
