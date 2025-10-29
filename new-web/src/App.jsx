@@ -28,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/allprojects",
-    element: <><Header /><Allproject /><Contact /><Footer /><Scrolltop /></>
+    element: <><Header /><Allproject /><Footer /><Scrolltop /></>
   },
   {
     path: "/aboutme",
