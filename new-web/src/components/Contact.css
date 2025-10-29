@@ -38,7 +38,7 @@
   font-size: 32px;
   font-weight: 500;
   color: #ffffff;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: flex;
   align-items: center;
 }
@@ -63,32 +63,25 @@
 .contact-description {
   line-height: 1.6;
 }
-
-/* Right side contact box */
 .contact-box {
   border: 1px solid #abb2bf;
   padding: 16px;
   min-width: 250px;
 }
-
 .contact-box-title {
   color: #ffffff;
   font-weight: 500;
   margin-bottom: 16px;
 }
-
-/* Individual contact items (Discord, Email) */
 .contact-item {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
 }
-
 .contact-item:last-child {
   margin-bottom: 0;
 }
-
 .contact-icon {
   font-size: 24px;
 }
@@ -103,7 +96,7 @@
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
-    text-align: center;
+    align-items: flex-start;
   }
 
   .contact-heading::after {

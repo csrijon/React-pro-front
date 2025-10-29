@@ -1,3 +1,4 @@
+/* --- Existing CSS (unchanged) --- */
 .about-fun-text {
     max-width: 1380px;
     margin: auto;
@@ -5,12 +6,14 @@
     padding: 2rem 1rem;
     position: relative;
 }
+
 .about-fun-text h1 {
     font-size: 2rem;
     font-weight: 600;
     color: #fff;
     margin-bottom: 30px;
 }
+
 .funfact-content {
     display: flex;
     justify-content: space-between;
@@ -32,15 +35,55 @@
     color: #ABB2BF;
     border-radius: 5px;
 }
+
 .right-section-funfact {
-  display: flex;
-  justify-content: center; 
-  align-items: center;     
-  height: 100%;           
-  width: 100%;     
-  padding: 20px;       
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
 }
+
 .right-section-funfact img {
-  max-width: 100%; 
-  height: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- 💡 Responsive Styling --- */
+@media (max-width: 992px) {
+    .funfact-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .left-section-funfact {
+        justify-content: flex-start;
+        max-width: 100%;
+    }
+
+    .right-section-funfact {
+        margin-top: 30px;
+        padding: 10px;
+    }
+
+    .about-fun-text h1 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-fun-text {
+        padding: 1.5rem 0.8rem;
+    }
+
+    .about-fun-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .left-section-funfact p {
+        font-size: 14px;
+        padding: 6px 6px;
+    }
 }
