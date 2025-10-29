@@ -33,6 +33,15 @@
     color: #ABB2BF;
     border-radius: 5px;
 }
+.right-section-funfact {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100%;           
+  width: 100%;     
+  padding: 20px;       
+}
 .right-section-funfact img {
-    max-width: 300px;
+  max-width: 100%; 
+  height: auto;
 }
