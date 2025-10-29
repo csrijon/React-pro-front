@@ -31,7 +31,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/aboutme",
-    element: <><Header /><Routeabout /><Funfact/><Contact /><Footer /><Scrolltop /></>
+    element: <><Header /><Routeabout /><Funfact/><Footer /><Scrolltop /></>
   }
 ])
 function App() {
