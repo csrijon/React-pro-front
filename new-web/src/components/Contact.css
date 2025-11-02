@@ -96,7 +96,10 @@
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+  }
+  .contact-description{
+    text-align: center;
   }
 
   .contact-heading::after {
