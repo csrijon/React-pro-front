@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Skill.css"
-import skills from "../assets/skills.webp"
+// import skills from "../assets/skills.webp"
 import SkillsSection from './SkillsSection'
 
 const Skillsection = () => {
@@ -14,7 +14,7 @@ const Skillsection = () => {
             {/* </div> */}
             <div className="middle-skill">
                 <div className="left-skill">
-                    <img src={skills} alt="" />
+                    {/* <img src={skills} alt="" /> */}
                 </div>
                 <SkillsSection />
             </div>
