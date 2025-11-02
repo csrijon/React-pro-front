@@ -3,7 +3,7 @@ import './Footer.css';
 // Importing icons from react-icons
 import { FaGithub, FaFigma, FaDiscord } from 'react-icons/fa';
 // Using a generic icon for the logo as a placeholder
-import logo from "../assets/Logo.png"
+import logo from "../assets/Logo.svg"
 
 const Footer = () => {
   return (
