@@ -1,6 +1,6 @@
 import React from "react";
 import "./HeroSection.css";
-import personImage from "../assets/Group 46.png"
+import personImage from "../assets/Group 46.webp"
 import StatusBar from "./StatusBar";
 
 const HeroSection = () => {

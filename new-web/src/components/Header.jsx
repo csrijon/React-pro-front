@@ -3,6 +3,7 @@ import logo from "../assets/Logo.svg"
 import '../components/Header.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,9 @@ const Header = () => {
 
       {/* Desktop Navigation */}
       <ul className="nav-links desktop-nav">
-        <li><span>#</span><a href="">home</a></li>
-        <li><span>#</span><a href="">works</a></li>
-        <li><span>#</span><a href="#about">about-me</a></li>
+        <li><span>#</span><NavLink to="/">home</NavLink></li>
+        <li><span>#</span><NavLink to= "/allprojects">works</NavLink></li>
+        <li><span>#</span><NavLink to="/aboutme">about-me</NavLink></li>
         <li><span>#</span><a href="">contact</a></li>
         <li><span>#</span><a href="">chat-me</a></li>
       </ul>
@@ -30,9 +31,9 @@ const Header = () => {
       {/* Mobile Navigation */}
       <nav className={`mobile-nav ${isOpen ? 'is-open' : 'is-off'}`}>
         <ul className="nav-links">
-          <li><span>#</span><a  href="">home</a></li>
-          <li><span>#</span><a href="">works</a></li>
-          <li><span>#</span><a onClick={()=>setIsOpen(false)}  href="#about">about-me</a></li>
+          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/">home</ NavLink></li>
+          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/allprojects">works</NavLink></li>
+          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/aboutme">about-me</NavLink></li>
           <li><span>#</span><a href="">contact</a></li>
           <li><span>#</span><a href="">chat-me</a></li>
         </ul>
