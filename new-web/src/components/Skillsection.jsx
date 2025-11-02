@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Skill.css"
-import skills from "../assets/skills.png"
+import skills from "../assets/skills.webp"
 import SkillsSection from './SkillsSection'
 
 const Skillsection = () => {
