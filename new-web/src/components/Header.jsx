@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from "../assets/Logo.png";
+import logo from "../assets/Logo.svg"
 import '../components/Header.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
