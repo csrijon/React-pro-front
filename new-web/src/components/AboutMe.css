@@ -51,6 +51,7 @@
 .about-me-text p {
   line-height: 1.6;
   margin-bottom: 20px;
+   text-align: left;
 }
 
 /* 'Read more' button styling */
