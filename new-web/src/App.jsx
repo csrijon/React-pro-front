@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       <ProjectSection />
       <Skillsection />
       <AboutMe />
-      <Contact />
+      <Contact icon="#" />
       <Footer />
       <Fixed /></>
   },
@@ -31,7 +31,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/aboutme",
-    element: <><Header /><Routeabout /><Funfact/><Footer /><Scrolltop /></>
+    element: <><Header /><Routeabout /><Funfact /><Footer /><Scrolltop /></>
+  },
+  {
+    path: "/contact",
+    element: <><Header /><Contact icon="/" /><Footer /><Scrolltop /></>
   }
 ])
 function App() {

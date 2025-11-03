@@ -4,7 +4,7 @@ import './Fanfact.css'
 const Funfact = () => {
 
     const data = [
-        { fact: "I love hiking and exploring new trail" },
+        { fact: "I love hiking and exploring new" },
         { fact: "I can code for hours if there’s" },
         { fact: "I once built a website entirel" },
         { fact: "My favorite debugging tool is a" },
