@@ -5,12 +5,12 @@ import { FaDiscord } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import DotGrid from './DotGrid';
 
-const Contact = () => {
+const Contact = (props) => {
   return (
     <section className="contact-container">
       <div className="contact-content">
         <h2 className="contact-heading">
-          <span className="accent-text">#</span>contacts
+          <span className="accent-text">{props.icon}</span>contacts
         </h2>
         <p className="contact-description">
           I'm interested in freelance opportunities. However, if you have other
