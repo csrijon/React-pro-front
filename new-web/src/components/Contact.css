@@ -101,6 +101,9 @@
   .contact-description{
     text-align: left;
   }
+  .contact-box {
+    margin-right: auto;
+  }
 
   .contact-heading::after {
     display: none;
