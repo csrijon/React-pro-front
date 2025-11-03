@@ -123,9 +123,38 @@ h1 span{
 
 .project-buttons a:hover {
   background-color: #333;
+}@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    justify-items: center;
+  }
+
+  .project-cards {
+    width: 90%;
+    max-width: 340px;
+  }
 }
-@media (max-width: 768px){
-  .projects-grid  {
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
     place-items: center;
+  }
+
+  .project-cards {
+    width: 90%;
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
+
+  .project-cards {
+    width: 100%;
+    max-width: 320px;
   }
 }
