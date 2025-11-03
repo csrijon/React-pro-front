@@ -99,7 +99,7 @@
     align-items: center;
   }
   .contact-description{
-    text-align: center;
+    text-align: left;
   }
 
   .contact-heading::after {

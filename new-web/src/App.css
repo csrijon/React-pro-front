@@ -18,11 +18,3 @@ body {
   overflow-x: hidden;
   font-family: "Fira Code", monospace;
 }
-
-/* --- Responsive Adjustments for Mobile --- */
-@media (max-width: 768px) {
-  #root {
-    padding: 1rem 1rem;
-    /* Less padding on smaller screens for more space */
-  }
-}
