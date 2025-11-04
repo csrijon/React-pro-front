@@ -80,7 +80,7 @@
 .about-me-image-section {
   position: relative;
   z-index: 1;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .profile-image {
