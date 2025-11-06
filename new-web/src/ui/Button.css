@@ -1,0 +1,32 @@
+.custom-btn {
+    display: flex;
+    padding: 10px 18px;
+    border-radius: 22px;
+    border: 1px solid #C778DD;
+    outline: none;
+    cursor: pointer;
+    margin: auto;
+    background: #282C33;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08),
+                0 3px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.custom-btn:hover {
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12),
+                0 5px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+.custom-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+
+.custom-btn a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "fira code", monospace;
+}

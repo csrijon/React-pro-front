@@ -6,7 +6,11 @@
     display: flex;
     gap: 8px;
 }
-.media-container h1{
+.media-container h2{
     color: #ffffff;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
 }
