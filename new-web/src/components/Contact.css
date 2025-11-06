@@ -51,14 +51,14 @@
 }
 
 /* Purple line after the heading */
-.contact-heading::after {
+/* .contact-heading::after {
   content: '';
   height: 1px;
   flex-grow: 1;
   background-color: #c778dd;
   margin-left: 16px;
   min-width: 150px;
-}
+} */
 
 .contact-description {
   line-height: 1.6;
