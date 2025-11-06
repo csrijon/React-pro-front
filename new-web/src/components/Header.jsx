@@ -25,7 +25,7 @@ const Header = () => {
         <li><span>#</span><NavLink to="/allprojects">works</NavLink></li>
         <li><span>#</span><NavLink to="/aboutme">about-me</NavLink></li>
         <li><span>#</span><NavLink to="/contact">contact</NavLink></li>
-        <li><span>#</span><a href="">chat-me</a></li>
+        <li><span>#</span><NavLink to="/chatme">chat-me</NavLink></li>
       </ul>
 
       {/* Mobile Navigation */}
@@ -35,7 +35,7 @@ const Header = () => {
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/allprojects">works</NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/aboutme">about-me</NavLink></li>
           <li><span>#</span><NavLink  onClick={()=>setIsOpen(false)} to="/contact">contact</NavLink></li>
-          <li><span>#</span><a href="">chat-me</a></li>
+          <li><span>#</span><NavLink onClick={()=>setIsOpen(false)} to="/chatme">chat-me</NavLink></li>
         </ul>
       </nav>
 
