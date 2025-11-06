@@ -34,15 +34,15 @@
 .hero-btn {
   margin-top: 1.5rem;
   background: transparent;
-  border: 1px solid #fff;
+  border: 1px solid #C778DD;
   padding: 0.5rem 1rem;
   color: #fff;
   cursor: pointer;
+  border-radius: 5px;
   transition: background 0.3s ease;
 }
 .hero-btn:hover {
-  background: #a78bfa;
-  border-color: #a78bfa;
+  background: #333;
 }
 .status {
   margin-top: 2rem;
@@ -58,7 +58,7 @@
 .status-dot {
   width: 10px;
   height: 10px;
-  background-color: #a78bfa;
+  background-color: #C778DD;
   display: inline-block;
 }
 .hero-right {
