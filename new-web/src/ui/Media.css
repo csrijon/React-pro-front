@@ -1,9 +1,12 @@
 .media-container{
     display: flex;
     flex-direction: column;
-    padding: 2rem 1rem;
 }
 .media-item{
     display: flex;
     gap: 8px;
+}
+.media-container h1{
+    color: #ffffff;
+    margin-bottom: 20px;
 }
