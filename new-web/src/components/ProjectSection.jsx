@@ -7,7 +7,8 @@ import oneimage from "../assets/oneimage1.jpg"
 import twoimage from "../assets/oneimage2.png"
 import threeimage from "../assets/oneimage3.png"
 import DotGrid from "./DotGrid";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
+import Button from  "../ui/Button";
 
 
 const ProjectSection = () => {
@@ -52,10 +53,10 @@ const ProjectSection = () => {
           <span className="accent-text">#</span>projects
         </h2>
           </div>
-          <div className="right-heading">
-            {/* <img src={view} alt="" /> */}
+          {/* <div className="right-heading">
+            
             <NavLink to="/allprojects">View <KeyboardDoubleArrowRightIcon /></NavLink>
-          </div>
+          </div> */}
         </div>
         <div className="projects-container">
           {data.map((project, i) => (
@@ -80,6 +81,7 @@ const ProjectSection = () => {
         </div>
         <div className="dot-box"><DotGrid length={16} /></div>
       </section>
+        <Button/>
     </>
   )
 }

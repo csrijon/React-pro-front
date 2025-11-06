@@ -11,9 +11,11 @@ import Allproject from './components/Allproject'
 import Scrolltop from './components/Scrolltop'
 import Routeabout from './components/Routeabout'
 import Funfact from './ui/Funfact'
+import Button from "./ui/Button"
 // import Media from './ui/Media'
 import ContactRoutepage from './pages/ContactRoutepage'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import Button from '@mui/material/Button'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/aboutme",
-    element: <><Header /><Routeabout /><Funfact /><Footer /><Scrolltop /></>
+    element: <><Header /><Routeabout /><Funfact /><Footer /><Button/><Scrolltop /></>
   },
   {
     path: "/contact",
