@@ -11,7 +11,8 @@ import Allproject from './components/Allproject'
 import Scrolltop from './components/Scrolltop'
 import Routeabout from './components/Routeabout'
 import Funfact from './ui/Funfact'
-import Media from './ui/Media'
+// import Media from './ui/Media'
+import ContactRoutepage from './pages/ContactRoutepage'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/contact",
-    element: <><Header /><Contact icon="/" /><Media/><Footer /><Scrolltop /></>
+    element: <><Header /><ContactRoutepage/><Footer /><Scrolltop /></>
   }
 ])
 function App() {

@@ -4,19 +4,12 @@ import './Contact.css';
 import { FaDiscord } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import DotGrid from './DotGrid';
+import Contacttop from '../ui/Contacttop';
 
-const Contact = (props) => {
+const Contact = () => {
   return (
     <section className="contact-container">
-      <div className="contact-content">
-        <h2 className="contact-heading">
-          <span className="accent-text">{props.icon}</span>contacts
-        </h2>
-        <p className="contact-description">
-          I'm interested in freelance opportunities. However, if you have other
-          requests or questions, don't hesitate to contact me.
-        </p>
-      </div>
+      <Contacttop icon="#" />
       <div className="contact-box">
         <p className="contact-box-title">Message me here</p>
         <div className="contact-item">
