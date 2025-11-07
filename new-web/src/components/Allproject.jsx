@@ -11,7 +11,7 @@ const Allproject = () => {
       <p>list of my project</p>
       </div>
       <section className="project-section">
-        <h2 id="complete-apps">complete-apps</h2>
+        <h2 id="complete-apps">Full Stack-Projects</h2>
         <div className="projects-grid">
           {completeApps.map((project) => (
             <ProjectCard key={project.title} project={project} />
@@ -20,7 +20,7 @@ const Allproject = () => {
       </section>
 
       <section className="project-section">
-        <h2 id="small-projects">small-projects</h2>
+        <h2 id="small-projects">Frontend-projects</h2>
         <div className="projects-grid">
           {smallProjects.map((project) => (
             <ProjectCard key={project.title} project={project} />
