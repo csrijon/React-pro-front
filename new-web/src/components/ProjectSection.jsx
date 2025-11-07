@@ -3,9 +3,10 @@ import React from "react";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "./Project.css"
 import "./Projects.css"
-import oneimage from "../assets/oneimage1.jpg"
-import twoimage from "../assets/oneimage2.png"
-import threeimage from "../assets/oneimage3.png"
+// import oneimage from "../assets/oneimage1.jpg"
+import habitiimage from "../assets/habittracker.png"
+import Ytfetch from "../assets/yt fetch.png"
+import onlinecom from "../assets/onliencompiler.png"
 import DotGrid from "./DotGrid";
 // import { NavLink } from "react-router-dom";
 import Button from  "../ui/Button";
@@ -14,9 +15,9 @@ import Button from  "../ui/Button";
 const ProjectSection = () => {
   const data = [
     {
-      image: oneimage,
-      tags: "HTML SCSS Python Flask",
-      title: "ChertNodes",
+      image: habitiimage,
+      tags: "HTML CSS Ejs Express Js Mongodb",
+      title: "Habit Tracker",
       description: "Minecraft servers hosting",
       buttons: [
         { label: "Live ↔", link: "#", type: "primary" },
@@ -24,9 +25,9 @@ const ProjectSection = () => {
       ],
     },
     {
-      image: twoimage,
-      tags: "React Express Discord.js Node.js",
-      title: "ProtectX",
+      image:Ytfetch ,
+      tags: "React Express js Node.js",
+      title: "Youtube Video and Audio Downloader",
       description: "Discord anti-crash bot",
       buttons: [
         { label: "Live ↔", link: "#", type: "primary" },
@@ -34,9 +35,9 @@ const ProjectSection = () => {
       ],
     },
     {
-      image: threeimage,
+      image: onlinecom,
       tags: "CSS Express Node.js",
-      title: "Kahoot Answers Viewer",
+      title: "Online Compiler",
       description: "Get answers to your kahoot quiz",
       buttons: [
         { label: "Live ↔", link: "#", type: "primary" },

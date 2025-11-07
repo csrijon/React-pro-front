@@ -1,6 +1,8 @@
+import habitimage from "../assets/habittracker.png"
+
 export const completeApps = [
   {
-    image: 'https://i.imgur.com/uR1tIZv.png', // Placeholder for ChertNodes
+    image: habitimage, // Placeholder for ChertNodes
     tags: ['HTML', 'SCSS', 'Python', 'Flask'],
     title: 'ChertNodes',
     description: 'Minecraft Servers hosting',
