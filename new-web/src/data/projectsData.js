@@ -31,7 +31,7 @@ export const completeApps = [
     buttons: [{ text: 'cached', link: '#' }],
   },
   {
-    image: 'https://i.imgur.com/o25if8z.png', // Placeholder for ProtectX
+    image: 'https://i.imgur.com/o25if8z.png', 
     tags: ['React', 'Express', 'Discord.js', 'Node.js'],
     title: 'ProtectX',
     description: 'Discord anti-crash bot',

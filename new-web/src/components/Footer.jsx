@@ -16,7 +16,7 @@ const Footer = () => {
               <img src= {logo} alt="" />
               <span className="footer-name">Srijon</span>
               <a href="mailto:elias@elias-dev.ml" className="footer-email">
-                elias@elias-dev.ml
+                csrijon92@gmal.com
               </a>
             </div>
             <p className="footer-description">
@@ -41,7 +41,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© Copyright 2022. Made by Srijon</p>
+        <p>© Copyright 2025. Made by Srijon</p>
       </div>
     </footer>
   );
