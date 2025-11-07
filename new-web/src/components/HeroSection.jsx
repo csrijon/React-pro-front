@@ -8,11 +8,11 @@ const HeroSection = () => {
         <section className="hero">
             <div className="hero-left">
                 <h1>
-                    Srijon is a <span className="purple">web designer</span> and{" "}
-                    <span className="purple">front-end developer</span>
+                    Srijon is a <span className="purple">Full Stack Web Developer</span> and{" "}
+                    <span className="purple">App Developer</span>
                 </h1>
                 <p className="hero-subtext">
-                    He crafts responsive websites where technologies meet creativity
+                    He crafts responsive websites and builds intuitive mobile apps where technology meets creativity.
                 </p>
                 <button className="hero-btn">Contact me !!</button>
 

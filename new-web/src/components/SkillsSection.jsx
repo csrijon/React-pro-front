@@ -3,11 +3,11 @@ import React from "react";
 import "./SkillsSection.css";
 
 const skills = {
-  Languages: ["TypeScript", "Lua", "Python", "JavaScript"],
-  Databases: ["SQLite", "PostgreSQL", "Mongo"],
-  Tools: ["VSCode", "Neovim", "Linux", "Figma", "XFCE", "Arch", "Git", "Font Awesome"],
-  Other: ["HTML", "CSS", "EJS", "SCSS", "REST", "Jinja"],
-  Frameworks: ["React", "Vue", "Disnake", "Discord.js", "Flask", "Express.js"],
+  Languages: ["C Basic", "Python Basic", "JavaScript"],
+  Databases: ["Mongodb"],
+  Tools: ["VSCode","Linux", "Figma","Canva","Git", "Font Awesome"],
+  Other: ["HTML", "CSS", "EJS", "REST", "Bootstrap", "Tailwind CSS"],
+  Frameworks: ["React Js","React Native", "Express.js"],
 };
 
 const SkillsSection = () => {
