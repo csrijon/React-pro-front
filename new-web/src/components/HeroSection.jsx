@@ -2,26 +2,48 @@ import React from "react";
 import "./HeroSection.css";
 import personImage from "../assets/Group 46.webp"
 import StatusBar from "./StatusBar";
+import { motion } from "framer-motion";
 
 const HeroSection = () => {
     return (
         <section className="hero">
             <div className="hero-left">
-                <h1>
+                <motion.h1 initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} >
                     Srijon is a <span className="purple">Full Stack Web Developer</span> and{" "}
                     <span className="purple">App Developer</span>
-                </h1>
-                <p className="hero-subtext">
+                </motion.h1>
+                <motion.p
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 0.4 }}
+                    className="hero-subtext">
                     He crafts responsive websites and builds intuitive mobile apps where technology meets creativity.
-                </p>
-                <button className="hero-btn">Contact me !!</button>
+                </motion.p>
+                <motion.button
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 0.8 }}
+                    className="hero-btn">Contact me !!</motion.button>
 
-                <div className="status">
-                    <span className="status-dot"></span>
-                    <span>
+                <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0, backgroundColor: "#1f2227" }}
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
+                    className="status">
+                    <motion.span
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, ease: "easeInOut", delay: 1.3 }}
+                        className="status-dot">
+                    </motion.span>
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, ease: "easeInOut", delay: 1.5 }}
+                    >
                         Currently working on <strong>Portfolio</strong>
-                    </span>
-                </div>
+                    </motion.span>
+                </motion.div>
             </div>
 
             <div className="hero-right">
