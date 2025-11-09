@@ -23,6 +23,7 @@ const HeroSection = () => {
                     initial={{ opacity: 0, scaleX: 0 }}
                     animate={{ opacity: 1, scaleX: 1 }}
                     transition={{ duration: 0.5, ease: "easeInOut", delay: 0.8 }}
+                    whileHover={{scale:1.1}}
                     className="hero-btn">Contact me !!</motion.button>
 
                 <motion.div
