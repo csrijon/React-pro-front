@@ -59,7 +59,7 @@ export const completeApps = [
 
 export const smallProjects = [
     {
-        image: oto, // No image for this one
+        image: oto, 
         tags: ['Discord.js', 'TS', 'JS'],
         title: 'Bot boilerplate',
         description: 'Start creating scalable discord bots with typescript in seconds',
