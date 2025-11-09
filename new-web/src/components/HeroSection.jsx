@@ -48,7 +48,12 @@ const HeroSection = () => {
 
             <div className="hero-right">
                 {/* <img src={Image} alt="person" /> */}
-                <img src={personImage} alt="" />
+                <motion.img 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1,filter: "drop-shadow(0px 0px 10px black)" }}
+
+                    transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
+                src={personImage} alt="" />
                 <StatusBar />
             </div>
         </section>
