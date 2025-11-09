@@ -10,6 +10,7 @@ import onlinecom from "../assets/onliencompiler.png"
 import DotGrid from "./DotGrid";
 // import { NavLink } from "react-router-dom";
 import Button from  "../ui/Button";
+import {motion} from "framer-motion"
 
 
 const ProjectSection = () => {
@@ -59,7 +60,7 @@ const ProjectSection = () => {
             <NavLink to="/allprojects">View <KeyboardDoubleArrowRightIcon /></NavLink>
           </div> */}
         </div>
-        <div className="projects-container">
+        <motion.div   className="projects-container">
           {data.map((project, i) => (
             <div key={i} className="project-card">
               <div className="card-top">
@@ -79,7 +80,7 @@ const ProjectSection = () => {
               </div>
             </div>
           ))}
-        </div>
+        </motion.div>
         <div className="dot-box"><DotGrid length={16} /></div>
       </section>
         <Button/>
