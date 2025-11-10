@@ -9,8 +9,8 @@ import Ytfetch from "../assets/yt fetch.png"
 import onlinecom from "../assets/onliencompiler.png"
 import DotGrid from "./DotGrid";
 // import { NavLink } from "react-router-dom";
-import Button from  "../ui/Button";
-import {motion} from "framer-motion"
+import Button from "../ui/Button";
+import { motion } from "framer-motion"
 
 
 const ProjectSection = () => {
@@ -26,7 +26,7 @@ const ProjectSection = () => {
       ],
     },
     {
-      image:Ytfetch ,
+      image: Ytfetch,
       tags: "React Express js Node.js",
       title: "Youtube Video and Audio Downloader",
       description: "Discord anti-crash bot",
@@ -51,16 +51,12 @@ const ProjectSection = () => {
       <section className="projet-section" >
         <div className="projet-heading">
           <div className="left-heading">
-             <h2 className="about-me-heading">
-          <span className="accent-text">#</span>projects
-        </h2>
+            <h2 className="about-me-heading">
+              <span className="accent-text">#</span>projects
+            </h2>
           </div>
-          {/* <div className="right-heading">
-            
-            <NavLink to="/allprojects">View <KeyboardDoubleArrowRightIcon /></NavLink>
-          </div> */}
         </div>
-        <motion.div   className="projects-container">
+        <motion.div className="projects-container">
           {data.map((project, i) => (
             <div key={i} className="project-card">
               <div className="card-top">
@@ -83,7 +79,7 @@ const ProjectSection = () => {
         </motion.div>
         <div className="dot-box"><DotGrid length={16} /></div>
       </section>
-        <Button/>
+      <Button />
     </>
   )
 }
