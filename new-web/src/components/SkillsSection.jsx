@@ -1,6 +1,7 @@
 // SkillsSection.jsx
 import React from "react";
 import "./SkillsSection.css";
+import { motion } from "framer-motion";
 
 const skills = {
   Languages: ["C Basic", "Python Basic", "JavaScript"],
@@ -13,11 +14,23 @@ const skills = {
 const SkillsSection = () => {
   return (
     <div className="skills-container">
-      {Object.entries(skills).map(([category, items]) => (
-        <div className="skills-box" key={category}>
-          <h3>{category}</h3>
-          <p>{items.join(" ")}</p>
-        </div>
+      {Object.entries(skills).map(([category, items],i) => (
+        <motion.div 
+        initial={{ opacity: 0, y:50}}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.3, ease: "easeInOut" }}
+        className="skills-box" key={category}>
+          <motion.h3 
+          initial ={{ opacity: 0}}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: i *0.5, ease: "easeInOut" }}
+          >{category}</motion.h3>
+          <motion.p
+            initial ={{ opacity: 0}}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: i *0.5, ease: "easeInOut" }}
+          >{items.join(" ")}</motion.p>
+        </motion.div>
       ))}
     </div>
   );

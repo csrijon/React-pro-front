@@ -40,7 +40,7 @@
 .about-me-heading::after {
   content: '';
   display: block;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   height: 1px;
   background-color: #c778dd;
   margin-left: 16px;

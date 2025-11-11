@@ -17,6 +17,7 @@
   justify-content: center;
   gap: 1.5rem; /* Provides space when stacked */
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .left-heading {
