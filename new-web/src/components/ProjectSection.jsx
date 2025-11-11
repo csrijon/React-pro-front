@@ -51,14 +51,27 @@ const ProjectSection = () => {
       <section className="projet-section" >
         <div className="projet-heading">
           <div className="left-heading">
-            <h2 className="about-me-heading">
+            <motion.h2
+              initial={{ opacity: 0, x: -100, scale: 0 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1.1 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="about-me-heading">
               <span className="accent-text">#</span>projects
-            </h2>
+            </motion.h2>
           </div>
         </div>
-        <motion.div className="projects-container">
+        <div className="projects-container">
           {data.map((project, i) => (
-            <div key={i} className="project-card">
+            <motion.div key={i}
+              style={{ boxShadow: "none" }}
+              initial={{ opacity: 0, scale: 0 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: i * 0.3, zoom: "zoomOut" }}
+              whileHover={{
+                scale: 1.2, y: -10, boxShadow: "0px 15px 35px rgba(199, 120, 221, 0.45)"
+                , transition: { duration: 0.3, delay: 0 }
+              }}
+              className="project-card">
               <div className="card-top">
                 <img src={project.image} alt={project.title} />
                 <div className="tags">{project.tags}</div>
@@ -74,9 +87,9 @@ const ProjectSection = () => {
                   </a>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
         <div className="dot-box"><DotGrid length={16} /></div>
       </section>
       <Button />

@@ -2,15 +2,20 @@ import './AboutMe.css';
 // import profileImage from '../assets/Image.png';
 import Aboutme from '../ui/Aboutme';
 import Aboutmeimage from '../ui/Aboutmeimage';
+import { motion } from 'framer-motion';
 
 
 const AboutMe = () => {
   return (
     <section id='about' className="about-me-container">
       <div className="about-me-content">
-        <h2 className="about-me-heading">
+        <motion.h2
+          initial={{ opacity: 0, x: -100, scale: 0 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1.1 }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+          className="about-me-heading">
           <span className="accent-text">#</span>about-me
-        </h2>
+        </motion.h2>
         {/* <div className="about-me-text">
           <p>Hello, I'm Srijon!</p>
           <p>
@@ -36,7 +41,7 @@ const AboutMe = () => {
         <img src={profileImage} alt="Elias" className="profile-image" />
         <div className="dots dots-bottom"></div>
       </div> */}
-      <Aboutmeimage/>
+      <Aboutmeimage />
     </section>
   );
 };

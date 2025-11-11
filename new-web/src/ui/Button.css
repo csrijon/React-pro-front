@@ -5,7 +5,7 @@
     border: 1px solid #C778DD;
     outline: none;
     cursor: pointer;
-    margin: auto;
+    margin: 10px auto 0;
     background: #282C33;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08),
                 0 3px 8px rgba(0, 0, 0, 0.05);
@@ -14,7 +14,7 @@
 .custom-btn:hover {
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12),
                 0 5px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    transform: translateY(2px);
 }
 .custom-btn:active {
     transform: translateY(0);
