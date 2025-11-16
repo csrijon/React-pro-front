@@ -2,21 +2,39 @@ import profileImage from "../assets/Image.png"
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion"
 const Aboutmeimage = () => {
+
+    const aboutitem = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.16,
+            }
+        }
+    }
+    const item = {
+        hidden: { opacity: 0, y: 50 },
+        visible: {
+            opacity: 1, y: 0,
+
+            transition: { duration: 0.6, ease: "easeOut" }
+        },
+    }
     return (
-        <div className="about-me-image-section">
+        <motion.div
+            variants={aboutitem}
+            initial="hidden"
+            whileInView="visible"
+            className="about-me-image-section">
             <div className="dots dots-top"></div>
             <motion.img
-                initial={{ opacity: 0, filter: "blur(10px)", scale: 0 }}
-                animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
-                whileHover={{ scale: 2 }}
-                transition={{ duration: 0.5 }}
+                variants={item}
                 src={profileImage}
                 alt="srijon"
                 className="profile-image"
             />
 
             <div className="dots dots-bottom"></div>
-        </div>
+        </motion.div>
     )
 }
 
