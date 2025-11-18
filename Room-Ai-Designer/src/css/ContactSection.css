@@ -1,0 +1,163 @@
+/* Wrapper */
+.contact-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  background: #f3f3f3;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+/* Main container */
+.contact-container {
+  width: 90%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Heading */
+.contact-header h2 {
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+}
+
+.contact-header p {
+  color: #666;
+  margin-top: 5px;
+}
+
+/* Main content layout */
+.contact-content {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Left side */
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Info cards */
+.info-card {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border: 1px solid #e5e5e5;
+}
+
+.info-card .icon {
+  color: #444;
+}
+
+.info-card h3 {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #444;
+}
+
+.info-number {
+  font-size: 18px;
+  margin-top: 8px;
+  color: #444;
+}
+
+.info-small {
+  font-size: 14px;
+  margin-top: 6px;
+  color: #777;
+}
+
+/* Map box */
+.map-box {
+  background: #fff;
+  padding: 18px;
+  border-radius: 14px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+}
+
+.map-box img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.map-box h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #444;
+}
+
+.map-text {
+  font-size: 14px;
+  color: #777;
+  margin-top: 6px;
+}
+
+/* Right side form */
+.right-side {
+  flex: 1;
+  padding: 40px;
+  border-radius: 14px;
+}
+
+.form-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Inputs */
+.right-side input,
+.right-side textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  outline: none;
+  background-color: #ffffff;
+}
+
+.right-side input:focus,
+.right-side textarea:focus {
+  border-color: #00b8b0;
+}
+
+/* Button */
+.btn-send {
+  background: #00b8b0;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  width: 160px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-send:hover {
+  background: #009990;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-content {
+    flex-direction: column;
+  }
+}

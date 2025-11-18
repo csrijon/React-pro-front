@@ -1,19 +1,24 @@
 
 import './App.css'
-import "./components/Header.jsx"
-import Header from './components/Header.jsx'
-import Herosection from './components/Herosection.jsx'
-import HeroCardSction from './components/HeroCradSction.jsx'
-import Footer from './components/Footer.jsx'
+import Homepage from './pages/Homepage'
+import Supportpage from './pages/Supportpage';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 function App() {
 
+  const router = createBrowserRouter([
+    {path:"/",
+      element:<Homepage/>
+    },
+    {
+      path:"/contact",
+      element:<Supportpage/>
+    }
+  ])
+
   return (
     <>
-      <Header/>
-      <Herosection/>
-      <HeroCardSction/>
-      <Footer/>
+    <RouterProvider router={router}/>
     </>
   )
 }
