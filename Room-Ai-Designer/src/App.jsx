@@ -2,6 +2,7 @@
 import './App.css'
 import Homepage from './pages/Homepage'
 import Supportpage from './pages/Supportpage';
+import Subcriptionpage from './pages/Subcriptionpage';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 function App() {
@@ -13,6 +14,10 @@ function App() {
     {
       path:"/contact",
       element:<Supportpage/>
+    },
+    {
+      path:"/subscription",
+      element:<Subcriptionpage/>
     }
   ])
 
