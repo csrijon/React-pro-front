@@ -1,0 +1,70 @@
+.header {
+    background-color: white;
+    width: 100%;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-Header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+}
+
+.header-title span {
+    color: #666;
+    font-weight: 400;
+}
+.header-nav{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
+
+.header-nav li {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+.header-nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    transition: 0.2s;
+}
+.header-nav ul li a:hover {
+  color: #0c9985;
+}
+.add-btn {
+  background-color: #0c9985;
+  color: white;
+  padding: 10px 18px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
