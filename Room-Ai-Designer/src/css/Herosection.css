@@ -14,21 +14,39 @@
     justify-content: space-between;
     gap: 35px;
 }
-.hero-left{
+
+.hero-left {
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
+
 .hero-left h1 {
     font-size: 48px;
     margin: 0;
 }
+
 .hero-left p {
     font-size: 18px;
     line-height: 1.6;
     max-width: 600px;
 }
-.hero-right img {
-    border-radius: 10px;
-    filter: drop-shadow(10px 5px 10px black);
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.hero-image {
+  width: 420px;
+  max-width: 100%;
+  border-radius: 12px;
+  filter: drop-shadow(10px 5px 10px black);
+}
+
+@media (max-width:900px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
 }
