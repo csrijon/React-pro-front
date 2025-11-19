@@ -1,7 +1,6 @@
 .section-Space {
   width: 100%;
   min-height: 100vh;
-  /* background: #f5f7fa; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +13,6 @@
   max-width: 1380px;
   background: #ffffff;
   border-radius: 16px;
-  /* box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); */
   padding: 30px 40px;
 }
 
@@ -58,9 +56,6 @@
   color: #333;
   margin-bottom: 10px;
 }
-
-
-/* Input Rows */
 .right div {
   display: flex;
   flex-direction: column;
