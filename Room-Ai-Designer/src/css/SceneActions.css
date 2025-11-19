@@ -1,0 +1,28 @@
+.scene-actions {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin: 14px 0;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: #424242;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 4px;
+  transition: 0.2s ease;
+}
+
+.action-btn:hover {
+  opacity: 0.6;
+}
+
+.action-icon {
+  font-size: 18px !important;
+  color: #424242;
+}
