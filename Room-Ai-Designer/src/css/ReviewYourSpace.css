@@ -1,0 +1,127 @@
+.section-Space {
+  width: 100%;
+  min-height: 100vh;
+  /* background: #f5f7fa; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  color: black;
+}
+
+.Space-Container {
+  width: 90%;
+  max-width: 1380px;
+  background: #ffffff;
+  border-radius: 16px;
+  /* box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08); */
+  padding: 30px 40px;
+}
+
+.heading-container h3 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.middle-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.left {
+  width: 50%;
+}
+
+.left img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  background: #fafafa;
+}
+
+.right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: auto;
+}
+
+.right h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+
+/* Input Rows */
+.right div {
+  display: flex;
+  flex-direction: column;
+}
+
+.right p {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+.right input {
+  padding: 12px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s ease;
+  background: #fff;
+  color: black;
+}
+.btn-button {
+  background: linear-gradient(90deg, #1e90ff, #007bff);
+  color: white;
+  padding: 20px 22px;     /* smaller padding */
+  border: none;
+  border-radius: 20px;    /* smaller roundness */
+  cursor: pointer;
+  font-size: 14px;        /* smaller text */
+  font-weight: 500;
+
+  display: inline-block;  /* button stays small */
+  width: auto;            /* no full width */
+  margin-top: 15px;
+
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.25);
+}
+
+.btn-button:hover {
+  background: linear-gradient(90deg, #007bff, #0064d3);
+  transform: translateY(-2px);
+}
+
+.btn-button:active {
+  transform: scale(0.97);
+}
+
+.right input:focus {
+  border-color: #4d9bff;
+  box-shadow: 0 0 0 3px rgba(77, 155, 255, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .middle-container {
+    flex-direction: column;
+  }
+
+  .left,
+  .right {
+    width: 100%;
+  }
+}

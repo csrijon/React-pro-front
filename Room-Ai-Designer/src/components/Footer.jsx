@@ -14,7 +14,7 @@ const Footer = () => {
           <img src="/footerlogo.png" alt="RoomAI Designer" className="footer-logo" />
           <div>
             <h2 className="footer-title">RoomAI Designer</h2>
-            <p className="footer-sub">Powered by Trikuta Technology</p>
+            <p className="footer-sub">Powered by Hp Edit</p>
           </div>
         </div>
 
