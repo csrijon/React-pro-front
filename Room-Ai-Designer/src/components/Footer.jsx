@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="footer-middle">
           <p>Developed by</p>
           <p className="company">
-            Digidil Logic Soft Consultancy Pvt. Ltd.
+            HP EDIT Enterprise
           </p>
         </div>
 
