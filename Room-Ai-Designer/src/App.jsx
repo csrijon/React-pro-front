@@ -5,33 +5,38 @@ import Supportpage from './pages/Supportpage';
 import Dreampage from './pages/Dreampage';
 import Subcriptionpage from './pages/Subcriptionpage';
 import Footer from './components/Footer';
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Roomsencepage from './pages/Roomsencepage.jsx';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
 
   const router = createBrowserRouter([
-    {path:"/",
-      element:<Homepage/>
+    {
+      path: "/",
+      element: <Homepage />
     },
     {
-      path:"/contact",
-      element:<Supportpage/>
+      path: "/contact",
+      element: <Supportpage />
     },
     {
-      path:"/subscription",
-      element:<Subcriptionpage/>
+      path: "/subscription",
+      element: <Subcriptionpage />
     },
     {
-      path:"/dream",
-      element:<Dreampage/>
-
+      path: "/dream",
+      element: <Dreampage />
+    },
+    {
+      path: "/roomsence",
+      element: <Roomsencepage />
     }
   ])
 
   return (
     <>
-    <RouterProvider router={router}/>
-    <Footer/>
+      <RouterProvider router={router} />
+      <Footer />
     </>
   )
 }
