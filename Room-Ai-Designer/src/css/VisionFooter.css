@@ -1,0 +1,88 @@
+.vision-footer-section {
+  width: 100%;
+  padding:25px 0px;
+  /* background: #f4f6f8; */
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  gap: 35px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: black;
+}
+
+/* LEFT SIDE */
+.left-section {
+  width: 60%;
+}
+
+.tag-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.green-tag {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #1db954;
+}
+
+.tag-text {
+  color: #6d7d8c;
+  font-size: 14px;
+}
+
+.blue-small-btn {
+  background: #007bff;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style Cards */
+.room-style-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.style-card {
+  width: 130px;
+  padding: 18px 10px;
+  background: white;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 4px 18px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.style-card:hover {
+  transform: translateY(-3px);
+}
+
+.style-icon {
+  font-size: 36px;
+  color: #0096d6;
+  margin-bottom: 8px;
+}
+
+.style-card span {
+  display: block;
+  font-size: 14px;
+  color: #333;
+}
+.input-class{
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}

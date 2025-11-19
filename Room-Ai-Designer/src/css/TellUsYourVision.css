@@ -1,6 +1,6 @@
 .vision-section{
     width: 100%;
-     background: linear-gradient(135deg, #0a3865 0%, #06344d 100%);
+    background: linear-gradient(135deg, #0a3865 0%, #06344d 100%);
 }
 .vision-container{
     width: 1380px;
@@ -8,6 +8,10 @@
     justify-content: space-between;
     margin: auto;
     padding: 30px;
+}
+.vision-footer-box{
+    width: 1380px;
+    margin: auto;
 }
 
 .vision-header-section {

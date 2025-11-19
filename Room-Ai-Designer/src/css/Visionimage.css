@@ -1,0 +1,35 @@
+.vision-img-section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+/* Left Image Box */
+.vision-img-left img {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Right Text Area */
+.vision-img-right {
+  flex: 1;
+}
+
+.vision-img-right h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: black;
+}
+
+.vision-img-right p {
+  font-size: 14px;
+  color: #6f7a85;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
