@@ -4,7 +4,7 @@ import "../css/Roomsence.css"
 const Roomsence = () => {
     return (
         <>
-            <section>
+            <section className="roomsence-section"> 
                 <div className="roomsence-container">
                     <h2>My Room Scenes</h2>
                     <div className="button-container">
