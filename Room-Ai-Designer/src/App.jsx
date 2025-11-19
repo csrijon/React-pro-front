@@ -7,6 +7,7 @@ import Subcriptionpage from './pages/Subcriptionpage';
 import Footer from './components/Footer';
 import Roomsencepage from './pages/Roomsencepage.jsx';
 import Scanerpage from './pages/Scanerpage.jsx';
+import ReviewSpacePage from './pages/ReviewSpacePage.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -35,6 +36,10 @@ function App() {
     {
       path:"/Scaner",
       element:<Scanerpage/>
+    },
+    {
+      path:"/review",
+      element:<ReviewSpacePage/>
     }
   ])
 
