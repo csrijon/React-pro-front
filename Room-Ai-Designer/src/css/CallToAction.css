@@ -1,0 +1,27 @@
+.cta-wrapper {
+  width: 100%;
+  padding: 40px 0;
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.cta-btn {
+  background-color: #11c59d;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cta-btn:hover {
+  opacity: 0.85;
+}

@@ -1,5 +1,7 @@
 import React from "react";
 import "../css/DreamSpaceSteps.css";
+import bed4 from "../assets/bed4.webp";
+import bed5 from "../assets/bed5.jpg";
 
 // MUI Icons
 import SmartphoneIcon from "@mui/icons-material/Smartphone";
@@ -12,18 +14,16 @@ const DreamSpaceSteps = () => {
       icon: <SmartphoneIcon className="step-icon" />,
       title: "1. Scan & Capture",
       desc: "Use your smartphone to quickly scan any room. Our AR technology captures precise dimensions, wall layouts, inputs, and ceiling openings.",
-      images: [
-        "https://via.placeholder.com/130x100",
-        "https://via.placeholder.com/130x100",
-      ],
+      images: []
+      
     },
     {
       icon: <PaletteIcon className="step-icon" />,
       title: "2. Design & Customize",
       desc: "Browse endless styles, materials, and furniture. Customize to taste, experiment, and watch AI create magic.",
       images: [
-        "https://via.placeholder.com/130x100",
-        "https://via.placeholder.com/130x100",
+        bed4,
+        bed5,
       ],
     },
     {
