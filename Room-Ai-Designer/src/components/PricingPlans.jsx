@@ -96,7 +96,7 @@ const PricingPlans = () => {
               </p>
 
               {/* Feature List */}
-              <ul className="features">
+              <ul className="featuress">
                 {plan.features.map((feature, i) => (
                   <li key={i}>
                     <CheckCircleIcon /> {feature}
