@@ -6,6 +6,7 @@ import Dreampage from './pages/Dreampage';
 import Subcriptionpage from './pages/Subcriptionpage';
 import Footer from './components/Footer';
 import Roomsencepage from './pages/Roomsencepage.jsx';
+import Scanerpage from './pages/Scanerpage.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
     {
       path: "/roomsence",
       element: <Roomsencepage />
+    },
+    {
+      path:"/Scaner",
+      element:<Scanerpage/>
     }
   ])
 
