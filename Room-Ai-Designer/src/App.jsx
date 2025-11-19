@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Roomsencepage from './pages/Roomsencepage.jsx';
 import Scanerpage from './pages/Scanerpage.jsx';
 import ReviewSpacePage from './pages/ReviewSpacePage.jsx';
+import TellUsvisionPage from './pages/TellUsvisionPage.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
     {
       path:"/review",
       element:<ReviewSpacePage/>
+    },
+    {
+      path:"/Tellme",
+      element:<TellUsvisionPage/>
     }
   ])
 
