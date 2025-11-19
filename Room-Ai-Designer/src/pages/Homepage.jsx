@@ -10,7 +10,6 @@ const Homepage =()=>{
         <Header/>
         <Herosection/>
         <HeroCradSection/>
-        <Footer/>
         </>
     )
 }

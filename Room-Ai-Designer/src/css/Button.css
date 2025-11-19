@@ -5,4 +5,12 @@
     border: 1px solid black;
     border-radius:5px;
     font-size:16px;
+    cursor: pointer;
+    transition: 0.25s ease-in-out;
+}
+.Button:hover {
+    background-color: black;
+    color: white;
+    border-color: black;
+    transform: translateY(-2px);
 }

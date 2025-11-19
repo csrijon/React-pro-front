@@ -1,5 +1,4 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import PricingPlans from "../components/PricingPlans";
 
 
@@ -8,7 +7,6 @@ const Subcriptionpage = () => {
         <>
             <Header />
             <PricingPlans />
-            <Footer />
         </>
     )
 }
