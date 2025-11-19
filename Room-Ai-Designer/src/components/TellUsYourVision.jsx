@@ -4,9 +4,12 @@ import previewImg from "../assets/heroimage.png";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import HotelIcon from "@mui/icons-material/Hotel";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
+import VisionFooter from "../components/VisionFooter.jsx";
+import Visionimage from "./VisionImage.jsx";
 
 const TellUsYourVision = () => {
   return (
+    <>
     <section className="vision-section">
 <div className="vision-container">
     <div className="vision-left">
@@ -37,6 +40,11 @@ const TellUsYourVision = () => {
       </div>
 </div>
     </section>
+    <div className="vision-footer-box">
+    <VisionFooter/>
+    <Visionimage/>
+</div>
+</>
   );
 };
 
