@@ -47,7 +47,7 @@ const VisionFooter = () => {
                 </p>
             </div>
 
-            <div className="right-section">
+            {/* <div className="right-section">
                 <p className="section-title">Choose a style & budget</p>
 
                 <div className="input-row">
@@ -58,7 +58,7 @@ const VisionFooter = () => {
                 <div className="input-row">
                     <input className="input-class" type="text" defaultValue="$5,000 - $51,000" />
                     <EditIcon className="edit-icon" />
-                </div>
+                </div> */}
 
                 <div className="color-dot-row">
                     <span className="dot black"></span>
@@ -69,7 +69,7 @@ const VisionFooter = () => {
                     <span className="dot lightgrey"></span>
                     <span className="dot white"></span>
                 </div>
-            </div>
+            {/* </div> */}
 
         </section>
     );
