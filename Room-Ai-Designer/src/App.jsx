@@ -9,7 +9,6 @@ import Roomsencepage from './pages/Roomsencepage.jsx';
 import Scanerpage from './pages/Scanerpage.jsx';
 import ReviewSpacePage from './pages/ReviewSpacePage.jsx';
 import TellUsvisionPage from './pages/TellUsvisionPage.jsx';
-import Header from './components/Header.jsx';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -40,13 +39,13 @@ function App() {
       element: <Scanerpage />
     },
     {
-      path: "/review",
+      path: "/reviewspace",
       element: <ReviewSpacePage />
     },
     {
       path: "/Tellme",
       element: <TellUsvisionPage />
-    }
+    },
   ])
 
   return (

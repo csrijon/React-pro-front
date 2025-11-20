@@ -69,9 +69,94 @@
 }
 
 /* Responsive */
+/* --------------------------
+   Responsive (Tablet)
+--------------------------- */
 @media (max-width: 900px) {
+  .dream-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .dream-card {
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
   }
 }
+
+/* --------------------------
+   Responsive (Mobile)
+--------------------------- */
+@media (max-width: 768px) {
+  .dream-wrapper {
+    padding: 40px 0;
+  }
+
+  .dream-title {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .dream-cards {
+    padding: 0 20px;
+    gap: 20px;
+  }
+
+  .dream-card {
+    padding: 25px 20px;
+    border-radius: 16px;
+  }
+
+  .step-title {
+    font-size: 18px;
+  }
+
+  .step-desc {
+    font-size: 14px;
+  }
+
+  .step-images {
+    gap: 10px;
+  }
+
+  .step-images img {
+    width: 100px;
+    height: 70px;
+  }
+}
+
+/* --------------------------
+   Small Phones (Very Small)
+--------------------------- */
+@media (max-width: 480px) {
+  .dream-wrapper {
+    padding: 30px 0;
+  }
+
+  .dream-title {
+    font-size: 22px;
+  }
+
+  .dream-card {
+    padding: 20px 16px;
+  }
+
+  .step-icon {
+    font-size: 34px !important;
+  }
+
+  .step-title {
+    font-size: 17px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .step-images img {
+    width: 90px;
+    height: 60px;
+  }
+}
+

@@ -6,6 +6,7 @@ import "../css/Herocardsection.css";
 import bed1 from "../assets/1st bed room.webp"
 import bed2 from "../assets/2nd bed room.webp"
 import bed3 from "../assets/3rd bed room.jpg"
+import { NavLink } from "react-router-dom";
 
 const HeroCardSction = () => {
     const carddata = [
@@ -31,7 +32,7 @@ const HeroCardSction = () => {
                 ))}
             </div>
             <div className="button-row">
-                <button className="btn">Start Designing Now</button>
+                <NavLink to="/Scaner" className="btn">Start Designing Now</NavLink>
             </div>
             <div className="image-section">
                 {imagedata.map((img, index) => (

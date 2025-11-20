@@ -3,6 +3,7 @@ import "../css/Footer.css";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import logo from "../assets/logoweb.png"
 
 const Footer = () => {
   return (
@@ -11,7 +12,7 @@ const Footer = () => {
 
         {/* Left Section */}
         <div className="footer-left">
-          <img src="/footerlogo.png" alt="RoomAI Designer" className="footer-logo" />
+          <img src={logo} alt="RoomAI Designer" className="footer-logo" />
           <div>
             <h2 className="footer-title">RoomAI Designer</h2>
             <p className="footer-sub">Powered by Hp Edit</p>
