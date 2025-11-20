@@ -29,7 +29,6 @@
     display: flex;
     gap: 25px;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 /* Card design */
@@ -108,7 +107,7 @@
     background: #ffdd8d;
     padding: 5px 15px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
