@@ -57,6 +57,9 @@
     color: #555;
     cursor: pointer;
 }
+.nav-link.active{
+    color: #0c9985;
+}
 
 .header-nav ul li a {
     text-decoration: none;
@@ -68,7 +71,6 @@
 .header-nav ul li a:hover {
     color: #0c9985;
 }
-
 .add-btn {
     background-color: #0c9985;
     color: white;

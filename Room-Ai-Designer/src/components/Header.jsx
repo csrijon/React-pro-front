@@ -28,11 +28,11 @@ const Header = () => {
 
                 <nav className={`header-nav ${openMenu ? "show" : ""}`} >
                     <ul>
-                        <li><NavLink to="/">Home</NavLink></li>
-                        <li><NavLink to="/roomsence">My Rooms</NavLink></li>
-                        <li><NavLink to="/dream">About</NavLink></li>
-                        <li><NavLink to="/contact">Support</NavLink></li>
-                        <li><NavLink to="/subscription">Upgrade Now</NavLink></li>
+                        <li><NavLink  className="nav-link" to="/">Home</NavLink></li>
+                        <li><NavLink  className="nav-link" to="/roomsence">My Rooms</NavLink></li>
+                        <li><NavLink  className="nav-link" to="/dream">About</NavLink></li>
+                        <li><NavLink  className="nav-link" to="/contact">Support</NavLink></li>
+                        <li><NavLink  className="nav-link" to="/subscription">Upgrade Now</NavLink></li>
                     </ul>
                     <button className="add-btn" >Add New</button>
                 </nav>
