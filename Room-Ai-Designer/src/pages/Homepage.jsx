@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/Header.jsx"
+// import Header from "../components/Header.jsx"
 import Herosection from "../components/Herosection.jsx"
 import HeroCradSection from "../components/HeroCradSction.jsx"
 import Footer from "../components/Footer.jsx"
@@ -7,7 +7,7 @@ import Footer from "../components/Footer.jsx"
 const Homepage =()=>{
     return(
         <>
-        <Header/>
+        {/* <Header/> */}
         <Herosection/>
         <HeroCradSection/>
         </>
