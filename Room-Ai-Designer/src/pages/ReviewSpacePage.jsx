@@ -1,10 +1,10 @@
-// import Header from "../components/Header"
+import Header from "../components/Header"
 import ReviewYourSpace from "../components/ReviewYourSpace"
 
 const ReviewSpacePage = () => {
     return (
         <>
-            {/* <Header /> */}
+            <Header />
            <ReviewYourSpace/>
         </>
     )

@@ -1,10 +1,10 @@
-// import Header from "../components/Header"
+import Header from "../components/Header"
 import Scaner from "../components/Scaner"
 
 const Scanerpage = () => {
     return (
         <>
-        {/* <Header/> */}
+        <Header/>
         <Scaner/>
         </>
     )

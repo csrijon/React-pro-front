@@ -1,11 +1,11 @@
-// import Header from "../components/Header";
+import Header from "../components/Header";
 import PricingPlans from "../components/PricingPlans";
 
 
 const Subcriptionpage = () => {
     return (
         <>
-            {/* <Header /> */}
+            <Header />
             <PricingPlans />
         </>
     )
