@@ -1,4 +1,4 @@
-import Header from "../components/Header";
+// import Header from "../components/Header";
 import DreamSpaceSteps from "../components/DreamSpaceSteps";
 import CallToAction from "../components/CallToAction";
 
@@ -6,7 +6,7 @@ import CallToAction from "../components/CallToAction";
 const Dreampage = () => {
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <DreamSpaceSteps />
             {/* <Footer /> */}
             <CallToAction/>
