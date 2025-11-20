@@ -2,6 +2,7 @@ import { useState } from "react";
 import ListIcon from '@mui/icons-material/List';
 import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from "react-router-dom";
+import logo from "../assets/logoweb.png"
 import "../css/Header.css";
 
 const Header = () => {
@@ -12,7 +13,7 @@ const Header = () => {
             <div className="header-container">
 
                 <div className="left-Header">
-                    <img src="" alt="" />
+                    <img src={logo} alt="" />
                     <h2 className="header-title">
                         RoomAI <span>Designer</span>
                     </h2>
@@ -27,9 +28,11 @@ const Header = () => {
 
                 <nav className={`header-nav ${openMenu ? "show" : ""}`} >
                     <ul>
+                        <li><NavLink to="/">Home</NavLink></li>
                         <li><NavLink to="/roomsence">My Rooms</NavLink></li>
                         <li><NavLink to="/dream">About</NavLink></li>
                         <li><NavLink to="/contact">Support</NavLink></li>
+                        <li><NavLink to="/subscription">Upgrade Now</NavLink></li>
                     </ul>
                     <button className="add-btn" >Add New</button>
                 </nav>
