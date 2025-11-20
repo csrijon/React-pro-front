@@ -135,12 +135,12 @@
 
 .right-side input:focus,
 .right-side textarea:focus {
-  border-color: #00b8b0;
+  border-color: #00b29c;
 }
 
 /* Button */
 .btn-send {
-  background: #00b8b0;
+  background: #00b29c;
   color: white;
   padding: 12px 20px;
   border-radius: 30px;
@@ -152,7 +152,7 @@
 }
 
 .btn-send:hover {
-  background: #009990;
+  background: #00b29c;
 }
 
 /* Responsive */
