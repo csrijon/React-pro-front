@@ -1,22 +1,22 @@
 .cta-wrapper {
   width: 100%;
-  padding: 40px 0;
+  padding: 2.5rem 0;
   text-align: center;
 }
 
 .cta-title {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .cta-btn {
   background-color: #00b29c;
   border: none;
-  padding: 12px 28px;
+  padding: 0.75rem 1.75rem;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #fff;
   cursor: pointer;
   transition: 0.2s;
