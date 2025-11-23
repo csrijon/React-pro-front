@@ -6,7 +6,7 @@
 
 .mini-header{
     max-width: 1380px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,6 +25,29 @@
     height: 4rem;   
     object-fit: contain;
 }
-.right-header{
+.right-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     width: 50%;
 }
+
+.user-image {
+    width: 42px;        /* Profile avatar size */
+    height: 42px;
+    border-radius: 50%; /* Make circle */
+    overflow: hidden;   /* Crop image inside circle */
+    border: 2px solid #e6e6e6; /* Light border like login profile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5; /* Soft background */
+    cursor: pointer;    /* looks clickable */
+}
+
+.user-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Proper profile crop */
+}
+
