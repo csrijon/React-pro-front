@@ -1,6 +1,7 @@
 import React from 'react'
 import "../css/Header.css"
 import logo from "../assets/logo.png"
+import Person from "../assets/person.jpg"
 
 const Header = () => {
   return (
@@ -12,7 +13,7 @@ const Header = () => {
           </div>
           <div className="right-header">
             <div className="user-image">
-              <img src="" alt="" />
+              <img src= {Person} alt="person" />
             </div>
           </div>
         </div>
