@@ -1,8 +1,9 @@
 import React from "react";
 import "../css/HeroSection.css";
-import screenshotIcon from "../assets/screenshot.png"; 
+import screenshotIcon from "../assets/imges.png"; 
 import videoIcon from "../assets/video.png";
-import codeIcon from "../assets/code.png";
+import codeIcon from "../assets/codes.png";
+import Arrow from "../assets/Arrow.png"
 
 const HeroSection = () => {
   return (
@@ -24,14 +25,14 @@ const HeroSection = () => {
             <p>Screenshot</p>
           </div>
 
-          <span className="arrow">→</span>
+          <span className="arrow"><img src={Arrow} alt="" /></span>
 
           <div className="step-box">
             <img src={videoIcon} alt="Prompt & Video" />
             <p>Prompt & Video</p>
           </div>
 
-          <span className="arrow">→</span>
+          <span className="arrow"><img src= {Arrow} alt="" /></span>
 
           <div className="step-box">
             <img src={codeIcon} alt="Code & Preview" />

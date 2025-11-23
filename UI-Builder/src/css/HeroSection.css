@@ -1,9 +1,10 @@
 .hero-container {
-  width: 100%;
+  max-width: 100%;
   padding: 80px 20px;
   text-align: center;
   background: linear-gradient(135deg, #dff3ff 0%, #c4d0ff 40%, #d7b3ff 100%);
-  min-height: 90vh;
+  /* min-height: 90vh; */
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
