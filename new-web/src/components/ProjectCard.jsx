@@ -1,15 +1,13 @@
 import React from 'react';
 import { motion } from "framer-motion";
 
-const ProjectCard = ({ project, i }) => {
+const ProjectCard = ({ project, index }) => {
   return (
     <motion.div
       className="project-cards"
-
-      // Initial animation (same as ProjectSection)
       initial={{ opacity: 0, scale: 0 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: i * 0.3, zoom: "zoomOut" }}
+      transition={{ duration: 0.5, delay: index * 0.3, zoom: "zoomOut" }}
 
       // Hover effect (same as ProjectSection)
       whileHover={{
