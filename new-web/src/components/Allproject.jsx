@@ -3,6 +3,7 @@ import ProjectCard from './ProjectCard'
 import { completeApps, smallProjects } from '../data/projectsData'
 import "./Allpro.css"
 
+
 const Allproject = () => {
    return (
     <div className="portfolio-container">
@@ -13,8 +14,8 @@ const Allproject = () => {
       <section className="project-section">
         <h2 id="complete-apps">Full Stack-Projects</h2>
         <div className="projects-grid">
-          {completeApps.map((project) => (
-            <ProjectCard key={project.title} project={project} />
+          {completeApps.map((project,i) => (
+            <ProjectCard index={i} key={project.title} project={project} />
           ))}
         </div>
       </section>
