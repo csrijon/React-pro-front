@@ -3,20 +3,19 @@ import { motion } from "framer-motion";
 
 const ProjectCard = ({ project, index }) => {
   return (
-    <motion.div
-      className="project-cards"
-      initial={{ opacity: 0, scale: 0 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.3, zoom: "zoomOut" }}
+   <motion.div
+  className="project-cards"
+  initial={{ opacity: 0, scale: 0.8, y: 30 }}
+  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.3 }}
+  transition={{ type: "spring", stiffness: 90, delay: index * 0.15 }}
+  whileHover={{
+    scale: 1.05,
+    y: -8,
+    boxShadow: "0px 15px 25px rgba(199,120,221,0.35)"
+  }}
+>
 
-      // Hover effect (same as ProjectSection)
-      whileHover={{
-        scale: 1.2,
-        y: -10,
-        boxShadow: "0px 15px 35px rgba(199, 120, 221, 0.45)",
-        transition: { duration: 0.3, delay: 0 }
-      }}
-    >
       {project.image && (
         <img
           src={project.image}
