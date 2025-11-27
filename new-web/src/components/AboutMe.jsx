@@ -1,5 +1,4 @@
 import './AboutMe.css';
-// import profileImage from '../assets/Image.png';
 import Aboutme from '../ui/Aboutme';
 import Aboutmeimage from '../ui/Aboutmeimage';
 import { motion } from 'framer-motion';

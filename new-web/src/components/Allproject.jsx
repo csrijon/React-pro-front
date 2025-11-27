@@ -38,7 +38,7 @@ const Allproject = () => {
       </section>
 
       <section className="project-section">
-        <h2 id="small-projects">Frontend-projects</h2>
+        <motion.h2 id="small-projects">Frontend-projects</motion.h2>
         <div className="projects-grid">
           {smallProjects.map((project) => (
             <ProjectCard key={project.title} project={project} />
