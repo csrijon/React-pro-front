@@ -35,7 +35,6 @@ const Header = () => {
         <img src={logo} alt="logo" />
         <h4>Srijon</h4>
       </div>
-
       {/* Desktop Navigation */}
       <motion.ul
         className="nav-links desktop-nav"
