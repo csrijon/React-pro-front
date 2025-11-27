@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useTransition } from 'react'
 import ProjectCard from './ProjectCard'
 import { completeApps, smallProjects } from '../data/projectsData'
 import "./Allpro.css"
+import { motion } from 'framer-motion';
 
+
+const textanimation = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.15 } }
+}
 
 const Allproject = () => {
-   return (
+  return (
     <div className="portfolio-container">
       <div className="top-project-section">
-        <h1><span>/</span>projects</h1>
-      <p>list of my project</p>
+        <motion.h1
+          variants={textanimation}
+          initial="hidden"
+          whileInView="show"
+          transition={{ delay: 0.12 }}
+        ><span>/</span>projects</motion.h1>
+        <motion.p variants={textanimation}
+          initial="hidden"
+          whileInView="show"
+          transition={{ delay: 0.12 }} >list of my project</motion.p>
       </div>
       <section className="project-section">
-        <h2 id="complete-apps">Full Stack-Projects</h2>
+        <motion.h2 variants={textanimation}
+          initial="hidden"
+          whileInView="show"
+          transition={{ delay: 0.24 }}
+          id="complete-apps">Full Stack-Projects</motion.h2>
         <div className="projects-grid">
-          {completeApps.map((project,i) => (
+          {completeApps.map((project, i) => (
             <ProjectCard index={i} key={project.title} project={project} />
           ))}
         </div>
