@@ -1,4 +1,3 @@
-import React, { useTransition } from 'react'
 import ProjectCard from './ProjectCard'
 import { completeApps, smallProjects } from '../data/projectsData'
 import "./Allpro.css"
