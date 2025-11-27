@@ -7,7 +7,7 @@ const ProjectCard = ({ project, index }) => {
   className="project-cards"
   initial={{ opacity: 0, scale: 0.8, y: 30 }}
   whileInView={{ opacity: 1, scale: 1, y: 0 }}
-  viewport={{ once: true, amount: 0.3 }}
+  // viewport={{ once: true, amount: 0.3 }}
   transition={{ type: "spring", stiffness: 90, delay: index * 0.15 }}
   whileHover={{
     scale: 1.05,
