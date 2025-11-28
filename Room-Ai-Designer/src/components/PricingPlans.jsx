@@ -72,7 +72,7 @@ const PricingPlans = () => {
       desc: "If you work professionally, create content for clients, or need higher-quality exports and unlimited downloads, you’ll need a license. A license ensures you can use all premium features without restrictions and get priority support whenever needed. If you're using the platform beyond basic personal use, upgrading is highly recommended."
     },
     {
-      title: "Can I upgrade or downgrade my plan anytime?",
+      title: "Can I upgrade or downgrade my plan ?",
       desc: "Yes, you have full flexibility. You can upgrade to a higher plan whenever you need more features, and your account will instantly unlock the new tools. Similarly, if you feel a plan is no longer necessary, you can downgrade at the next billing cycle without losing access to your files or data."
     },
     {
