@@ -190,6 +190,33 @@
 
 .box p {
     text-align: left;
-    margin-top: 10px;
-    font-size: 0.875rem;
+    margin-top: 15px;
+    font-size: 0.975rem;
+}
+@media (max-width: 600px) {
+  .main-box {
+    padding: 0 8px;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .box {
+    max-width: 100%;
+    padding: 12px 14px;
+    border-radius: 18px;
+    justify-content: center;
+  }
+
+  .box h4 {
+    font-size: 1rem;
+    white-space: normal; 
+  }
+
+  .box p {
+    font-size: 0.8rem;
+  }
+
+  .header-feq {
+    gap: 10px;
+  }
 }
