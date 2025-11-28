@@ -48,7 +48,6 @@ const ContactSection = () => {
     loading="lazy"
     referrerPolicy="no-referrer-when-downgrade"
   ></iframe>
-
   <div>
                                 <h4>Office Headquarter Address</h4>
                                 <p className="map-text">
@@ -59,7 +58,6 @@ const ContactSection = () => {
                                 </p>
                             </div>
                         </div>
-
                     </div>
 
                     {/* Right side (Form) */}
