@@ -169,7 +169,7 @@
 }
 .header-feq {
     display: flex;
-    /* justify-content: space-; */
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
     margin: auto 0;
@@ -180,8 +180,7 @@
     margin: 0;
     font-size: 0.875rem;
     letter-spacing: 0;
-    white-space:pre ;
-
+    white-space:pre-line ;
 }
 .box span {
     display: flex;
