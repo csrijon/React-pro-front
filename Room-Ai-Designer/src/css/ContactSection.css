@@ -110,7 +110,7 @@
 /* Right side form */
 .right-side {
   flex: 1;
-  padding: 2.5rem; /* 40px */
+  padding:0 2.5rem; 
   border-radius: 14px;
 }
 

@@ -15,7 +15,7 @@ const PricingPlans = () => {
 
   const plans = [
     {
-      title: "Free",
+      title: "Basic",
       icon: <DesignServicesIcon style={{ fontSize: 40, color: "#060606ff" }} />,
       bg: "#ffffff",
       priceText: "5 designs / month",
@@ -78,6 +78,10 @@ const PricingPlans = () => {
     {
       title: "Do you provide refunds if I cancel?",
       desc: "We offer fair and transparent billing. If you cancel your subscription, you will continue to have access to your premium features until the end of the billing period. Although partial refunds are not given automatically, our support team is always available to help in case of accidental charges or billing issues.."
+    },
+    {
+      title: "Is the Free plan really free forever?",
+      desc: "Yes, the Free plan is completely free and will remain free. You won’t be charged unless you choose to upgrade to Pro or Business. The Free plan has limited features, but it’s a great way to explore the platform and decide if you want access to advanced tools later."
     },
     {
       title: "Is the Free plan really free forever?",
