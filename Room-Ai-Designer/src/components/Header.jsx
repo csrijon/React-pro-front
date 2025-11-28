@@ -8,6 +8,11 @@ import "../css/Header.css";
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
 
+    const onclickbutton =() => {
+      alert("Button Clicked")
+    }
+    
+
     return (
         <header className="header" >
             <div className="header-container">
@@ -36,7 +41,7 @@ const Header = () => {
                         <li><NavLink  className="nav-link" to="/contact">Support</NavLink></li>
                         <li><NavLink  className="nav-link" to="/subscription">Upgrade Now</NavLink></li>
                     </ul>
-                    <button className="add-btn" >Add New</button>
+                    <button className="add-btn" onClick={onclickbutton} >Add New</button>
                 </nav>
 
             </div>
