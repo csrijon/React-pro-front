@@ -68,20 +68,20 @@ const PricingPlans = () => {
       desc: "Each plan is designed for different types of users. The Free plan gives you the essential features to get started, while the Pro plan unlocks unlimited access, advanced export options, and priority support. The Business plan is built for teams and creators who need higher limits, multiple seats, and commercial-grade tools. You can compare all features directly from the pricing section to see which plan suits your needs best."
     },
     {
-      title: "How do I Know if I Need to buy a License?",
-      desc: "Our Premium plan is designed for users who want more flexibility and better performance without going all the way to a Business subscription. You get extra features, higher usage limits, and priority help—all at an affordable rate. It’s the most balanced and popular choice among our users."
+      title: "How do I know if I need a license?",
+      desc: "If you work professionally, create content for clients, or need higher-quality exports and unlimited downloads, you’ll need a license. A license ensures you can use all premium features without restrictions and get priority support whenever needed. If you're using the platform beyond basic personal use, upgrading is highly recommended."
     },
     {
-      title: "How do I Know if I Need to buy a License?",
-      desc: "Our Premium plan is designed for users who want more flexibility and better performance without going all the way to a Business subscription. You get extra features, higher usage limits, and priority help—all at an affordable rate. It’s the most balanced and popular choice among our users."
+      title: "Can I upgrade or downgrade my plan anytime?",
+      desc: "Yes, you have full flexibility. You can upgrade to a higher plan whenever you need more features, and your account will instantly unlock the new tools. Similarly, if you feel a plan is no longer necessary, you can downgrade at the next billing cycle without losing access to your files or data."
     },
     {
-      title: "How do I Know if I Need to buy a License?",
-      desc: "Our Premium plan is designed for users who want more flexibility and better performance without going all the way to a Business subscription. You get extra features, higher usage limits, and priority help—all at an affordable rate. It’s the most balanced and popular choice among our users."
+      title: "Do you provide refunds if I cancel?",
+      desc: "We offer fair and transparent billing. If you cancel your subscription, you will continue to have access to your premium features until the end of the billing period. Although partial refunds are not given automatically, our support team is always available to help in case of accidental charges or billing issues.."
     },
     {
-      title: "How do I Know if I Need to buy a License?",
-      desc: "Our Premium plan is designed for users who want more flexibility and better performance without going all the way to a Business subscription. You get extra features, higher usage limits, and priority help—all at an affordable rate. It’s the most balanced and popular choice among our users."
+      title: "Is the Free plan really free forever?",
+      desc: "Yes, the Free plan is completely free and will remain free. You won’t be charged unless you choose to upgrade to Pro or Business. The Free plan has limited features, but it’s a great way to explore the platform and decide if you want access to advanced tools later."
     },
   ]
   const dropdownclick = (index) => {
