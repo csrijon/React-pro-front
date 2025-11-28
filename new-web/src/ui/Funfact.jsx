@@ -1,5 +1,22 @@
+
 import aboutlogo from "../assets/aboutlogo.webp"
 import './Fanfact.css'
+import {delay, motion} from "framer-motion"
+
+const temanimation={
+  hidden:{
+    opacity:0,
+    y:50
+  },
+  show:{
+    opacity:1,
+    y:0,
+    transition:{
+        duration:0.5,
+        delay:index*0.15
+    }
+  }
+}
 
 const Funfact = () => {
 
@@ -18,7 +35,11 @@ const Funfact = () => {
 
     return (
         <div className="about-fun-text" >
-            <h1><span>#</span>my-fun-facts</h1>
+            <motion.h1 
+            initial={{opacity:0,x:-50}}
+            whileInView={{opacity:1,x:0}}
+            transition={{duration:0.5}}
+            ><span>#</span>my-fun-facts</motion.h1>
             <div className="funfact-content" >
                 <div className="left-section-funfact">
                     {data.map((item, index) =>
