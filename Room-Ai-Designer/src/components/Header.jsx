@@ -11,7 +11,6 @@ const Header = () => {
     const onclickbutton =() => {
       alert("Button Clicked")
     }
-    
 
     return (
         <header className="header" >

@@ -1,22 +1,23 @@
 
 import aboutlogo from "../assets/aboutlogo.webp"
 import './Fanfact.css'
+/* eslint-disable no-unused-vars */
 import {delay, motion} from "framer-motion"
 
-const temanimation={
-  hidden:{
-    opacity:0,
-    y:50
-  },
-  show:{
-    opacity:1,
-    y:0,
-    transition:{
-        duration:0.5,
-        delay:index*0.15
-    }
-  }
-}
+// const temanimation={
+//   hidden:{
+//     opacity:0,
+//     y:50
+//   },
+//   show:{
+//     opacity:1,
+//     y:0,
+//     transition:{
+//         duration:0.5,
+//         delay:0.5
+//     }
+//   }
+// }
 
 const Funfact = () => {
 

@@ -3,6 +3,7 @@ import './Routeabout.css'
 import "../ui/Aboutme.jsx"
 import AboutMe from '../ui/Aboutme.jsx'
 import Aboutmeimage from '../ui/Aboutmeimage.jsx'
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 import './AboutMe.css';
 

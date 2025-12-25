@@ -4,6 +4,7 @@ import '../components/Header.css';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from 'react-router-dom';
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 const Header = () => {
