@@ -1,6 +1,7 @@
 import './AboutMe.css';
 import Aboutme from '../ui/Aboutme';
 import Aboutmeimage from '../ui/Aboutmeimage';
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 

@@ -4,6 +4,7 @@ import { FaDiscord } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import DotGrid from './DotGrid';
 import Contacttop from '../ui/Contacttop';
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
 const Contact = () => {

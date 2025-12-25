@@ -1,6 +1,7 @@
 import ProjectCard from './ProjectCard'
 import { completeApps, smallProjects } from '../data/projectsData'
 import "./Allpro.css"
+/* eslint-disable no-unused-vars */
 import { motion } from 'framer-motion';
 
 
