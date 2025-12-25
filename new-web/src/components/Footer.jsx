@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="footer-info">
             <div className="footer-title">
               {/* <FiCode className="footer-logo-icon" />`   */}
-              <img src= {logo} alt="" />
+              <img src={logo} alt="logo" />
               <span className="footer-name">Srijon</span>
               <a href="mailto:elias@elias-dev.ml" className="footer-email">
                 csrijon92@gmal.com
