@@ -1,50 +1,115 @@
-import React from 'react';
-import './Footer.css';
-// Importing icons from react-icons
-import { FaGithub, FaFigma, FaDiscord } from 'react-icons/fa';
-// Using a generic icon for the logo as a placeholder
+import React from "react"
+import "./Footer.css"
+import { motion } from "framer-motion"
+import { FaGithub, FaFigma, FaDiscord } from "react-icons/fa"
 import logo from "../assets/Logo.svg"
 
 const Footer = () => {
   return (
-    <footer className="footer-container">
+    <motion.footer
+      className="footer-container"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: true }}
+    >
       <div className="footer-content">
         <div className="footer-top">
-          <div className="footer-info">
-            <div className="footer-title">
-              {/* <FiCode className="footer-logo-icon" />`   */}
-              <img src={logo} alt="logo" />
-              <span className="footer-name">Srijon</span>
-              <a href="mailto:elias@elias-dev.ml" className="footer-email">
-                csrijon92@gmal.com
-              </a>
-            </div>
-            <p className="footer-description">
-              Full-Stack Web Developer And App Developer
-            </p>
-          </div>
 
-          <div className="footer-media">
-            <h3 className="media-title">Media</h3>
-            <div className="social-icons">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <FaGithub />
-              </a>
-              <a href="https://figma.com" target="_blank" rel="noopener noreferrer">
-                <FaFigma />
-              </a>
-              <a href="https://discord.com" target="_blank" rel="noopener noreferrer">
-                <FaDiscord />
+          {/* LEFT INFO */}
+          <motion.div
+            className="footer-info"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className="footer-title">
+              <motion.img
+                src={logo}
+                alt="logo"
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              />
+              <span className="footer-name">Srijon</span>
+              <a
+                href="mailto:csrijon92@gmail.com"
+                className="footer-email"
+              >
+                csrijon92@gmail.com
               </a>
             </div>
-          </div>
+
+            <motion.p
+              className="footer-description"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              viewport={{ once: true }}
+            >
+              Full-Stack Web Developer And App Developer
+            </motion.p>
+          </motion.div>
+
+          {/* RIGHT MEDIA */}
+          <motion.div
+            className="footer-media"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="media-title">Media</h3>
+
+            <motion.div
+              className="social-icons"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.15 },
+                },
+              }}
+            >
+              {[FaGithub, FaFigma, FaDiscord].map((Icon, index) => (
+                <motion.a
+                  key={index}
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  // transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Icon />
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+
         </div>
       </div>
-      <div className="footer-bottom">
-        <p>© Copyright 2025. Made by Srijon</p>
-      </div>
-    </footer>
-  );
-};
 
-export default Footer;
+      {/* BOTTOM */}
+      <motion.div
+        className="footer-bottom"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        viewport={{ once: true }}
+      >
+        <p>© Copyright 2025. Made by Srijon</p>
+      </motion.div>
+    </motion.footer>
+  )
+}
+
+export default Footer
