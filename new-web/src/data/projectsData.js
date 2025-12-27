@@ -32,28 +32,28 @@ export const completeApps = [
     tags: ['HTML','CSS','Express','API','Node.js'],
     title: 'ChatBot AI',
     description: 'Discord anti-crash bot',
-    buttons: [{ text: 'cached', link: '#' }],
+    buttons: [{ text: 'Github', link: '#' }],
   },
   {
     image: realtime, // Placeholder for ProtectX
     tags: ['HTML','CSS','Express Js','Node.js'],
     title: 'ProtectX',
     description: 'Discord anti-crash bot',
-    buttons: [{ text: 'cached', link: '#' }],
+    buttons: [{ text: 'Github', link: '#' }],
   },
   {
     image: ytfetch, 
     tags: ['React', 'Express', 'Node.js'],
     title: 'Youtube Video and Audio Downloader',
     description: 'Discord anti-crash bot',
-    buttons: [{ text: 'cached', link: '#' }],
+    buttons: [{ text: 'Github', link: '#' }],
   },
   {
     image: onlinecompiler, 
     tags: ['React', 'Express','Node.js'],
     title: 'Online Compiler With Multiple Languages',
     description: 'Discord anti-crash bot',
-    buttons: [{ text: 'cached', link: '#' }],
+    buttons: [{ text: 'Github', link: '#' }],
   }
 ];
 
@@ -77,13 +77,13 @@ export const smallProjects = [
         tags: ['Figma'],
         title: 'Chess pro',
         description: 'Figma landing page about service for viewing chess tournaments',
-        buttons: [{ text: 'Figma', link: '#' }],
+        buttons: [{ text: 'Github', link: '#' }],
       },
       {
         image: weather,
         tags: ['Figma'],
         title: 'Chess pro',
         description: 'Figma landing page about service for viewing chess tournaments',
-        buttons: [{ text: 'Figma', link: '#' }],
+        buttons: [{ text: 'Github', link: '#' }],
       },
 ];

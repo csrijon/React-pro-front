@@ -44,7 +44,7 @@ const Contact = () => {
 
         <motion.div variants={item} className="contact-item">
           <FaDiscord className="contact-icon" />
-          <span>!Elias#3519</span>
+          <span>!Srijon#3519</span>
         </motion.div>
 
         <motion.div variants={item} className="contact-item">

@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 
 const ProjectCard = ({ project, index }) => {
   return (
-   <motion.div
-  className="project-cards"
-  initial={{ opacity: 0}}
-  whileInView={{ opacity: 1}}
-  viewport={{ once: true}}
-  transition={{ type: "spring", stiffness: 90, delay: index * 0.12 }}
->
+    <motion.div
+      className="project-cards"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ type: "spring", stiffness: 90, delay: index * 0.12 }}
+    >
 
       {project.image && (
         <img
