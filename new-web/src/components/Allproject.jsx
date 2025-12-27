@@ -42,7 +42,7 @@ const Allproject = () => {
         <motion.h2 id="small-projects">Frontend-projects</motion.h2>
         <div className="projects-grid">
           {smallProjects.map((project,i) => (
-            <ProjectCard key={project.title} project={project} />
+            <ProjectCard index={i} key={project.title} project={project} />
           ))}
         </div>
       </section>
