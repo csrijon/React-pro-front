@@ -10,10 +10,10 @@ const aniationvarient = {
   hidden: { x: 50 },
   show: { x: 0, transition: { duration: 0.6,} }
 }
-const secendanimation={
-  hidden:{ x: -50},
-  show:{x:0,transition:{duration:0.6,}}
-}
+// const secendanimation={
+//   hidden:{ x: -50},
+//   show:{x:0,transition:{duration:0.6,}}
+// }
 
 const Fixed = () => {
   return (
@@ -23,7 +23,7 @@ const Fixed = () => {
       <motion.div
         className="social-icon">
         <motion.a
-         variants={secendanimation}
+         variants={aniationvarient}
          initial="hidden"
          whileInView="show"
         //  whileHover={{rotateX:10}}
@@ -34,7 +34,7 @@ const Fixed = () => {
           whileInView="show"
           href=""><GitHubIcon /></motion.a>
         <motion.a 
-        variants={secendanimation}
+        variants={aniationvarient}
         initial="hidden"
         whileInView="show"
         href=""><InstagramIcon /></motion.a>
