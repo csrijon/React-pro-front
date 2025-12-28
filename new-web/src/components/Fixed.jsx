@@ -6,14 +6,33 @@ import { motion } from "framer-motion"
 import "./Fixed.css"
 
 
-const aniationvarient = {
-  hidden: { x: 50 },
-  show: { x: 0, transition: { duration: 0.6,} }
+const icon1 = {
+  hidden: { x: 50, opacity: 0 },
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.6, delay: 0 }
+  }
 }
-// const secendanimation={
-//   hidden:{ x: -50},
-//   show:{x:0,transition:{duration:0.6,}}
-// }
+
+const icon2 = {
+  hidden: { x: 50, opacity: 0 },
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.6, delay: 0.2 }
+  }
+}
+
+const icon3 = {
+  hidden: { x: 50, opacity: 0 },
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.6, delay: 0.4 }
+  }
+}
+
 
 const Fixed = () => {
   return (
@@ -22,22 +41,10 @@ const Fixed = () => {
         className="linne"></motion.div>
       <motion.div
         className="social-icon">
-        <motion.a
-         variants={aniationvarient}
-         initial="hidden"
-         whileInView="show"
-        //  whileHover={{rotateX:10}}
-          href=""><LinkedInIcon /></motion.a>
-        <motion.a
-          variants={aniationvarient}
-          initial="hidden"
-          whileInView="show"
-          href=""><GitHubIcon /></motion.a>
-        <motion.a 
-        variants={aniationvarient}
-        initial="hidden"
-        whileInView="show"
-        href=""><InstagramIcon /></motion.a>
+        <motion.a variants={icon1} initial="hidden" whileInView="show"><LinkedInIcon /></motion.a>
+        <motion.a variants={icon2} initial="hidden" whileInView="show"><GitHubIcon /></motion.a>
+        <motion.a variants={icon3} initial="hidden" whileInView="show">
+          <InstagramIcon /></motion.a>
       </motion.div>
     </section>
   )
