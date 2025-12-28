@@ -93,7 +93,7 @@ const Footer = () => {
                     visible: { opacity: 1, y: 0 },
                   }}
                   whileHover={{ scale: 1.2, rotate: 5 }}
-                  // transition={{ type: "spring", stiffness: 300 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
                   {/* <Icon /> */}{item.icon}
                 </motion.a>

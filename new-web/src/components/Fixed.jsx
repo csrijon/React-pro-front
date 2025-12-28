@@ -8,11 +8,11 @@ import "./Fixed.css"
 
 const aniationvarient = {
   hidden: { x: 50 },
-  show: { x: 0, transition: { duration: 0.6 } }
+  show: { x: 0, transition: { duration: 0.6,type:"spring",stiffness:300 } }
 }
 const secendanimation={
   hidden:{ x: -50},
-  show:{x:0,transition:{duration:0.6}}
+  show:{x:0,transition:{duration:0.6,type:"spring",stiffness:300}}
 }
 
 const Fixed = () => {
