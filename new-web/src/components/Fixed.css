@@ -8,7 +8,7 @@
     left: 50px;
     padding: 10px 20px;
     z-index: 100; /* Ensure it stays above other content */
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .linne{
     width: 1px;
