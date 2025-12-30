@@ -2,6 +2,7 @@ import React from 'react'
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import InstagramIcon from '@mui/icons-material/Instagram';
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion"
 import "./Fixed.css"
 
@@ -41,7 +42,7 @@ const Fixed = () => {
         className="linne"></motion.div>
       <motion.div
         className="social-icon">
-        <motion.a variants={icon1} initial="hidden" whileInView="show"><LinkedInIcon /></motion.a>
+        <motion.a variants={icon1} initial="hidden" whileInView="show" whileHover={{}} ><LinkedInIcon /></motion.a>
         <motion.a variants={icon2} initial="hidden" whileInView="show"><GitHubIcon /></motion.a>
         <motion.a variants={icon3} initial="hidden" whileInView="show">
           <InstagramIcon /></motion.a>

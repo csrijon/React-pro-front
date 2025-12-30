@@ -1,5 +1,6 @@
 import React from "react"
 import "./Footer.css"
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion"
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa"
 import logo from "../assets/Logo.svg"
@@ -25,19 +26,18 @@ const Footer = () => {
           {/* LEFT INFO */}
           <motion.div
             className="footer-info"
-            // initial={{ opacity: 0, x: -40 }}
-            // whileInView={{ opacity: 1, x: 0 }}
-            // transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
             // viewport={{ once: true }}
           >
             <div className="footer-title">
               <motion.img
                 src={logo}
                 alt="logo"
-                // initial={{ scale: 0.8, opacity: 0 }}
-                // whileInView={{ scale: 1, opacity: 1 }}
-                // transition={{ duration: 0.5 }}
-                // viewport={{ once: true }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
               />
               <span className="footer-name">Srijon</span>
               <a
@@ -50,9 +50,9 @@ const Footer = () => {
 
             <motion.p
               className="footer-description"
-              // initial={{ opacity: 0 }}
-              // whileInView={{ opacity: 1 }}
-              // transition={{ delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
               // viewport={{ once: true }}
             >
               Full-Stack Web Developer And App Developer

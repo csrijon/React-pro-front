@@ -1,5 +1,6 @@
 import React from "react";
 import "./StatusBar.css";
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
 const StatusBar = () => {

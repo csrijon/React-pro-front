@@ -1,6 +1,7 @@
 // SkillsSection.jsx
 import React from "react";
 import "./SkillsSection.css";
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
 const skills = {
