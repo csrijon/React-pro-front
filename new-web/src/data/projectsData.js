@@ -11,79 +11,79 @@ import weather from "../assets/weather.png"
 
 export const completeApps = [
   {
-    image: habitimage, // Placeholder for ChertNodes
+    image: habitimage,
     tags: ['HTML', 'SCSS', 'Python', 'Flask'],
     title: 'Habit Tracker',
-    description: 'Minecraft Servers hosting',
+    description: 'You Can Add Your Daily Habbit and Check EveryDay',
     buttons: [
       { text: 'live', link: '#' },
-      { text: 'cached', link: '#' },
+      { text: 'Github', link: 'https://github.com/csrijon/Express-Pro/tree/main/Habit%20Tracker%20Api' },
     ],
   },
   {
-    image: resume, // Placeholder for Kahoot Answers
+    image: resume,
     tags: ['CSS', 'Express', 'Node.js'],
     title: 'Resume Checker & Builder',
-    description: 'Get answers to your kahoot quiz',
-    buttons: [{ text: 'live', link: '#' }],
+    description: 'Upload Your Resume Ai Automatic Give Your Resume ATS Score',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/ats-resume' }],
   },
   {
-    image: chatbot, // Placeholder for ProtectX
-    tags: ['HTML','CSS','Express','API','Node.js'],
+    image: chatbot,
+    tags: ['HTML', 'CSS', 'Express', 'API', 'Node.js'],
     title: 'ChatBot AI',
-    description: 'Discord anti-crash bot',
-    buttons: [{ text: 'Github', link: '#' }],
+    description: 'Chat With Bot',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/chat-bot' }],
   },
   {
-    image: realtime, // Placeholder for ProtectX
-    tags: ['HTML','CSS','Express Js','Node.js'],
-    title: 'ProtectX',
-    description: 'Discord anti-crash bot',
-    buttons: [{ text: 'Github', link: '#' }],
+    image: realtime,
+    tags: ['HTML', 'CSS', 'Express Js', 'Node.js'],
+    title: 'RealTime Chat Application',
+    description: 'Realtime Chat Application',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/Express-Pro/tree/main/Real%20Time%20Chat%20Application' }],
   },
   {
-    image: ytfetch, 
+    image: ytfetch,
     tags: ['React', 'Express', 'Node.js'],
     title: 'Youtube Video and Audio Downloader',
-    description: 'Discord anti-crash bot',
-    buttons: [{ text: 'Github', link: '#' }],
+    description: 'You Can Download Any Youtube Video Locally ',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/Youtube-video-audio-Downloader' }],
   },
   {
-    image: onlinecompiler, 
-    tags: ['React', 'Express','Node.js'],
+    image: onlinecompiler,
+    tags: ['React', 'Express', 'Node.js'],
     title: 'Online Compiler With Multiple Languages',
-    description: 'Discord anti-crash bot',
-    buttons: [{ text: 'Github', link: '#' }],
+    description: "It's Online Compiler Powered By AI(API).You Can Run 50+ Languages",
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/Compiler' }],
   }
 ];
 
 export const smallProjects = [
-    {
-        image: oto, 
-        tags: ['Discord.js', 'TS', 'JS'],
-        title: 'Bot boilerplate',
-        description: 'Start creating scalable discord bots with typescript in seconds',
-        buttons: [{ text: 'Github', link: '#' }],
-      },
-      {
-        image: gdg,
-        tags: ['Vue', 'CSS', 'JS'],
-        title: 'My blog',
-        description: 'Front-end of my future blog created with vuex in vue',
-        buttons: [{ text: 'Github', link: '#' }],
-      },
-      {
-        image: currency,
-        tags: ['Figma'],
-        title: 'Chess pro',
-        description: 'Figma landing page about service for viewing chess tournaments',
-        buttons: [{ text: 'Github', link: '#' }],
-      },
-      {
-        image: weather,
-        tags: ['Figma'],
-        title: 'Chess pro',
-        description: 'Figma landing page about service for viewing chess tournaments',
-        buttons: [{ text: 'Github', link: '#' }],
-      },
+  {
+    image: oto,
+    tags: ['React.js'],
+    title: 'OTO',
+    description: 'It Is My Internship Work',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/React-pro-front/tree/main/hpedit' }],
+  },
+  {
+    image: gdg,
+    tags: ['HTML', 'CSS', 'JS'],
+    title: 'Google Developer Group Website',
+    description: 'Front-end of my future blog created with vuex in vue',
+    buttons: [{ text: 'Github', link: 'https://github.com/csrijon/gdg' }],
+  },
+  {
+    image: currency,
+    tags: ['HTML',"CSS","JS"],
+    title: 'Currency Converter Website',
+    description: 'It is Using Convert Currency Price',
+    buttons: [{ text: 'Github', link: '#' }],
+  },
+  {
+    image: weather,
+    tags: ['HTML','CSS','JS'],
+    title: 'Weather Web',
+    description: 'This is Weather Frontend APplication You Can Check Weather Report.It is Uisng Weather APi',
+    buttons: [{ text: 'Github', link: '#' }],
+  },
 ];

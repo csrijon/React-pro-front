@@ -10,6 +10,7 @@ import onlinecom from "../assets/onliencompiler.png"
 import DotGrid from "./DotGrid";
 // import { NavLink } from "react-router-dom";
 import Button from "../ui/Button";
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion"
 
 

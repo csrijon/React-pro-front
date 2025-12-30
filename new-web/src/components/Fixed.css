@@ -32,9 +32,6 @@
 }
 .social-icon a:hover{
     color: #C778DD;
-    rotate: 30deg;
-    transition: all 0.6;
-
 }
 @media (max-width: 1500px) {
   .fixed-container {

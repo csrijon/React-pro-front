@@ -2,6 +2,7 @@ import React from "react";
 import "./HeroSection.css";
 import personImage from "../assets/Group 46.webp"
 import StatusBar from "./StatusBar";
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
 const HeroSection = () => {

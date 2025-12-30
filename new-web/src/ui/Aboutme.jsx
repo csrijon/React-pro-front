@@ -1,5 +1,6 @@
 import React from "react";
 import './Aboutpart.css';
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
 const Aboutme = () => {
