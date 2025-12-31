@@ -12,9 +12,10 @@ import Scrolltop from './components/Scrolltop'
 import Routeabout from './components/Routeabout'
 import Funfact from './ui/Funfact'
 import Button from "./ui/Button"
-import Onworking from './ui/Onworking'
+// import Onworking from './ui/Onworking'
 // import Media from './ui/Media'
 import ContactRoutepage from './pages/ContactRoutepage'
+import Experience from './components/Experience'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import Button from '@mui/material/Button'
 
@@ -39,13 +40,13 @@ const router = createBrowserRouter([
     element: <><Header /><Routeabout /><Funfact /><Footer /><Scrolltop /></>
   },
   {
-    path: "/contact",
-    element: <><Header /><ContactRoutepage /><Footer /><Scrolltop /></>
+    path: "/ex",
+    element: <><Header /><Experience/><Footer /><Scrolltop /></>
   }
   ,{
-    path: "/chatme",
-    element: <><Header/><Onworking/><Footer/><screenTop/></>
-  }
+    path: "/contact",
+    element: <><Header/><ContactRoutepage /><Footer/><screenTop/></>
+  },
 ])
 function App() {
   return (

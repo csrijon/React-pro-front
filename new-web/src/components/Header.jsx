@@ -46,8 +46,8 @@ const Header = () => {
         <motion.li variants={item}><span>#</span><NavLink to="/">home</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/allprojects">works</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/aboutme">about-me</NavLink></motion.li>
+        <motion.li variants={item}><span>#</span><NavLink to="/ex">experience</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/contact">contact</NavLink></motion.li>
-        <motion.li variants={item}><span>#</span><NavLink to="/chatme">chat-me</NavLink></motion.li>
       </motion.ul>
 
       {/* Mobile Navigation */}

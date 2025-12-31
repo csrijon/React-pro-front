@@ -74,14 +74,14 @@ export const smallProjects = [
   },
   {
     image: currency,
-    tags: ['HTML',"CSS","JS"],
+    tags: ['HTML', "CSS", "JS"],
     title: 'Currency Converter Website',
     description: 'It is Using Convert Currency Price',
     buttons: [{ text: 'Github', link: '#' }],
   },
   {
     image: weather,
-    tags: ['HTML','CSS','JS'],
+    tags: ['HTML', 'CSS', 'JS'],
     title: 'Weather Web',
     description: 'This is Weather Frontend APplication You Can Check Weather Report.It is Uisng Weather APi',
     buttons: [{ text: 'Github', link: '#' }],
