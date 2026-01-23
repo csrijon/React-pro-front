@@ -10,3 +10,26 @@
     margin-bottom: 30px;
     gap: 8px;
 }
+.middle-main{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.ex-heading{
+    font-size: 1.8rem;
+    line-height: normal;
+    margin-bottom: 0.4rem;
+}
+.detalis-contain{
+    margin-bottom: 0.8rem;
+}
+.ex-heading span{
+    margin-right: 0.2rem;
+    color: #c778dd;
+}
+.timeline-content ul li{
+    color: #ABB2BF;
+}
+li::marker{
+    color: #c778dd;
+}

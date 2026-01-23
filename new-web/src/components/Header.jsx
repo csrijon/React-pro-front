@@ -56,8 +56,8 @@ const Header = () => {
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/">home</ NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/allprojects">works</NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/aboutme">about-me</NavLink></li>
+          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/ex">experience</NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/contact">contact</NavLink></li>
-          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/chatme">chat-me</NavLink></li>
         </ul>
       </nav>
 
