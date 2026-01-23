@@ -1,0 +1,37 @@
+.header{
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;
+}
+.left{
+    width: 50%;
+}
+.left p{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+.right{
+    width: 50%;
+}
+.right ul{
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+.right ul li a{
+    text-decoration: none;
+    color: white;
+}
+.right ul li a:hover{
+    text-decoration: underline;
+    color: #92aecb;
+    transition: all 0.3s ease;
+}
