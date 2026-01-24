@@ -6,7 +6,7 @@
 .header {
     background-color: var(--primary-gray);
     color: var(--primary-white);
-    padding: 10px 40px;
+    padding: 10px 70px;
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
