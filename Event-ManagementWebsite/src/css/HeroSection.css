@@ -1,0 +1,70 @@
+:root {
+    --hero-bg-color: #F4F4F4;
+    --hero-select-border: #ddd;
+    --hero-select-bg-color: #fff;
+    --hero-select-focus-color: #bbb;
+    --hero-select-text-color: #999;
+    --hero-select-part-color: #555;
+}
+
+.hero-section {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--hero-bg-color);
+    padding: 40px 20px;
+}
+
+.first-part h3 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.first-part span {
+    font-weight: 700;
+}
+
+.second-part {
+    display: flex;
+    gap: 12px;
+}
+
+.category-select,
+.location-select {
+    width: 220px;
+    padding: 14px 40px 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--hero-select-border);
+    font-size: 14px;
+    color: var(--hero-select-text-color);
+    background-color: var(--hero-select-bg-color);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.category-select:focus,
+.location-select:focus {
+    outline: none;
+    border-color: var(--hero-select-focus-color);
+}
+
+.second-part {
+    position: relative;
+}
+
+.second-part select {
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--hero-select-part-color) 50%),
+        linear-gradient(135deg, var(--hero-select-part-color) 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(50% - 2px),
+        calc(100% - 14px) calc(50% - 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
