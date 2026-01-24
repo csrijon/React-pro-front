@@ -2,15 +2,12 @@ import "../css/Category.css";
 import data from "../components/data.js"
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import Topsection from "../ui/Topsection.jsx";
 
-
-const Category = () => {
+const Category = ({ title, number }) => {
     return (
         <section className="Browsecategory-section">
-            <div className="top-section">
-                <p className="heading" >Browse by Category</p>
-                <p className="view-all" >View All(7)</p>
-            </div>
+            <Topsection title={title} number={number} />
             <div className="Bottom-section">
                 {
                     data.map((item, index) => (
