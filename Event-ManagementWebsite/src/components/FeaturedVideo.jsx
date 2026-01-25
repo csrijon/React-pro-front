@@ -6,7 +6,7 @@ import dummydata from "../dummydata.js"
 const FeaturedVideo = () => {
     return (
         <section className="FeaturedVideosection" >
-            <Topsection title="Featured Videos" />
+            <Topsection title="Featured Videos" number="49" />
             <div className="featured-video">
                 {
                     dummydata.map((item, index) => (
