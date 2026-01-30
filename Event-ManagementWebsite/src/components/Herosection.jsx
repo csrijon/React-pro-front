@@ -2,11 +2,11 @@ import React from "react";
 import "../css/HeroSection.css";
 import Button from "../ui/Button.jsx";
 
-const Herosection = () => {
+const Herosection = ({heading,subheading}) => {
     return (
         <section className="hero-section">
             <div className="first-part">
-                <h3>Your Wedding,<span>Your Way</span></h3>
+                <h3>{heading}<span>{subheading}</span></h3>
             </div>
             <div className="second-part">
                 <select name="category" className="category-select" defaultValue="">

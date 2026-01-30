@@ -1,0 +1,54 @@
+.about-blocks {
+  background: #fff;
+  padding: 20px 0px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Row layout */
+.about-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Reverse layout */
+.about-row.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Image */
+.about-image {
+  flex: 1;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  border: 1px solid #dcdcdc;
+}
+
+/* Text */
+.about-text {
+  flex: 1;
+}
+
+.about-text h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.about-text p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-row,
+  .about-row.reverse {
+    flex-direction: column;
+  }
+}

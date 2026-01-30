@@ -17,7 +17,8 @@
 }
 
 .main-cards {
-    width: 1000px;
+    /* width: 1000px; */
+    max-width: 1300px;
     background-color: var(--primary-maincards-bg-color);
     display: flex;
     align-items: center;
