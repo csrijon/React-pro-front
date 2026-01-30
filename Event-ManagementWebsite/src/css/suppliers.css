@@ -1,0 +1,59 @@
+.suppliers-container {
+  padding: 20px 70px;
+  width: 1300px;
+  background: #fff;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.suppliers-title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  /* padding: 0px 40px; */
+}
+
+/* Grid layout */
+.suppliers-grid {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* Card */
+.supplier-card {
+  width: 90px;
+  text-align: center;
+}
+
+/* Circle */
+.supplier-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px;
+  overflow: hidden;
+}
+
+/* Image inside circle */
+.supplier-circle img {
+  width: 100%;
+  height:100%;
+  object-fit: cover;
+}
+
+/* Text */
+.supplier-text {
+  font-size: 10px;
+  line-height: 1.3;
+  color: #000;
+}

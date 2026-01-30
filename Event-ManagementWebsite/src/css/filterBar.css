@@ -1,0 +1,32 @@
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #fff;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+/* Dropdowns */
+.filter-select {
+  min-width: 180px;
+  padding: 12px 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #9b9b9b;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* Search Button */
+.search-btn {
+  padding: 12px 28px;
+  background: #bfbfbf;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}

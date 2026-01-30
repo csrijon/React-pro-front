@@ -1,6 +1,7 @@
 import Topsection from "../ui/Topsection"
 import "../css/Media.css"
 import Latestdata from "../Latestdata.js"
+import Countiing from "../ui/Counting.jsx"
 
 const Media = () => {
     return (
@@ -8,7 +9,7 @@ const Media = () => {
             <Topsection title="Latest Media" number="23" />
             <div className="media-card-section">
                 {
-                    Latestdata.map((item,index) => (
+                    Latestdata.map((item, index) => (
                         <div className="info-card" key={index} >
                             <div className="info-image">
                                 <img src={item.img} alt="card" />
@@ -26,6 +27,7 @@ const Media = () => {
                 }
 
             </div>
+            <Countiing />
         </section>
     )
 }
