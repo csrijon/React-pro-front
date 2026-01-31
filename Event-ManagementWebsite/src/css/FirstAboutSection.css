@@ -1,6 +1,13 @@
+:root{
+  --primary-bg-color:#ffffff;
+  --black-color:#000;
+  --border-color:#dcdcdc;
+}
+
+
 .about-wrapper {
   width: 100%;
-  background: #ffffff;
+  background: var(--primary-bg-color);
   padding: 40px 0px;
 }
 /* Top layout */
@@ -25,7 +32,7 @@
   font-size: 13px;
   line-height: 1.6;
   margin-bottom: 12px;
-  color: #000;
+  color:var(--black-color);
 }
 
 /* Right image */
@@ -36,7 +43,7 @@
 .about-image img {
   width: 100%;
   height: auto;
-  border: 1px solid #dcdcdc;
+  border: 1px solid var(--border-color);
 }
 
 /* Stats row */

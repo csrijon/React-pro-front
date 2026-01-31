@@ -1,7 +1,14 @@
+:root{
+    --primary-white-color:#fff;
+    --primary-black-color:#000;
+    --primary-border-color:#dcdcdc;
+    --primary-bg-color:#e40606;
+}
+
 .contact-wrapper {
     width: 100%;
     padding: 40px 0;
-    background: #fff;
+    background: var(--primary-white-color);
 }
 
 .contact-wrapper .container {
@@ -29,7 +36,7 @@
 .contact-form textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid var(--primary-border-color);
     border-radius: 6px;
     margin-bottom: 16px;
     font-size: 13px;
@@ -43,8 +50,8 @@
 .contact-form button {
     width: 100%;
     padding: 14px;
-    background: #bfbfbf;
-    color: #fff;
+    /* background: var(--primary-bg-color); */
+    color: var(--primary-black-color);
     border: none;
     border-radius: 6px;
     font-size: 14px;
@@ -72,7 +79,7 @@
 }
 
 .info-block a {
-    color: #000;
+    color: var(--primary-black-color);
     text-decoration: underline;
 }
 
