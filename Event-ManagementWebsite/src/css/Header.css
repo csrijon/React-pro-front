@@ -1,52 +1,60 @@
 :root {
-    --primary-white: #ffffff;
-    --primary-gray: #333;
-    --primary-hover: #92aecb;
+  --primary-white: #ffffff;
+  --primary-gray: #333;
+  --primary-hover: #92aecb;
 }
+
+/* HEADER FULL WIDTH */
 .header {
-    background-color: var(--primary-gray);
-    color: var(--primary-white);
-    padding: 10px 70px;
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: center;
-    font-size: 16px;
-    font-weight: 500;
-    width: 100%;
-    margin: auto;
+  width: 100%;
+  background-color: var(--primary-gray);
+  color: var(--primary-white);
 }
-.left {
-    width: 50%;
+
+/* INNER ALIGNMENT (container এর ভেতরে থাকবে) */
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;              /* clean header height */
 }
+
+/* LEFT */
 .left p {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 600;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-white);
 }
-.right {
-    width: 50%;
-}
+
+/* RIGHT MENU */
 .right ul {
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
 }
+
 .right ul li a {
-    text-decoration: none;
-    color: var(--primary-white);
-    position: relative;
+  text-decoration: none;
+  color: var(--primary-white);
+  position: relative;
+  font-size: 14px;
 }
+
+/* HOVER UNDERLINE */
 .right ul li a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-hover);
-    transition: width 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-hover);
+  transition: width 0.3s ease-in-out;
 }
+
 .right ul li a:hover::after {
-    width: 100%;
+  width: 100%;
 }

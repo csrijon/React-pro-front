@@ -17,6 +17,7 @@ const categories = [
 const SuppliersCategories = () => {
   return (
     <div className="suppliers-container">
+      <div className="container">
       <h4 className="suppliers-title">Suppliers Categories</h4>
 
       <div className="suppliers-grid">
@@ -28,6 +29,7 @@ const SuppliersCategories = () => {
             <p className="supplier-text">{item.title}</p>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Topsection from "../ui/Topsection.jsx";
 const Category = ({ title, number }) => {
     return (
         <section className="Browsecategory-section">
+            <div className="container">
             <Topsection title={title} number={number} />
             <div className="Bottom-section">
                 {
@@ -25,6 +26,7 @@ const Category = ({ title, number }) => {
                 <p className="numbering">2</p>
                 <p className="numbering">3</p>
                 <KeyboardDoubleArrowRightIcon className="arrow" />
+            </div>
             </div>
         </section>
     )

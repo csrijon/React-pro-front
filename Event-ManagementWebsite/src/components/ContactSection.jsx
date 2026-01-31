@@ -4,6 +4,7 @@ import "../css/contactSection.css";
 const ContactSection = () => {
   return (
     <section className="contact-wrapper">
+      <div className="container">
       {/* Left Form */}
       <div className="contact-form">
         <h2>Say Hello!</h2>
@@ -79,6 +80,7 @@ const ContactSection = () => {
             <a href="mailto:info@company.com">info@company.com</a>
           </p>
         </div>
+      </div>
       </div>
     </section>
   );

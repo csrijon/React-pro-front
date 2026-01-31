@@ -1,16 +1,16 @@
 .contact-wrapper {
-    display: flex;
-    gap: 80px;
-    padding: 20px 70px;
-    justify-content: center;
+    width: 100%;
+    padding: 40px 0;
     background: #fff;
-    max-width: 1300px;
-    margin: 0 auto;
+}
+
+.contact-wrapper .container {
+    display: flex;
+    gap: 40px;
 }
 
 /* Left Form */
 .contact-form {
-    /* flex: 1; */
     width: 50%;
 }
 
@@ -53,7 +53,6 @@
 
 /* Right Info */
 .contact-info {
-    /* flex: 1; */
     width: 50%;
     line-height: 1.5;
 }
@@ -79,7 +78,12 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .contact-wrapper {
+    .contact-wrapper .container {
         flex-direction: column;
+    }
+
+    .contact-form,
+    .contact-info {
+        width: 100%;
     }
 }

@@ -9,6 +9,7 @@ const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
 const PopularVenu = ({title,number}) => {
     return (
         <section className="Popular-section" >
+            <div className="container">
             <Topsection title={title} number={number } />
             <div className="venue-grid">
                 {Array.from({ length: 6 }).map((_, index) => (
@@ -16,6 +17,7 @@ const PopularVenu = ({title,number}) => {
                 ))}
             </div>
             <Countiing/>
+            </div>
         </section>
     )
 }

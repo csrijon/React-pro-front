@@ -4,6 +4,7 @@ import "../css/filterBar.css";
 const FilterBar = () => {
   return (
     <div className="filter-container">
+      <div className="container">
       <select className="filter-select">
         <option>No. of Guests</option>
       </select>
@@ -21,6 +22,7 @@ const FilterBar = () => {
       </select>
 
       <button className="search-btn">Search</button>
+      </div>
     </div>
   );
 };

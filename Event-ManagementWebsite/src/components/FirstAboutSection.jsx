@@ -6,6 +6,7 @@ import firstimages from "../assets/fifthimages.jpg"
 const FirstAboutSection = () => {
   return (
     <section className="about-wrapper">
+      <div className="container">
       {/* Top content */}
       <div className="about-content">
         {/* Left text */}
@@ -60,6 +61,7 @@ const FirstAboutSection = () => {
           <h2>1.5 M</h2>
           <p>Monthly Followers</p>
         </div>
+      </div>
       </div>
     </section>
   );

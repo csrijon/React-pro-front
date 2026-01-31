@@ -6,6 +6,7 @@ import dummydata from "../dummydata.js"
 const FeaturedVideo = () => {
     return (
         <section className="FeaturedVideosection" >
+            <div className="container">
             <Topsection title="Featured Videos" number="49" />
             <div className="featured-video">
                 {
@@ -18,6 +19,7 @@ const FeaturedVideo = () => {
                         </div>
                     ))
                 }
+            </div>
             </div>
         </section>
     )

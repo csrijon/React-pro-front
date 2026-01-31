@@ -6,6 +6,7 @@ import Countiing from "../ui/Counting.jsx"
 const Media = () => {
     return (
         <section className="Mediasection" >
+            <div className="container">
             <Topsection title="Latest Media" number="23" />
             <div className="media-card-section">
                 {
@@ -28,6 +29,7 @@ const Media = () => {
 
             </div>
             <Countiing />
+            </div>
         </section>
     )
 }

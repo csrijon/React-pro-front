@@ -1,3 +1,8 @@
+.slider-container{
+    display: flex;
+}
+
+
 .slider-wrapper {
     width: 100%;
     display: flex;

@@ -7,6 +7,7 @@ const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
 const TrendingDesigners = ({title}) => {
     return (
         <section className="Trending-Designerssection" >
+            <div className="container">
             <Topsection title={title} />
             <div className="venue-grid">
                 {Array.from({ length: 5 }).map((_, index) => (
@@ -14,6 +15,7 @@ const TrendingDesigners = ({title}) => {
                 ))}
             </div>
             <Countiing/>
+            </div>
         </section>
     )
 }
