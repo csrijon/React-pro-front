@@ -4,6 +4,7 @@ import "../css/Dummycard.css"
 const Dummycard = () => {
     return (
         <section className="dummy-section" >
+            <div className="container">
             <div className="main-cards">
                 <div className="left-dummy">
                 <img src={firstimage} alt="dummy-iamges" />
@@ -16,7 +17,7 @@ const Dummycard = () => {
                 <button>CTA</button>
             </div>
             </div>
-            
+            </div>
         </section>
     )
 }

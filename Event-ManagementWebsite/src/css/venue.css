@@ -1,34 +1,16 @@
-.Trending-Designerssection{
-    /* padding: 20px 70px; */
-    max-width: 1300px;
-    margin: auto;
-}
-
-.video-photosection{
-    /* padding: 20px 70px; */
-    max-width: 1300px;
-    margin: auto;
-}
-
-.Popular-section{
-    /* padding: 20px 70px; */
-    max-width: 1300px;
-    margin: auto;
-}
-
+.Trending-Designerssection,
+.video-photosection,
+.Popular-section,
 .wedding-section {
-    /* padding: 20px 70px; */
-    max-width: 1300px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    padding: 40px 0;     
 }
 
 .venue-grid {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: stretch;
     gap: 24px;
 }
 
@@ -36,10 +18,7 @@
 .venue-card {
     width: 100%;
     max-width: 360px;
-    /* desktop card width */
     height: auto;
-    /* allow content to grow */
-
     border: 1px solid #eaeaea;
     border-radius: 8px;
     padding: 12px;

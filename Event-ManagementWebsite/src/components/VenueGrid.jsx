@@ -8,11 +8,13 @@ const VenueGrid = ({title,number}) => {
 
     return (
         <section className="wedding-section" >
+            <div className="container">
             <Topsection title={title} number={number} />
             <div className="venue-grid">
                 {Array.from({ length: 6 }).map((_, index) => (
                     <VenueCard key={index} city={cities[index % 3]} />
                 ))}
+            </div>
             </div>
         </section>
 

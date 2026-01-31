@@ -1,11 +1,12 @@
 .suppliers-container {
-  padding: 20px 70px;
-  width: 1300px;
+  padding: 40px 0;
+  /* width: 1300px; */
   background: #fff;
-  margin: auto;
-  justify-content: center;
+  /* margin: auto; */
+  /* justify-content: flex-start;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; */
+  width: 100%;
 }
 
 .suppliers-title {
@@ -14,13 +15,12 @@
   margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
-  /* padding: 0px 40px; */
 }
 
 /* Grid layout */
 .suppliers-grid {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 32px;
   flex-wrap: wrap;
 }

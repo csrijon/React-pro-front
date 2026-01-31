@@ -1,11 +1,18 @@
 .filter-container {
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
+  /* align-items: center; */
+  /* gap: 16px; */
+  padding: 24px 0;
   background: #fff;
   border-radius: 8px;
-  justify-content: center;
+  /* justify-content: flex-start; */
+}
+
+.filter-container .container {
+  display: flex;      
+  align-items: center;
+  gap: 16px;          
+  flex-wrap: wrap;
 }
 
 /* Dropdowns */

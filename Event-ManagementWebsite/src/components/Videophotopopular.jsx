@@ -7,6 +7,7 @@ const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
 const Videophotopopular = ({title}) => {
     return (
         <section className="video-photosection" >
+            <div className="container">
             <Topsection title={title} />
             <div className="venue-grid">
                 {Array.from({ length: 5 }).map((_, index) => (
@@ -14,6 +15,7 @@ const Videophotopopular = ({title}) => {
                 ))}
             </div>
             <Countiing/>
+            </div>
         </section>
     )
 }

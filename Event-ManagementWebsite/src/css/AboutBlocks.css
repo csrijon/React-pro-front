@@ -1,8 +1,7 @@
 .about-blocks {
   background: #fff;
-  padding: 20px 0px;
-  max-width: 1300px;
-  margin: 0 auto;
+  padding: 40px 0px;
+  width: 100%;
 }
 
 /* Row layout */
@@ -47,6 +46,7 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+
   .about-row,
   .about-row.reverse {
     flex-direction: column;

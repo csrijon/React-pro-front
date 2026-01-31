@@ -3,6 +3,7 @@ import "../css/Footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
+      <div className="container">
       <div className="footer-top">
 
         {/* Logo & Social */}
@@ -70,6 +71,7 @@ const Footer = () => {
         <p>
           Made wit love by <span>Srijon Chowdhury</span>
         </p>
+      </div>
       </div>
     </footer>
   );

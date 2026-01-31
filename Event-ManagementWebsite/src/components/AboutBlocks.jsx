@@ -5,6 +5,7 @@ import fifthimages from "../assets/fifthimages.jpg"
 const AboutBlocks = () => {
   return (
     <section className="about-blocks">
+      <div className="container">
       {/* Block 1 */}
       <div className="about-row">
         <div className="about-image">
@@ -57,6 +58,7 @@ const AboutBlocks = () => {
           </p>
         </div>
 
+      </div>
       </div>
     </section>
   );
