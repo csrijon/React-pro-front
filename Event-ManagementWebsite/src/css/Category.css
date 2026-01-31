@@ -1,10 +1,11 @@
 :root {
     --primary-Browsecategory-section-bg: #FAFAFA;
-    --primary-viewall-color:#555;
-    --primary-cardtitle-color:#fff;
-    --primary-arrow-numbering-bg-color:#BCBCBC;
-    --primary-arrow-numbering-border-color:#CACACA;
+    --primary-viewall-color: #555;
+    --primary-cardtitle-color: #fff;
+    --primary-arrow-numbering-bg-color: #BCBCBC;
+    --primary-arrow-numbering-border-color: #CACACA;
 }
+
 .Browsecategory-section {
     width: 100%;
     padding: 40px 0;
@@ -12,12 +13,12 @@
 }
 
 .Bottom-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
 }
-.cards{
+
+.cards {
     width: 220px;
     height: 140px;
     border-radius: 8px;
@@ -25,13 +26,15 @@
     position: relative;
     cursor: pointer;
 }
-.cards img{
+
+.cards img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     backdrop-filter: blur(90px);
 }
-.card-title{
+
+.card-title {
     position: absolute;
     bottom: 5px;
     left: 25px;
@@ -39,7 +42,8 @@
     font-size: 14px;
     font-weight: 500;
 }
-.counting{
+
+.counting {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,18 +51,20 @@
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.arrow{
+
+.arrow {
     cursor: pointer;
     border-radius: 10px;
     background-color: var(--primary-arrow-numbering-bg-color);
     border: 1px solid var(--primary-arrow-numbering-border-color);
 }
-.numbering{
+
+.numbering {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     border-radius: 5px;
     background-color: var(--primary-arrow-numbering-bg-color);
-    border: 1px solid var(--primary-arrow-numbering-border-color) ;
-    padding: 0px 5px 0px 5px ;
+    border: 1px solid var(--primary-arrow-numbering-border-color);
+    padding: 0px 5px 0px 5px;
 }

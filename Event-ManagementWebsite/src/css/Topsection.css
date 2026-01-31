@@ -13,9 +13,9 @@
     font-weight: 600;
 }
 .top-section .view-all {
-    font-size: 14px;
-    font-weight: 500;
-    color:var(--primary-viewall-color);
-    cursor: pointer;
-    text-decoration: underline;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--primary-viewall-color);
+  cursor: pointer;
+  text-decoration: underline;
 }
