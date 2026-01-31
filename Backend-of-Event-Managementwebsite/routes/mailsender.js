@@ -11,8 +11,7 @@ router.post("/", (req, res) => {
         success: true,
         message: "data is ok"
     })
-}
-)
+})
 
 
 export default router
