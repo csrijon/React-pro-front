@@ -8,7 +8,7 @@ const Sidebar = () => {
             <ul className="menu">
                 <li><a href="">Dashboard</a></li>
                 <li><a href="">Home</a></li>
-                <li className="active"><a href="">Suppliers</a></li>
+                <li><a href="">Suppliers</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Media</a></li>
                 <li><a href="">Contact</a></li>
