@@ -1,41 +1,33 @@
 .sidebar {
-width: 240px;
-background: #fff;
-min-height: 100vh;
-padding: 20px;
+    width: 240px;
+    background: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    border: 2px solid black;
 }
-
 
 .logo {
-margin-bottom: 30px;
+    margin-bottom: 30px;
 }
-
 
 .menu li {
-list-style: none;
-padding: 12px;
-color: black;
-cursor: pointer;
+    list-style: none;
+    padding: 12px;
+    color: black;
+    cursor: pointer;
 }
-.menu li a{
+
+.menu li a {
     list-style: none;
     text-decoration: none;
 }
 
-
-.menu .active {
-background: #5932ea;
-color: white;
-border-radius: 8px;
-}
-
-
 .upgrade {
-margin-top: 30px;
-background: #5932ea;
-color: white;
-border: none;
-padding: 10px;
-width: 100%;
-border-radius: 8px;
+    margin-top: 30px;
+    background: #5932ea;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
 }
