@@ -16,13 +16,41 @@ const ContactSection = () => {
     console.log(Event.target.value)
   }
   const Handelmail = (Event) => {
-    setemail(Event.target.value)
+    const emaildata = Event.target.value
+    setemail(emaildata)
     console.log(Event.target.value)
   }
   const Handelmessage = (Event) => {
     setmsg(Event.target.value)
     console.log(Event.target.value)
   }
+
+  const onsubmit = async () => {
+
+    try {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert("please entered vaild email")
+        return
+      }
+      const response = await fetch("http://localhost:3000/api/mailsend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, number, email, msg })
+      })
+      const data = await response.json()
+      console.log(data)
+      updatename("")
+      setnumber("")
+      setemail("")
+      setmsg("")
+    } catch (error) {
+      console.log(error, "server is not working")
+    }
+  }
+
   return (
     <section className="contact-wrapper">
       <div className="container">
@@ -42,7 +70,7 @@ const ContactSection = () => {
           <label>Message</label>
           <textarea required value={msg} onChange={Handelmessage} placeholder="Enter Your Message"></textarea>
 
-          <button type="submit">Submit</button>
+          <button onClick={onsubmit} type="submit">Submit</button>
         </div>
 
         {/* Right Info */}
