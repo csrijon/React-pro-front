@@ -1,56 +1,66 @@
 import React from "react";
 /* eslint-disable no-unused-vars */
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import "./Experience.css";
 
-const containerVariants = {
+// Parent animation for each timeline item
+const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2
+      staggerChildren: 0.15
     }
   }
 };
 
+// Animation for individual elements (li, headings, etc.)
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 25 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: {
+      duration: 0.5,
+      ease: "easeOut"
+    }
   }
 };
 
 const Experience = () => {
   return (
     <section className="Experience-section">
+      {/* Heading */}
       <motion.h1
         className="Conatact-heading"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.5 }}
         viewport={{ once: true }}
       >
         <span>/</span>Experience
       </motion.h1>
 
-      <motion.div
-        className="middle-main"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        // viewport={{ once: true }}
-      >
-        {/* Software Developer */}
-        <motion.div className="timeline-item" variants={itemVariants}>
-          <span className="line"></span>
-          <h3 className="ex-heading"><span>#</span>Software Developer</h3>
+      <div className="middle-main">
 
-          <div className="detalis-contain">
+        {/* ================= Software Developer ================= */}
+        <motion.div
+          className="timeline-item"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <span className="line"></span>
+
+          <motion.h3 className="ex-heading" variants={itemVariants}>
+            <span>#</span>Software Developer
+          </motion.h3>
+
+          <motion.div className="detalis-contain" variants={itemVariants}>
             <p>Esplanade, Kolkata, West Bengal</p>
-            <p>Nov 2025 - Ongoing</p>
-          </div>
+            <p>Nov 2025 – Ongoing</p>
+          </motion.div>
 
           <ul>
             {[
@@ -68,14 +78,22 @@ const Experience = () => {
           </ul>
         </motion.div>
 
-        {/* Web Developer Internship */}
-        <motion.div className="timeline-item" variants={itemVariants}>
-          <h3 className="ex-heading"><span>#</span>Web Developer Internship</h3>
+        {/* ================= Web Developer Internship ================= */}
+        <motion.div
+          className="timeline-item"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h3 className="ex-heading" variants={itemVariants}>
+            <span>#</span>Web Developer Internship
+          </motion.h3>
 
-          <div className="detalis-contain">
+          <motion.div className="detalis-contain" variants={itemVariants}>
             <p>Saltlake Sector-V, Kolkata, West Bengal</p>
-            <p>Sep 2024 - Nov 2024</p>
-          </div>
+            <p>Sep 2024 – Nov 2024</p>
+          </motion.div>
 
           <ul>
             {[
@@ -91,14 +109,22 @@ const Experience = () => {
           </ul>
         </motion.div>
 
-        {/* React Internship */}
-        <motion.div className="timeline-item" variants={itemVariants}>
-          <h3 className="ex-heading"><span>#</span>React.js Developer Internship</h3>
+        {/* ================= React Internship ================= */}
+        <motion.div
+          className="timeline-item"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h3 className="ex-heading" variants={itemVariants}>
+            <span>#</span>React.js Developer Internship
+          </motion.h3>
 
-          <div className="detalis-contain">
+          <motion.div className="detalis-contain" variants={itemVariants}>
             <p>Esplanade, Kolkata, West Bengal</p>
-            <p>Aug 2025 - Sep 2025</p>
-          </div>
+            <p>Aug 2025 – Sep 2025</p>
+          </motion.div>
 
           <ul>
             {[
@@ -113,7 +139,8 @@ const Experience = () => {
             ))}
           </ul>
         </motion.div>
-      </motion.div>
+
+      </div>
     </section>
   );
 };
