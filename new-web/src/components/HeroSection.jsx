@@ -10,7 +10,7 @@ const HeroSection = () => {
         <section className="hero">
             <div className="hero-left">
                 <motion.h1 initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} >
-                    Srijon is a <span className="purple">Full Stack Web Developer</span> and{" "}
+                    Srijon is a <span className="purple">Full Stack Web Developer</span> &{" "}
                     <span className="purple">App Developer</span>
                 </motion.h1>
                 <motion.p

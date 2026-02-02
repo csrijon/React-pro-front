@@ -7,7 +7,7 @@ import Contacttop from '../ui/Contacttop';
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
-const Contact = () => {
+const Contact = ({icon}) => {
 
   const container = {
     hidden: { opacity: 0 },
@@ -36,7 +36,7 @@ const Contact = () => {
       whileInView="visible"
     >
       <motion.div variants={item}>
-        <Contacttop icon="#" />
+        <Contacttop icon={icon} />
       </motion.div>
 
       <motion.div variants={item} className="contact-box">
