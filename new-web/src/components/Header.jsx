@@ -46,7 +46,7 @@ const Header = () => {
         <motion.li variants={item}><span>#</span><NavLink to="/">home</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/allprojects">works</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/aboutme">about-me</NavLink></motion.li>
-        <motion.li variants={item}><span>#</span><NavLink to="/ex">experience</NavLink></motion.li>
+        <motion.li variants={item}><span>#</span><NavLink to="/experience">experience</NavLink></motion.li>
         <motion.li variants={item}><span>#</span><NavLink to="/contact">contact</NavLink></motion.li>
       </motion.ul>
 
@@ -56,7 +56,7 @@ const Header = () => {
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/">home</ NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/allprojects">works</NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/aboutme">about-me</NavLink></li>
-          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/ex">experience</NavLink></li>
+          <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/experience">experience</NavLink></li>
           <li><span>#</span><NavLink onClick={() => setIsOpen(false)} to="/contact">contact</NavLink></li>
         </ul>
       </nav>
