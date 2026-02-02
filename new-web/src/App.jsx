@@ -18,31 +18,34 @@ import ContactRoutepage from './pages/ContactRoutepage'
 import Experience from './components/Experience'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import Button from '@mui/material/Button'
-import HomePages from './pages/HomePages'
-import ProjectSectionPages from "./pages/ProjectSectionPages"
-import AboutPage from "./pages/AboutPage"
-import ExperiencePage from "./pages/ExperiencePage"
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><HomePages /></>
+    element: <><Header />
+      <HeroSection />
+      <ProjectSection />
+      <Skillsection />
+      <AboutMe />
+      <Contact icon="#" />
+      <Footer />
+      <Fixed /></>
   },
   {
     path: "/allprojects",
-    element: <><ProjectSectionPages /></>
+    element: <><Header /><Allproject /><Footer /><Scrolltop /></>
   },
   {
     path: "/aboutme",
-    element: <><AboutPage /></>
+    element: <><Header /><Routeabout /><Funfact /><Footer /><Scrolltop /></>
   },
   {
     path: "/experience",
-    element: <><ExperiencePage/></>
+    element: <><Header /><Experience/><Footer /><Scrolltop /></>
   }
-  , {
+  ,{
     path: "/contact",
-    element: <><Header /><ContactRoutepage /><Footer /><screenTop /></>
+    element: <><Header/><ContactRoutepage /><Footer/><screenTop/></>
   },
 ])
 function App() {
