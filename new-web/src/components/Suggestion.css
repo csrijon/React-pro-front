@@ -2,10 +2,8 @@
 .suggestion-box {
   max-width: 380px;
   margin: 0 auto;
-  /* padding: 30px; */
   border-radius: 14px;
 }
-
 /* TITLE */
 .suggestion-box h2 {
   text-align: center;
@@ -15,14 +13,12 @@
   font-weight: 500;
   letter-spacing: 0.5px;
 }
-
 /* FORM */
 .suggestion-form {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
-
 /* INPUT + TEXTAREA */
 .suggestion-form input,
 .suggestion-form textarea {
@@ -35,13 +31,11 @@
   color: #eaeaea;
   transition: all 0.25s ease;
 }
-
 /* PLACEHOLDER */
 .suggestion-form input::placeholder,
 .suggestion-form textarea::placeholder {
   color: #8b9099;
 }
-
 /* FOCUS */
 .suggestion-form input:focus,
 .suggestion-form textarea:focus {
@@ -50,20 +44,17 @@
   background: #262b34;
   box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.18);
 }
-
 /* TEXTAREA */
 .suggestion-form textarea {
   min-height: 130px;
   resize: none;
 }
-
 /* BUTTON */
 .suggestion-form button {
   margin-top: 8px;
   padding: 14px;
   border: none;
   border-radius: 12px;
-  /* background: linear-gradient(135deg, #5a54e8, #6c63ff); */
   background-color: #1f242b;
   color: #ffffff;
   font-size: 14px;
@@ -73,13 +64,11 @@
   transition: all 0.25s ease;
   border: 1px solid #C778DD;
 }
-
 /* BUTTON HOVER */
 .suggestion-form button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 30px #c778dd;
 }
-
 /* BUTTON ACTIVE */
 .suggestion-form button:active {
   transform: translateY(0);

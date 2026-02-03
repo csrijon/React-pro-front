@@ -1,7 +1,7 @@
 /* General container and layout */
 .about-me-container {
-  background-color: #282c34; /* Dark background color */
-  color: #abb2bf; /* Light grey text color for readability */
+  background-color: #282c34; 
+  color: #abb2bf; 
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   display: flex;
   align-items: center;
@@ -20,7 +20,6 @@
   max-width: 550px;
   z-index: 2;
 }
-
 .about-me-heading {
   font-size: 32px;
   font-weight: 500;
@@ -30,7 +29,6 @@
   align-items: center;
 }
 
-/* The '#' symbol with accent color */
 .about-me-heading .accent-text {
   color: #c778dd; /* Accent purple color */
   margin-right: 8px;
@@ -40,7 +38,6 @@
 .about-me-heading::after {
   content: '';
   display: block;
-  /* flex-grow: 1; */
   height: 1px;
   background-color: #c778dd;
   margin-left: 16px;
@@ -54,13 +51,11 @@
    text-align: left;
 }
 
-/* 'Read more' button styling */
 .read-more-btn {
   background-color: transparent;
   border: 1px solid #c778dd;
   color: #ffffff;
   padding: 10px 20px;
-  /* font-family: inherit; */
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -80,7 +75,6 @@
 .about-me-image-section {
   position: relative;
   z-index: 1;
-  /* margin: auto; */
 }
 
 .profile-image {

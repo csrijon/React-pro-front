@@ -4,8 +4,6 @@ import './Fanfact.css'
 /* eslint-disable no-unused-vars */
 import { delay, motion } from "framer-motion"
 
-
-
 const Funfact = () => {
 
     const data = [

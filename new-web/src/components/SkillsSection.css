@@ -7,12 +7,10 @@
   color: #fff;
    font-family: "Fira Code", monospace;
 }
-
 .skills-box {
   border: 1px solid #ABB2BF;
   border-radius: 6px;
 }
-
 .skills-box h3 {
   padding: 10px;
   margin: 0 0 8px 0;
@@ -20,7 +18,6 @@
   font-weight: bold;
   border-bottom: 1px solid #ABB2BF;
 }
-
 .skills-box p {
   margin: 0;
   padding: 10px;

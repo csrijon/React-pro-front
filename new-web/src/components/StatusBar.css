@@ -10,14 +10,12 @@
   color: #fff;
   width: fit-content;
 }
-
 .status-icon {
   width: 10px;
   height: 10px;
   background-color: #C778DD; 
   display: inline-block;
 }
-
 .status-text strong {
   font-weight: bold;
 }

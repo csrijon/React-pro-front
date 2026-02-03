@@ -1,22 +1,15 @@
 .grid-container {
   display: grid;
-  /* ৪টি সমান কলাম তৈরি করবে */
   grid-template-columns: repeat(4, 1fr);
-  /* ডটগুলোর মধ্যে ফাঁকা জায়গা */
   gap: 25px;
-  /* ছবির মতো ব্যাকগ্রাউন্ড কালার */
   padding: 25px;
   border-radius: 8px;
-  /* কন্টেইনারকে তার ভেতরের কনটেন্টের মাপে রাখার জন্য */
   width: fit-content;
 }
 
 .dot {
- /* position: absolute; */
   width: 4px;
   height: 4px;
-  /* ছবির মতো ডটের কালার */
   background-color: #ABB2BF;
-  /* ডটকে গোল করার জন্য */
   border-radius: 50%;
 }

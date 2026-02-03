@@ -16,7 +16,7 @@ const Aboutmeimage = () => {
         visible: {
             scale: 1,
             opacity: 1,
- 
+
             transition: { type: "spring", stiffness: 100, damping: 20 }
         },
     }
@@ -26,7 +26,7 @@ const Aboutmeimage = () => {
             initial="hidden"
             whileInView="visible"
             className="about-me-image-section">
-            <motion.div  className="dots dots-top"></motion.div>
+            <motion.div className="dots dots-top"></motion.div>
             <motion.img
                 variants={item}
                 src={profileImage}
@@ -34,7 +34,7 @@ const Aboutmeimage = () => {
                 className="profile-image"
             />
 
-            <motion.div  className="dots dots-bottom"></motion.div>
+            <motion.div className="dots dots-bottom"></motion.div>
         </motion.div>
     )
 }

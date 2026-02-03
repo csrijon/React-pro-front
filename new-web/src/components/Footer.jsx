@@ -6,19 +6,15 @@ import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa"
 import logo from "../assets/Logo.svg"
 
 const socialLinks = [
-  { icon: <FaGithub/>, url: "https://github.com/csrijon" },
-  { icon: <FaLinkedin/>, url: "https://www.linkedin.com/in/srijon-chowdhury-87354a268/" },
-  { icon: <FaInstagram/>, url: "https://discord.gg/yourinvite" },
+  { icon: <FaGithub />, url: "https://github.com/csrijon" },
+  { icon: <FaLinkedin />, url: "https://www.linkedin.com/in/srijon-chowdhury-87354a268/" },
+  { icon: <FaInstagram />, url: "https://discord.gg/yourinvite" },
 ];
 
 const Footer = () => {
   return (
     <motion.footer
       className="footer-container"
-      // initial={{ opacity: 0, y: 50 }}
-      // whileInView={{ opacity: 1, y: 0 }}
-      // transition={{ duration: 0.6, ease: "easeOut" }}
-      // viewport={{ once: true }}
     >
       <div className="footer-content">
         <div className="footer-top">
@@ -29,7 +25,6 @@ const Footer = () => {
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            // viewport={{ once: true }}
           >
             <div className="footer-title">
               <motion.img
@@ -53,7 +48,6 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              // viewport={{ once: true }}
             >
               Full-Stack Web Developer And App Developer
             </motion.p>
@@ -61,11 +55,6 @@ const Footer = () => {
 
           {/* RIGHT MEDIA */}
           <motion.div
-            // className="footer-media"
-            // initial={{ opacity: 0, x: 40 }}
-            // whileInView={{ opacity: 1, x: 0 }}
-            // transition={{ duration: 0.6 }}
-            // viewport={{ once: true }}
           >
             <h3 className="media-title">Media</h3>
 
@@ -82,7 +71,7 @@ const Footer = () => {
                 },
               }}
             >
-              {socialLinks.map((item,index) => (
+              {socialLinks.map((item, index) => (
                 <motion.a
                   key={index}
                   href={item.url}

@@ -48,7 +48,6 @@ h1 span{
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-bottom: 2rem;
-  /* place-items: center; */
 }
 
 .project-cards {
@@ -79,7 +78,6 @@ h1 span{
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  /* margin-bottom: 1rem; */
   color: #ABB2BF;
   font-size: 0.85rem;
   padding: 8px;
@@ -88,7 +86,6 @@ h1 span{
 
 .project-title {
   font-size: 1.5rem;
-  /* margin: 0 0 0.5rem 0; */
   padding: 16px;
   color: #FFFFFF;
 }
@@ -98,7 +95,6 @@ h1 span{
   color: #ABB2BF;
   margin: 0;
   flex-grow: 1;
-  /* margin-bottom: 1.5rem; */
   padding: 0 16px 16px 16px;
 }
 

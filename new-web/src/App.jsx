@@ -11,14 +11,8 @@ import Allproject from './components/Allproject'
 import Scrolltop from './components/Scrolltop'
 import Routeabout from './components/Routeabout'
 import Funfact from './ui/Funfact'
-import Button from "./ui/Button"
-// import Onworking from './ui/Onworking'
-// import Media from './ui/Media'
-// import ContactRoutepage from './pages/ContactRoutepage'
 import Experience from './components/Experience'
-import Suggestion from './components/Suggestion'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import Button from '@mui/material/Button'
 import Contactroutepage from "./components/Contactroutepage"
 
 const router = createBrowserRouter([
@@ -43,11 +37,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/experience",
-    element: <><Header /><Experience/><Footer /><Scrolltop /></>
+    element: <><Header /><Experience /><Footer /><Scrolltop /></>
   }
-  ,{
+  , {
     path: "/contact",
-    element: <><Header/><Contactroutepage/><Footer/><screenTop/></>
+    element: <><Header /><Contactroutepage /><Footer /><screenTop /></>
   },
 ])
 function App() {

@@ -1,6 +1,5 @@
 .about-section-route {
   color: #fff;
-  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,17 +14,14 @@
     align-items: center;
     flex-wrap: wrap;
 }
-
 .section-title-route {
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 8px;
 }
-
 .slash-route{
   color: #C778DD; 
 }
-
 .subtitle-route {
   color: #c9c9c9;
   font-size: 1.1rem;
