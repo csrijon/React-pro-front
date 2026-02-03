@@ -13,29 +13,22 @@
     align-items: center;
     max-width: 550px;
 }
-
 .top-section .accent-text {
     color: #c778dd;
     margin-right: 8px;
 }
-
 .top-section::after {
     content: '';
     display: block;
-    /* flex-grow: 1; */
     height: 1px;
     background-color: #c778dd;
     margin-left: 16px;
     min-width: 200px;
 }
-
-
 .middle-skill {
     display: flex;
     justify-content: center;
-    /* margin-top: 20px; */
     width: 100%;
-    /* padding: 20px; */
     align-items: center;
     flex-wrap: wrap;
 }
@@ -44,7 +37,6 @@
     height: auto;
     object-fit: cover;
 }
-
 @media (max-width: 992px) {
     .middle-skill {
         justify-content: center;

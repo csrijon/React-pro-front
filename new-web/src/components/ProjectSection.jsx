@@ -1,14 +1,11 @@
 import React from "react";
-// import view from "../assets/View all ~~_.png"
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "./Project.css"
 import "./Projects.css"
-// import oneimage from "../assets/oneimage1.jpg"
 import habitiimage from "../assets/habittracker.png"
 import Ytfetch from "../assets/yt fetch.png"
 import onlinecom from "../assets/onliencompiler.png"
 import DotGrid from "./DotGrid";
-// import { NavLink } from "react-router-dom";
 import Button from "../ui/Button";
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion"

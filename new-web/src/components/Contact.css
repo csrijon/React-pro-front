@@ -1,27 +1,20 @@
-                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                 /* Main container for the contact section */
+                                                                                                                                                                                                                                                                                                                                                   /* Main container for the contact section */
 .Contact-routesection{
   padding: 5rem 1rem 2rem 1rem;
 }
-
 .contact-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 1rem;
   gap: 30px;
   background-color: #282c34;
-  /* Dark background */
   color: #abb2bf;
-  /* Light grey text */
   font-family: 'Fira Code', 'Courier New', Courier, monospace;
   position: relative;
   max-width: 1380px;
   width: 100%;
   margin: auto;
 }
-
-/* Add the decorative dots on the left */
 .contact-container::before {
   content: '';
   position: absolute;
@@ -33,12 +26,9 @@
   background-size: 12px 12px;
   opacity: 0.4;
 }
-
-/* Left side content: heading and description */
 .contact-content {
   max-width: 500px;
 }
-
 .contact-heading {
   font-size: 32px;
   font-weight: 500;
@@ -47,23 +37,10 @@
   display: flex;
   align-items: center;
 }
-
-/* Purple '#' symbol */
 .contact-heading .accent-text {
   color: #c778dd;
   margin-right:8px;
-  /* Accent purple color */
 }
-
-/* Purple line after the heading */
-/* .contact-heading::after {
-  content: '';
-  height: 1px;
-  flex-grow: 1;
-  background-color: #c778dd;
-  margin-left: 16px;
-  min-width: 150px;
-} */
 
 .contact-description {
   line-height: 1.6;

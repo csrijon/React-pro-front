@@ -7,7 +7,7 @@ import Contacttop from '../ui/Contacttop';
 /* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 
-const Contact = ({icon}) => {
+const Contact = ({ icon }) => {
 
   const container = {
     hidden: { opacity: 0 },
@@ -29,7 +29,7 @@ const Contact = ({icon}) => {
   };
 
   return (
-    <motion.section 
+    <motion.section
       className="contact-container"
       variants={container}
       initial="hidden"

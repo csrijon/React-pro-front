@@ -1,7 +1,7 @@
 import React from 'react';
-import './DotGrid.css'; 
+import './DotGrid.css';
 
-const DotGrid = ({length}) => {
+const DotGrid = ({ length }) => {
   const dots = Array.from({ length });
 
   return (

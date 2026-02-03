@@ -6,7 +6,6 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-items: center;
-  /* padding: 20px; */
   width: 100%;
 }
 
@@ -21,15 +20,12 @@
   justify-content: space-between;
 }
 
-
-
 .card-top img {
   width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 4px;
   border-bottom: 1px solid #ffffff;
-  /* display: block; */
 }
 
 .tags {
@@ -66,7 +62,6 @@
 .card-buttons .btn {
   text-decoration: none;
   padding: 6px 10px;
-  /* border: 1px solid #555; */
   color: #ddd;
   font-size: 14px;
   border-radius: 4px;
@@ -74,7 +69,6 @@
 }
 
 .btn.primary {
-  /* background-color: #a78bfa; */
   color: #fff;
   border: 1px solid #C778DD;
 }

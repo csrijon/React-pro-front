@@ -18,14 +18,14 @@ const icon1 = {
 }
 
 const icon2 = {
-  hidden: { x: 50, opacity: 0,scale:0.8 },
+  hidden: { x: 50, opacity: 0, scale: 0.8 },
   show: {
     x: 0,
     opacity: 1,
- scale:1,
+    scale: 1,
     transition: { type: "spring", stiffness: 150, damping: 20, delay: 0.2 }
   },
-  hover: { scale: 1.2, rotate: -5}
+  hover: { scale: 1.2, rotate: -5 }
 }
 
 const icon3 = {
