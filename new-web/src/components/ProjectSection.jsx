@@ -2,9 +2,9 @@ import React from "react";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "./Project.css"
 import "./Projects.css"
-import habitiimage from "../assets/habittracker.png"
-import Ytfetch from "../assets/yt fetch.png"
-import onlinecom from "../assets/onliencompiler.png"
+import habitiimage from "../assets/habittracker.webp"
+import Ytfetch from "../assets/yt fetch.webp"
+import onlinecom from "../assets/onliencompiler.webp"
 import DotGrid from "./DotGrid";
 import Button from "../ui/Button";
 /* eslint-disable no-unused-vars */
