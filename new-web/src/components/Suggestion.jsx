@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { motion } from "framer-motion"; 
 import "./Suggestion.css";
 
 const Suggestion = () => {
@@ -8,48 +10,84 @@ const Suggestion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // UI logic only
-    console.log({
-      name,
-      email,
-      message,
-    });
-
-    // clear inputs after submit
+    console.log({ name, email, message });
     setName("");
     setEmail("");
     setMessage("");
   };
 
+  // Animation Settings
+  const inputAnim = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0,transition: { type: "spring", stiffness: 100, damping: 20 } },
+    focus: { scale: 1.05, borderColor: "#c778dd", boxShadow: "0px 0px 8px rgba(98,0,234,0.3)" }
+  };
+
   return (
-    <div className="suggestion-box">
+    <motion.div 
+      className="suggestion-box"
+      // Entrance Animation: Slides down from top
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 100, damping: 20 }}
+    >
       <h2>Give me your suggestion</h2>
 
       <form onSubmit={handleSubmit} className="suggestion-form">
-        <input
+        
+        {/* Name Input */}
+        <motion.input
           type="text"
           placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          
+          // Animation Props
+          variants={inputAnim}
+          initial="hidden"
+          animate="visible"
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }} // Staggered delay
+          whileFocus="focus" // The "Inout" animation
         />
 
-        <input
+        {/* Email Input */}
+        <motion.input
           type="email"
           placeholder="Enter your gmail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          
+          variants={inputAnim}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.2 }}
+          whileFocus="focus"
         />
 
-        <textarea
+        {/* Message Input */}
+        <motion.textarea
           placeholder="Write your message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
+          
+          variants={inputAnim}
+          initial="hidden"
+          animate="visible"
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
+          whileFocus="focus"
+        />
 
-        <button type="submit">Submit</button>
+        {/* Button Animation */}
+        <motion.button 
+          type="submit"
+          whileHover={{ scale: 1.1, }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Submit
+        </motion.button>
+
       </form>
-    </div>
+    </motion.div>
   );
 };
 
