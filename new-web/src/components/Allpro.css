@@ -60,7 +60,6 @@ h1 span{
   flex-direction: column;
   justify-content: space-between;
   width: 320px;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .project-image {

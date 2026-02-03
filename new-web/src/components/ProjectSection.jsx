@@ -55,7 +55,7 @@ const ProjectSection = () => {
             <motion.h2
               initial={{ opacity: 0, x: -100, scale: 0 }}
               whileInView={{ opacity: 1, x: 0, scale: 1.1 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
               className="about-me-heading">
               <span className="accent-text">#</span>projects
             </motion.h2>
@@ -67,10 +67,10 @@ const ProjectSection = () => {
               style={{ boxShadow: "none" }}
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.3, zoom: "zoomOut" }}
+              transition={{ type: "spring", stiffness: 100, damping: 20, delay: i * 0.3 }}
               whileHover={{
                 scale: 1.2, y: -10, boxShadow: "0px 15px 35px rgba(199, 120, 221, 0.45)"
-                , transition: { duration: 0.3, delay: 0 }
+                , transition: { type: "spring", stiffness: 150, damping: 18 }
               }}
               className="project-card">
               <div className="card-top">

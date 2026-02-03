@@ -19,17 +19,17 @@ const SkillsSection = () => {
         <motion.div 
         initial={{ opacity: 0, y:50}}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: i * 0.3, ease: "easeInOut" }}
+        transition={{ type: "spring", stiffness: 100, damping: 20, delay: i * 0.3 }}
         className="skills-box" key={category}>
           <motion.h3 
           initial ={{ opacity: 0}}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: i *0.5, ease: "easeInOut" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: i *0.5 }}
           >{category}</motion.h3>
           <motion.p
             initial ={{ opacity: 0}}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: i *0.5, ease: "easeInOut" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: i *0.5 }}
           >{items.join(" ")}</motion.p>
         </motion.div>
       ))}

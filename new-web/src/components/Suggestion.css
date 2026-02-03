@@ -1,6 +1,6 @@
 /* CONTAINER */
 .suggestion-box {
-  max-width: 420px;
+  max-width: 380px;
   margin: 0 auto;
   /* padding: 30px; */
   border-radius: 14px;
@@ -31,6 +31,7 @@
   border: 1px solid #2f3540;
   font-size: 14px;
   background: #1f242b;
+  height: 48px;
   color: #eaeaea;
   transition: all 0.25s ease;
 }
@@ -66,9 +67,9 @@
   background-color: #1f242b;
   color: #ffffff;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
   transition: all 0.25s ease;
   border: 1px solid #C778DD;
 }

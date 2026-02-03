@@ -19,14 +19,13 @@ const Header = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        ease: "easeInOut"
       }
     }
   };
 
   const item = {
     hidden: { opacity: 0, y: 10 },
-    show: { opacity: 1, y: 0 }
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 150, damping: 20 } }
   };
 
   return (

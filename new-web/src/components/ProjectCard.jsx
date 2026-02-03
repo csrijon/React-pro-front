@@ -6,10 +6,21 @@ const ProjectCard = ({ project, index }) => {
   return (
     <motion.div
       className="project-cards"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 90, delay: index * 0.12 }}
+      transition={{ type: "spring", stiffness: 100, damping: 20, delay: index * 0.12 }}
+      whileHover={{
+        y: -10,
+        scale: 1.06,
+        rotate: 0.5,
+        boxShadow: "0px 25px 50px rgba(0,0,0,0.2)",
+        transition: {
+          type: "spring",
+          stiffness: 250,
+          damping: 18
+        }
+      }}
     >
 
       {project.image && (

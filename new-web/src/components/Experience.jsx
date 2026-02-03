@@ -21,8 +21,9 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: "easeOut"
+      type: "spring",
+      stiffness: 100,
+      damping: 20
     }
   }
 };
@@ -35,7 +36,7 @@ const Experience = () => {
         className="Conatact-heading"
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
         viewport={{ once: true }}
       >
         <span>/</span>Experience

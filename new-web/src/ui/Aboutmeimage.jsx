@@ -1,6 +1,6 @@
 import profileImage from "../assets/Image.png"
 /* eslint-disable no-unused-vars */
-import { motion } from "framer-motion"
+import { motion, scale } from "framer-motion"
 const Aboutmeimage = () => {
 
     const aboutitem = {
@@ -12,11 +12,12 @@ const Aboutmeimage = () => {
         }
     }
     const item = {
-        hidden: { opacity: 0, y: 50 },
+        hidden: { scale: 0.6, opacity: 0 },
         visible: {
-            opacity: 1, y: 0,
-
-            transition: { duration: 0.6, ease: "easeOut" }
+            scale: 1,
+            opacity: 1,
+ 
+            transition: { type: "spring", stiffness: 100, damping: 20 }
         },
     }
     return (
@@ -25,7 +26,7 @@ const Aboutmeimage = () => {
             initial="hidden"
             whileInView="visible"
             className="about-me-image-section">
-            <div className="dots dots-top"></div>
+            <motion.div  className="dots dots-top"></motion.div>
             <motion.img
                 variants={item}
                 src={profileImage}
@@ -33,7 +34,7 @@ const Aboutmeimage = () => {
                 className="profile-image"
             />
 
-            <div className="dots dots-bottom"></div>
+            <motion.div  className="dots dots-bottom"></motion.div>
         </motion.div>
     )
 }

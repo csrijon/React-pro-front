@@ -11,7 +11,7 @@ const Skillsection = () => {
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
                 className="top-section">
                 <span className="accent-text">#</span>skills
             </motion.h2>
