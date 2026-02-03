@@ -1,13 +1,13 @@
-import habitimage from "../assets/habittracker.png"
-import resume from "../assets/resumecheker.png"
-import chatbot from "../assets/chatbot.png"
-import realtime from "../assets/realtimehat.png"
-import ytfetch from "../assets/yt fetch.png"
-import onlinecompiler from "../assets/onliencompiler.png"
-import oto from "../assets/oto.png"
-import gdg from "../assets/gdg.png"
-import currency from "../assets/currency.png"
-import weather from "../assets/weather.png"
+import habitimage from "../assets/habittracker.webp"
+import resume from "../assets/resumecheker.webp"
+import chatbot from "../assets/chatbot.webp"
+import realtime from "../assets/realtimehat.webp"
+import ytfetch from "../assets/yt fetch.webp"
+import onlinecompiler from "../assets/onliencompiler.webp"
+import oto from "../assets/oto.webp"
+import gdg from "../assets/gdg.webp"
+import currency from "../assets/currency.webp"
+import weather from "../assets/weather.webp"
 
 export const completeApps = [
   {
