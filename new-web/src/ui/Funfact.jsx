@@ -4,20 +4,7 @@ import './Fanfact.css'
 /* eslint-disable no-unused-vars */
 import { delay, motion } from "framer-motion"
 
-const temanimation = {
-    hidden: {
-        opacity: 0,
-        y: 50
-    },
-    show: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            delay: 0.5
-        }
-    }
-}
+
 
 const Funfact = () => {
 
@@ -39,7 +26,7 @@ const Funfact = () => {
             <motion.h1
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ type: "spring", stiffness: 100, damping: 20 }}
             ><span>#</span>my-fun-facts</motion.h1>
             <motion.div className="funfact-content" >
                 <motion.div className="left-section-funfact">
@@ -47,7 +34,7 @@ const Funfact = () => {
                         <motion.p
                             initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 * index }}
+                            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 * index }}
                             key={index}>{item.fact}</motion.p>)
                     }
                 </motion.div>
@@ -55,11 +42,12 @@ const Funfact = () => {
                     <motion.img
                         src={aboutlogo}
                         alt="about"
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.6 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{
-                            duration: 0.6,
-                            ease: "easeOut",
+                            type: "spring",
+                            stiffness: 100,
+                            damping: 20,
                         }}
                     />
                 </motion.div>

@@ -9,6 +9,9 @@ const Aboutme = () => {
         hidden: {},
         visible: {
             transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
                 staggerChildren: 0.16,
             }
         }
@@ -18,7 +21,7 @@ const Aboutme = () => {
         visible: {
             opacity: 1, y: 0,
 
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: { type: "spring", stiffness: 100, damping: 20 }
         },
     }
     return (

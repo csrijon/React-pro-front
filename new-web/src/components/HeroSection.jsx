@@ -21,27 +21,35 @@ const HeroSection = () => {
                     He crafts responsive websites and builds intuitive mobile apps where technology meets creativity.
                 </motion.p>
                 <motion.button
-                    initial={{ opacity: 0, scaleX: 0 }}
-                    animate={{ opacity: 1, scaleX: 1 }}
-                    transition={{ duration: 0.5, ease: "easeInOut", delay: 0.8 }}
-                    whileHover={{scale:1.1,transition:{duration:0.1,delay:0}}}
-                    className="hero-btn">Contact me !!</motion.button>
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 20, delay: 0.8 }}
+                    whileHover={{
+                        y: -5,
+                        scale: 1.05,
+                        transition: { type: "spring", stiffness: 150, damping: 20 }
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="hero-btn"
+                >
+                    Contact me !!
+                </motion.button>
 
                 <motion.div
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0, backgroundColor: "#1f2227" }}
-                    transition={{ duration: 0.5, ease: "easeInOut", delay: 1 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 20, delay: 1 }}
                     className="status">
                     <motion.span
                         initial={{ opacity: 0, scale: 0 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, ease: "easeInOut", delay: 1.3 }}
+                        transition={{ type: "spring", stiffness: 150, damping: 20, delay: 1.3 }}
                         className="status-dot">
                     </motion.span>
                     <motion.span
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, ease: "easeInOut", delay: 1.5 }}
+                        transition={{ type: "spring", stiffness: 150, damping: 20, delay: 1.5 }}
                     >
                         Currently working on <strong>Portfolio</strong>
                     </motion.span>
@@ -50,12 +58,12 @@ const HeroSection = () => {
 
             <div className="hero-right">
                 {/* <img src={Image} alt="person" /> */}
-                <motion.img 
+                <motion.img
                     initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1,filter: "drop-shadow(0px 0px 10px black)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "drop-shadow(0px 0px 10px black)" }}
 
                     transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
-                src={personImage} alt="" />
+                    src={personImage} alt="" />
                 <StatusBar />
             </div>
         </section>

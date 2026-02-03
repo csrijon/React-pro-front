@@ -12,7 +12,7 @@ const AboutMe = () => {
         <motion.h2
           initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
           className="about-me-heading">
           <span className="accent-text">#</span>about-me
         </motion.h2>

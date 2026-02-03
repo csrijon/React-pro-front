@@ -7,7 +7,10 @@ import { motion } from 'framer-motion';
 
 const textanimation = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.15 } }
+  show: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.6, delay: 0.15 }
+  }
 }
 
 const Allproject = () => {
@@ -41,7 +44,7 @@ const Allproject = () => {
       <section className="project-section">
         <motion.h2 id="small-projects">Frontend-projects</motion.h2>
         <div className="projects-grid">
-          {smallProjects.map((project,i) => (
+          {smallProjects.map((project, i) => (
             <ProjectCard index={i} key={project.title} project={project} />
           ))}
         </div>
