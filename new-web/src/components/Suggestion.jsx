@@ -8,9 +8,31 @@ const Suggestion = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log({ name, email, message });
+
+    try {
+      const response = await fetch("http://localhost:3000/sendmail",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          name,
+          email,
+          message
+      })
+      });
+      
+      const data = await response.json();
+      if(response.ok){
+        return ;
+      }
+      console.log("Response data:", data);
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
     setName("");
     setEmail("");
     setMessage("");
