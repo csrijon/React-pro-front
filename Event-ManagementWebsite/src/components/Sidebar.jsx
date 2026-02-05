@@ -1,20 +1,21 @@
 import "../css/Sidebar.css"
+import { NavLink } from "react-router";
 
 
 const Sidebar = () => {
-    return (
-        <aside className="sidebar">
-            <h2 className="logo">Dashboard</h2>
-            <ul className="menu">
-                <li><a href="">Dashboard</a></li>
-                <li><a href="">Home</a></li>
-                <li><a href="">Suppliers</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Media</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-        </aside>
-    )
-}
+  return (
+    <aside className="sidebar">
+      <h2 className="logo">Dashboard</h2>
+      <nav>
+        <NavLink to="/admin">Dashboard</NavLink>
+        <NavLink to="/admin/home">Home</NavLink>
+        <NavLink to="/admin/supply">Suppliers</NavLink>
+        <NavLink to="/admin/aboutadmin">About</NavLink>
+        <NavLink to="/admin/mediaadmin">Media</NavLink>
+        <NavLink to="/admin/contactadmin">Contact</NavLink>
+      </nav>
+    </aside>
+  );
+};
 
-export default Sidebar
+export default Sidebar;
