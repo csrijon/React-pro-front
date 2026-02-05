@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <><Contactpage /></>
   },
   {
-    path: "/Admin",
+    path: "/admin",
     element: <><AdminLayout /></>,
     children: [
       {
