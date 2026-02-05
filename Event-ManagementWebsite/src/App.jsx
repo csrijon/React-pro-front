@@ -5,7 +5,7 @@ import Aboutpage from "./pages/Aboutpage.jsx"
 import Mediapage from "./pages/Mediapage.jsx"
 import Contactpage from "./pages/Contactpage.jsx"
 import Sidebar from "./components/Sidebar.jsx";
-import AdminHeader from "./components/AdminHeader.jsx"
+import AdminLayout from "./layouts/AdminLayout.jsx";
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path:"/Admin",
-     element:<><Sidebar/><AdminHeader/></>
+     element:<> <AdminLayout/></>
   }
 ])
 

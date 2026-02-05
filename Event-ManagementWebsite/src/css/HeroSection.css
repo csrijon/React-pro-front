@@ -68,3 +68,45 @@
     background-size: 6px 6px, 6px 6px;
     background-repeat: no-repeat;
 }
+/* ===============================
+   HERO RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+
+  .hero-section {
+    height: auto;              /* fixed height issue remove */
+    padding: 32px 16px;
+  }
+
+  .first-part h3 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .second-part {
+    flex-direction: column;    /* selects stack */
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .category-select,
+  .location-select {
+    width: 100%;               /* full width on mobile */
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .first-part h3 {
+    font-size: 20px;
+  }
+
+  .category-select,
+  .location-select {
+    font-size: 13px;
+    padding: 12px 36px 12px 14px;
+  }
+}

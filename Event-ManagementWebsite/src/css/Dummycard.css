@@ -69,3 +69,66 @@
     cursor: pointer;
     align-self: flex-end;
 }
+/* ===============================
+   DUMMY SECTION RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+  .main-cards {
+    gap: 28px;
+    padding: 40px;
+  }
+
+  .right-details p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .dummy-section {
+    padding: 30px 16px;
+  }
+
+  .main-cards {
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+  }
+
+  .left-dummy img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+
+  .right-dummy {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .right-dummy button {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .main-cards {
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .right-details h4 {
+    font-size: 18px;
+  }
+
+  .right-details p {
+    font-size: 13px;
+  }
+
+  .right-dummy button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -49,3 +49,62 @@
 .arrow svg {
     font-size: 22px;
 }
+/* ===============================
+   SLIDER RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+  .slider-card {
+    width: 420px;
+    height: 260px;
+  }
+
+  .slider-wrapper {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-wrapper {
+    padding: 30px 16px;
+  }
+
+  .slider-card {
+    width: 100%;
+    max-width: 360px;
+    height: 220px;
+  }
+
+  .arrow {
+    width: 38px;
+    height: 38px;
+  }
+
+  .arrow svg {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-container {
+    justify-content: center;
+  }
+
+  .slider-wrapper {
+    gap: 12px;
+  }
+
+  .slider-card {
+    max-width: 100%;
+    height: 200px;
+  }
+
+  .arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .arrow svg {
+    font-size: 18px;
+  }
+}

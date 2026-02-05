@@ -59,3 +59,62 @@
     text-decoration: none;
     font-style: italic;
 }
+/* ===============================
+   MEDIA SECTION RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+  .media-card-section {
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .info-card {
+    width: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .Mediasection {
+    padding: 32px 16px;
+  }
+
+  .media-card-section {
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .info-card {
+    width: 45%;
+    min-width: 200px;
+  }
+
+  .info-image {
+    height: 130px;
+  }
+}
+
+@media (max-width: 480px) {
+  .media-card-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .info-card {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .info-image {
+    height: 120px;
+  }
+
+  .info-content h4 {
+    font-size: 13px;
+  }
+
+  .info-content p {
+    font-size: 12px;
+  }
+}
