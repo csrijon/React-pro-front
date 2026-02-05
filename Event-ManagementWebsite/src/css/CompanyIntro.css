@@ -29,3 +29,44 @@
 .highlight {
     font-weight: 600;
 }
+/* ===============================
+   COMPANY INTRO RESPONSIVE
+================================ */
+
+@media (max-width: 1024px) {
+  .company-intro {
+    padding: 20px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-intro {
+    height: auto;
+    padding: 32px 24px;
+  }
+
+  .company-title {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .company-text {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-intro {
+    padding: 24px 16px;
+  }
+
+  .company-title {
+    font-size: 20px;
+  }
+
+  .company-text {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}

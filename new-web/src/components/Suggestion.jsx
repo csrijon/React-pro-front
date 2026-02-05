@@ -13,29 +13,30 @@ const Suggestion = () => {
     console.log({ name, email, message });
 
     try {
-      const response = await fetch("http://localhost:3000/sendmail",{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
+      const response = await fetch("http://localhost:3000/sendmail", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
         },
-        body:JSON.stringify({
+        body: JSON.stringify({
           name,
           email,
           message
-      })
+        })
       });
-      
+
       const data = await response.json();
-      if(response.ok){
-        return ;
+      setName("");
+      setEmail("");
+      setMessage("");
+      console.log(data)
+      if (response.ok) {
+        return;
       }
       console.log("Response data:", data);
     } catch (error) {
       console.error("Error sending email:", error);
     }
-    setName("");
-    setEmail("");
-    setMessage("");
   };
 
   const inputAnim = {
