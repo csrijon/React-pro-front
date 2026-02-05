@@ -1,33 +1,22 @@
 .sidebar {
-    width: 240px;
-    background: #fff;
-    min-height: 100vh;
-    padding: 20px;
-    border: 2px solid black;
+  width: 240px;
+  background: #fff;
+  border-right: 1px solid #ddd;
+  padding: 24px;
 }
 
-.logo {
-    margin-bottom: 30px;
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.menu li {
-    list-style: none;
-    padding: 12px;
-    color: black;
-    cursor: pointer;
+.sidebar a {
+  text-decoration: none;
+  color: #6a0dad;
+  font-weight: 500;
 }
 
-.menu li a {
-    list-style: none;
-    text-decoration: none;
-}
-
-.upgrade {
-    margin-top: 30px;
-    background: #5932ea;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
+.sidebar a.active {
+  color: #000;
 }
