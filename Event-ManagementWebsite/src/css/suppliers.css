@@ -2,10 +2,6 @@
   padding: 40px 0;
   /* width: 1300px; */
   background: #fff;
-  /* margin: auto; */
-  /* justify-content: flex-start;
-  display: flex;
-  flex-direction: column; */
   width: 100%;
 }
 
@@ -56,4 +52,9 @@
   font-size: 10px;
   line-height: 1.3;
   color: #000;
+}
+@media (max-width: 768px){
+  .suppliers-grid {
+    justify-content: center;
+  }
 }

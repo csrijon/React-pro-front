@@ -39,6 +39,15 @@
   font-size: 14px;
   cursor: pointer;
 }
+.filter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 /* ===============================
    FILTER BAR RESPONSIVE
 ================================ */
