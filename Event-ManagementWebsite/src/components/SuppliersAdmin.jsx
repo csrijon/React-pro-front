@@ -13,6 +13,24 @@ const SuppliersAdmin = () => {
   ]);
 
   const [newCategory, setNewCategory] = useState("");
+  const [Image, setNewImage] = useState("");
+
+  const addhandeler =async()=>{
+    console.log("add handeler is working")
+  try {
+      let response = await fetch("http://localhost:3000/supplyers",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({newCategory,Image})
+    })
+    let data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+  }
 
   return (
     <div className="admin-wrapper">
@@ -30,15 +48,23 @@ const SuppliersAdmin = () => {
             type="text"
             placeholder="Add new category"
             value={newCategory}
-            onChange={(e) => setNewCategory(e.target.value)}
+            onChange={(e) => {
+              let categoryname = e.target.value;
+              setNewCategory(categoryname);
+              console.log(e.target.value);
+            }}
           />
 
           <label className="upload-btn">
             Upload Image
-            <input type="file" hidden />
+            <input type="file" hidden accept="image/*" onChange={(e) => {
+              let imagefile = e.target.files[0];
+              setNewImage(imagefile);
+              console.log(imagefile);
+            }} />
           </label>
 
-          <button>Add</button>
+          <button onClick={addhandeler} >Add</button>
         </div>
 
         {/* EXISTING LIST */}
@@ -46,13 +72,19 @@ const SuppliersAdmin = () => {
           {categories.map((cat, index) => (
             <div className="category-item" key={index}>
               {/* IMAGE */}
-              <img src={cat.img} alt={cat.title} />
-
+              <img src={cat.img} alt={cat.title}
+              />
               {/* NAME EDIT */}
               <input
                 type="text"
                 className="category-input"
                 defaultValue={cat.title}
+                onChange={(e) => {
+                  const updatedCategories = [...categories];
+                  updatedCategories[index].title = e.target.value;
+                  setCategories(updatedCategories);
+                  console.log(e.target.value);
+                }}
               />
 
               {/* IMAGE CHANGE */}

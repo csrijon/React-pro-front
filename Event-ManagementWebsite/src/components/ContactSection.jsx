@@ -28,11 +28,6 @@ const ContactSection = () => {
   const onsubmit = async () => {
 
     try {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        alert("please entered vaild email")
-        return
-      }
       const response = await fetch("http://localhost:3000/api/mailsend", {
         method: "POST",
         headers: {
