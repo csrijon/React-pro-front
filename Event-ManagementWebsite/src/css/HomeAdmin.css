@@ -101,6 +101,72 @@
     cursor: pointer;
     font-size: 14px;
 }
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.card-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: #f6f6f6;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.card-item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.card-item input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.upload-btn {
+  padding: 10px 14px;
+  background: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.icon-btn {
+  padding: 8px 10px;
+  background: #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background: #ffdddd;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.card-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-fields input,
+.card-fields textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 768px) {

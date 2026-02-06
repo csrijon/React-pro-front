@@ -9,5 +9,12 @@
 }
 
 .admin-header input {
-  padding: 6px 10px;
+  padding: 10px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+}
+.admin-header input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #555;
 }

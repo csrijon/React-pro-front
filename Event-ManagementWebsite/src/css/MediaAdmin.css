@@ -1,0 +1,135 @@
+.admin-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.save-btn {
+  background: #000;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  margin-bottom: 24px;
+}
+
+.admin-card h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+/* FORM */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ADD ROW */
+.add-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto auto;
+  gap: 10px;
+}
+
+.add-row input {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.upload-btn {
+  padding: 10px 14px;
+  background: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-row button {
+  padding: 10px 16px;
+  background: #000;
+  color: #fff;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+/* MEDIA LIST */
+.media-admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.media-admin-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  background: #f6f6f6;
+  border-radius: 8px;
+}
+
+.media-admin-item img {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.media-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.media-fields input,
+.media-fields textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  padding: 8px 10px;
+  background: #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background: #ffdddd;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
