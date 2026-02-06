@@ -1,0 +1,110 @@
+.admin-wrapper {
+    background: #f7f7f7;
+}
+
+.admin-header h2 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.save-btn {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+/* GRID */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* CARD */
+.admin-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.admin-card h3 {
+    margin-bottom: 16px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* FIELDS */
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.field label {
+    font-size: 13px;
+    color: #555;
+}
+
+.field input {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* ADD ROW */
+.add-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.add-row input {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.add-row button {
+    background: #000;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* PILLS */
+.pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.pill {
+    background: #f1f1f1;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.pill button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+}
