@@ -1,32 +1,25 @@
 import "../css/Category.css";
 import data from "../components/data.js"
-import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import Topsection from "../ui/Topsection.jsx";
+import Countiing from "../ui/Counting.jsx";
 
 const Category = ({ title, number }) => {
     return (
         <section className="Browsecategory-section">
             <div className="container">
-            <Topsection title={title} number={number} />
-            <div className="Bottom-section">
-                {
-                    data.map((item, index) => (
-                        <div className="cards" key={index}>
-                            <img src={item.Imageurl} alt="card-images" />
-                            <p className="card-title">{item.title}</p>
-                        </div>
-                    ))
+                <Topsection title={title} number={number} />
+                <div className="Bottom-section">
+                    {
+                        data.map((item, index) => (
+                            <div className="cards" key={index}>
+                                <img src={item.Imageurl} alt="card-images" />
+                                <p className="card-title">{item.title}</p>
+                            </div>
+                        ))
 
-                }
-            </div>
-            <div className="counting">
-                <KeyboardDoubleArrowLeftIcon className="arrow" />
-                <p className="numbering">1</p>
-                <p className="numbering">2</p>
-                <p className="numbering">3</p>
-                <KeyboardDoubleArrowRightIcon className="arrow" />
-            </div>
+                    }
+                </div>
+                <Countiing />
             </div>
         </section>
     )

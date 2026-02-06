@@ -12,6 +12,7 @@ import AboutAdmin from "./components/AboutAdmin.jsx";
 import SuppliersAdmin from "./components/SuppliersAdmin.jsx";
 import MediaAdmin from "./components/MediaAdmin.jsx";
 import ContactAdmin from "./components/ContactAdmin.jsx";
+import VenueAdmin from "./components/VenueAdmin.jsx";
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -47,27 +48,31 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <><Dashboard/></>
+        element: <><Dashboard /></>
       },
       {
-       path: "home",
-        element: <><HomeAdmin/></>
+        path: "home",
+        element: <><HomeAdmin /></>
       },
       {
-        path:"supply",
-        element:<><SuppliersAdmin/></>
+        path: "venu",
+        element: <><VenueAdmin /></>
       },
       {
-        path:"aboutadmin",
-        element:<><AboutAdmin/></>
+        path: "supply",
+        element: <><SuppliersAdmin /></>
       },
       {
-        path:"mediaadmin",
-        element:<><MediaAdmin/></>
+        path: "aboutadmin",
+        element: <><AboutAdmin /></>
       },
       {
-        path:"contactadmin",
-        element:<><ContactAdmin/></>
+        path: "mediaadmin",
+        element: <><MediaAdmin /></>
+      },
+      {
+        path: "contactadmin",
+        element: <><ContactAdmin /></>
       }
     ]
   },
