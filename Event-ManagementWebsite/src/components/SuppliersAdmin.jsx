@@ -18,12 +18,13 @@ const SuppliersAdmin = () => {
   const addhandeler =async()=>{
     console.log("add handeler is working")
   try {
+    const formData = new FormData();
+    formData.append("newCategory", newCategory);
+    formData.append("Image", Image);
       let response = await fetch("http://localhost:3000/supplyers",{
       method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({newCategory,Image})
+      body:formData
+
     })
     let data = await response.json()
     console.log(data)
