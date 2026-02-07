@@ -1,10 +1,11 @@
 import express from "express"
 import dotenv from 'dotenv'
 import cors from "cors"
-import mongoose from "mongoose"
 import multer from "multer"
 import fs from "fs"
 import mailsender from "./routes/mailsender.js"
+import supply from "./routes/Supply.js"
+import Categorymodel from "./models/Schema.js"
 dotenv.config()
 
 
@@ -14,9 +15,7 @@ app.use("/uploads", express.static('uploads'));
 app.use(cors({ origin: "http://localhost:5173" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
-
-mongoose.connect('mongodb://127.0.0.1:27017/EventDatabase')
-    .then(() => console.log('mongodb is Connected!'));
+app.use("/supplyers", supply)
 
 app.get("/", (req, res) => {
     res.send("hello i am server can i run in broswer")
@@ -30,9 +29,16 @@ app.post("/supplyers", multer().single("Image"), async (req, res) => {
             return res.status(500).json({ error: "Failed to save image" });
         }
     });
+    let imagePath = `http://localhost:3000/uploads/${Image.originalname}`
+    const categorydata = new Categorymodel({
+        title: newCategory,
+        Image: imagePath
+    })
+    await categorydata.save()
+    console.log(Categorymodel.collection.name);
+
+    console.log(categorydata)
     console.log("file is saved successfully")
-    console.log(Image)
-    console.log(newCategory);
     res.status(200).json({ message: "Category added successfully", newCategory, Image });
 })
 app.listen(port, () => {
