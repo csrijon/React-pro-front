@@ -5,7 +5,9 @@ import multer from "multer"
 import fs from "fs"
 import mailsender from "./routes/mailsender.js"
 import supply from "./routes/Supply.js"
-import Categorymodel from "./models/Schema.js"
+import Venueadd from "./routes/Venueadd.js"
+import { Categorymodel } from "./models/Schema.js";
+import { Venuemodel } from "./models/Schema.js"
 dotenv.config()
 
 
@@ -16,6 +18,7 @@ app.use(cors({ origin: "http://localhost:5173" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/supplyers", supply)
+app.use("/venueadd", Venueadd)
 
 app.get("/", (req, res) => {
     res.send("hello i am server can i run in broswer")
@@ -41,6 +44,15 @@ app.post("/supplyers", multer().single("Image"), async (req, res) => {
     console.log("file is saved successfully")
     res.status(200).json({ message: "Category added successfully", newCategory, Image });
 })
+app.get("/api/venue", async (req, res) => {
+    try {
+        const venuedata = await Venuemodel.find();
+        console.log(venuedata)
+        res.status(200).json(venuedata);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch venues" });
+    }
+});
 app.listen(port, () => {
     console.log(`app is listen ${port} number `)
 })
