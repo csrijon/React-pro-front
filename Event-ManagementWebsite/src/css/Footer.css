@@ -1,11 +1,17 @@
+:root {
+  --primary-golden-color: #d4af37;
+  --primary-black-color: #000000;
+}
+
 .footer {
   width: 100%;
-  background:#000000;
+  background: var(--primary-black-color);
   padding: 60px 0 20px;
   font-family: 'Poppins', sans-serif;
-  border-top: 1px solid #e5e5e5;
-  color: #d4af37;
+  border-top: 1px solid var(--primary-golden-color);
+  color: var(--primary-golden-color);
 }
+
 .footer-top {
   display: flex;
   justify-content: space-between;
@@ -18,9 +24,10 @@
 }
 
 .footer-logo {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  width: 150px;      /* control size */
+  height: auto;
+  display: block;    /* inline gap remove */
+  margin-bottom: 16px;
 }
 
 .footer-title {
@@ -42,7 +49,7 @@
 
 .footer-col ul li {
   font-size: 14px;
-  color: #d4af37;
+  color: var(--primary-golden-color);
   margin-bottom: 8px;
   cursor: pointer;
 }
@@ -63,32 +70,29 @@
 
 .newsletter-text {
   font-size: 14px;
-  color: #d4af37;
+  color: var(--primary-golden-color);
   margin-bottom: 12px;
 }
 
 .chat-btn {
   padding: 8px 18px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: 1px solid var(--primary-golden-color);
+  background: linear-gradient(135deg, #d4af37, #f5d76e, #b8962e);
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  color: #d4af37;
+  color: var(--primary-black-color);
 }
 
-.chat-btn:hover {
-  background: #f5f5f5;
-}
 
 .footer-bottom {
   text-align: center;
   margin-top: 40px;
   font-size: 12px;
-  color: #777;
+  color: var(--primary-golden-color);
 }
 
 .footer-bottom span {
-  color: #000;
+  color: var(--primary-golden-color);
   font-weight: 500;
 }

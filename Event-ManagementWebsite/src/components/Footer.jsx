@@ -1,4 +1,5 @@
 import "../css/Footer.css";
+import kiteimages from "../assets/Kites Events (1).png"
 
 const Footer = () => {
   return (
@@ -8,7 +9,8 @@ const Footer = () => {
 
         {/* Logo & Social */}
         <div className="footer-col">
-          <h2 className="footer-logo">Company Logo</h2>
+          {/* <h2 className="footer-logo">Company Logo</h2> */}
+          <img className="footer-logo" src={kiteimages} alt="kite" />
           <p className="footer-title">Social Media</p>
           <div className="social-icons">
             <i className="ri-facebook-fill"></i>
