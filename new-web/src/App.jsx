@@ -43,11 +43,7 @@ const router = createBrowserRouter([
   }
 ])
 function App() {
-  return (
-    <RouterProvider router={router} >
-      <Scrolltop />
-    </RouterProvider>
-  )
+  return <RouterProvider router={router} />;
 }
 
 export default App

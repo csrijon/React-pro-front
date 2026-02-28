@@ -3,12 +3,13 @@
     --primary-black-color:#000;
     --primary-border-color:#dcdcdc;
     --primary-bg-color:#F4F4F4;
+    --primary-golden-color:#d4af37;
 }
 
 .contact-wrapper {
     width: 100%;
     padding: 40px 0;
-    background: var(--primary-white-color);
+    background: var(--primary-black-color);
 }
 
 .contact-wrapper .container {
@@ -24,12 +25,14 @@
 .contact-form h2 {
     font-size: 20px;
     margin-bottom: 20px;
+    color: var(--primary-golden-color);
 }
 
 .contact-form label {
     display: block;
     font-size: 13px;
     margin-bottom: 6px;
+    color: var(--primary-golden-color);
 }
 
 .contact-form input,
@@ -40,6 +43,7 @@
     border-radius: 6px;
     margin-bottom: 16px;
     font-size: 13px;
+    color: var(--primary-golden-color);
 }
 
 .contact-form textarea {
@@ -51,7 +55,7 @@
     width: 100%;
     padding: 14px;
     /* background: var(--primary-bg-color); */
-    color: var(--primary-black-color);
+    color: var(--primary-golden-color);
     border: none;
     border-radius: 6px;
     font-size: 14px;
@@ -66,6 +70,7 @@
 
 .info-block {
     margin-bottom: 22px;
+    color: var(--primary-golden-color);
 }
 
 .info-block h3 {
@@ -79,7 +84,7 @@
 }
 
 .info-block a {
-    color: var(--primary-black-color);
+   color: var(--primary-golden-color);
     text-decoration: underline;
 }
 

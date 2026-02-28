@@ -1,13 +1,13 @@
 :root{
-  --primary-bg-color:#ffffff;
+  /* --primary-bg-color:#000000; */
   --black-color:#000;
-  --border-color:#dcdcdc;
+  --golden-color:#d4af37;
 }
 
 
 .about-wrapper {
   width: 100%;
-  background: var(--primary-bg-color);
+  background-color: var(--black-color);
   padding: 40px 0px;
 }
 /* Top layout */
@@ -26,13 +26,14 @@
 .about-text h3 {
   font-size: 16px;
   margin-bottom: 12px;
+  color: var(--golden-color);
 }
 
 .about-text p {
   font-size: 13px;
   line-height: 1.6;
   margin-bottom: 12px;
-  color:var(--black-color);
+  color:var(--golden-color);
 }
 
 /* Right image */

@@ -1,11 +1,15 @@
 :root {
-    --primary-dummysection-bg-color: #f7f7f7;
+    --primary-dummysection-bg-color: #000000;
     --primary-maincards-bg-color: #fff;
     --primary-leftdummy-bg-color: #eaeaea;
-    --primary-h4-color: #111;
-    --primary-p-color: #555;
-    --primary-btn-color: #cfcfcf;
+    --primary-h4-color: #d4af37;
+    --primary-p-color: #d4af37;
+    --primary-btn-color: #d4af37;
 }
+
+/* ===============================
+   DUMMY SECTION
+================================ */
 
 .dummy-section {
     width: 100%;
@@ -13,29 +17,60 @@
     justify-content: center;
     padding: 40px 0;
     background-color: var(--primary-dummysection-bg-color);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Soft premium background glow */
+.dummy-section::before {
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
+    top: -120px;
+    right: -120px;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.dummy-section > * {
+    position: relative;
+    z-index: 1;
 }
 
 .main-cards {
-    /* width: 1000px; */
-    /* max-width: 1300px; */
     background-color: var(--primary-maincards-bg-color);
     display: flex;
     align-items: center;
     gap: 40px;
     padding: 50px;
     border-radius: 10px;
+
+    /* Premium depth */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0,0,0,0.04);
 }
 
-/* LEFT IMAGE */
+/* ===============================
+   LEFT IMAGE
+================================ */
+
 .left-dummy img {
     width: 220px;
     height: 160px;
     object-fit: cover;
     border-radius: 6px;
     background-color: var(--primary-leftdummy-bg-color);
+
+    /* Premium image depth */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* RIGHT CONTENT */
+/* ===============================
+   RIGHT CONTENT
+================================ */
+
 .right-dummy {
     flex: 1;
     display: flex;
@@ -49,6 +84,7 @@
     font-weight: 600;
     margin: 0 0 10px;
     color: var(--primary-h4-color);
+    letter-spacing: 0.4px;
 }
 
 .right-details p {
@@ -57,20 +93,30 @@
     color: var(--primary-p-color);
     max-width: 420px;
     margin: 0;
+    letter-spacing: 0.2px;
 }
 
+/* Premium button style */
 .right-dummy button {
     padding: 10px 28px;
-    background-color:var(--primary-btn-color);
-    border: none;
+    /* background: linear-gradient(to right, #e6e6e6, #cfcfcf); */
+    border: 1px solid rgba(0,0,0,0.05);
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     align-self: flex-end;
+    color: var(--primary-btn-color);
 }
+
+/* Active press effect (no animation) */
+.right-dummy button:active {
+    background: var(--primary-btn-color);
+    color: #fff;
+}
+
 /* ===============================
-   DUMMY SECTION RESPONSIVE
+   RESPONSIVE
 ================================ */
 
 @media (max-width: 1024px) {

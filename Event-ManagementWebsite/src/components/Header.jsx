@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/Header.css";
 import { NavLink } from "react-router";
+import images from "../assets/1-removebg-preview.png"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,9 +12,8 @@ const Header = () => {
         <div className="header-inner">
 
           <div className="left">
-            <p>Kites Event</p>
+            <img src={images} alt="" />
           </div>
-
           {/* Hamburger */}
           <div
             className={`hamburger ${menuOpen ? "open" : ""}`}

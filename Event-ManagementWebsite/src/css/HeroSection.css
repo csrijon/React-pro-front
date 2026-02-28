@@ -1,11 +1,17 @@
 :root {
-    --hero-bg-color: #F4F4F4;
+    --hero-bg-color: #000000;
     --hero-select-border: #ddd;
     --hero-select-bg-color: #fff;
     --hero-select-focus-color: #bbb;
     --hero-select-text-color: #999;
     --hero-select-part-color: #555;
+    --hero-text-color: #d4af37;
+    --primary-select-background:rgba(255,255,255,0.05);
 }
+
+/* ===============================
+   HERO SECTION
+================================ */
 
 .hero-section {
     width: 100%;
@@ -16,6 +22,28 @@
     flex-direction: column;
     background-color: var(--hero-bg-color);
     padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--hero-text-color);
+}
+
+/* Soft Premium Glow Effect */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.hero-section>* {
+    position: relative;
+    z-index: 1;
 }
 
 .first-part h3 {
@@ -31,33 +59,52 @@
 .second-part {
     display: flex;
     gap: 12px;
+    position: relative;
 }
+
+/* ===============================
+   SELECT DESIGN
+================================ */
 
 .category-select,
 .location-select {
-    width: 220px;
-    padding: 14px 40px 14px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--hero-select-border);
+    width: 240px;
+    padding: 14px 45px 14px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
     font-size: 14px;
-    color: var(--hero-select-text-color);
-    background-color: var(--hero-select-bg-color);
-    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--hero-text-color);
+
+    background: var(--primary-select-background);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    cursor: pointer;
+
+    transition: all 0.35s ease;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.35),
+        inset 0 1px 1px rgba(255,255,255,0.08);
+}
+
+/* Hover Floating Effect */
+.category-select:hover,
+.location-select:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .category-select:focus,
 .location-select:focus {
     outline: none;
     border-color: var(--hero-select-focus-color);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
-.second-part {
-    position: relative;
-}
-
+/* Custom Dropdown Arrow */
 .second-part select {
     background-image:
         linear-gradient(45deg, transparent 50%, var(--hero-select-part-color) 50%),
@@ -68,45 +115,46 @@
     background-size: 6px 6px, 6px 6px;
     background-repeat: no-repeat;
 }
+
 /* ===============================
-   HERO RESPONSIVE
+   RESPONSIVE
 ================================ */
 
 @media (max-width: 768px) {
 
-  .hero-section {
-    height: auto;              /* fixed height issue remove */
-    padding: 32px 16px;
-  }
+    .hero-section {
+        height: auto;
+        padding: 32px 16px;
+    }
 
-  .first-part h3 {
-    font-size: 22px;
-    text-align: center;
-  }
+    .first-part h3 {
+        font-size: 22px;
+        text-align: center;
+    }
 
-  .second-part {
-    flex-direction: column;    /* selects stack */
-    width: 100%;
-    gap: 10px;
-    align-items: center;
-  }
+    .second-part {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+    }
 
-  .category-select,
-  .location-select {
-    width: 100%;               /* full width on mobile */
-    max-width: 360px;
-  }
+    .category-select,
+    .location-select {
+        width: 100%;
+        max-width: 360px;
+    }
 }
 
 @media (max-width: 480px) {
 
-  .first-part h3 {
-    font-size: 20px;
-  }
+    .first-part h3 {
+        font-size: 20px;
+    }
 
-  .category-select,
-  .location-select {
-    font-size: 13px;
-    padding: 12px 36px 12px 14px;
-  }
+    .category-select,
+    .location-select {
+        font-size: 13px;
+        padding: 12px 36px 12px 14px;
+    }
 }

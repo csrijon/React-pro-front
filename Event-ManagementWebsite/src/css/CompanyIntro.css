@@ -1,10 +1,10 @@
 :root{
-    --primary-bg-color:#F4F4F4;
+    --primary-text-color:#d4af37;
     --primary-color:#000;
 
 }
 .company-intro {
-    background:var(--primary-bg-color);
+   background-color: var(--primary-color);
     padding: 20px 70px;
     display: flex;
     align-items: center;
@@ -17,13 +17,13 @@
     font-size: 26px;
     font-weight: 500;
     margin-bottom: 14px;
-    color: var(--primary-color);
+    color: var(--primary-text-color);
 }
 
 .company-text {
     font-size: 20px;
     line-height: 1.6;
-    color: var(--primary-color);
+    color: var(--primary-text-color);
 }
 
 .highlight {

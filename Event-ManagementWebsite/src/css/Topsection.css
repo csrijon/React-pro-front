@@ -1,5 +1,5 @@
-:root{
-       --primary-viewall-color:#555;
+:root {
+    --primary-text-color: #d4af37;
 }
 
 .top-section {
@@ -8,14 +8,17 @@
     align-items: center;
     margin-bottom: 20px;
 }
+
 .top-section .heading {
     font-size: 16px;
     font-weight: 600;
+    color: var(--primary-text-color);
 }
+
 .top-section .view-all {
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--primary-viewall-color);
-  cursor: pointer;
-  text-decoration: underline;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    text-decoration: underline;
 }

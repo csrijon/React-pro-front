@@ -1,6 +1,6 @@
 :root{
-  --primary-white-color:#fff;
-  --primary-color:#9b9b9b;
+  --primary-black-color:#000000;
+  --primary-text-color:#d4af37;
   --bg-color:#bfbfbf;
   --border-color:#dcdcdc;
 }
@@ -8,8 +8,8 @@
 .filter-container {
   display: flex;
   padding: 24px 0;
-  background: var(--primary-white-color);
-  border-radius: 8px;
+   background-color: var(--primary-black-color);
+  /* border-radius: 8px; */
   /* justify-content: flex-start; */
 }
 .filter-container .container {
@@ -25,7 +25,7 @@
   border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 14px;
-  color: var(--primary-color);
+  color: var(--primary-text-color);
   background:var(--primary-white-color);
   cursor: pointer;
 }
@@ -33,7 +33,7 @@
 .search-btn {
   padding: 12px 28px;
   background:var(--bg-color) ;
-  color: var(--primary-white-color);
+  color: var(--primary-text-color);
   border: none;
   border-radius: 6px;
   font-size: 14px;

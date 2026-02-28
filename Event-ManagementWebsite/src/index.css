@@ -24,10 +24,10 @@ body {
 :root {
   --container-width: 1200px;
 
-  --primary-Browsecategory-section-bg: #FAFAFA;
+  /* --primary-Browsecategory-section-bg: #FAFAFA; */
   --primary-viewall-color:#555;
   --primary-cardtitle-color:#fff;
-  --primary-arrow-numbering-bg-color:#BCBCBC;
+  /* --primary-arrow-numbering-bg-color:#BCBCBC; */
   --primary-arrow-numbering-border-color:#CACACA;
 }
 
@@ -36,4 +36,5 @@ body {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 20px;
+  /* background-color: rebeccapurple; */
 }

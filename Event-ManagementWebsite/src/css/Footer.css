@@ -1,9 +1,10 @@
 .footer {
   width: 100%;
-  background: #ffffff;
+  background:#000000;
   padding: 60px 0 20px;
   font-family: 'Poppins', sans-serif;
   border-top: 1px solid #e5e5e5;
+  color: #d4af37;
 }
 .footer-top {
   display: flex;
@@ -41,13 +42,13 @@
 
 .footer-col ul li {
   font-size: 14px;
-  color: #555;
+  color: #d4af37;
   margin-bottom: 8px;
   cursor: pointer;
 }
 
 .footer-col ul li:hover {
-  color: #000;
+  color: #eacd6d;
 }
 
 .social-icons {
@@ -62,7 +63,7 @@
 
 .newsletter-text {
   font-size: 14px;
-  color: #555;
+  color: #d4af37;
   margin-bottom: 12px;
 }
 
@@ -73,6 +74,7 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  color: #d4af37;
 }
 
 .chat-btn:hover {

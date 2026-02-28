@@ -13,28 +13,28 @@ const HomeAdmin = () => {
         <button className="save-btn">Save Changes</button>
       </div>
 
-      <div className="admin-grid">
-        <div className="admin-card">
-          <h3>Hero Text</h3>
+      {/* <div className="admin-grid">
+        <div className="admin-card"> */}
+          {/* <h3>Hero Text</h3> */}
 
-          <div className="field">
+          {/* <div className="field">
             <label>Heading</label>
             <input defaultValue="Our Wedding Venues" />
-          </div>
+          </div> */}
 
           <div className="field">
-            <label>Sub Heading</label>
-            <input defaultValue="Find your perfect place" />
-          </div>
-        </div>
+            {/* <label>Sub Heading</label> */}
+            {/* <input defaultValue="Find your perfect place" /> */}
+          {/* </div>
+        </div> */}
 
-        <div className="admin-card">
-          <h3>Categories</h3>
+        {/* <div className="admin-card"> */}
+          {/* <h3>Categories</h3> */}
 
-          <div className="add-row">
-            <input placeholder="Add category" />
-            <button>Add</button>
-          </div>
+          {/* <div className="add-row"> */}
+            {/* <input placeholder="Add category" /> */}
+            {/* <button>Add</button> */}
+          {/* </div>
 
           <div className="pill-group">
             {categories.map((c, i) => (
@@ -42,8 +42,8 @@ const HomeAdmin = () => {
                 {c} <button>×</button>
               </span>
             ))}
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
 
         <div className="admin-card">
           <h3>Locations</h3>
