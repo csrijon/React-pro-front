@@ -1,7 +1,7 @@
-:root{
+:root {
   /* --primary-bg-color:#000000; */
-  --black-color:#000;
-  --golden-color:#d4af37;
+  --black-color: #000;
+  --golden-color: #d4af37;
 }
 
 
@@ -10,6 +10,7 @@
   background-color: var(--black-color);
   padding: 40px 0px;
 }
+
 /* Top layout */
 .about-content {
   display: flex;
@@ -33,7 +34,7 @@
   font-size: 13px;
   line-height: 1.6;
   margin-bottom: 12px;
-  color:var(--golden-color);
+  color: var(--golden-color);
 }
 
 /* Right image */
@@ -44,7 +45,7 @@
 .about-image img {
   width: 100%;
   height: auto;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
 }
 
 /* Stats row */

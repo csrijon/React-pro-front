@@ -1,10 +1,10 @@
 :root {
     --primary-dummysection-bg-color: #000000;
-    --primary-maincards-bg-color: #fff;
     --primary-leftdummy-bg-color: #eaeaea;
     --primary-h4-color: #d4af37;
     --primary-p-color: #d4af37;
     --primary-btn-color: #d4af37;
+    --primary-main-card-bg:rgba(255,255,255,0.05);
 }
 
 /* ===============================
@@ -40,7 +40,7 @@
 }
 
 .main-cards {
-    background-color: var(--primary-maincards-bg-color);
+    background-color: var(--primary-main-card-bg);
     display: flex;
     align-items: center;
     gap: 40px;
@@ -49,7 +49,7 @@
 
     /* Premium depth */
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0,0,0,0.04);
+    border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 /* ===============================
@@ -99,21 +99,21 @@
 /* Premium button style */
 .right-dummy button {
     padding: 10px 28px;
-    /* background: linear-gradient(to right, #e6e6e6, #cfcfcf); */
+    background: linear-gradient(135deg, #d4af37, #f5d76e, #b8962e);
     border: 1px solid rgba(0,0,0,0.05);
     border-radius: 6px;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     align-self: flex-end;
-    color: var(--primary-btn-color);
+    color: var(--primary-dummysection-bg-color);
 }
 
 /* Active press effect (no animation) */
-.right-dummy button:active {
+/* .right-dummy button:active {
     background: var(--primary-btn-color);
     color: #fff;
-}
+} */
 
 /* ===============================
    RESPONSIVE
