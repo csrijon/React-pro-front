@@ -44,6 +44,7 @@
   .right.show {
     display: block;
     z-index: 1000;
+    background: var(--primary-background);
   }
 
   .right ul {

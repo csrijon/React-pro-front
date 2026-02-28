@@ -20,7 +20,8 @@ app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
-app.use("/Addmedia",Mediaroute)
+app.use("/Addmedia", Mediaroute)
+app.use("/fetchmedia", Mediaroute)
 
 app.get("/", (req, res) => {
     res.send("hello i am server can i run in broswer")

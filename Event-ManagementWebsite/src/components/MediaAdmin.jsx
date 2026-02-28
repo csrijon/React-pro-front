@@ -19,6 +19,8 @@ const MediaAdmin = () => {
         body: formdata
       })
       let resdata = await response.json()
+      setheading("")
+      setdiscreption("")
       console.log(resdata)
     } catch (error) {
       console.log(error, "this the error reason i dont know")
