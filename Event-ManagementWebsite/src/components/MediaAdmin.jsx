@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/MediaAdmin.css";
 
 const MediaAdmin = () => {
+
+  const [heading, setheading] = useState("")
+  const [discreption, setdiscreption] = useState("")
+  const [image, setimage] = useState("")
+
+  const Addmediabutton = async () => {
+
+    try {
+      const formdata = new FormData()
+      formdata.append("heading", heading)
+      formdata.append("discreption", discreption)
+      formdata.append("image", image)
+      let response = await fetch("http://localhost:3000/Addmedia", {
+        method: "PUT",
+        body: formdata
+      })
+      let resdata = await response.json()
+      console.log(resdata)
+    } catch (error) {
+      console.log(error, "this the error reason i dont know")
+    }
+  }
   return (
     <div className="admin-wrapper">
       {/* HEADER */}
@@ -11,7 +33,7 @@ const MediaAdmin = () => {
       </div>
 
       {/* SECTION SETTINGS */}
-      <div className="admin-card">
+      {/* <div className="admin-card">
         <h3>Section Settings</h3>
 
         <div className="form-group">
@@ -23,22 +45,23 @@ const MediaAdmin = () => {
           <label>Total Count Number</label>
           <input type="text" placeholder="23" />
         </div>
-      </div>
+      </div> */}
 
       {/* ADD NEW MEDIA */}
       <div className="admin-card">
         <h3>Add New Media Card</h3>
 
         <div className="add-row">
-          <input type="text" placeholder="Heading" />
-          <input type="text" placeholder="Short description" />
+          <input value={heading} onChange={(e) => setheading(e.target.value)
+          } type="text" placeholder="Heading" />
+          <input type="text" value={discreption} onChange={(e) => setdiscreption(e.target.value)} placeholder="Short description" />
 
           <label className="upload-btn">
             Upload Image
-            <input type="file" hidden />
+            <input accept="image/*" onChange={(e) => setimage(e.target.files[0])} type="file" hidden />
           </label>
 
-          <button>Add</button>
+          <button onClick={Addmediabutton} >Add</button>
         </div>
       </div>
 

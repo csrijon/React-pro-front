@@ -6,6 +6,7 @@ import fs from "fs"
 import mailsender from "./routes/mailsender.js"
 import supply from "./routes/Supply.js"
 import Venueadd from "./routes/Venueadd.js"
+import Mediaroute from "./routes/Mediaroute.js"
 import { Categorymodel } from "./models/Schema.js";
 import { Venuemodel } from "./models/Schema.js"
 dotenv.config()
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
+app.use("/Addmedia",Mediaroute)
 
 app.get("/", (req, res) => {
     res.send("hello i am server can i run in broswer")

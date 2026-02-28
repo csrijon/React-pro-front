@@ -1,4 +1,6 @@
+import { time } from "console";
 import mongoose from "mongoose";
+
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/EventDatabase')
@@ -25,7 +27,18 @@ const VenueSchema = new mongoose.Schema({
     }
 })
 
+const MediaSchema = new mongoose.Schema({
+    heading:String,
+    discreption:String,
+    image:String,
+    time:{
+     type:Date,
+     default:Date.now
+    }
+})
+
 const Categorymodel = mongoose.model("Category", categorySchema)
 const Venuemodel = mongoose.model("Venue", VenueSchema)
+const MediaModel = mongoose.model("Media",MediaSchema)
 
-export { Categorymodel, Venuemodel };
+export { Categorymodel, Venuemodel,MediaModel };
