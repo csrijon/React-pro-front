@@ -9,7 +9,7 @@ const Countiing =()=>{
                 <p className="numbering">1</p>
                 <p className="numbering">2</p>
                 <p className="numbering">3</p>
-                <KeyboardDoubleArrowRightIcon className="arrow" />
+                <KeyboardDoubleArrowRightIcon  className="arrow" />
             </div>
     )
 }

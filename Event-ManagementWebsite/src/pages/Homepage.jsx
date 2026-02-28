@@ -10,7 +10,7 @@ import Footer from "../components/Footer"
 const Homepage = () => {
     return (
         <>
-        {/* <Header /> */}
+        <Header />
             <Herosection heading="Your Wedding," subheading="Your Way" />
             <Category title="Browse by Category" number="9" />
             <Category title="Popular Venue" number="1000" />
@@ -18,7 +18,7 @@ const Homepage = () => {
             <FeaturedVideo />
             <ImageSliderUI />
             <Media />
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }
