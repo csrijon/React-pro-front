@@ -26,7 +26,17 @@ router.put("/", multer().single("image"), async (req, res) => {
         res.status(400).json({ mess: "not working" })
     }
 
+})
+
+router.get("/",async (req,res) => {
+   try {
+     let mediavalue = await MediaModel.find()
+     console.log(mediavalue)
+     res.status(200).json(mediavalue)
+   } catch (error) {
+    console.log(error,"data is missing")
+    res.status(400).json({mess:"data can not find"})
+   }
 }
 )
-
 export default router
