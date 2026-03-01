@@ -2,7 +2,6 @@ import { time } from "console";
 import mongoose from "mongoose";
 
 
-
 mongoose.connect('mongodb://127.0.0.1:27017/EventDatabase')
     .then(() => console.log('mongodb is Connected!'));
 
@@ -13,6 +12,12 @@ const categorySchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+})
+
+const TrendingSchema = new mongoose.Schema({
+    designername: String,
+    location: String,
+    image: String
 })
 
 const VenueSchema = new mongoose.Schema({
@@ -28,17 +33,18 @@ const VenueSchema = new mongoose.Schema({
 })
 
 const MediaSchema = new mongoose.Schema({
-    heading:String,
-    discreption:String,
-    image:String,
-    time:{
-     type:Date,
-     default:Date.now
+    heading: String,
+    discreption: String,
+    image: String,
+    time: {
+        type: Date,
+        default: Date.now
     }
 })
 
 const Categorymodel = mongoose.model("Category", categorySchema)
 const Venuemodel = mongoose.model("Venue", VenueSchema)
-const MediaModel = mongoose.model("Media",MediaSchema)
+const MediaModel = mongoose.model("Media", MediaSchema)
+const Trendingmodel = mongoose.model("Trending",TrendingSchema)
 
-export { Categorymodel, Venuemodel,MediaModel };
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel };

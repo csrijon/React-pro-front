@@ -7,6 +7,7 @@ import mailsender from "./routes/mailsender.js"
 import supply from "./routes/Supply.js"
 import Venueadd from "./routes/Venueadd.js"
 import Mediaroute from "./routes/Mediaroute.js"
+import Trandingroute from "./routes/Trandingroute.js"
 import { Categorymodel } from "./models/Schema.js";
 import { Venuemodel } from "./models/Schema.js"
 dotenv.config()
@@ -18,6 +19,7 @@ app.use("/uploads", express.static('uploads'));
 app.use(cors({ origin: "http://localhost:5173" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
+app.use("/trending",Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
 app.use("/Addmedia", Mediaroute)
