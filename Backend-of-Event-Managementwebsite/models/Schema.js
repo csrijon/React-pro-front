@@ -1,9 +1,7 @@
-import { time } from "console";
 import mongoose from "mongoose";
 
-
 mongoose.connect('mongodb://127.0.0.1:27017/EventDatabase')
-    .then(() => console.log('mongodb is Connected!'));
+    .then(() => console.log('mongodb is Connected!'))
 
 const categorySchema = new mongoose.Schema({
     title: String,
@@ -47,4 +45,4 @@ const Venuemodel = mongoose.model("Venue", VenueSchema)
 const MediaModel = mongoose.model("Media", MediaSchema)
 const Trendingmodel = mongoose.model("Trending",TrendingSchema)
 
-export { Categorymodel, Venuemodel, MediaModel,Trendingmodel };
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel }
