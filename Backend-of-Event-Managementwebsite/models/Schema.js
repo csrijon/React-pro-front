@@ -17,6 +17,11 @@ const TrendingSchema = new mongoose.Schema({
     location: String,
     image: String
 })
+const PopularVenueSchema = new mongoose.Schema({
+    venuename: String,
+    location: String,
+    image: String
+})
 
 const VenueSchema = new mongoose.Schema({
     venueTitle: String,
@@ -44,5 +49,6 @@ const Categorymodel = mongoose.model("Category", categorySchema)
 const Venuemodel = mongoose.model("Venue", VenueSchema)
 const MediaModel = mongoose.model("Media", MediaSchema)
 const Trendingmodel = mongoose.model("Trending",TrendingSchema)
+const PopularVenuModel = mongoose.model("PopularVenue",PopularVenueSchema)
 
-export { Categorymodel, Venuemodel, MediaModel,Trendingmodel }
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel }
