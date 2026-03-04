@@ -1,39 +1,58 @@
 import express from "express";
-import Trendingmodel from "../models/Schema.js"
+import {Trendingmodel} from "../models/Schema.js"
 import multer from "multer";
+import fs from 'fs';
 
 const router = express.Router()
 
 router.post("/", multer().single("images"), async (req, res) => {
     try {
-        const { designername, location } = req.body
-        const image = req.file
+        const { designername, location } = req.body;
+        const image = req.file;
+
+        console.log(designername, location, image);
 
         if (!designername || !location || !image) {
-            return res.status(400).json({ message: "All fields required" })
+            return res.status(400).json({ message: "All fields required" });
         }
 
-        const imageUrl = `http://localhost:3000/uploads/${image.filename}`
+        // ⭐ small improvement: unique filename
+        const filename = Date.now() + "-" + image.originalname;
 
-        // Example database object (replace with MongoDB save)
-        const newData = await Trendingmodel.create({
+        fs.writeFile(`./uploads/${filename}`, image.buffer, (err) => {
+            if (err) {
+                console.error("Error saving file:", err);
+                return res.status(500).json({ error: "Failed to save image" });
+            }
+        });
+
+        let imagePath = `http://localhost:3000/uploads/${filename}`;
+
+        const trendingdata = new Trendingmodel({
             designername,
             location,
-            image: imageUrl
-        })
+            image: imagePath
+        });
 
-        console.log(data)
+        await trendingdata.save();
 
         res.status(200).json({
-            success: true,
-            message: "Trending designer added",
-            data
-        })
+            message: "Trending designer added successfully",
+            designername,
+            location,
+            image: imagePath
+        });
 
     } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: "Server error" })
+        console.log(error);
+        res.status(500).json({ error: "Failed to add designer" });
     }
-})
+});
+
+router.get("/",async  (req,res) => {
+    let trendingdata = await Trendingmodel.find()
+    res.status(200).json(trendingdata)
+}
+)
 
 export default router

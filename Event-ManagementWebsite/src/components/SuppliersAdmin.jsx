@@ -8,6 +8,9 @@ const SuppliersAdmin = () => {
   const [designername, setdesignername] = useState("");
   const [location, setlocation] = useState("")
   const [images, setimages] = useState("")
+  const [popular,setpopular] =useState("")
+  const [poplocation, setpoplocation] =useState("")
+  const [popimage,setpopimages] =useState("")
 
   const addhandeler = async () => {
     console.log("add handeler is working")
@@ -24,6 +27,25 @@ const SuppliersAdmin = () => {
       console.log(data)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  let popularchange = async ()=>{
+
+    try {
+         const formdata = new FormData()
+         formdata.append("popular", popular)
+         formdata.append("poplocation",poplocation)
+         formdata.append("popimage",popimage)
+
+         let popresponse = await fetch("http://localhost:3000/popvenue",{
+          method:"POST",
+          body:formdata
+         })
+         let popdata = await popresponse.json()
+         console.log(popdata)
+    } catch (error) {
+      console.log(error,"data sending process is not working")
     }
   }
 
@@ -121,7 +143,8 @@ const SuppliersAdmin = () => {
                 type="file"
                 hidden
                 accept="image/*"
-                onChange={(e) => setimages(e.target.files[0])}
+                onChange={(e) => setimages(e.target.files[0])
+                }
               />
             </label>
 
@@ -148,12 +171,16 @@ const SuppliersAdmin = () => {
 
             <input
               type="text"
+              value={popular}
               placeholder="Edit Photographer/Videographer Name"
+              onChange={(e)=>setpopular(e.target.value)}
             />
 
             <input
+              value={poplocation}
               type="text"
               placeholder="Edit Description / Location"
+              onChange={(e)=>setpoplocation(e.target.value)}
             />
 
             <label className="upload-btn">
@@ -162,11 +189,12 @@ const SuppliersAdmin = () => {
                 type="file"
                 hidden
                 accept="image/*"
+                onChange={(e)=>setpopimages(e.target.files[0])}
               />
             </label>
 
             <div className="admin-card-actions">
-              <button className="update-btn">Update</button>
+              <button onClick={popularchange} className="update-btn">Update</button>
               <button className="delete-btn">Delete</button>
             </div>
 
