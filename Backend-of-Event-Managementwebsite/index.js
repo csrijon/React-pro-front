@@ -25,6 +25,7 @@ app.use("/trending",Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
 app.use("/popvenue",PopularVenu)
+app.use("/api/fetchvenu",PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
 
