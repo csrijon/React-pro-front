@@ -43,4 +43,16 @@ router.post("/", multer().single("popimage"), async (req,res) => {
 
 })
 
+router.get("/", async (req,res) => {
+    try {
+        let popularvenues = await PopularVenuModel.find()
+        res.status(200).json(popularvenues)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ error: "server error" })
+    }
+}
+)
+
 export default router
