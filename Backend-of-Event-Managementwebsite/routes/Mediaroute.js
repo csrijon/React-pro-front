@@ -14,7 +14,7 @@ router.put("/", multer().single("image"), async (req, res) => {
         await fs.writeFile(imgpath, image.buffer)
 
         let imagepaths = `http://localhost:3000/uploads/${image.originalname}`
-        const Mediadata = MediaModel({
+        const Mediadata = new MediaModel({
             heading: heading,
             discreption,
             image: imagepaths

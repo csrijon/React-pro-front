@@ -1,20 +1,46 @@
 import express from "express"
 import multer from "multer"
+import fs from "fs"
+import { PopularVenuModel } from "../models/Schema.js"
 
 const router = express.Router()
 
-router.post("/", multer().single("popimage"), (req,res) => {
+router.post("/", multer().single("popimage"), async (req,res) => {
 
-  const {popular, poplocation} = req.body
-  const popimage = req.file
+  try{
 
-  console.log(popular, poplocation, popimage)
+    const {popular, poplocation} = req.body
+    const popimage = req.file
 
-  res.json({
-    mess:"data accepted",
-    popular,
-    poplocation
-  })
+    if(!popular || !poplocation || !popimage){
+      return res.status(400).json({message:"All fields required"})
+    }
+
+    const filename = Date.now() + "-" + popimage.originalname
+
+    fs.writeFileSync(`./uploads/${filename}`, popimage.buffer)
+
+    let imagePath = `http://localhost:3000/uploads/${filename}`
+
+    let popularvenue = new PopularVenuModel({
+        venuename: popular,
+        location: poplocation,
+        image: imagePath
+    })
+
+    await popularvenue.save()
+
+    res.json({
+      message:"data accepted",
+      popular,
+      poplocation
+    })
+
+  }catch(error){
+    console.log(error)
+    res.status(500).json({error:"server error"})
+  }
+
 })
 
 export default router
