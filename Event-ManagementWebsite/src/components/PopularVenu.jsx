@@ -1,12 +1,13 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import VenueCard from "./VenueCard.jsx";
 import Topsection from "../ui/Topsection";
 import "../css/venue.css"
 import Countiing from "../ui/Counting.jsx"
-const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
+// const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
 
 const PopularVenu = ({ title, number }) => {
+    const [popularVenues, setPopularVenues] = useState([])
 
   useEffect(() => {
     let fetchpopularvenue = async () => {
@@ -14,6 +15,7 @@ const PopularVenu = ({ title, number }) => {
             let response = await fetch("http://localhost:3000/api/fetchvenu")
             let data = await response.json()
             console.log(data)
+           setPopularVenues(data)
         }
         catch (error) {
             console.log(error, "popular venue route is not working")
@@ -27,8 +29,8 @@ const PopularVenu = ({ title, number }) => {
             <div className="container">
                 <Topsection title={title} number={number} />
                 <div className="venue-grid">
-                    {Array.from({ length: 6 }).map((_, index) => (
-                        <VenueCard key={index} city={cities[index % 3]} />
+                    {popularVenues.map((venue, index) => (
+                        <VenueCard  designernames={venue.venuename}  image={venue.image} key={index} city={venue.location} />
                     ))}
                 </div>
                 <Countiing />

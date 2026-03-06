@@ -13,7 +13,7 @@ const VenueCard = ({city, designernames, image}) => {
       </div>
 
       <p className="venue-title">
-       hello <strong>{designernames}</strong>
+        <strong>{designernames}</strong>
       </p>
 
       <p className="venue-rating">
