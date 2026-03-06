@@ -4,6 +4,26 @@ import "../css/HomeAdmin.css";
 const HomeAdmin = () => {
   // const [categories] = useState(["Wedding", "Birthday", "Corporate"]);
   const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
+  const [videoTitle, setVideoTitle] = useState("");
+  const [videoimage , setVideoImage] = useState("");
+
+  let handleAddVideo = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("title", videoTitle);
+
+      formData.append("videoimage", videoimage);
+
+      let response = await fetch("http://localhost:3000/featuredvideo", {
+        method: "POST",
+        body: formData
+      });
+      let data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding video:", error);
+    }
+  };
 
   return (
     <div className="admin-wrapper">
@@ -135,15 +155,15 @@ const HomeAdmin = () => {
         <h3>Add Featured Video</h3>
 
         <div className="add-row">
-          <input placeholder="Video title" />
+          <input value={videoTitle} onChange={(e) => setVideoTitle(e.target.value)} placeholder="Video title" />
           <input placeholder="Short description" />
 
           <label className="upload-btn">
             Upload Thumbnail
-            <input type="file" hidden />
+            <input type="file" onChange={(e)=>setVideoImage(e.target.files[0])} accept="image/*" hidden />
           </label>
 
-          <button>Add</button>
+          <button onClick={handleAddVideo}>Add</button>
         </div>
 
         <div className="card-list">
