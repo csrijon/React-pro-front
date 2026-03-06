@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../css/HomeAdmin.css";
 
 const HomeAdmin = () => {
-  const [categories] = useState(["Wedding", "Birthday", "Corporate"]);
+  // const [categories] = useState(["Wedding", "Birthday", "Corporate"]);
   const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
 
   return (
@@ -147,40 +147,40 @@ const HomeAdmin = () => {
         </div>
 
         <div className="card-list">
-          {/* CARD 1 */}
+          
           <div className="card-item">
-            <img src="/placeholder.jpg" alt="video" />
+            {/* <img src="/placeholder.jpg" alt="video" />
 
             <div className="card-fields">
               <input defaultValue="Wedding Highlights Dubai" />
               <textarea rows="2" defaultValue="Beautiful wedding moments..." />
-            </div>
+            </div> */}
 
-            <div className="actions">
+            {/* <div className="actions">
               <label className="icon-btn">
                 Change Image
                 <input type="file" hidden />
               </label>
               <button className="remove-btn">×</button>
-            </div>
+            </div> */}
           </div>
 
           {/* CARD 2 */}
           <div className="card-item">
-            <img src="/placeholder.jpg" alt="video" />
+            {/* <img src="/placeholder.jpg" alt="video" /> */}
 
-            <div className="card-fields">
+            {/* <div className="card-fields">
               <input defaultValue="Luxury Venue Tour" />
               <textarea rows="2" defaultValue="Explore premium venues..." />
-            </div>
+            </div> */}
 
-            <div className="actions">
+            {/* <div className="actions">
               <label className="icon-btn">
                 Change Image
                 <input type="file" hidden />
               </label>
               <button className="remove-btn">×</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

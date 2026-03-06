@@ -11,6 +11,31 @@ const SuppliersAdmin = () => {
   const [popular,setpopular] =useState("")
   const [poplocation, setpoplocation] =useState("")
   const [popimage,setpopimages] =useState("")
+  const [videoname, setvideoname] = useState("")
+  const [videolocation, setvideolocation] = useState("")
+  const [videoimage, setvideoimage] = useState("")
+
+
+  const handelvideophotographer =async ()=>{
+    try {
+      const formdata = new FormData()
+      formdata.append("videoname",videoname)
+      formdata.append("videolocation",videolocation)
+      formdata.append("videoimage",videoimage)
+
+      let response =await fetch("http://localhost:3000/videophotographer",{
+        method:"POST",
+        body:formdata
+      })
+
+      let data = await response.json()
+      console.log(data)
+    } catch (error) {
+      console.log(error,"video photographer handeler is not working")
+    }
+
+   console.log("video photographer handeler is working")
+  }
 
   const addhandeler = async () => {
     console.log("add handeler is working")
@@ -21,7 +46,6 @@ const SuppliersAdmin = () => {
       let response = await fetch("http://localhost:3000/supplyers", {
         method: "POST",
         body: formData
-
       })
       let data = await response.json()
       console.log(data)
@@ -31,7 +55,6 @@ const SuppliersAdmin = () => {
   }
 
   let popularchange = async ()=>{
-
     try {
          const formdata = new FormData()
          formdata.append("popular", popular)
@@ -85,6 +108,7 @@ const SuppliersAdmin = () => {
         <h2>Suppliers Categories</h2>
         <button className="save-btn">Save Changes</button>
       </div>
+
       <div className="add-row">
         <input
           type="text"
@@ -113,12 +137,7 @@ const SuppliersAdmin = () => {
 
         <h3 className="section-title">Trending Designers</h3>
 
-        {/* CARD 1 */}
         <div className="admin-card">
-
-          {/* <div className="admin-card-image">
-      <img src="/placeholder.jpg" alt="preview" />
-    </div> */}
 
           <div className="admin-card-fields">
 
@@ -132,7 +151,6 @@ const SuppliersAdmin = () => {
             <input
               value={location}
               onChange={(e) => setlocation(e.target.value)}
-
               type="text"
               placeholder="Edit Description / Location"
             />
@@ -143,8 +161,7 @@ const SuppliersAdmin = () => {
                 type="file"
                 hidden
                 accept="image/*"
-                onChange={(e) => setimages(e.target.files[0])
-                }
+                onChange={(e) => setimages(e.target.files[0])}
               />
             </label>
 
@@ -158,14 +175,9 @@ const SuppliersAdmin = () => {
         </div>
 
 
-        <h3 className="section-title second">Popular Photographers / Videographers</h3>
+        <h3 className="section-title second">Popular venue</h3>
 
-        {/* CARD 2 */}
         <div className="admin-card">
-
-          {/* <div className="admin-card-image">
-      <img src="/placeholder.jpg" alt="preview" />
-    </div> */}
 
           <div className="admin-card-fields">
 
@@ -195,6 +207,47 @@ const SuppliersAdmin = () => {
 
             <div className="admin-card-actions">
               <button onClick={popularchange} className="update-btn">Update</button>
+              <button className="delete-btn">Delete</button>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* NEW SECTION */}
+        <h3 className="section-title second">Popular Video & Photographer</h3>
+
+        <div className="admin-card">
+
+          <div className="admin-card-fields">
+
+            <input
+              type="text"
+              placeholder="Edit Video/Photographer Name"
+              value={videoname}
+              onChange={(e)=>setvideoname(e.target.value)}
+            />
+
+            <input
+              type="text"
+              placeholder="Edit Description / Location"
+              value={videolocation}
+              onChange={(e)=>setvideolocation(e.target.value)}
+            />
+
+            <label className="upload-btn">
+              Change Image
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={(e)=>setvideoimage(e.target.files[0])}
+              />
+            </label>
+
+            <div className="admin-card-actions">
+              <button onClick={handelvideophotographer} className="update-btn">Update</button>
               <button className="delete-btn">Delete</button>
             </div>
 
