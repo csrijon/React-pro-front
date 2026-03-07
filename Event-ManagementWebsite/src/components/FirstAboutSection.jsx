@@ -29,8 +29,8 @@ const FirstAboutSection = () => {
         let data = await response.json();
         console.log("Fetched About Stats Data:", data);
         // Assuming you have a state for stats
-        setStatsData(data);
-        console.log("Stats State Updated:", data);
+        setStatsData(data[2].stats);
+        console.log("Stats State Updated:", data[2].stats);
       } catch (error) {
         console.error("Error fetching about stats data:", error);
       }
@@ -48,21 +48,11 @@ const FirstAboutSection = () => {
             <h3>{mainAboutData[0]?.title}</h3>
 
             <p>
-              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum. */}
+
               {mainAboutData[0]?.para1}
             </p>
 
             <p>
-              {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat. */}
               {mainAboutData[0]?.para2}
             </p>
           </div>
@@ -86,22 +76,6 @@ const FirstAboutSection = () => {
               </div>
             ))
           }
-
-
-          {/* <div className="stat">
-            <h2>20,000</h2>
-            <p>Annual Weddings</p>
-          </div>
-
-          <div className="stat">
-            <h2>1,000</h2>
-            <p>Wedding Venues</p>
-          </div>
-
-          <div className="stat">
-            <h2>1.5 M</h2>
-            <p>Monthly Followers</p>
-          </div> */}
         </div>
       </div>
     </section>

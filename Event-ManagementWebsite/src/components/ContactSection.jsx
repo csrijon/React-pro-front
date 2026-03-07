@@ -62,6 +62,15 @@ const ContactSection = () => {
           <label>Email Address</label>
           <input required value={email} onChange={Handelmail} type="email" placeholder="Email Address" />
 
+          <select required className="custom-select"> 
+            <option value disabled selected>Select Option</option>
+            <option className="option" value="Vendors">Vendors</option>
+            <option value="Marketing Collaborations">Marketing Collaborations</option>
+            <option value="Wedding Submissions">Wedding Submissions</option>
+            <option value="Careers">Careers</option>
+            <option value="Customers">Customers</option>
+          </select>
+
           <label>Message</label>
           <textarea required value={msg} onChange={Handelmessage} placeholder="Enter Your Message"></textarea>
 
@@ -69,7 +78,7 @@ const ContactSection = () => {
         </div>
 
         {/* Right Info */}
-        <div className="contact-info">
+        {/* <div className="contact-info">
           <div className="info-block">
             <h3>Vendors</h3>
             <p>
@@ -124,7 +133,19 @@ const ContactSection = () => {
               <a href="mailto:info@company.com">info@company.com</a>
             </p>
           </div>
+        </div> */}
+        <div className="contact-map">
+          <iframe
+            src="https://www.google.com/maps?q=Kolkata&output=embed"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
+
       </div>
     </section>
   );
