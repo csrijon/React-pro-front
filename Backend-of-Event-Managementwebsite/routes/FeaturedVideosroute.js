@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import fs from "fs"
-import {featuredVideoModel} from "../models/Schema.js"
+import { featuredVideoModel } from "../models/Schema.js"
 
 const router = express.Router();
 
@@ -23,11 +23,8 @@ router.post("/", multer().single("videoimage"), async (req, res) => {
     catch (error) {
         console.log(error, "showing error")
         res.status(400).json({ mess: "not working" })
-
     }
-
-}
-)
+})
 
 router.get("/", async (req, res) => {
     try {
@@ -39,7 +36,6 @@ router.get("/", async (req, res) => {
         console.log(error, "data is missing")
         res.status(400).json({ mess: "data can not find" })
     }
-}
-)
+})
 
 export default router
