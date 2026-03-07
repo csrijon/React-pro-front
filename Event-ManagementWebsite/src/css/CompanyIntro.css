@@ -11,6 +11,9 @@
     justify-content: center;
     flex-direction: column;
     height: 50vh;
+    background-image: url(../assets/company\ intro.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .company-title {

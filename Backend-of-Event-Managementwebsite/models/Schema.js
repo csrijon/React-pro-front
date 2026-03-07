@@ -92,6 +92,27 @@ const StatisticsSchema = new mongoose.Schema({
   }
 });
 
+const ABoutblock1Schema = new mongoose.Schema({
+    title: String,
+    blockpara1: String,
+    blockpara2: String,
+    Image: String,
+    time: {
+        type: Date,
+        default: Date.now
+        }
+})
+const Aboutblock2Schema = new mongoose.Schema({
+    title: String,
+    blockpara1: String,
+    blockpara2: String,
+    Image: String,
+    time: {
+        type: Date,
+        default: Date.now
+        }
+})
+
 const Categorymodel = mongoose.model("Category", categorySchema)
 const Venuemodel = mongoose.model("Venue", VenueSchema)
 const MediaModel = mongoose.model("Media", MediaSchema)
@@ -102,5 +123,7 @@ const featuredVideoModel = mongoose.model("FeaturedVideo", featuredVideoSchema)
 const BrowsebycategoryModel = mongoose.model("Browsebycategory", BrowsebycategorySchema)
 const AboutmainModel = mongoose.model("Aboutmain", AboutmainSchema)
 const StatisticsModel = mongoose.model("Statistics", StatisticsSchema)
+const Aboutblock1Model = mongoose.model("Aboutblock1", ABoutblock1Schema)
+const Aboutblock2Model = mongoose.model("Aboutblock2", Aboutblock2Schema)
 
-export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel, BrowsebycategoryModel, AboutmainModel, StatisticsModel }
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel, BrowsebycategoryModel, AboutmainModel, StatisticsModel, Aboutblock1Model, Aboutblock2Model }

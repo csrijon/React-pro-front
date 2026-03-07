@@ -37,7 +37,7 @@ const AboutAdmin = () => {
     { number: "", label: "" }
   ]);
 
-    const handleStatsAdd =async () => {
+  const handleStatsAdd = async () => {
     // console.log("Stats:", stats);
     try {
       let response = await fetch("http://localhost:3000/addaboutstats", {
@@ -61,6 +61,25 @@ const AboutAdmin = () => {
   const [block1Para2, setBlock1Para2] = useState("");
   const [block1Image, setBlock1Image] = useState(null);
 
+  const handleBlock1Add = async () => {
+    try {
+      const formdata = new FormData();
+      formdata.append("title", block1Title);
+      formdata.append("blockpara1", block1Para1);
+      formdata.append("blockpara2", block1Para2);
+      formdata.append("Image", block1Image);
+      let reponse = await fetch("http://localhost:3000/addaboutblock1", {
+        method: "POST",
+
+        body: formdata
+      });
+      let data = await reponse.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding block 1:", error);
+    }
+  };
+
   // ===== BLOCK 2 =====
   const [block2Title, setBlock2Title] = useState("");
   const [block2Para1, setBlock2Para1] = useState("");
@@ -68,18 +87,25 @@ const AboutAdmin = () => {
   const [block2Image, setBlock2Image] = useState(null);
 
 
-  // ===== HANDLERS =====
-
-
-
-
-  const handleBlock1Add = () => {
-    console.log("Block1:", block1Title, block1Para1, block1Para2, block1Image);
+  const handleBlock2Add = async () => {
+    try {
+      const formdata = new FormData();
+      formdata.append("title", block2Title);
+      formdata.append("blockpara1", block2Para1);
+      formdata.append("blockpara2", block2Para2);
+      formdata.append("Image", block2Image);
+      let response = await fetch("http://localhost:3000/addaboutblock2", {
+        method: "POST",
+        body: formdata
+      });
+      let data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding block 2:", error);
+    }
   };
+  
 
-  const handleBlock2Add = () => {
-    console.log("Block2:", block2Title, block2Para1, block2Para2, block2Image);
-  };
 
   const handleStatsChange = (index, field, value) => {
     const newStats = [...stats];
@@ -219,6 +245,7 @@ const AboutAdmin = () => {
           Upload Block Image
           <input
             type="file"
+            accept="image/*"
             hidden
             onChange={(e) => setBlock1Image(e.target.files[0])}
           />
