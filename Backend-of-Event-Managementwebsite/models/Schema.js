@@ -11,6 +11,24 @@ const categorySchema = new mongoose.Schema({
         default: Date.now
     }
 })
+const BrowsebycategorySchema = new mongoose.Schema({
+    title: String,
+    Image: String,
+    time: {
+        type: Date,
+        default: Date.now
+    }
+})
+const AboutmainSchema = new mongoose.Schema({
+    title: String,
+    para1: String,
+    para2: String,
+    mainImage: String,
+    time: {
+        type: Date,
+        default: Date.now
+    }
+})
 const featuredVideoSchema = new mongoose.Schema({
     title: String,
     thumbnail: String,
@@ -69,5 +87,7 @@ const Trendingmodel = mongoose.model("Trending",TrendingSchema)
 const PopularVenuModel = mongoose.model("PopularVenue",PopularVenueSchema)
 const PhotographvideorouteModel = mongoose.model("Photographvideoroute", PhotographvideorouteSchema)
 const featuredVideoModel = mongoose.model("FeaturedVideo", featuredVideoSchema)
+const BrowsebycategoryModel = mongoose.model("Browsebycategory", BrowsebycategorySchema)
+const AboutmainModel = mongoose.model("Aboutmain", AboutmainSchema)
 
-export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel }
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel, BrowsebycategoryModel, AboutmainModel }

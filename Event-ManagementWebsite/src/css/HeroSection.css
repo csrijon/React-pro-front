@@ -26,6 +26,9 @@
     overflow: hidden;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     color: var(--hero-text-color);
+    background-image: url(../assets/eventimage.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 /* Soft Premium Glow Effect */

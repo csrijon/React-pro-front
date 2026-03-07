@@ -11,6 +11,8 @@ import PopularVenu from "./routes/PopulerVenu.js"
 import Trandingroute from "./routes/Trandingroute.js"
 import Photographvideoroute from "./routes/Photographvideoroute.js"
 import FeaturedVideosroute from "./routes/FeaturedVideosroute.js"
+import Category from "./routes/Category.js"
+import Aboutroute from "./routes/Aboutroute.js"
 import { Categorymodel } from "./models/Schema.js";
 import { Venuemodel } from "./models/Schema.js"
 dotenv.config()
@@ -26,6 +28,10 @@ app.use("/api/fetchtreding", Trandingroute)
 app.use("/trending",Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
+app.use("/addcategory", Category)
+app.use("/addaboutmain",Aboutroute)
+app.use("/api/fetchaboutmain",Aboutroute)
+app.use("/api/fetbrowcategory", Category)/
 app.use("/featuredvideo", FeaturedVideosroute)
 app.use("/apifeaturedvideo", FeaturedVideosroute)
 app.use("/videophotographer", Photographvideoroute)

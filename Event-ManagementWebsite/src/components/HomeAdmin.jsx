@@ -6,6 +6,8 @@ const HomeAdmin = () => {
   const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
   const [videoTitle, setVideoTitle] = useState("");
   const [videoimage , setVideoImage] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryImage, setCategoryImage] = useState(null);
 
   let handleAddVideo = async () => {
     try {
@@ -24,6 +26,24 @@ const HomeAdmin = () => {
       console.error("Error adding video:", error);
     }
   };
+
+ let handelcategoryadd = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("categoryName", categoryName);   // ✅ match
+    formData.append("categoryImage", categoryImage); // ✅ match
+
+    let response = await fetch("http://localhost:3000/addcategory", {
+      method: "POST",
+      body: formData
+    });
+
+    let data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error adding category:", error);
+  }
+};
 
   return (
     <div className="admin-wrapper">
@@ -92,16 +112,16 @@ const HomeAdmin = () => {
         <h3>Add Category Card</h3>
 
         <div className="add-row">
-          <input placeholder="Category name" />
+          <input placeholder="Category name" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
           <label className="upload-btn">
             Upload Image
-            <input type="file" hidden />
+            <input type="file" accept="image/*" onChange={(e) => setCategoryImage(e.target.files[0])} hidden />
           </label>
-          <button>Add</button>
+          <button onClick={handelcategoryadd}>Add</button>
         </div>
 
         <div className="card-list">
-          <div className="card-item">
+          {/* <div className="card-item">
             <img src="/placeholder.jpg" alt="cat" />
             <input defaultValue="Wedding" />
             <div className="actions">
@@ -111,7 +131,7 @@ const HomeAdmin = () => {
               </label>
               <button className="remove-btn">×</button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
