@@ -4,8 +4,6 @@ import fifthimages from "../assets/fifthimages.jpg"
 
 const AboutBlocks = () => {
  
-  
-
   return (
     <section className="about-blocks">
       <div className="container">

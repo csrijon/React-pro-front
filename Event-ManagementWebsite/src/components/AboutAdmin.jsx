@@ -37,6 +37,24 @@ const AboutAdmin = () => {
     { number: "", label: "" }
   ]);
 
+    const handleStatsAdd =async () => {
+    // console.log("Stats:", stats);
+    try {
+      let response = await fetch("http://localhost:3000/addaboutstats", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ stats })
+      });
+      let data = await response.json();
+      console.log(data);
+
+    } catch (error) {
+      console.error("Error adding stats:", error);
+    }
+  };
+
   // ===== BLOCK 1 =====
   const [block1Title, setBlock1Title] = useState("");
   const [block1Para1, setBlock1Para1] = useState("");
@@ -53,9 +71,7 @@ const AboutAdmin = () => {
   // ===== HANDLERS =====
 
 
-  const handleStatsAdd = () => {
-    console.log("Stats:", stats);
-  };
+
 
   const handleBlock1Add = () => {
     console.log("Block1:", block1Title, block1Para1, block1Para2, block1Image);
