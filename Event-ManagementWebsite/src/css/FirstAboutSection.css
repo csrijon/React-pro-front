@@ -58,11 +58,13 @@
 .stat h2 {
   font-size: 24px;
   font-weight: 600;
+  color: var(--golden-color);
 }
 
 .stat p {
   font-size: 13px;
   margin-top: 6px;
+  color: var(--golden-color);
 }
 
 /* Responsive */
