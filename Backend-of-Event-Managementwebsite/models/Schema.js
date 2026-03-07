@@ -79,6 +79,18 @@ const MediaSchema = new mongoose.Schema({
         default: Date.now
     }
 })
+const StatisticsSchema = new mongoose.Schema({
+  stats: [
+    {
+      number: Number,
+      label: String
+    }
+  ],
+  time: {
+    type: Date,
+    default: Date.now
+  }
+});
 
 const Categorymodel = mongoose.model("Category", categorySchema)
 const Venuemodel = mongoose.model("Venue", VenueSchema)
@@ -89,5 +101,6 @@ const PhotographvideorouteModel = mongoose.model("Photographvideoroute", Photogr
 const featuredVideoModel = mongoose.model("FeaturedVideo", featuredVideoSchema)
 const BrowsebycategoryModel = mongoose.model("Browsebycategory", BrowsebycategorySchema)
 const AboutmainModel = mongoose.model("Aboutmain", AboutmainSchema)
+const StatisticsModel = mongoose.model("Statistics", StatisticsSchema)
 
-export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel, BrowsebycategoryModel, AboutmainModel }
+export { Categorymodel, Venuemodel, MediaModel,Trendingmodel, PopularVenuModel, PhotographvideorouteModel, featuredVideoModel, BrowsebycategoryModel, AboutmainModel, StatisticsModel }

@@ -13,8 +13,8 @@ import Photographvideoroute from "./routes/Photographvideoroute.js"
 import FeaturedVideosroute from "./routes/FeaturedVideosroute.js"
 import Category from "./routes/Category.js"
 import Aboutroute from "./routes/Aboutroute.js"
-import { Categorymodel } from "./models/Schema.js";
-import { Venuemodel } from "./models/Schema.js"
+import Statistics from "./routes/Statistics.js"
+import { Categorymodel, Venuemodel } from "./models/Schema.js";
 dotenv.config()
 
 
@@ -25,19 +25,21 @@ app.use(cors({ origin: "http://localhost:5173" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/api/fetchtreding", Trandingroute)
-app.use("/trending",Trandingroute)
+app.use("/trending", Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
 app.use("/addcategory", Category)
-app.use("/addaboutmain",Aboutroute)
-app.use("/api/fetchaboutmain",Aboutroute)
-app.use("/api/fetbrowcategory", Category)/
+app.use("/addaboutmain", Aboutroute)
+app.use("/api/fetchaboutmain", Aboutroute)
+app.use("/addaboutstats", Statistics)
+app.use("/api/fetchaboutstats", Statistics)
+app.use("/api/fetbrowcategory", Category)
 app.use("/featuredvideo", FeaturedVideosroute)
 app.use("/apifeaturedvideo", FeaturedVideosroute)
 app.use("/videophotographer", Photographvideoroute)
 app.use("/apivideophotographer", Photographvideoroute)
-app.use("/popvenue",PopularVenu)
-app.use("/api/fetchvenu",PopularVenu)
+app.use("/popvenue", PopularVenu)
+app.use("/api/fetchvenu", PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
 

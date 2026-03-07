@@ -1,11 +1,12 @@
 
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "../css/FirstAboutSection.css";
 import firstimages from "../assets/fifthimages.jpg"
 
 const FirstAboutSection = () => {
 
   const [mainAboutData, setMainAboutData] = useState({});
+  const [statsData, setStatsData] = useState([]);
 
   useEffect(() => {
     let fetchmainabout = async () => {
@@ -21,6 +22,20 @@ const FirstAboutSection = () => {
       }
     }
     fetchmainabout();
+
+    let fetchaboutstarts = async () => {
+      try {
+        let response = await fetch("http://localhost:3000/api/fetchaboutstats");
+        let data = await response.json();
+        console.log("Fetched About Stats Data:", data);
+        // Assuming you have a state for stats
+        setStatsData(data);
+        console.log("Stats State Updated:", data);
+      } catch (error) {
+        console.error("Error fetching about stats data:", error);
+      }
+    };
+    fetchaboutstarts();
   }, [])
 
   return (
@@ -63,12 +78,17 @@ const FirstAboutSection = () => {
 
         {/* Stats */}
         <div className="about-stats">
-          <div className="stat">
-            <h2>10,000</h2>
-            <p>Wedding Vendors</p>
-          </div>
+          {
+            statsData.map((item, index) => (
+              <div className="stat" key={index}>
+                <h2>{item.number}</h2>
+                <p>{item.label}</p>
+              </div>
+            ))
+          }
 
-          <div className="stat">
+
+          {/* <div className="stat">
             <h2>20,000</h2>
             <p>Annual Weddings</p>
           </div>
@@ -81,7 +101,7 @@ const FirstAboutSection = () => {
           <div className="stat">
             <h2>1.5 M</h2>
             <p>Monthly Followers</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>
