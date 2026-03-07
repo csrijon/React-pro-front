@@ -32,22 +32,11 @@ const ImageSliderUI = () => {
 
   return (
     <div className="slider-wrapper">
-      {/* <h2>review</h2> */}
+
       {/* Left Arrow */}
       <button onClick={leftclick} className="arrow left-arrow">
         <ArrowBackIcon />
       </button>
-
-      {/* Image Card */}
-      {/* <div className="slider-card">
-        <img src={sampleImage} alt="slider" />
-      </div>
-       <div className="slider-card">
-        <img src={secendimages} alt="slider" />
-      </div>
-       <div className="slider-card">
-        <img src={thirdimages} alt="slider" />
-      </div> */}
       <div className="slider-container">
         <div className="slider-card" >
               <img src={sliderimages[currentIndex]} alt="slider" />

@@ -104,7 +104,7 @@ const AboutAdmin = () => {
       console.error("Error adding block 2:", error);
     }
   };
-  
+
 
 
   const handleStatsChange = (index, field, value) => {

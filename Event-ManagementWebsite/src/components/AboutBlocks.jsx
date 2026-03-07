@@ -1,6 +1,5 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/AboutBlocks.css";
-// import fifthimages from "../assets/fifthimages.jpg"
 
 const AboutBlocks = () => {
   const [aboutBlock1Data, setAboutBlock1Data] = useState({});
@@ -20,8 +19,8 @@ const AboutBlocks = () => {
     }
     fetchaboutblocks1();
 
-    let fetchaboutblock2 = async ()=>{
-      try{
+    let fetchaboutblock2 = async () => {
+      try {
         let response = await fetch("http://localhost:3000/api/fetchaboutblock2");
         let data = await response.json();
         setAboutBlock2Data(data);
@@ -51,11 +50,11 @@ const AboutBlocks = () => {
           <div className="about-text">
             <h3>{aboutBlock1Data[0]?.title}</h3>
             <p>
-             {aboutBlock1Data[0]?.blockpara1}
+              {aboutBlock1Data[0]?.blockpara1}
 
             </p>
             <p>
-             {aboutBlock1Data[0]?.blockpara2}
+              {aboutBlock1Data[0]?.blockpara2}
             </p>
           </div>
         </div>

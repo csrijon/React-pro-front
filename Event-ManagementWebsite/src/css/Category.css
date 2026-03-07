@@ -48,23 +48,41 @@
    CARDS
 ================================ */
 
-.cards {
+/* .cards {
   width: 220px;
   height: 140px;
   border-radius: 8px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(6px);
+
+  border: 1px solid rgba(212, 175, 55, 0.25);
+
   box-shadow:
-    0 15px 40px rgba(0, 0, 0, 0.6),
-    0 0 15px var(--primary-cardtitle-color);
+    0 10px 30px rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(212, 175, 55, 0.2);
+
+  transition: all 0.35s ease;
+} */
+ .cards {
+  width: 220px;
+  border-radius: 12px;
+  height: 200px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(212,175,55,0.35);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  /* transition: all 0.35s ease; */
 }
+
 
 .cards img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.9);
+  transition: transform 0.4s ease;
 }
 
 /* Gradient overlay for title clarity */
@@ -72,10 +90,15 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.25) 40%,
-      rgba(0, 0, 0, 0) 70%);
+
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.1)
+  );
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .card-title {

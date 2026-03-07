@@ -2,7 +2,7 @@ import React from "react";
 import "../css/HeroSection.css";
 import Button from "../ui/Button.jsx";
 
-const Herosection = ({heading,subheading}) => {
+const Herosection = ({ heading, subheading }) => {
     return (
         <section className="hero-section">
             <div className="first-part">

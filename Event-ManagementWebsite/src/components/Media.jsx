@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react"
+import { useEffect, useState } from "react"
 import Topsection from "../ui/Topsection"
 import "../css/Media.css"
 import Latestdata from "../Latestdata.js"
@@ -6,7 +6,7 @@ import Countiing from "../ui/Counting.jsx"
 
 const Media = () => {
 
-    const [mediainfo,setmediainfo] = useState([])
+    const [mediainfo, setmediainfo] = useState([])
 
     useEffect(() => {
         let getresponse = async () => {

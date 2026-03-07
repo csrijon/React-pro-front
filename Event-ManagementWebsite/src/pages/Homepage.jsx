@@ -14,7 +14,6 @@ const Homepage = () => {
         <Header />
             <Herosection heading="Your Wedding," subheading="Your Way" />
             <Category title="Browse by Category" number="9" />
-            {/* <Category title="Popular Venue" number="1000" /> */}
             <PopularVenu title="Popular Venue" number="1000" />
             <Dummycard />
             <FeaturedVideo />

@@ -33,22 +33,6 @@ const MediaAdmin = () => {
         <h2>Media Section</h2>
         <button className="save-btn">Save Changes</button>
       </div>
-
-      {/* SECTION SETTINGS */}
-      {/* <div className="admin-card">
-        <h3>Section Settings</h3>
-
-        <div className="form-group">
-          <label>Section Title</label>
-          <input type="text" placeholder="Latest Media" />
-        </div>
-
-        <div className="form-group">
-          <label>Total Count Number</label>
-          <input type="text" placeholder="23" />
-        </div>
-      </div> */}
-
       {/* ADD NEW MEDIA */}
       <div className="admin-card">
         <h3>Add New Media Card</h3>
