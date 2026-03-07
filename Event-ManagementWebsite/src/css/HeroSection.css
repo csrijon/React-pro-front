@@ -6,7 +6,7 @@
     --hero-select-text-color: #999;
     --hero-select-part-color: #555;
     --hero-text-color: #d4af37;
-    --primary-select-background:rgba(255,255,255,0.05);
+    --primary-select-background: rgba(255, 255, 255, 0.05);
 }
 
 /* ===============================
@@ -90,8 +90,21 @@
     transition: all 0.35s ease;
 
     box-shadow:
-        0 4px 12px rgba(0,0,0,0.35),
-        inset 0 1px 1px rgba(255,255,255,0.08);
+        0 4px 12px rgba(0, 0, 0, 0.35),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.category-select option,
+.location-select option {
+    background-color: var(--hero-bg-color);
+    /* color: var(--primary-golden-color); */
+}
+
+.category-select option,
+.location-select option:hover {
+    background-color: var(--primary-golden-color);
+    color: var(--hero-bg-color);
+    border-radius: 22px;
 }
 
 /* Hover Floating Effect */
@@ -100,11 +113,17 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.category-select:focus,
+.category-select,
 .location-select:focus {
     outline: none;
-    border-color: var(--hero-select-focus-color);
+    border-color: var(--hero-text-color);
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.category-select option:hover {
+    background-color: red !important;
+    color: var(--hero-bg-color);
+    border-radius: 22px;
 }
 
 /* Custom Dropdown Arrow */
