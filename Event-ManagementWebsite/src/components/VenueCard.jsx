@@ -1,5 +1,4 @@
 import React from "react";
-// import fifthimages from "../assets/fifthimages.jpg"
 
 const VenueCard = ({city, designernames, image}) => {
  

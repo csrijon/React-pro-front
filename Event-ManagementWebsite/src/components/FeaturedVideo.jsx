@@ -1,12 +1,11 @@
 import Topsection from "../ui/Topsection"
 import "../css/FeaturedVideo.css"
-import dummydata from "../dummydata.js"
-import { useEffect,useState } from "react"
+import { useEffect, useState } from "react"
 
 
 const FeaturedVideo = () => {
 
-    const  [featuredVideos, setFeaturedVideos] = useState([])
+    const [featuredVideos, setFeaturedVideos] = useState([])
 
     useEffect(() => {
         let fetchFeaturedVideos = async () => {

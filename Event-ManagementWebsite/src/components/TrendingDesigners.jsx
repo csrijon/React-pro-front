@@ -1,12 +1,8 @@
 import Topsection from "../ui/Topsection"
-import { useEffect,useState} from "react"
+import { useEffect, useState } from "react"
 import VenueCard from "./VenueCard"
 import Countiing from "../ui/Counting"
 import "../css/venue.css"
-
-// const cities = ["ABU DHABI", "AL AIN", "DUBAI"]
-
-
 
 const TrendingDesigners = ({ title }) => {
     const [trendingdata, settrendingdata] = useState([])

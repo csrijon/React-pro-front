@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import "../css/HomeAdmin.css";
 
 const HomeAdmin = () => {
-  // const [categories] = useState(["Wedding", "Birthday", "Corporate"]);
   const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
   const [videoTitle, setVideoTitle] = useState("");
-  const [videoimage , setVideoImage] = useState("");
+  const [videoimage, setVideoImage] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [categoryImage, setCategoryImage] = useState(null);
 
@@ -27,23 +26,23 @@ const HomeAdmin = () => {
     }
   };
 
- let handelcategoryadd = async () => {
-  try {
-    const formData = new FormData();
-    formData.append("categoryName", categoryName);   // ✅ match
-    formData.append("categoryImage", categoryImage); // ✅ match
+  let handelcategoryadd = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("categoryName", categoryName);
+      formData.append("categoryImage", categoryImage);
 
-    let response = await fetch("http://localhost:3000/addcategory", {
-      method: "POST",
-      body: formData
-    });
+      let response = await fetch("http://localhost:3000/addcategory", {
+        method: "POST",
+        body: formData
+      });
 
-    let data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error("Error adding category:", error);
-  }
-};
+      let data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error adding category:", error);
+    }
+  };
 
   return (
     <div className="admin-wrapper">
@@ -53,37 +52,7 @@ const HomeAdmin = () => {
         <button className="save-btn">Save Changes</button>
       </div>
 
-      {/* <div className="admin-grid">
-        <div className="admin-card"> */}
-          {/* <h3>Hero Text</h3> */}
-
-          {/* <div className="field">
-            <label>Heading</label>
-            <input defaultValue="Our Wedding Venues" />
-          </div> */}
-
-          <div className="field">
-            {/* <label>Sub Heading</label> */}
-            {/* <input defaultValue="Find your perfect place" /> */}
-          {/* </div>
-        </div> */}
-
-        {/* <div className="admin-card"> */}
-          {/* <h3>Categories</h3> */}
-
-          {/* <div className="add-row"> */}
-            {/* <input placeholder="Add category" /> */}
-            {/* <button>Add</button> */}
-          {/* </div>
-
-          <div className="pill-group">
-            {categories.map((c, i) => (
-              <span className="pill" key={i}>
-                {c} <button>×</button>
-              </span>
-            ))}
-          </div> */}
-        {/* </div> */}
+      <div className="field">
 
         <div className="admin-card">
           <h3>Locations</h3>
@@ -121,17 +90,6 @@ const HomeAdmin = () => {
         </div>
 
         <div className="card-list">
-          {/* <div className="card-item">
-            <img src="/placeholder.jpg" alt="cat" />
-            <input defaultValue="Wedding" />
-            <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btn">×</button>
-            </div>
-          </div> */}
         </div>
       </div>
 
@@ -180,47 +138,19 @@ const HomeAdmin = () => {
 
           <label className="upload-btn">
             Upload Thumbnail
-            <input type="file" onChange={(e)=>setVideoImage(e.target.files[0])} accept="image/*" hidden />
+            <input type="file" onChange={(e) => setVideoImage(e.target.files[0])} accept="image/*" hidden />
           </label>
 
           <button onClick={handleAddVideo}>Add</button>
         </div>
 
         <div className="card-list">
-          
+
           <div className="card-item">
-            {/* <img src="/placeholder.jpg" alt="video" />
-
-            <div className="card-fields">
-              <input defaultValue="Wedding Highlights Dubai" />
-              <textarea rows="2" defaultValue="Beautiful wedding moments..." />
-            </div> */}
-
-            {/* <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btn">×</button>
-            </div> */}
           </div>
 
           {/* CARD 2 */}
           <div className="card-item">
-            {/* <img src="/placeholder.jpg" alt="video" /> */}
-
-            {/* <div className="card-fields">
-              <input defaultValue="Luxury Venue Tour" />
-              <textarea rows="2" defaultValue="Explore premium venues..." />
-            </div> */}
-
-            {/* <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btn">×</button>
-            </div> */}
           </div>
         </div>
       </div>

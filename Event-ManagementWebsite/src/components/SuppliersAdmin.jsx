@@ -8,33 +8,33 @@ const SuppliersAdmin = () => {
   const [designername, setdesignername] = useState("");
   const [location, setlocation] = useState("")
   const [images, setimages] = useState("")
-  const [popular,setpopular] =useState("")
-  const [poplocation, setpoplocation] =useState("")
-  const [popimage,setpopimages] =useState("")
+  const [popular, setpopular] = useState("")
+  const [poplocation, setpoplocation] = useState("")
+  const [popimage, setpopimages] = useState("")
   const [videoname, setvideoname] = useState("")
   const [videolocation, setvideolocation] = useState("")
   const [videoimage, setvideoimage] = useState("")
 
 
-  const handelvideophotographer =async ()=>{
+  const handelvideophotographer = async () => {
     try {
       const formdata = new FormData()
-      formdata.append("videoname",videoname)
-      formdata.append("videolocation",videolocation)
-      formdata.append("videoimage",videoimage)
+      formdata.append("videoname", videoname)
+      formdata.append("videolocation", videolocation)
+      formdata.append("videoimage", videoimage)
 
-      let response =await fetch("http://localhost:3000/videophotographer",{
-        method:"POST",
-        body:formdata
+      let response = await fetch("http://localhost:3000/videophotographer", {
+        method: "POST",
+        body: formdata
       })
 
       let data = await response.json()
       console.log(data)
     } catch (error) {
-      console.log(error,"video photographer handeler is not working")
+      console.log(error, "video photographer handeler is not working")
     }
 
-   console.log("video photographer handeler is working")
+    console.log("video photographer handeler is working")
   }
 
   const addhandeler = async () => {
@@ -54,21 +54,21 @@ const SuppliersAdmin = () => {
     }
   }
 
-  let popularchange = async ()=>{
+  let popularchange = async () => {
     try {
-         const formdata = new FormData()
-         formdata.append("popular", popular)
-         formdata.append("poplocation",poplocation)
-         formdata.append("popimage",popimage)
+      const formdata = new FormData()
+      formdata.append("popular", popular)
+      formdata.append("poplocation", poplocation)
+      formdata.append("popimage", popimage)
 
-         let popresponse = await fetch("http://localhost:3000/popvenue",{
-          method:"POST",
-          body:formdata
-         })
-         let popdata = await popresponse.json()
-         console.log(popdata)
+      let popresponse = await fetch("http://localhost:3000/popvenue", {
+        method: "POST",
+        body: formdata
+      })
+      let popdata = await popresponse.json()
+      console.log(popdata)
     } catch (error) {
-      console.log(error,"data sending process is not working")
+      console.log(error, "data sending process is not working")
     }
   }
 
@@ -185,14 +185,14 @@ const SuppliersAdmin = () => {
               type="text"
               value={popular}
               placeholder="Edit Photographer/Videographer Name"
-              onChange={(e)=>setpopular(e.target.value)}
+              onChange={(e) => setpopular(e.target.value)}
             />
 
             <input
               value={poplocation}
               type="text"
               placeholder="Edit Description / Location"
-              onChange={(e)=>setpoplocation(e.target.value)}
+              onChange={(e) => setpoplocation(e.target.value)}
             />
 
             <label className="upload-btn">
@@ -201,7 +201,7 @@ const SuppliersAdmin = () => {
                 type="file"
                 hidden
                 accept="image/*"
-                onChange={(e)=>setpopimages(e.target.files[0])}
+                onChange={(e) => setpopimages(e.target.files[0])}
               />
             </label>
 
@@ -226,14 +226,14 @@ const SuppliersAdmin = () => {
               type="text"
               placeholder="Edit Video/Photographer Name"
               value={videoname}
-              onChange={(e)=>setvideoname(e.target.value)}
+              onChange={(e) => setvideoname(e.target.value)}
             />
 
             <input
               type="text"
               placeholder="Edit Description / Location"
               value={videolocation}
-              onChange={(e)=>setvideolocation(e.target.value)}
+              onChange={(e) => setvideolocation(e.target.value)}
             />
 
             <label className="upload-btn">
@@ -242,7 +242,7 @@ const SuppliersAdmin = () => {
                 type="file"
                 hidden
                 accept="image/*"
-                onChange={(e)=>setvideoimage(e.target.files[0])}
+                onChange={(e) => setvideoimage(e.target.files[0])}
               />
             </label>
 
