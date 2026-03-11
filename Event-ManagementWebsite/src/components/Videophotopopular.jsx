@@ -3,6 +3,7 @@ import VenueCard from "./VenueCard";
 import Countiing from "../ui/Counting";
 import "../css/venue.css";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 
 const Videophotopopular = ({ title }) => {
@@ -19,23 +20,7 @@ const Videophotopopular = ({ title }) => {
             }
         }
     }
-    const cardAnimation = {
-        hidden: {
-            opacity: 0,
-            y: 50,
-            scale: 0.92
-        },
-        show: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 130,
-                damping: 12
-            }
-        }
-    }
+
 
 
     useEffect(() => {
@@ -57,11 +42,11 @@ const Videophotopopular = ({ title }) => {
         <section className="video-photosection" >
             <div className="container">
                 <Topsection title={title} />
-                <div className="venue-grid">
+                <motion.div variants={container} initial="hidden" whileInView="show"   className="venue-grid">
                     {videophotographerdata.map((data, index) => (
                         <VenueCard key={index} designernames={data.videoname} image={data.videoimage} city={data.videolocation} />
                     ))}
-                </div>
+                </motion.div>
                 <Countiing />
             </div>
         </section>

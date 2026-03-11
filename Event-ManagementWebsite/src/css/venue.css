@@ -64,6 +64,8 @@
     color: var(--primary-color);
     /* Premium depth */
     box-shadow: 0 20px 45px rgba(0,0,0,0.06);
+    position: relative;
+    overflow:hidden;
 }
 
 /* ===============================

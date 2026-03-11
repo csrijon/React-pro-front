@@ -1,16 +1,17 @@
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "../css/Category.css";
+import { motion } from "framer-motion";
 
 const Countiing =()=>{
     return(
-       <div className="counting">
+       <motion.div className="counting">
                 <KeyboardDoubleArrowLeftIcon className="arrow" />
-                <p className="numbering">1</p>
-                <p className="numbering">2</p>
-                <p className="numbering">3</p>
+                <motion.p whileTap={{scale:1.1}} className="numbering">1</motion.p>
+                <motion.p whileTap={{scale:1.1}} className="numbering">2</motion.p>
+                <motion.p whileTap={{scale:1.1}} className="numbering">3</motion.p>
                 <KeyboardDoubleArrowRightIcon  className="arrow" />
-            </div>
+            </motion.div>
     )
 }
 

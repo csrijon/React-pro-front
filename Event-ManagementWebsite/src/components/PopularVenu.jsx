@@ -41,7 +41,7 @@ const PopularVenu = ({ title, number }) => {
         <section className="Popular-section" >
             <div className="container">
                 <Topsection title={title} number={number} />
-                <motion.div variants={container} initial="hidden" whileInView="show"  className="venue-grid">
+                <motion.div  variants={container} initial="hidden" whileInView="show"  className="venue-grid">
                     {popularVenues.map((venue, index) => (
                         <VenueCard designernames={venue.venuename} image={venue.image} key={index} city={venue.location} />
                     ))}
