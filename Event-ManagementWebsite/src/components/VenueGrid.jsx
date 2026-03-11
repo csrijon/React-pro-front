@@ -1,8 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Topsection from "../ui/Topsection";
 import "../css/venue.css";
+import { motion } from "framer-motion";
 
 const VenueGrid = ({ title, number}) => {
+
+  const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.18,
+                delayChildren: 0.2
+            }
+        }
+    }
+    const cardAnimation = {
+        hidden: {
+            opacity: 0,
+            y: 50,
+            scale: 0.92
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                type: "spring",
+                stiffness: 130,
+                damping: 12
+            }
+        }
+    }
+
   const [venueinfo, setvenueinfo] = useState([]);
 
   useEffect(() => {
@@ -25,29 +55,29 @@ const VenueGrid = ({ title, number}) => {
       <div className="container">
         <Topsection title={title} number={number} />
 
-        <div className="venue-grid">
+        <motion.div variants={container} initial="hidden" animate="show" className="venue-grid">
           {venueinfo.map((item) => (
-            <div className="venue-card" key={item._id}>
-              <div className="venue-image">
-                <img
+            <motion.div variants={cardAnimation} className="venue-card" key={item._id}>
+              <motion.div className="venue-image">
+                <motion.img
                   src={item.image}
                   alt={item.venueTitle}
                 />
-                <span className="explore-btn">Explore</span>
-              </div>
+                <motion.span className="explore-btn">Explore</motion.span>
+              </motion.div>
 
-              <p className="venue-title">
+              <motion.p className="venue-title">
                 {item.venueTitle} <strong>{item.location}</strong>
-              </p>
+              </motion.p>
 
-              <p className="venue-rating">⭐ {item.rating}</p>
+              <motion.p className="venue-rating">⭐ {item.rating}</motion.p>
 
-              <p className="venue-guests">
+              <motion.p className="venue-guests">
                 Upto {item.guests} Guests
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

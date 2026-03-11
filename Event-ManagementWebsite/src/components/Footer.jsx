@@ -1,27 +1,59 @@
 import "../css/Footer.css";
 import kiteimages from "../assets/Kites Events (1).png"
+import { motion } from "framer-motion"
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const columnAnimation = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 14
+    }
+  }
+}
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer-top">
+
+        <motion.div
+          className="footer-top"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
 
           {/* Logo & Social */}
-          <div className="footer-col">
-            {/* <h2 className="footer-logo">Company Logo</h2> */}
+          <motion.div className="footer-col" variants={columnAnimation}>
             <img className="footer-logo" src={kiteimages} alt="kite" />
             <p className="footer-title">Social Media</p>
+
             <div className="social-icons">
-              <i className="ri-facebook-fill"></i>
-              <i className="ri-twitter-x-line"></i>
-              <i className="ri-linkedin-fill"></i>
-              <i className="ri-instagram-line"></i>
+              <motion.i whileHover={{ scale: 1.2, y: -3 }} className="ri-facebook-fill"></motion.i>
+              <motion.i whileHover={{ scale: 1.2, y: -3 }} className="ri-twitter-x-line"></motion.i>
+              <motion.i whileHover={{ scale: 1.2, y: -3 }} className="ri-linkedin-fill"></motion.i>
+              <motion.i whileHover={{ scale: 1.2, y: -3 }} className="ri-instagram-line"></motion.i>
             </div>
-          </div>
+          </motion.div>
 
           {/* Venues */}
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={columnAnimation}>
             <h4>Venues</h4>
             <ul>
               <li>Abu Dhabi</li>
@@ -31,10 +63,10 @@ const Footer = () => {
               <li>Fujairah</li>
               <li>Ras Al Khaimah</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Suppliers */}
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={columnAnimation}>
             <h4>Suppliers</h4>
             <ul>
               <li>Photographers</li>
@@ -44,10 +76,10 @@ const Footer = () => {
               <li>Designers</li>
               <li>Makeup Artists</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={columnAnimation}>
             <h4>Quick Links</h4>
             <ul>
               <li>About Us</li>
@@ -56,24 +88,39 @@ const Footer = () => {
               <li>Privacy Policy</li>
               <li>Terms & Conditions</li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Newsletter */}
-          <div className="footer-col">
+          <motion.div className="footer-col" variants={columnAnimation}>
             <h4>Newsletter</h4>
             <p className="newsletter-text">
               Subscribe To Get Latest Media Updates
             </p>
-            <button className="chat-btn">Live Chat</button>
-          </div>
 
-        </div>
+            <motion.button
+              className="chat-btn"
+              whileHover={{ scale: 1.08, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 200 }}
+            >
+              Live Chat
+            </motion.button>
 
-        <div className="footer-bottom">
+          </motion.div>
+
+        </motion.div>
+
+        <motion.div
+          className="footer-bottom"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
           <p>
-            Made wit love by <span>Srijon Chowdhury</span>
+            Made with love by <span>Srijon Chowdhury</span>
           </p>
-        </div>
+        </motion.div>
+
       </div>
     </footer>
   );

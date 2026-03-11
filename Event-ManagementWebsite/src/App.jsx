@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
 import HomeAdmin from "./components/HomeAdmin.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import MainLayout from "./pages/MainLayout.jsx";
 import AboutAdmin from "./components/AboutAdmin.jsx";
 import SuppliersAdmin from "./components/SuppliersAdmin.jsx";
 import MediaAdmin from "./components/MediaAdmin.jsx";
@@ -20,27 +21,33 @@ import { RouterProvider } from "react-router/dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><Homepage /></>
-  },
-  {
-    path: "/venu",
-    element: <><Venuepage /></>
-  },
-  {
-    path: "/Suppliers",
-    element: <><Supplierpage /></>
-  },
-  {
-    path: "/About",
-    element: <><Aboutpage /></>
-  },
-  {
-    path: "/Media",
-    element: <><Mediapage /></>
-  },
-  {
-    path: "/Contact",
-    element: <><Contactpage /></>
+    element: <><MainLayout /></>,
+    children: [
+      {
+        index: true,
+        element: <><Homepage /></>
+      },
+      {
+        path: "venu",
+        element: <><Venuepage /></>
+      },
+      {
+        path: "/Suppliers",
+        element: <><Supplierpage /></>
+      },
+      {
+        path: "/About",
+        element: <><Aboutpage /></>
+      },
+      {
+        path: "/Media",
+        element: <><Mediapage /></>
+      },
+      {
+        path: "/Contact",
+        element: <><Contactpage /></>
+      }
+    ]
   },
   {
     path: "/admin",

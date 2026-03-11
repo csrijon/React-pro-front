@@ -2,8 +2,31 @@ import "../css/Category.css";
 import Topsection from "../ui/Topsection.jsx";
 import Countiing from "../ui/Counting.jsx";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Category = ({ title, number }) => {
+
+    const container = {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.2
+            }
+        }
+    }
+
+    const cardAnimation = {
+        hidden: { opacity: 0, y: 40 },
+        show: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 120,
+                damping: 14
+            }
+        }
+    }
     const [categoryData, setCategoryData] = useState([]);
 
     useEffect(() => {
@@ -20,16 +43,16 @@ const Category = ({ title, number }) => {
         <section className="Browsecategory-section">
             <div className="container">
                 <Topsection title={title} number={number} />
-                <div className="Bottom-section">
+                <motion.div variants={container} initial="hidden" animate="show" className="Bottom-section">
                     {
                         categoryData.map((item, index) => (
-                            <div className="cards" key={index}>
-                                <img src={item.Image} alt="card-images" />
+                            <motion.div variants={cardAnimation} className="cards" key={index}>
+                                <motion.img src={item.Image} alt="card-images" />
                                 <p className="card-title">{item.title}</p>
-                            </div>
+                            </motion.div>
                         ))
                     }
-                </div>
+                </motion.div>
                 <Countiing />
             </div>
         </section>

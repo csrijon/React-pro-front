@@ -7,11 +7,12 @@ import Footer from "../components/Footer"
 const Contactpage = () => {
     return (
         <>
-            <Header />
+            {/* <Header />
+             */}
             <CompanyIntro />
             <ContactSection />
             <Dummycard />
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
