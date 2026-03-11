@@ -19,7 +19,8 @@ const Header = () => {
 
   const item = {
     hidden: { opacity: 0, y: -60 },
-    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 150, damping: 15 } }
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 150, damping: 15 } },
+    exit: { opacity: 0, y: -60, transition: { duration: 0.3 } }
   }
 
   return (
@@ -29,8 +30,8 @@ const Header = () => {
 
           <motion.div className="left">
             <motion.img initial={{ opacity: 0, y: -50 }}
-              whileInView={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
-              src={images} alt="" />
+             animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
+              src={images} alt="logo" />
           </motion.div>
           {/* Hamburger */}
           <div
@@ -45,7 +46,7 @@ const Header = () => {
           {/* Menu */}
           <div className={`right ${menuOpen ? "show" : ""}`}>
             <motion.ul variants={container} initial="hidden" animate="show">
-              <motion.li variants={item}  ><NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink></motion.li>
+              <motion.li variants={item}   ><NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink></motion.li>
               <motion.li variants={item}   ><NavLink to="/venu" onClick={() => setMenuOpen(false)}>Venue</NavLink></motion.li>
               <motion.li variants={item}   ><NavLink to="/Suppliers" onClick={() => setMenuOpen(false)}>Suppliers</NavLink></motion.li>
               <motion.li variants={item}    ><NavLink to="/About" onClick={() => setMenuOpen(false)}>About</NavLink></motion.li>

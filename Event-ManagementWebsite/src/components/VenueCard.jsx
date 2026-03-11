@@ -21,10 +21,10 @@ const VenueCard = ({ city, designernames, image }) => {
   }
 
   return (
-    <motion.div className="venue-card" variants={cardAnimation} >
+    <motion.div  className="venue-card"  variants={cardAnimation} >
       <div className="venue-image">
-        <img
-          src={image} alt={designernames}
+        <motion.img
+          whileHover={{scale: 1.15,zIndex:10}} src={image} alt={designernames}
         />
         <span className="explore-btn">Explore</span>
       </div>

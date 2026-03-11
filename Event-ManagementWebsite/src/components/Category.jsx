@@ -43,11 +43,11 @@ const Category = ({ title, number }) => {
         <section className="Browsecategory-section">
             <div className="container">
                 <Topsection title={title} number={number} />
-                <motion.div variants={container} initial="hidden" animate="show" className="Bottom-section">
+                <motion.div  variants={container} initial="hidden" animate="show" className="Bottom-section">
                     {
                         categoryData.map((item, index) => (
                             <motion.div variants={cardAnimation} className="cards" key={index}>
-                                <motion.img src={item.Image} alt="card-images" />
+                                <motion.img  src={item.Image} alt="card-images" />
                                 <p className="card-title">{item.title}</p>
                             </motion.div>
                         ))

@@ -1,5 +1,52 @@
 import React, { useEffect, useState } from "react";
 import "../css/AboutBlocks.css";
+import { motion } from "framer-motion";
+
+const imageLeft = {
+  hidden: { opacity: 0, x: -80, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 14
+    }
+  }
+};
+
+const imageRight = {
+  hidden: { opacity: 0, x: 80, scale: 0.95 },
+  show: {
+    opacity: 1,
+    x: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 14
+    }
+  }
+};
+
+const textAnimation = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6 }
+  }
+};
+
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.25
+    }
+  }
+};
 
 const AboutBlocks = () => {
   const [aboutBlock1Data, setAboutBlock1Data] = useState({});
@@ -10,13 +57,11 @@ const AboutBlocks = () => {
       try {
         let response = await fetch("http://localhost:3000/api/fetchaboutblock1");
         let data = await response.json();
-        console.log("Fetched About Block 1 Data:", data);
         setAboutBlock1Data(data);
+      } catch (error) {
+        console.error(error);
       }
-      catch (error) {
-        console.error("Error fetching about block 1 data:", error);
-      }
-    }
+    };
     fetchaboutblocks1();
 
     let fetchaboutblock2 = async () => {
@@ -24,61 +69,78 @@ const AboutBlocks = () => {
         let response = await fetch("http://localhost:3000/api/fetchaboutblock2");
         let data = await response.json();
         setAboutBlock2Data(data);
-        console.log("Fetched About Block 2 Data:", data);
+      } catch (error) {
+        console.error(error);
       }
-      catch (error) {
-        console.error("Error fetching about block 2 data:", error);
-      }
-    }
+    };
     fetchaboutblock2();
-  }, [])
-
+  }, []);
 
   return (
     <section className="about-blocks">
       <div className="container">
+
         {/* Block 1 */}
-        <div className="about-row">
-          <div className="about-image">
-            <img
+        <motion.div
+          className="about-row"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div className="about-image" variants={imageLeft}>
+            <motion.img
               src={aboutBlock1Data[0]?.Image}
               alt="what we offer"
-              acceptedformats="image/*"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.4 }}
             />
-          </div>
+          </motion.div>
 
-          <div className="about-text">
+          <motion.div className="about-text" variants={textAnimation}>
             <h3>{aboutBlock1Data[0]?.title}</h3>
-            <p>
-              {aboutBlock1Data[0]?.blockpara1}
 
-            </p>
-            <p>
+            <motion.p variants={textAnimation}>
+              {aboutBlock1Data[0]?.blockpara1}
+            </motion.p>
+
+            <motion.p variants={textAnimation}>
               {aboutBlock1Data[0]?.blockpara2}
-            </p>
-          </div>
-        </div>
+            </motion.p>
+          </motion.div>
+        </motion.div>
 
         {/* Block 2 */}
-        <div className="about-row reverse">
-          <div className="about-image">
-            <img
+        <motion.div
+          className="about-row reverse"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div className="about-image" variants={imageRight}>
+            <motion.img
               src={aboutBlock2Data[0]?.Image}
               alt="who we are"
-              acceptedformats="image/*"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.4 }}
             />
-          </div>
-          <div className="about-text">
-            <h3>{aboutBlock2Data[0]?.title}</h3>
-            <p>
-              {aboutBlock2Data[0]?.blockpara1}
-            </p>
-            <p>
-              {aboutBlock2Data[0]?.blockpara2}
-            </p>
-          </div>
+          </motion.div>
 
-        </div>
+          <motion.div className="about-text" variants={textAnimation}>
+            <h3>{aboutBlock2Data[0]?.title}</h3>
+
+            <motion.p variants={textAnimation}>
+              {aboutBlock2Data[0]?.blockpara1}
+            </motion.p>
+
+            <motion.p variants={textAnimation}>
+              {aboutBlock2Data[0]?.blockpara2}
+            </motion.p>
+          </motion.div>
+
+        </motion.div>
+
       </div>
     </section>
   );
