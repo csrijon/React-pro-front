@@ -6,11 +6,13 @@ import Footer from "../components/Footer"
 
 const Mediapage = () => {
     return (
-        <><Header />
+        <>
+        {/* <Header /> */}
             <CompanyIntro />
             <Media />
             <Dummycard />
-            <Footer /></>
+            {/* <Footer /> */}
+            </>
     )
 }
 export default Mediapage

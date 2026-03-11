@@ -9,6 +9,35 @@ const Videophotopopular = ({ title }) => {
 
     const [videophotographerdata, setvideophotographerdata] = useState([])
 
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.18,
+                delayChildren: 0.2
+            }
+        }
+    }
+    const cardAnimation = {
+        hidden: {
+            opacity: 0,
+            y: 50,
+            scale: 0.92
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                type: "spring",
+                stiffness: 130,
+                damping: 12
+            }
+        }
+    }
+
+
     useEffect(() => {
         const fetchvideophotographer = async () => {
             try {

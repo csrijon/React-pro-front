@@ -2,38 +2,56 @@ import React, { useState } from "react";
 import "../css/Header.css";
 import { NavLink } from "react-router";
 import images from "../assets/1-removebg-preview.png"
+import { motion } from "framer-motion"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      }
+    }
+  }
+
+  const item = {
+    hidden: { opacity: 0, y: -60 },
+    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 150, damping: 15 } }
+  }
 
   return (
     <header className="header">
       <div className="container">
         <div className="header-inner">
 
-          <div className="left">
-            <img src={images} alt="" />
-          </div>
+          <motion.div className="left">
+            <motion.img initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
+              src={images} alt="" />
+          </motion.div>
           {/* Hamburger */}
           <div
             className={`hamburger ${menuOpen ? "open" : ""}`}
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span class="material-symbols-outlined">
+              {menuOpen ? "close" : "menu_open"}
+            </span>
           </div>
 
           {/* Menu */}
           <div className={`right ${menuOpen ? "show" : ""}`}>
-            <ul>
-              <li><NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink></li>
-              <li><NavLink to="/venu" onClick={() => setMenuOpen(false)}>Venue</NavLink></li>
-              <li><NavLink to="/Suppliers" onClick={() => setMenuOpen(false)}>Suppliers</NavLink></li>
-              <li><NavLink to="/About" onClick={() => setMenuOpen(false)}>About</NavLink></li>
-              <li><NavLink to="/Media" onClick={() => setMenuOpen(false)}>Media</NavLink></li>
-              <li><NavLink to="/Contact" onClick={() => setMenuOpen(false)}>Contact</NavLink></li>
-            </ul>
+            <motion.ul variants={container} initial="hidden" animate="show">
+              <motion.li variants={item}  ><NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink></motion.li>
+              <motion.li variants={item}   ><NavLink to="/venu" onClick={() => setMenuOpen(false)}>Venue</NavLink></motion.li>
+              <motion.li variants={item}   ><NavLink to="/Suppliers" onClick={() => setMenuOpen(false)}>Suppliers</NavLink></motion.li>
+              <motion.li variants={item}    ><NavLink to="/About" onClick={() => setMenuOpen(false)}>About</NavLink></motion.li>
+              <motion.li variants={item}    ><NavLink to="/Media" onClick={() => setMenuOpen(false)}>Media</NavLink></motion.li>
+              <motion.li variants={item}    ><NavLink to="/Contact" onClick={() => setMenuOpen(false)}>Contact</NavLink></motion.li>
+            </motion.ul>
           </div>
 
         </div>

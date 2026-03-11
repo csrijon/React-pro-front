@@ -9,13 +9,13 @@ import Footer from "../components/Footer";
 const Venuepage = () => {
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <Herosection heading="Our Wedding Venues" />
             <FilterBar />
             <VenueGrid  title="Wedding Venue" number="49" />
             <PopularVenu title="Popular Venue" number="39" />
             <Dummycard />
-            <Footer />
+            {/* <Footer /> */}
 
         </>
     )

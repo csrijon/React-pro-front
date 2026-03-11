@@ -4,9 +4,23 @@ import VenueCard from "./VenueCard.jsx";
 import Topsection from "../ui/Topsection";
 import "../css/venue.css"
 import Countiing from "../ui/Counting.jsx"
+import { motion } from "framer-motion";
 
 const PopularVenu = ({ title, number }) => {
     const [popularVenues, setPopularVenues] = useState([])
+
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.18,
+                delayChildren: 0.2
+            }
+        }
+    }
+
+
 
     useEffect(() => {
         let fetchpopularvenue = async () => {
@@ -27,11 +41,11 @@ const PopularVenu = ({ title, number }) => {
         <section className="Popular-section" >
             <div className="container">
                 <Topsection title={title} number={number} />
-                <div className="venue-grid">
+                <motion.div variants={container} initial="hidden" whileInView="show"  className="venue-grid">
                     {popularVenues.map((venue, index) => (
                         <VenueCard designernames={venue.venuename} image={venue.image} key={index} city={venue.location} />
                     ))}
-                </div>
+                </motion.div>
                 <Countiing />
             </div>
         </section>

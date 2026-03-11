@@ -10,13 +10,14 @@ import Footer from "../components/Footer"
 const Supplierpage = () => {
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <Herosection heading="Our Suppliers" />
             <SuppliersCategories />
             <Videophotopopular title="Popular Photographers / Videographers" />
             <TrendingDesigners title="Trending Designers" />
             <Dummycard />
-            <Footer /></>
+            {/* <Footer /> */}
+            </>
     )
 }
 

@@ -3,8 +3,37 @@ import Topsection from "../ui/Topsection"
 import "../css/Media.css"
 import Latestdata from "../Latestdata.js"
 import Countiing from "../ui/Counting.jsx"
+import {motion} from "framer-motion"
 
 const Media = () => {
+
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.18,
+                delayChildren: 0.2
+            }
+        }
+    }
+    const cardAnimation = {
+        hidden: {
+            opacity: 0,
+            y: 50,
+            scale: 0.92
+        },
+        show: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                type: "spring",
+                stiffness: 130,
+                damping: 12
+            }
+        }
+    }
 
     const [mediainfo, setmediainfo] = useState([])
 
@@ -26,26 +55,30 @@ const Media = () => {
         <section className="Mediasection" >
             <div className="container">
                 <Topsection title="Latest Media" number="23" />
-                <div className="media-card-section">
+                <motion.div variants={container} initial="hidden" whileInView="show" className="media-card-section">
                     {
                         mediainfo.map((item) => (
-                            <div className="info-card" key={item.id} >
-                                <div className="info-image">
+                            <motion.div
+                                variants={cardAnimation}
+                                className="info-card"
+                                key={item.id}
+                            >
+                                <motion.div className="info-image">
                                     <img src={item.image} alt="card" />
-                                </div>
+                                </motion.div>
 
-                                <div className="info-content">
-                                    <h4>{item.heading}</h4>
-                                    <p>
+                                <motion.div className="info-content">
+                                    <motion.h4>{item.heading}</motion.h4>
+                                    <motion.p>
                                         {item.discreption}
-                                    </p>
-                                    <a href="#" className="read-more">Read More</a>
-                                </div>
-                            </div>
+                                    </motion.p>
+                                    <motion.a href="#" className="read-more">Read More</motion.a>
+                                </motion.div>
+                            </motion.div>
                         ))
                     }
 
-                </div>
+                </motion.div>
                 <Countiing />
             </div>
         </section>

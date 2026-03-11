@@ -7,7 +7,7 @@
 
 .hamburger {
   display: none;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 5px;
   cursor: pointer;
 }
@@ -20,9 +20,9 @@
 }
 
 .hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--primary-black);
+  width: 23px;
+  height: 23px;
+  /* background-color: var(--primary-black); */
   transition: all 0.3s ease;
 }
 

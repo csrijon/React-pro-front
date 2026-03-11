@@ -8,12 +8,12 @@ import Footer from "../components/Footer"
 const Aboutpage = () => {
     return (
         <>
-            <Header />
+            {/* <Header /> */}
             <CompanyIntro />
             <FirstAboutSection />
             <AboutBlocks />
             <Dummycard />
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
