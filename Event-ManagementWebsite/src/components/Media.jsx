@@ -58,7 +58,7 @@ const Media = () => {
     return (
         <section className="Mediasection" >
             <div className="container">
-                <Topsection title="Latest Media" number="23" />
+                <Topsection title="Latest Media" number={mediainfo.length} />
                 {
                     isLoading ?
                         <p>Loading...</p>:

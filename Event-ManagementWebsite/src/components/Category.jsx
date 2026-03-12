@@ -33,7 +33,7 @@ const Category = ({ title, number }) => {
         let handelfetchcategory = async () => {
             let response = await fetch("http://localhost:3000/api/fetbrowcategory")
             let data = await response.json()
-            console.log(data)
+            console.log(data.length)
             setCategoryData(data);
         }
         handelfetchcategory();
@@ -42,7 +42,7 @@ const Category = ({ title, number }) => {
     return (
         <section className="Browsecategory-section">
             <div className="container">
-                <Topsection title={title} number={number} />
+                <Topsection title={title} number={categoryData.length} />
                 <motion.div  variants={container} initial="hidden" animate="show" className="Bottom-section">
                     {
                         categoryData.map((item, index) => (

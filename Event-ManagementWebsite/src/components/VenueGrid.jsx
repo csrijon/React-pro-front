@@ -3,35 +3,35 @@ import Topsection from "../ui/Topsection";
 import "../css/venue.css";
 import { motion } from "framer-motion";
 
-const VenueGrid = ({ title, number}) => {
+const VenueGrid = ({ title,  }) => {
 
   const container = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.18,
-                delayChildren: 0.2
-            }
-        }
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.18,
+        delayChildren: 0.2
+      }
     }
-    const cardAnimation = {
-        hidden: {
-            opacity: 0,
-            y: 50,
-            scale: 0.92
-        },
-        show: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 130,
-                damping: 12
-            }
-        }
+  }
+  const cardAnimation = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      scale: 0.92
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 130,
+        damping: 12
+      }
     }
+  }
 
   const [venueinfo, setvenueinfo] = useState([]);
 
@@ -53,7 +53,7 @@ const VenueGrid = ({ title, number}) => {
   return (
     <section className="wedding-section">
       <div className="container">
-        <Topsection title={title} number={number} />
+        <Topsection title={title} number={venueinfo.length} />
 
         <motion.div variants={container} initial="hidden" animate="show" className="venue-grid">
           {venueinfo.map((item) => (

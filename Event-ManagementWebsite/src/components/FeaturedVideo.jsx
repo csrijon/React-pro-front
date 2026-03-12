@@ -55,7 +55,7 @@ const FeaturedVideo = () => {
     return (
         <section className="FeaturedVideosection" >
             <div className="container">
-                <Topsection title="Featured Videos" number="49" />
+                <Topsection title="Featured Videos" number={featuredVideos.length} />
                 <motion.div
                     className="featured-video"
                     variants={container}
