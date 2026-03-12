@@ -3,9 +3,11 @@ import Topsection from "../ui/Topsection"
 import "../css/Media.css"
 import Latestdata from "../Latestdata.js"
 import Countiing from "../ui/Counting.jsx"
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 
 const Media = () => {
+
+    const [isLoading, setIsLoading] = useState(true)
 
     const container = {
         hidden: { opacity: 0 },
@@ -46,6 +48,8 @@ const Media = () => {
                 console.log(res)
             } catch (error) {
                 console.log(error)
+            }finally{
+                setIsLoading(false)
             }
         }
         getresponse()
@@ -55,7 +59,10 @@ const Media = () => {
         <section className="Mediasection" >
             <div className="container">
                 <Topsection title="Latest Media" number="23" />
-                <motion.div variants={container} initial="hidden" whileInView="show" className="media-card-section">
+                {
+                    isLoading ?
+                        <p>Loading...</p>:
+                        <motion.div variants={container} initial="hidden" whileInView="show" className="media-card-section">
                     {
                         mediainfo.map((item) => (
                             <motion.div
@@ -79,6 +86,7 @@ const Media = () => {
                     }
 
                 </motion.div>
+                }
                 <Countiing />
             </div>
         </section>

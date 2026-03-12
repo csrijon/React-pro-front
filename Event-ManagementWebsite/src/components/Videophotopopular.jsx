@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 const Videophotopopular = ({ title }) => {
 
     const [videophotographerdata, setvideophotographerdata] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const container = {
         hidden: { opacity: 0 },
@@ -26,6 +27,7 @@ const Videophotopopular = ({ title }) => {
     useEffect(() => {
         const fetchvideophotographer = async () => {
             try {
+
                 let response = await fetch("http://localhost:3000/apivideophotographer")
                 let data = await response.json()
                 setvideophotographerdata(data)
@@ -33,6 +35,8 @@ const Videophotopopular = ({ title }) => {
             }
             catch (error) {
                 console.log(error, "video photographer route is not working")
+            } finally {
+                setIsLoading(false)
             }
         }
         fetchvideophotographer()
@@ -42,11 +46,14 @@ const Videophotopopular = ({ title }) => {
         <section className="video-photosection" >
             <div className="container">
                 <Topsection title={title} />
-                <motion.div variants={container} initial="hidden" whileInView="show"   className="venue-grid">
-                    {videophotographerdata.map((data, index) => (
-                        <VenueCard key={index} designernames={data.videoname} image={data.videoimage} city={data.videolocation} />
-                    ))}
-                </motion.div>
+                {isLoading ?
+                    <p>Loading...</p> :
+                    <motion.div variants={container} initial="hidden" whileInView="show" className="venue-grid">
+                        {videophotographerdata.map((data, index) => (
+                            <VenueCard key={index} designernames={data.videoname} image={data.videoimage} city={data.videolocation} />
+                        ))}
+                    </motion.div>
+                }
                 <Countiing />
             </div>
         </section>
