@@ -37,7 +37,7 @@ const TrendingDesigners = ({ title }) => {
     return (
         <section className="Trending-Designerssection" >
             <div className="container">
-                <Topsection title={title} />
+                <Topsection title={title} number={trendingdata.length} />
                 {
                     isLoading ?
                         <p>Loading...</p> :

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 const PopularVenu = ({ title, number }) => {
     const [popularVenues, setPopularVenues] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const container = {
         hidden: { opacity: 0 },
@@ -32,6 +33,8 @@ const PopularVenu = ({ title, number }) => {
             }
             catch (error) {
                 console.log(error, "popular venue route is not working")
+            }finally{
+                setIsLoading(false)
             }
         }
         fetchpopularvenue()
@@ -40,12 +43,17 @@ const PopularVenu = ({ title, number }) => {
     return (
         <section className="Popular-section" >
             <div className="container">
-                <Topsection title={title} number={number} />
-                <motion.div  variants={container} initial="hidden" whileInView="show"  className="venue-grid">
-                    {popularVenues.map((venue, index) => (
-                        <VenueCard designernames={venue.venuename} image={venue.image} key={index} city={venue.location} />
-                    ))}
-                </motion.div>
+                <Topsection title={title} number={popularVenues.length} />
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <motion.div  variants={container} initial="hidden" whileInView="show"  className="venue-grid">
+                        {popularVenues.map((venue, index) => (
+                            <VenueCard designernames={venue.venuename} image={venue.image} key={index} city={venue.location} />
+                        ))}
+                    </motion.div>
+                )
+                }
                 <Countiing />
             </div>
         </section>

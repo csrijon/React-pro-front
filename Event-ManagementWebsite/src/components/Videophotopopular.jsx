@@ -22,8 +22,6 @@ const Videophotopopular = ({ title }) => {
         }
     }
 
-
-
     useEffect(() => {
         const fetchvideophotographer = async () => {
             try {
@@ -45,7 +43,7 @@ const Videophotopopular = ({ title }) => {
     return (
         <section className="video-photosection" >
             <div className="container">
-                <Topsection title={title} />
+                <Topsection title={title} number={videophotographerdata.length} />
                 {isLoading ?
                     <p>Loading...</p> :
                     <motion.div variants={container} initial="hidden" whileInView="show" className="venue-grid">
