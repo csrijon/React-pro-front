@@ -30,9 +30,11 @@ const Header = () => {
         <div className="header-inner">
 
           <motion.div className="left">
-            <motion.img initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
-              src={images} alt="logo" />
+            <NavLink to="/" >
+              <motion.img initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
+                src={images} alt="logo" />
+            </NavLink>
           </motion.div>
           {/* Hamburger */}
           <div

@@ -2,12 +2,12 @@ import React from "react";
 import dummyData from "./data.js"
 import "../css/Pastevent.css"
 import Topsection from "../ui/Topsection.jsx";
-import FilterBar from "./FilterBar.jsx";
+// import FilterBar from "./FilterBar.jsx";
 
 const Pastevent = () => {
     return (
         <section className="Pastevent-section"> 
-            <FilterBar/>
+            {/* <FilterBar/> */}
 
             <div className="container">
                 <Topsection title="Past Events" />
