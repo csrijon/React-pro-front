@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "../css/Topsection.css"
 import { motion } from "framer-motion"
 
