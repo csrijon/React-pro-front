@@ -14,6 +14,7 @@ import SuppliersAdmin from "./components/SuppliersAdmin.jsx";
 import MediaAdmin from "./components/MediaAdmin.jsx";
 import ContactAdmin from "./components/ContactAdmin.jsx";
 import VenueAdmin from "./components/VenueAdmin.jsx";
+import Pasteventpage from "./pages/Pasteventpage.jsx";
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/Contact",
         element: <><Contactpage /></>
+      },
+      {
+        path: "/PastCategory",
+        element: <><Pasteventpage /></>
       }
     ]
   },
