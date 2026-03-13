@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import "../css/Category.css";
 import Topsection from "../ui/Topsection.jsx";
 import Countiing from "../ui/Counting.jsx";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const Category = ({ title, number }) => {
+const Category = ({ title }) => {
 
     const container = {
         hidden: {},

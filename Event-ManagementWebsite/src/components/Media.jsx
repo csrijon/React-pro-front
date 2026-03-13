@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import Topsection from "../ui/Topsection"
 import "../css/Media.css"

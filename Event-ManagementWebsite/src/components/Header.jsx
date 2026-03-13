@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "../css/Header.css";
 import { NavLink } from "react-router";
-import images from "../assets/1-removebg-preview.png"
+import images from "../assets/1-removebg-preview.svg"
 import { motion } from "framer-motion"
 
 const Header = () => {

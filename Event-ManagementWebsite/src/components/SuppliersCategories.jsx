@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "../css/suppliers.css";
 import { motion } from "framer-motion";

@@ -1,14 +1,12 @@
 :root {
-  /* --primary-bg-color:#000000; */
   --black-color: #000;
   --golden-color: #d4af37;
 }
 
-
 .about-wrapper {
   width: 100%;
   background-color: var(--black-color);
-  padding: 40px 0px;
+  padding: 40px 20px;
 }
 
 /* Top layout */
@@ -25,14 +23,14 @@
 }
 
 .about-text h3 {
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 12px;
   color: var(--golden-color);
 }
 
 .about-text p {
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.7;
   margin-bottom: 12px;
   color: var(--golden-color);
 }
@@ -53,33 +51,66 @@
   display: flex;
   justify-content: space-between;
   text-align: center;
+  gap: 20px;
 }
 
 .stat h2 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
   color: var(--golden-color);
 }
 
 .stat p {
-  font-size: 13px;
+  font-size: 14px;
   margin-top: 6px;
   color: var(--golden-color);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Tablet */
+@media (max-width: 992px) {
   .about-content {
     flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text {
+    order: 2;
+  }
+
+  .about-image {
+    order: 1;
   }
 
   .about-stats {
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
   }
 
   .stat {
-    width: 50%;
+    width: 45%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+
+  .about-wrapper {
+    padding: 30px 15px;
+  }
+
+  .about-text h3 {
+    font-size: 16px;
+  }
+
+  .about-text p {
+    font-size: 13px;
+  }
+
+  .stat {
+    width: 100%;
+  }
+
+  .stat h2 {
+    font-size: 22px;
   }
 }
