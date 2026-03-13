@@ -5,6 +5,8 @@ import sampleImage from "../assets/firstimage.webp";
 import secendimages from "../assets/secendimages.webp"
 import thirdimages from "../assets/forthimages.jpg"
 import "../css/ImageSliderUI.css"
+// eslint-disable-next-line no-unused-vars
+import { motion } from "framer-motion"
 
 const sliderimages = [
   sampleImage,
@@ -30,6 +32,11 @@ const ImageSliderUI = () => {
     }
   }
 
+  let sliderAnimation ={
+    hidden:{opacity:0, x:100},
+    show:{opacity:1, x:0, transition:{duration:0.5}}
+  }
+
   return (
     <div className="slider-wrapper">
 
@@ -37,12 +44,12 @@ const ImageSliderUI = () => {
       <button onClick={leftclick} className="arrow left-arrow">
         <ArrowBackIcon />
       </button>
-      <div className="slider-container">
-        <div className="slider-card" >
-              <img src={sliderimages[currentIndex]} alt="slider" />
-            </div>
+      <motion.div className="slider-container">
+        <motion.div className="slider-card" >
+              <motion.img variants={sliderAnimation} initial="hidden" whileInView="show" src={sliderimages[currentIndex]} alt="slider" />
+            </motion.div>
         
-      </div>
+      </motion.div>
 
       {/* Right Arrow */}
       <button onClick={rightclick} className="arrow right-arrow">

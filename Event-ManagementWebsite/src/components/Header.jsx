@@ -31,7 +31,7 @@ const Header = () => {
 
           <motion.div className="left">
             <motion.img initial={{ opacity: 0, y: -50 }}
-             animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
+              animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
               src={images} alt="logo" />
           </motion.div>
           {/* Hamburger */}
@@ -53,6 +53,7 @@ const Header = () => {
               <motion.li variants={item}    ><NavLink to="/About" onClick={() => setMenuOpen(false)}>About</NavLink></motion.li>
               <motion.li variants={item}    ><NavLink to="/Media" onClick={() => setMenuOpen(false)}>Media</NavLink></motion.li>
               <motion.li variants={item}    ><NavLink to="/Contact" onClick={() => setMenuOpen(false)}>Contact</NavLink></motion.li>
+              <motion.li variants={item}    ><NavLink to="/PastCategory" onClick={() => setMenuOpen(false)}>Past Category</NavLink></motion.li>
             </motion.ul>
           </div>
 

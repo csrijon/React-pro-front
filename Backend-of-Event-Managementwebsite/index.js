@@ -16,6 +16,7 @@ import Aboutroute from "./routes/Aboutroute.js"
 import Thirdabouteroute from "./routes/Thirdabouteroute.js"
 import Secendaboutroute from "./routes/Secendaboutroute.js"
 import Statistics from "./routes/Statistics.js"
+import Searchquery from "./routes/Searchquery.js"
 import { Categorymodel, Venuemodel } from "./models/Schema.js";
 dotenv.config()
 
@@ -31,6 +32,7 @@ app.use("/trending", Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
 app.use("/addcategory", Category)
+app.use("/search", Searchquery)
 app.use("/addaboutmain", Aboutroute)
 app.use("/api/fetchaboutblock2", Thirdabouteroute)
 app.use("/addaboutblock2", Thirdabouteroute)
@@ -48,6 +50,7 @@ app.use("/popvenue", PopularVenu)
 app.use("/api/fetchvenu", PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
+
 
 app.get("/", (req, res) => {
     res.send("hello i am server can i run in broswer")
