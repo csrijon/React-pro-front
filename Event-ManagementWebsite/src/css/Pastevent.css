@@ -1,0 +1,50 @@
+:root{
+    --secondary-color: #090909;
+    --text-color: #d4af37;
+    --subtext-color: #666;
+}
+ .Pastevent-section{
+    padding: 40px 0;
+    background: var(--secondary-color);
+ }
+.Event-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+.Event-card{
+    width: 300px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: rgba(212, 175, 55, 0.4) 1px solid;
+}
+/* 
+.Event-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
+} */
+
+.Event-card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.Event-card h3{
+    font-size: 20px;
+    padding: 15px 15px 5px;
+    color: var(--text-color);
+}
+
+.Event-card p{
+    font-size: 14px;
+    color: var(--text-color);
+    padding: 0 15px 20px;
+    line-height: 1.6;
+}
