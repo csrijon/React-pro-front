@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import "../css/Category.css";
