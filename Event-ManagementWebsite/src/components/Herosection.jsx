@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import "../css/HeroSection.css";
 import Button from "../ui/Button.jsx";
 import { motion } from "framer-motion";
 
-const Herosection = ({ heading, subheading }) => {
+const Herosection = ({ heading, subheading, setSearchResults }) => {
     const container = {
         hidden: {},
         show: {
@@ -24,6 +24,24 @@ const Herosection = ({ heading, subheading }) => {
                 stiffness: 120,
                 damping: 12
             }
+        }
+    }
+    const [iscategorySelected, setcategorySelected] = useState("");
+    const [islocationSelected, setlocationSelected] = useState("");
+   
+
+    let searchclciked = async () => {
+        try {
+            console.log(iscategorySelected, islocationSelected)
+            let response = await fetch(`http://localhost:3000/search?category=${iscategorySelected}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            })
+            let resdata = await response.json();
+            console.log(resdata)
+            setSearchResults(resdata);
+        } catch (error) {
+            console.error("Error fetching search results:", error);
         }
     }
     return (
@@ -46,15 +64,19 @@ const Herosection = ({ heading, subheading }) => {
                     whileFocus={{ scale: 1.03 }}
                     name="category"
                     className="category-select"
-                    defaultValue=""
+                    // defaultValue="What's the Occasion?"
+                    value={iscategorySelected}
+                    onChange={(e) => { setcategorySelected(e.target.value.trim())
+                         console.log("Selected category:", e.target.value.trim());
+                     }}
                 >
-                    <option value="" disabled>
+                    {/* <option value="" disabled>
                         Select Category
-                    </option>
-                    <option value="wedding">Wedding</option>
-                    <option value="birthday">Birthday</option>
-                    <option value="corporate">Corporate Event</option>
-                    <option value="anniversary">Anniversary</option>
+                    </option> */}
+                    <option value="Wedding">Wedding</option>
+                    <option value="Birthday">Birthday</option>
+                    <option value="Corporate">Corporate Event</option>
+                    <option value="Aniversary">Anniversary</option>
                 </motion.select>
 
                 <motion.select
@@ -63,11 +85,16 @@ const Herosection = ({ heading, subheading }) => {
                     whileFocus={{ scale: 1.03 }}
                     name="location"
                     className="location-select"
-                    defaultValue=""
-                >
-                    <option value="" disabled>
+                    // defaultValue="what's the Location?"
+                    value={islocationSelected}
+                    onChange={(e) => {
+                        const location = e.target.value;
+                        setlocationSelected(location);
+                        console.log(location);
+                    }} >
+                    {/* <option value="" disabled>
                         Select Location
-                    </option>
+                    </option> */}
                     <option value="delhi">Delhi</option>
                     <option value="mumbai">Mumbai</option>
                     <option value="bangalore">Bangalore</option>
@@ -79,7 +106,7 @@ const Herosection = ({ heading, subheading }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
-                    <Button />
+                    <Button onClick={searchclciked} />
                 </motion.div>
             </motion.div>
 

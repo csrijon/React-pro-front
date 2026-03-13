@@ -7,13 +7,15 @@ import ImageSliderUI from "../components/ImageSliderUI"
 import Media from "../components/Media"
 import Footer from "../components/Footer"
 import PopularVenu from "../components/PopularVenu"
+import { useState } from "react"
 
 const Homepage = () => {
+     const [searchResults, setSearchResults] = useState([]);
     return (
         <>
         {/* <Header /> */}
-            <Herosection heading="Your Wedding," subheading="Your Way" />
-            <Category title="Browse by Category" number="9" />
+            <Herosection heading="Your Wedding," setSearchResults={setSearchResults} subheading="Your Way" />
+            <Category title="Browse by Category" searchResults={searchResults} number="9" />
             <PopularVenu title="Popular Venue" number="1000" />
             <Dummycard />
             <FeaturedVideo />
