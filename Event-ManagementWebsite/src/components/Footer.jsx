@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "../css/Footer.css";
 import kiteimages from "../assets/Kites Events (1).png"
 import { motion } from "framer-motion"

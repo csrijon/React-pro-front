@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import firstimage from "../assets/forthimages.jpg"
 import "../css/Dummycard.css"
 import { motion } from "framer-motion"

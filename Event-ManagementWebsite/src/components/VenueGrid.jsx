@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Topsection from "../ui/Topsection";
 import "../css/venue.css";
 import { motion } from "framer-motion";
 
-const VenueGrid = ({ title,  }) => {
+const VenueGrid = ({ title }) => {
 
   const container = {
     hidden: { opacity: 0 },
@@ -55,7 +56,7 @@ const VenueGrid = ({ title,  }) => {
       <div className="container">
         <Topsection title={title} number={venueinfo.length} />
 
-        <motion.div variants={container} initial="hidden" animate="show" className="venue-grid">
+        <motion.div variants={container} initial="hidden" viewport={{ once: true }} animate="show" className="venue-grid">
           {venueinfo.map((item) => (
             <motion.div variants={cardAnimation} className="venue-card" key={item._id}>
               <motion.div className="venue-image">

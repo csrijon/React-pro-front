@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Topsection from "../ui/Topsection"
 import { useEffect, useState } from "react"
 import VenueCard from "./VenueCard"

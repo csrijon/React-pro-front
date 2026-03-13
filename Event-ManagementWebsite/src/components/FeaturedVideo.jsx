@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Topsection from "../ui/Topsection"
 import "../css/FeaturedVideo.css"
 import { useEffect, useState } from "react"

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 
 import React, { useEffect, useState } from "react";
 import VenueCard from "./VenueCard.jsx";
@@ -6,7 +7,7 @@ import "../css/venue.css"
 import Countiing from "../ui/Counting.jsx"
 import { motion } from "framer-motion";
 
-const PopularVenu = ({ title, number }) => {
+const PopularVenu = ({ title }) => {
     const [popularVenues, setPopularVenues] = useState([])
     const [isLoading, setIsLoading] = useState(true)
 
@@ -22,7 +23,6 @@ const PopularVenu = ({ title, number }) => {
     }
 
 
-
     useEffect(() => {
         let fetchpopularvenue = async () => {
             try {
@@ -33,7 +33,7 @@ const PopularVenu = ({ title, number }) => {
             }
             catch (error) {
                 console.log(error, "popular venue route is not working")
-            }finally{
+            } finally {
                 setIsLoading(false)
             }
         }
@@ -47,7 +47,7 @@ const PopularVenu = ({ title, number }) => {
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
-                    <motion.div  variants={container} initial="hidden" whileInView="show"  className="venue-grid">
+                    <motion.div variants={container} initial="hidden" whileInView="show" className="venue-grid">
                         {popularVenues.map((venue, index) => (
                             <VenueCard designernames={venue.venuename} image={venue.image} key={index} city={venue.location} />
                         ))}
