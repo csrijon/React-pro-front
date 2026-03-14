@@ -4,16 +4,17 @@
 
 }
 .company-intro {
-   background-color: var(--primary-color);
+    background-color: var(--primary-color);
     padding: 20px 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 50vh;
+    height: 70vh;
     background-image: url(../assets/company\ intro.jpg);
     background-size: cover;
     background-position: center;
+    text-align: center; /* add this */
 }
 
 .company-title {
