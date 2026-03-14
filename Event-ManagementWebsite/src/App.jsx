@@ -27,66 +27,65 @@ import { RouterProvider } from "react-router/dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <><MainLayout /></>,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <><Homepage /></>
+        element: <Homepage />
       },
       {
         path: "venu",
-        element: <><Venuepage /></>
+        element: <Venuepage />
       },
       {
-        path: "/Suppliers",
-        element: <><Supplierpage /></>
+        path: "Suppliers",
+        element: <Supplierpage />
       },
       {
-        path: "/About",
-        element: <><Aboutpage /></>
+        path: "About",
+        element: <Aboutpage />
       },
       {
-        path: "/Media",
-        element: <><Mediapage /></>
+        path: "Media",
+        element: <Mediapage />
       },
       {
-        path: "/Contact",
-        element: <><Contactpage /></>
+        path: "Contact",
+        element: <Contactpage />
       },
       {
-        path: "/PastCategory",
-        element: <><Pasteventpage /></>
+        path: "PastCategory",
+        element: <Pasteventpage />
       },
       {
-        path: "/Allcardsection",
+        path: "Allcardsection",
         element: <Featurescategoryall />
       },
       {
-        path: "/Allcardpopu",
+        path: "Allcardpopu",
         element: <Popularallcards />
       },
       {
-        path: "/Allcardmedia",
+        path: "Allcardmedia",
         element: <MediaAllcards />
       },
       {
-        path: "/Allcardwedding",
+        path: "Allcardwedding",
         element: <Weddingcardsall />
       },
       {
-        path: "/Allphotovideo",
+        path: "Allphotovideo",
         element: <Allvideophotcards />
       },
       {
-        path:"/Alltrendcard",
-        element:<Alltrendingcards/>
+        path: "Alltrendcard",
+        element: <Alltrendingcards />
       }
     ]
   },
-
   {
     path: "/admin",
-    element: <><AdminLayout /></>,
+    element: <AdminLayout />,
     children: [
       {
         index: true,

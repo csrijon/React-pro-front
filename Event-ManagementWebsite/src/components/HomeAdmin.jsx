@@ -45,26 +45,26 @@ const HomeAdmin = () => {
   };
 
   return (
-    <div className="admin-wrapper">
+    <div className="admin-wrappers">
       {/* ================= HERO SECTION ================= */}
-      <div className="admin-header">
+      <div className="admin-headers">
         <h2>Hero Section</h2>
-        <button className="save-btn">Save Changes</button>
+        <button className="save-btns">Save Changes</button>
       </div>
 
-      <div className="field">
+      <div className="fields">
 
-        <div className="admin-card">
+        <div className="admin-cards">
           <h3>Locations</h3>
 
-          <div className="add-row">
+          <div className="add-rows">
             <input placeholder="Add location" />
             <button>Add</button>
           </div>
 
-          <div className="pill-group">
+          <div className="pill-groups">
             {locations.map((l, i) => (
-              <span className="pill" key={i}>
+              <span className="pills" key={i}>
                 {l} <button>×</button>
               </span>
             ))}
@@ -73,45 +73,45 @@ const HomeAdmin = () => {
       </div>
 
       {/* ================= BROWSE BY CATEGORY ================= */}
-      <div className="admin-header">
+      <div className="admin-headers">
         <h2>Browse by Category</h2>
       </div>
 
-      <div className="admin-card">
+      <div className="admin-cards">
         <h3>Add Category Card</h3>
 
-        <div className="add-row">
+        <div className="add-rows">
           <input placeholder="Category name" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
-          <label className="upload-btn">
+          <label className="upload-btns">
             Upload Image
             <input type="file" accept="image/*" onChange={(e) => setCategoryImage(e.target.files[0])} hidden />
           </label>
           <button onClick={handelcategoryadd}>Add</button>
         </div>
 
-        <div className="card-list">
+        <div className="card-lists">
         </div>
       </div>
 
       {/* ================= POPULAR VENUE ================= */}
-      <div className="admin-header">
+      <div className="admin-headers">
         <h2>Popular Venue</h2>
       </div>
 
-      <div className="admin-card">
+      <div className="admin-cards">
         <h3>Add Venue Card</h3>
 
-        <div className="add-row">
+        <div className="add-rows">
           <input placeholder="Venue name / City" />
-          <label className="upload-btn">
+          <label className="upload-btns">
             Upload Image
             <input type="file" hidden />
           </label>
           <button>Add</button>
         </div>
 
-        <div className="card-list">
-          <div className="card-item">
+        <div className="card-lists">
+          <div className="card-items">
             <img loading="lazy" src="/placeholder.jpg" alt="venue" />
             <input defaultValue="Dubai" />
             <div className="actions">
@@ -119,24 +119,24 @@ const HomeAdmin = () => {
                 Change Image
                 <input type="file" hidden />
               </label>
-              <button className="remove-btn">×</button>
+              <button className="remove-btns">×</button>
             </div>
           </div>
         </div>
       </div>
       {/* ================= FEATURED VIDEOS ================= */}
-      <div className="admin-header">
+      <div className="admin-headers">
         <h2>Featured Videos</h2>
       </div>
 
-      <div className="admin-card">
+      <div className="admin-cards">
         <h3>Add Featured Video</h3>
 
         <div className="add-row">
           <input value={videoTitle} onChange={(e) => setVideoTitle(e.target.value)} placeholder="Video title" />
           <input placeholder="Short description" />
 
-          <label className="upload-btn">
+          <label className="upload-btns">
             Upload Thumbnail
             <input type="file" onChange={(e) => setVideoImage(e.target.files[0])} accept="image/*" hidden />
           </label>
@@ -144,13 +144,13 @@ const HomeAdmin = () => {
           <button onClick={handleAddVideo}>Add</button>
         </div>
 
-        <div className="card-list">
+        <div className="card-lists">
 
-          <div className="card-item">
+          <div className="card-items">
           </div>
 
           {/* CARD 2 */}
-          <div className="card-item">
+          <div className="card-items">
           </div>
         </div>
       </div>

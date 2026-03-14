@@ -163,7 +163,7 @@ const AboutAdmin = () => {
         </label>
 
         <button className="save-btn" onClick={handleMainAdd}>
-          Add Main Section
+          Add
         </button>
 
       </div>

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "../css/HeroSection.css";
-// import Button from "../ui/Button.jsx";
+import Button from "../ui/Button.jsx";
 import { motion } from "framer-motion";
 
 const Herosection = ({ heading, subheading, setSearchResults }) => {

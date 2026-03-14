@@ -1,176 +1,290 @@
-.admin-wrapper {
-    background: #f7f7f7;
+:root{
+  --admin-bg:#f7f7f7;
+  --card-bg:#fff;
 }
 
-.admin-header h2 {
-    font-size: 22px;
-    font-weight: 600;
+/* WRAPPER */
+
+.admin-wrappers{
+  background:var(--admin-bg);
+  padding:30px;
 }
 
-.save-btn {
-    background: #000;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
+/* HEADER */
+
+.admin-headers{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#3a3a3a;
+padding:16px 24px;
+border-radius:6px;
 }
+
+.admin-headers h2{
+color:#fff;
+margin:0;
+}
+
+.save-btns{
+background:#000;
+color:#fff;
+padding:10px 22px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
 /* GRID */
-.admin-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-}
+
+/* .admin-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:24px;
+} */
 
 /* CARD */
-.admin-card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+
+.admin-cards{
+  background:var(--card-bg);
+  border-radius:10px;
+  padding:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.05);
 }
 
-.admin-card h3 {
-    margin-bottom: 16px;
-    font-size: 15px;
-    font-weight: 600;
+.admin-cards h3{
+  margin-bottom:16px;
+  font-size:15px;
+  font-weight:600;
 }
 
-/* FIELDS */
-.field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 14px;
+/* FIELD */
+
+.fields{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin-bottom:14px;
 }
 
-.field label {
-    font-size: 13px;
-    color: #555;
+.field label{
+  font-size:13px;
+  color:#555;
 }
 
-.field input {
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
+.field input{
+  padding:10px 12px;
+  border-radius:6px;
+  border:1px solid #ddd;
+  width:100%;
 }
 
 /* ADD ROW */
-.add-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 14px;
+
+.add-rows{
+  /* display:flex; */
+  gap:10px;
+  margin-bottom:14px;
 }
 
-.add-row input {
-    flex: 1;
-    padding: 10px 12px;
-    border-radius: 6px;
-    border: 1px solid #ddd;
+.add-rows input{
+  flex:1;
+  padding:10px 12px;
+  border-radius:6px;
+  border:1px solid #ddd;
 }
 
-.add-row button {
-    background: #000;
-    color: #fff;
-    border-radius: 6px;
-    padding: 10px 16px;
-    border: none;
-    cursor: pointer;
+.add-rows button{
+  background:#000;
+  color:#fff;
+  border-radius:6px;
+  padding:10px 16px;
+  border:none;
+  cursor:pointer;
 }
 
 /* PILLS */
-.pill-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+
+.pill-groups{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.pill {
-    background: #f1f1f1;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+.pills{
+  background:#f1f1f1;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 
-.pill button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-}
-.card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 16px;
+.pill button{
+  background:none;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
 }
 
-.card-item {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  align-items: center;
-  gap: 14px;
-  background: #f6f6f6;
-  padding: 12px;
-  border-radius: 8px;
+/* CARD LIST */
+
+.card-lists{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-top:16px;
 }
 
-.card-item img {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
+.card-items{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:center;
+  gap:14px;
+  background:#f6f6f6;
+  padding:12px;
+  border-radius:8px;
 }
 
-.card-item input {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+/* IMAGE */
+
+.card-items img{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:6px;
 }
 
-.upload-btn {
-  padding: 10px 14px;
-  background: #eee;
-  border-radius: 6px;
-  cursor: pointer;
+/* INPUT */
+
+.card-items input{
+  padding:8px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  width:100%;
 }
 
-.icon-btn {
-  padding: 8px 10px;
-  background: #ddd;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
+/* BUTTONS */
+
+.upload-btns{
+  padding:10px 14px;
+  background:#eee;
+  border-radius:6px;
+  cursor:pointer;
 }
 
-.remove-btn {
-  background: #ffdddd;
-  border: none;
-  padding: 8px 10px;
-  border-radius: 6px;
-  cursor: pointer;
+.icon-btns{
+  padding:8px 10px;
+  background:#ddd;
+  border-radius:6px;
+  font-size:13px;
+  cursor:pointer;
 }
-.card-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+
+.remove-btns{
+  background:#ffdddd;
+  border:none;
+  padding:8px 10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* CARD FIELDS */
+
+.card-fields{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
 .card-fields input,
-.card-fields textarea {
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+.card-fields textarea{
+  padding:8px 10px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:14px;
+  width:100%;
 }
 
+/* ============================= */
+/* TABLET RESPONSIVE */
+/* ============================= */
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .admin-grid {
-        grid-template-columns: 1fr;
-    }
+@media (max-width:1024px){
+
+.admin-grid{
+grid-template-columns:1fr 1fr;
+}
+
+.admin-wrappers{
+padding:20px;
+}
+
+}
+
+/* ============================= */
+/* MOBILE RESPONSIVE */
+/* ============================= */
+
+@media (max-width:768px){
+
+.admin-grid{
+grid-template-columns:1fr;
+}
+
+.admin-headers{
+flex-direction:column;
+gap:12px;
+align-items:flex-start;
+}
+
+.save-btns{
+width:100%;
+}
+
+.add-rows{
+flex-direction:column;
+}
+
+.add-rows button{
+width:100%;
+}
+
+.card-items{
+grid-template-columns:1fr;
+text-align:left;
+}
+
+.card-items img{
+width:100%;
+height:160px;
+}
+
+.upload-btns,
+.icon-btns,
+.remove-btns{
+width:100%;
+}
+
+}
+
+/* ============================= */
+/* SMALL MOBILE */
+/* ============================= */
+
+@media (max-width:480px){
+
+.admin-wrappers{
+padding:16px;
+}
+
+.admin-headers h2{
+font-size:18px;
+}
+
+.fields input{
+font-size:14px;
+}
+
 }
