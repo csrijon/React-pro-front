@@ -2,7 +2,6 @@
 import Topsection from "../ui/Topsection"
 import { useEffect, useState } from "react"
 import VenueCard from "./VenueCard"
-import Countiing from "../ui/Counting"
 import "../css/venue.css"
 import { motion } from "framer-motion"
 
@@ -48,7 +47,6 @@ const TrendingDesigners = ({ title }) => {
                             ))}
                         </motion.div>
                 }
-                <Countiing />
             </div>
         </section>
     )

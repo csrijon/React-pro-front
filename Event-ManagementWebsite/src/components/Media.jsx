@@ -2,8 +2,6 @@
 import { useEffect, useState } from "react"
 import Topsection from "../ui/Topsection"
 import "../css/Media.css"
-import Latestdata from "../Latestdata.js"
-import Countiing from "../ui/Counting.jsx"
 import { motion } from "framer-motion"
 
 const Media = () => {
@@ -88,7 +86,6 @@ const Media = () => {
 
                 </motion.div>
                 }
-                <Countiing />
             </div>
         </section>
     )

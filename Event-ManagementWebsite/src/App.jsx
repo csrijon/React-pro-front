@@ -15,6 +15,7 @@ import ContactAdmin from "./components/ContactAdmin.jsx";
 import VenueAdmin from "./components/VenueAdmin.jsx";
 import Pasteventpage from "./pages/Pasteventpage.jsx";
 import Featurescategoryall from "./components/Featurescategoryall.jsx";
+import Popularallcards from "./components/Popularallcards.jsx"
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/Allcardsection",
         element: <Featurescategoryall />
+      },{
+        path:"/Allcardpopu",
+        element:<Popularallcards/>
+
       }
     ]
   },
