@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Herosection from "../components/Herosection";
-import FilterBar from "../components/FilterBar";
+// import FilterBar from "../components/FilterBar";
 import VenueGrid from "../components/VenueGrid";
 import PopularVenu from "../components/PopularVenu";
 import Dummycard from "../components/Dummycard";
@@ -11,7 +11,7 @@ const Venuepage = () => {
         <>
             {/* <Header /> */}
             <Herosection heading="Our Wedding Venues" />
-            <FilterBar />
+            {/* <FilterBar /> */}
             <VenueGrid  title="Wedding Venue" number="49" />
             <PopularVenu title="Popular Venue" number="39" />
             <Dummycard />

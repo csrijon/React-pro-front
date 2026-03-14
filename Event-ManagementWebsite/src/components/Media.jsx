@@ -57,7 +57,7 @@ const Media = () => {
     return (
         <section className="Mediasection" >
             <div className="container">
-                <Topsection title="Latest Media" number={mediainfo.length} />
+                <Topsection title="Latest Media" number={mediainfo.length} path="/Allcardmedia" />
                 {
                     isLoading ?
                         <p>Loading...</p>:

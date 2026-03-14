@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "../css/HeroSection.css";
-import Button from "../ui/Button.jsx";
+// import Button from "../ui/Button.jsx";
 import { motion } from "framer-motion";
 
 const Herosection = ({ heading, subheading, setSearchResults }) => {
@@ -46,13 +46,36 @@ const Herosection = ({ heading, subheading, setSearchResults }) => {
     }
     return (
         <section className="hero-section">
-            <motion.div className="first-part" >
-                <motion.h3 initial={{ opacity: 0, scale: 0.5 }} animate={{
-                    opacity: 1, scale: 1, transition
-                        : { type: "spring", stiffness: 100 }
-                }} >{heading}<span>{subheading}</span></motion.h3>
-            </motion.div>
-            <motion.div
+        <motion.div
+  className="first-part"
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7 }}
+>
+  <motion.h3
+    className="hero-title"
+    initial={{ opacity: 0, scale: 0.7 }}
+    animate={{
+      opacity: 1,
+      scale: 1,
+      transition: { type: "spring", stiffness: 120 }
+    }}
+  >
+    {heading}
+    <span>{subheading}</span>
+  </motion.h3>
+
+  <motion.p
+    className="hero-subtext"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.4 }}
+  >
+    Celebrate life’s most beautiful moments with elegance and style.
+    Discover venues, connect with trusted vendors, and plan your perfect event😍.
+  </motion.p>
+</motion.div>
+            {/* <motion.div
                 className="second-part"
                 variants={container}
                 initial="hidden"
@@ -64,15 +87,12 @@ const Herosection = ({ heading, subheading, setSearchResults }) => {
                     whileFocus={{ scale: 1.03 }}
                     name="category"
                     className="category-select"
-                    // defaultValue="What's the Occasion?"
+                   
                     value={iscategorySelected}
                     onChange={(e) => { setcategorySelected(e.target.value.trim())
                          console.log("Selected category:", e.target.value.trim());
                      }}
                 >
-                    {/* <option value="" disabled>
-                        Select Category
-                    </option> */}
                     <option value="Wedding">Wedding</option>
                     <option value="Birthday">Birthday</option>
                     <option value="Corporate">Corporate Event</option>
@@ -85,16 +105,14 @@ const Herosection = ({ heading, subheading, setSearchResults }) => {
                     whileFocus={{ scale: 1.03 }}
                     name="location"
                     className="location-select"
-                    // defaultValue="what's the Location?"
+        
                     value={islocationSelected}
                     onChange={(e) => {
                         const location = e.target.value;
                         setlocationSelected(location);
                         console.log(location);
                     }} >
-                    {/* <option value="" disabled>
-                        Select Location
-                    </option> */}
+                   
                     <option value="delhi">Delhi</option>
                     <option value="mumbai">Mumbai</option>
                     <option value="bangalore">Bangalore</option>
@@ -108,7 +126,7 @@ const Herosection = ({ heading, subheading, setSearchResults }) => {
                 >
                     <Button onClick={searchclciked} />
                 </motion.div>
-            </motion.div>
+            </motion.div> */}
 
         </section>
     )

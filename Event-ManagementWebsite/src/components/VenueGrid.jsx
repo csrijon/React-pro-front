@@ -54,10 +54,10 @@ const VenueGrid = ({ title }) => {
   return (
     <section className="wedding-section">
       <div className="container">
-        <Topsection title={title} number={venueinfo.length} />
+        <Topsection title={title} number={venueinfo.length} path="/Allcardwedding" />
 
         <motion.div variants={container} initial="hidden" viewport={{ once: true }} animate="show" className="venue-grid">
-          {venueinfo.map((item) => (
+          {venueinfo.slice(0,6).map((item) => (
             <motion.div variants={cardAnimation} className="venue-card" key={item._id}>
               <motion.div className="venue-image">
                 <motion.img

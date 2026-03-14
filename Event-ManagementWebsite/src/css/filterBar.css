@@ -9,7 +9,7 @@
 .filter-container {
   display: flex;
   padding: 24px 0;
-   background-color: var(--primary-black-color);
+   /* background-color: var(--primary-black-color); */
   /* border-radius: 8px; */
   /* justify-content: flex-start; */
 }

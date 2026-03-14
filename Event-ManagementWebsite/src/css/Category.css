@@ -15,14 +15,54 @@
   padding: 60px 40px;
   background: var(--primary-Browsecategory-section-bg);
 }
+.trendsection-allcards{
+  padding: 60px 40px;
+  background-color: var(--primary-Browsecategory-section-bg);
+}
 .Allpopularcard-section{
   padding: 60px 40px;
   background-color: var(--primary-Browsecategory-section-bg);
+}
+.Mediaallcards-section{
+  padding: 60px 40px;
+  background-color: var(--primary-Browsecategory-section-bg);
+}
+.weddingsection-allcards{
+  padding:60px 40px;
+  background-color: var(--primary-Browsecategory-section-bg);
+}
+.section-both{
+  padding: 60px 40px;
+  background-color: var(--primary-Browsecategory-section-bg);
+}
+.wedding-text{
+  color: var(--primary-text-color);
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.Trend-text{
+  color: var(--primary-text-color);
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.mediacard-text{
+  color: var(--primary-text-color);
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 600;
 }
 .sectionpopu-text{
   color: var(--primary-text-color);
   margin-bottom:20px;
   font-size:16px;
+  font-weight: 600;
+}
+.text-both{
+  color: var(--primary-text-color);
+  font-size: 16px;
+  margin-bottom: 20px;
   font-weight: 600;
 }
 
