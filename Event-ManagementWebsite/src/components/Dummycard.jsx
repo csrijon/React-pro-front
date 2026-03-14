@@ -65,6 +65,7 @@ const Dummycard = () => {
           {/* Left Image */}
           <motion.div className="left-dummy" variants={leftAnimation}>
             <motion.img
+            loading="lazy"
               src={firstimage}
               alt="dummy-images"
               whileHover={{ scale: 1.05 }}

@@ -4,7 +4,6 @@ import Supplierpage from "./pages/Supplierpage.jsx"
 import Aboutpage from "./pages/Aboutpage.jsx"
 import Mediapage from "./pages/Mediapage.jsx"
 import Contactpage from "./pages/Contactpage.jsx"
-import Sidebar from "./components/Sidebar.jsx";
 import AdminLayout from "./layouts/AdminLayout.jsx";
 import HomeAdmin from "./components/HomeAdmin.jsx";
 import Dashboard from "./components/Dashboard.jsx";
@@ -15,6 +14,7 @@ import MediaAdmin from "./components/MediaAdmin.jsx";
 import ContactAdmin from "./components/ContactAdmin.jsx";
 import VenueAdmin from "./components/VenueAdmin.jsx";
 import Pasteventpage from "./pages/Pasteventpage.jsx";
+import Featurescategoryall from "./components/Featurescategoryall.jsx";
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -51,45 +51,47 @@ const router = createBrowserRouter([
       {
         path: "/PastCategory",
         element: <><Pasteventpage /></>
+      },
+      {
+        path: "/Allcardsection",
+        element: <Featurescategoryall />
       }
     ]
   },
+
   {
     path: "/admin",
     element: <><AdminLayout /></>,
     children: [
       {
         index: true,
-        element: <><Dashboard /></>
+        element: <Dashboard />
       },
       {
         path: "home",
-        element: <><HomeAdmin /></>
+        element: <HomeAdmin />
       },
       {
         path: "venu",
-        element: <><VenueAdmin /></>
+        element: <VenueAdmin />
       },
       {
         path: "supply",
-        element: <><SuppliersAdmin /></>
+        element: <SuppliersAdmin />
       },
       {
         path: "aboutadmin",
-        element: <><AboutAdmin /></>
+        element: <AboutAdmin />
       },
       {
         path: "mediaadmin",
-        element: <><MediaAdmin /></>
+        element: <MediaAdmin />
       },
       {
         path: "contactadmin",
-        element: <><ContactAdmin /></>
+        element: <ContactAdmin />
       }
     ]
-  },
-  {
-
   }
 ])
 

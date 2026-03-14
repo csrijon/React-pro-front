@@ -31,7 +31,7 @@ const Header = () => {
 
           <motion.div className="left">
             <NavLink to="/" >
-              <motion.img initial={{ opacity: 0, y: -50 }}
+              <motion.img loading="lazy" initial={{ opacity: 0, y: -50 }}
                 animate={{ opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }}
                 src={images} alt="logo" />
             </NavLink>

@@ -112,7 +112,7 @@ const HomeAdmin = () => {
 
         <div className="card-list">
           <div className="card-item">
-            <img src="/placeholder.jpg" alt="venue" />
+            <img loading="lazy" src="/placeholder.jpg" alt="venue" />
             <input defaultValue="Dubai" />
             <div className="actions">
               <label className="icon-btn">

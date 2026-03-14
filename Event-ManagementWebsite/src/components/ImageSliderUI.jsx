@@ -46,7 +46,7 @@ const ImageSliderUI = () => {
       </button>
       <motion.div className="slider-container">
         <motion.div className="slider-card" >
-              <motion.img variants={sliderAnimation} initial="hidden" whileInView="show" src={sliderimages[currentIndex]} alt="slider" />
+              <motion.img loading="lazy" variants={sliderAnimation} initial="hidden" whileInView="show" src={sliderimages[currentIndex]} alt="slider" />
             </motion.div>
         
       </motion.div>

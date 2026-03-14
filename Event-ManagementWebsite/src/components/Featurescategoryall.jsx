@@ -1,16 +1,10 @@
 /* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from "react"
 import "../css/Category.css";
-import Topsection from "../ui/Topsection.jsx";
-import Countiing from "../ui/Counting.jsx";
-import { useState, useEffect } from "react";
-
 import { motion } from "framer-motion";
 
+const Featurescategoryall = () => {
 
-
-const Category = ({ title, searchResults }) => {
-   
-    // console.log(searchResults, "search results in category")
     const container = {
         hidden: {},
         show: {
@@ -33,31 +27,26 @@ const Category = ({ title, searchResults }) => {
         }
 
     }
-
-
-
-    const [categoryData, setCategoryData] = useState([]);
+    const [data, setData] = useState([])
 
     useEffect(() => {
-        let handelfetchcategory = async () => {
+        const alldatafetch = async () => {
             let response = await fetch("http://localhost:3000/api/fetbrowcategory")
-            let data = await response.json()
-            setCategoryData(data);
+            let result = await response.json()
+            setData(result)
         }
-        handelfetchcategory();
-    }, []);
-    const filterdata = searchResults.length > 0 ?
-        categoryData.filter(item => searchResults.some(result => result.title === item.title)) :
-        categoryData;
-    console.log(categoryData, "categorydata in category component")
+
+        alldatafetch()
+    }, [])
 
     return (
-        <section className="Browsecategory-section">
+        <section className="feature-category">
             <div className="container">
-                <Topsection title={title} number={categoryData.length} path="/Allcardsection" />
+                <h2 className="section-title">Feature Categories</h2>
+
                 <motion.div variants={container} initial="hidden" animate="show" className="Bottom-section">
                     {
-                        filterdata.slice(0, 6).map((item, index) => (
+                        data.map((item, index) => (
                             <motion.div whileHover={{ scale: 1.05, y: -10 }} transition={{ type: "spring", stiffness: 200 }} variants={cardAnimation} className="cards" key={index}>
                                 <motion.img loading="lazy" src={item.Image} alt="card-images" />
                                 <p className="card-title">{item.title}</p>
@@ -65,9 +54,9 @@ const Category = ({ title, searchResults }) => {
                         ))
                     }
                 </motion.div>
-                {/* <Countiing /> */}
             </div>
         </section>
     )
 }
-export default Category;
+
+export default Featurescategoryall

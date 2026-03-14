@@ -15,7 +15,7 @@ const Homepage = () => {
         <>
         {/* <Header /> */}
             <Herosection heading="Your Wedding," setSearchResults={setSearchResults} subheading="Your Way" />
-            <Category title="Browse by Category" searchResults={searchResults} number="9" />
+            <Category title="Features Category" searchResults={searchResults} number="9" />
             <PopularVenu title="Popular Venue" number="1000" />
             <Dummycard />
             <FeaturedVideo />

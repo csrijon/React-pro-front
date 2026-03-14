@@ -72,7 +72,7 @@ const Media = () => {
                                 key={item.id}
                             >
                                 <motion.div className="info-image">
-                                    <img src={item.image} alt="card" />
+                                    <img loading="lazy" src={item.image} alt="card" />
                                 </motion.div>
 
                                 <motion.div className="info-content">

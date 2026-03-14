@@ -58,7 +58,7 @@ const MediaAdmin = () => {
         <div className="media-admin-list">
           {/* CARD 1 */}
           <div className="media-admin-item">
-            <img src="/placeholder.jpg" alt="media" />
+            <img loading="lazy" src="/placeholder.jpg" alt="media" />
 
             <div className="media-fields">
               <input type="text" defaultValue="Media Heading 1" />
@@ -76,7 +76,7 @@ const MediaAdmin = () => {
 
           {/* CARD 2 */}
           <div className="media-admin-item">
-            <img src="/placeholder.jpg" alt="media" />
+            <img loading="lazy" src="/placeholder.jpg" alt="media" />
 
             <div className="media-fields">
               <input type="text" defaultValue="Media Heading 2" />

@@ -61,6 +61,7 @@ const VenueGrid = ({ title }) => {
             <motion.div variants={cardAnimation} className="venue-card" key={item._id}>
               <motion.div className="venue-image">
                 <motion.img
+                loading="lazy"
                   src={item.image}
                   alt={item.venueTitle}
                 />

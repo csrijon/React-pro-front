@@ -64,7 +64,7 @@ const VenueAdmin = () => {
 
         <div className="venue-admin-list">
           <div className="venue-admin-item">
-            <img src="/placeholder.jpg" alt="venue" />
+            <img loading="lazy" src="/placeholder.jpg" alt="venue" />
             <div className="venue-info">
               <p className="venue-title">Grand Palace</p>
               <p className="venue-location">📍 Dubai, UAE</p>
@@ -76,7 +76,7 @@ const VenueAdmin = () => {
           </div>
 
           <div className="venue-admin-item">
-            <img src="/placeholder.jpg" alt="venue" />
+            <img loading="lazy" src="/placeholder.jpg" alt="venue" />
 
             <div className="venue-info">
               <p className="venue-title">Royal Garden</p>
@@ -89,7 +89,7 @@ const VenueAdmin = () => {
           </div>
 
           <div className="venue-admin-item">
-            <img src="/placeholder.jpg" alt="venue" />
+            <img loading="lazy" src="/placeholder.jpg" alt="venue" />
 
             <div className="venue-info">
               <p className="venue-title">City View Hall</p>

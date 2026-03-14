@@ -25,6 +25,7 @@ const VenueCard = ({ city, designernames, image }) => {
     <motion.div className="venue-card" variants={cardAnimation} >
       <div className="venue-image">
         <motion.img
+        loading="lazy"
           whileHover={{ scale: 1.15, zIndex: 10 }} src={image} alt={designernames}
         />
         <span className="explore-btn">Explore</span>
