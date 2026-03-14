@@ -16,6 +16,10 @@ import VenueAdmin from "./components/VenueAdmin.jsx";
 import Pasteventpage from "./pages/Pasteventpage.jsx";
 import Featurescategoryall from "./components/Featurescategoryall.jsx";
 import Popularallcards from "./components/Popularallcards.jsx"
+import MediaAllcards from "./components/MediaAllcards.jsx"
+import Weddingcardsall from "./components/Weddingcardsall.jsx"
+import Allvideophotcards from "./components/Allvideophotcards.jsx"
+import Alltrendingcards from "./components/Alltrendingcards.jsx"
 import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom";
 
@@ -56,10 +60,26 @@ const router = createBrowserRouter([
       {
         path: "/Allcardsection",
         element: <Featurescategoryall />
-      },{
-        path:"/Allcardpopu",
-        element:<Popularallcards/>
-
+      },
+      {
+        path: "/Allcardpopu",
+        element: <Popularallcards />
+      },
+      {
+        path: "/Allcardmedia",
+        element: <MediaAllcards />
+      },
+      {
+        path: "/Allcardwedding",
+        element: <Weddingcardsall />
+      },
+      {
+        path: "/Allphotovideo",
+        element: <Allvideophotcards />
+      },
+      {
+        path:"/Alltrendcard",
+        element:<Alltrendingcards/>
       }
     ]
   },

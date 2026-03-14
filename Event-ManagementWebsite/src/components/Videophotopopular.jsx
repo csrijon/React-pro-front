@@ -43,7 +43,7 @@ const Videophotopopular = ({ title }) => {
     return (
         <section className="video-photosection" >
             <div className="container">
-                <Topsection title={title} number={videophotographerdata.length} />
+                <Topsection title={title} number={videophotographerdata.length} path="/Allphotovideo" />
                 {isLoading ?
                     <p>Loading...</p> :
                     <motion.div variants={container} initial="hidden" whileInView="show" className="venue-grid">
