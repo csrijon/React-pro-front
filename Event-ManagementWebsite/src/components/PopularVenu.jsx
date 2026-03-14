@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import VenueCard from "./VenueCard.jsx";
 import Topsection from "../ui/Topsection";
 import "../css/venue.css"
-import Countiing from "../ui/Counting.jsx"
 import { motion } from "framer-motion";
 
 const PopularVenu = ({ title }) => {
@@ -42,7 +41,7 @@ const PopularVenu = ({ title }) => {
     return (
         <section className="Popular-section" >
             <div className="container">
-                <Topsection title={title} number={popularVenues.length} />
+                <Topsection title={title} number={popularVenues.length} path="/Allcardpopu"/>
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
@@ -53,7 +52,6 @@ const PopularVenu = ({ title }) => {
                     </motion.div>
                 )
                 }
-                <Countiing />
             </div>
         </section>
     )

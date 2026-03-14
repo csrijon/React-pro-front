@@ -15,6 +15,16 @@
   padding: 60px 40px;
   background: var(--primary-Browsecategory-section-bg);
 }
+.Allpopularcard-section{
+  padding: 60px 40px;
+  background-color: var(--primary-Browsecategory-section-bg);
+}
+.sectionpopu-text{
+  color: var(--primary-text-color);
+  margin-bottom:20px;
+  font-size:16px;
+  font-weight: 600;
+}
 
 .section-title {
   margin-bottom: 20px;
