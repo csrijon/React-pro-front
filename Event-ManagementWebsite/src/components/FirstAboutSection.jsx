@@ -110,6 +110,7 @@ const FirstAboutSection = () => {
           {/* Right image */}
           <motion.div className="about-image" variants={rightImage}>
             <motion.img
+            loading="lazy"
               src={mainAboutData[0]?.mainImage || firstimages}
               alt="about"
               whileHover={{ scale: 1.05 }}

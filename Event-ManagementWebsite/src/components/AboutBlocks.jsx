@@ -91,6 +91,7 @@ const AboutBlocks = () => {
         >
           <motion.div className="about-image" variants={imageLeft}>
             <motion.img
+            loading="lazy"
               src={aboutBlock1Data[0]?.Image}
               alt="what we offer"
               whileHover={{ scale: 1.05 }}
@@ -121,6 +122,7 @@ const AboutBlocks = () => {
         >
           <motion.div className="about-image" variants={imageRight}>
             <motion.img
+            loading="lazy"
               src={aboutBlock2Data[0]?.Image}
               alt="who we are"
               whileHover={{ scale: 1.05 }}

@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import "../css/Topsection.css"
 import { motion } from "framer-motion"
+import { useNavigate } from "react-router";
+
+
 
 const container = {
   hidden: {},
@@ -24,7 +27,10 @@ const item = {
   }
 }
 
-const Topsection = ({ title, number }) => {
+const Topsection = ({ title, number, path }) => {
+
+const navigate = useNavigate();
+
   return (
     <section>
       <motion.div
@@ -43,6 +49,7 @@ const Topsection = ({ title, number }) => {
           variants={item}
           whileHover={{ scale: 1.05, x: 4 }}
           transition={{ type: "spring", stiffness: 200 }}
+          onClick={() => navigate(path)}
         >
           View All ({number})
         </motion.p>

@@ -42,7 +42,7 @@ const Footer = () => {
 
           {/* Logo & Social */}
           <motion.div className="footer-col" variants={columnAnimation}>
-            <img className="footer-logo" src={kiteimages} alt="kite" />
+            <img loading="lazy" className="footer-logo" src={kiteimages} alt="kite" />
             <p className="footer-title">Social Media</p>
 
             <div className="social-icons">

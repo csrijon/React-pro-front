@@ -87,6 +87,7 @@ const SuppliersCategories = () => {
               >
                 <div className="supplier-circle">
                   <motion.img
+                  loading="lazy"
                     src={item.Image}
                     alt={item.title}
                     whileHover={{ scale: 1.1 }}

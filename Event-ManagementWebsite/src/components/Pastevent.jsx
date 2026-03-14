@@ -15,7 +15,7 @@ const Pastevent = () => {
                 <div className="Event-grid">
                     {dummyData.map((item) => (
                         <div className="Event-card" key={item.id}>
-                            <img src={item.Imageurl} alt="event images" />
+                            <img loading="lazy" src={item.Imageurl} alt="event images" />
 
                             <div className="card-content">
                                 <h3>{item.title}</h3>

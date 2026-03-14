@@ -22,7 +22,6 @@ const PopularVenu = ({ title }) => {
         }
     }
 
-
     useEffect(() => {
         let fetchpopularvenue = async () => {
             try {
