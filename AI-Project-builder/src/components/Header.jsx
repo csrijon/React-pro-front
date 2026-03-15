@@ -5,6 +5,7 @@ const Header=()=>{
     return(
       <>
        <header className="Header" >
+        <div className="container">
         <div className="Navbar">
             <div className="first-Nav">
                 <img src={logo} alt="logo" />
@@ -22,6 +23,7 @@ const Header=()=>{
                 <p>Login</p>
                 <button>Sign Up</button>
             </div>
+        </div>
         </div>
        </header>
       </>
