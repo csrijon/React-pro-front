@@ -1,26 +1,26 @@
-.admin-wrapper {
+.admin-wrapperes {
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 20px;
 }
 
-.admin-header {
+.admin-headeres {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
 }
 
-.save-btn {
+/* .save-btnes {
   background: #000;
   color: #fff;
   padding: 10px 20px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
-}
+} */
 
-.admin-card {
+.admin-cardes {
   background: #fff;
   border-radius: 10px;
   padding: 20px;
