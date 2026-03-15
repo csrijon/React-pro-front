@@ -1,7 +1,10 @@
+import Header from "./components/Header"
+import "./App.css"
+
 const App =()=>{
   return(
      <>
-     <h2>hello i am react</h2></>
+     <Header/></>
   )
 }
  export default App
