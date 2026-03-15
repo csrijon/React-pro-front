@@ -29,14 +29,14 @@ const VenueAdmin = () => {
     }
   }
   return (
-    <div className="admin-wrapper">
+    <div className="admin-wrapperes">
       {/* HEADER */}
-      <div className="admin-header">
+      <div className="admin-headeres">
         <h2>Venue Section</h2>
       </div>
 
       {/* ADD VENUE UI */}
-      <div className="admin-card">
+      <div className="admin-cardes">
         <h3>Add Venue</h3>
 
         <div className="add-row">
@@ -59,7 +59,7 @@ const VenueAdmin = () => {
       </div>
 
       {/* VENUE LIST UI */}
-      <div className="admin-card">
+      <div className="admin-cardes">
         <h3>Venues List</h3>
 
         <div className="venue-admin-list">
