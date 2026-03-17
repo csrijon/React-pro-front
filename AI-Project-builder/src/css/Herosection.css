@@ -1,0 +1,177 @@
+
+
+/* Hero Section */
+.Herosection {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #1a1f3a, #0b0f19);
+  color: #fff;
+  padding: 40px 20px;
+}
+
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  align-items: center;
+}
+
+/* Badge */
+.hero-first {
+  width: max-content;
+  border-radius: 999px;
+  padding: 6px 14px;
+  border: 1px solid #1e293b;
+  background-color: #0f172a;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.hero-first li {
+  list-style: none;
+  text-align: center;
+}
+
+/* Heading */
+.secend-hero h2 {
+  font-size: 56px;
+  line-height: 1.1;
+  max-width: 700px;
+  text-align: center;
+  margin: 0;
+}
+
+.secend-hero h2 span {
+  display: block; 
+  color: #6467f2;
+}
+
+/* Description */
+.third-hero p {
+  color: #94a3b8;
+  font-size: 16px;
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Input Box */
+.input-box {
+  width: 100%;
+  max-width: 720px;
+  padding: 10px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #0f172a;
+  border: 1px solid #1e293b;
+
+  transition: 0.3s;
+}
+
+/* Focus glow */
+.input-box:focus-within {
+  border: 1px solid #6467f2;
+  box-shadow: 0 0 20px rgba(100, 103, 242, 0.3);
+}
+
+/* Input content */
+.input-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+}
+
+/* Input */
+.input-content input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 14px;
+  padding: 8px;
+}
+
+/* Button */
+.generate-btn {
+  background: #6467f2;
+  color: #fff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.generate-btn:hover {
+  background-color: #7375f2;
+  transform: scale(1.05);
+}
+
+/* View Button */
+.vire-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background-color: #0f172a;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vire-button:hover {
+  background: #1a2238;
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE DESIGN */
+/* ========================= */
+
+@media (max-width: 768px) {
+  .secend-hero h2 {
+    font-size: 36px;
+  }
+
+  .third-hero p {
+    font-size: 14px;
+  }
+
+  .input-box {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .generate-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .secend-hero h2 {
+    font-size: 28px;
+  }
+
+  .hero-container {
+    gap: 25px;
+  }
+
+  .input-content input {
+    font-size: 13px;
+  }
+}

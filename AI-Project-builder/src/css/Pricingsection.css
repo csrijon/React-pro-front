@@ -1,0 +1,90 @@
+/* Section */
+.Pricingsection {
+  width: 100%;
+  padding: 80px 20px;
+  background: #0b0f19;
+}
+
+/* Center wrapper */
+.main-section {
+  display: flex;
+  margin: auto;
+  max-width: 1100px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card */
+.card {
+  width: 100%;
+  padding: 64px 64px;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #6467f2;
+
+  color: #fff;
+
+  /* Optional glow */
+  /* box-shadow: 0 0 40px rgba(123, 92, 240, 0.3); */
+}
+
+/* Heading */
+.card h4 {
+  font-size: 40px;
+  letter-spacing: -1.2px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Text */
+.card p {
+  font-size: 15px;
+  color:#fffc;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+/* Button container */
+.btn {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn button {
+  padding: 16.5px 32px  17.5px 32px ;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+/* Primary button */
+.btn button:first-child {
+  background: #fff;
+  color: #5b5ff0;
+  padding: 16px 32px;
+  border: none;
+}
+
+.btn button:first-child:hover {
+  transform: scale(1.05);
+}
+
+/* Secondary button */
+.btn button:last-child {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn button:last-child:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
