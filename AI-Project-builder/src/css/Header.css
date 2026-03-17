@@ -1,10 +1,14 @@
 .Header{
     width: 100%;
     background: #101122;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(12px);
 }
 .Navbar{
-    width: 90%;
+    width: auto;
     display: flex;
     align-items: center;
     margin: 0 auto;
@@ -42,7 +46,7 @@
 }
 .secend-Nav ul li a{
     text-decoration: none;
-    color: #d6d6d6;
+    color: #94a3b8;
     font-size: 15px;
     font-weight: 600;
     transition: 0.3s;
@@ -63,6 +67,10 @@
 .Third-Nav p{
     color: white;
     cursor: pointer;
+    padding: 5px 10px 5px 10px;
+}
+.Third-Nav p:hover{
+    background-color: #c9c7c738;
 }
 
 .Third-Nav button{

@@ -1,10 +1,11 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import "../css/Herosection.css"
 
 
 const Herosection = () => {
     return (
         <section className="Herosection" >
-            <div className="container">
+            <div className="container hero-container ">
 
                 <div className="hero-first">
                     <li>v2.0 NOW LIVE</li>
@@ -32,7 +33,7 @@ const Herosection = () => {
                 </div>
                 <div className="vire-button">
                     <VisibilityIcon/>
-                    <button>View Examples</button>
+                    <p>View Examples</p>
                 </div>
             </div>
 
