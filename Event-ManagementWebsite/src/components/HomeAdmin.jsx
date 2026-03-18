@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/HomeAdmin.css";
+// import data from "../Latestdata"
 
 const HomeAdmin = () => {
   const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
@@ -7,6 +8,8 @@ const HomeAdmin = () => {
   const [videoimage, setVideoImage] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [categoryImage, setCategoryImage] = useState(null);
+  const [response, setresponse] = useState([])
+  // const [indexs,setindexes] = useState(0)
 
   let handleAddVideo = async () => {
     try {
@@ -43,6 +46,37 @@ const HomeAdmin = () => {
       console.error("Error adding category:", error);
     }
   };
+ let handeldelete = async (id) => {
+  try {
+    console.log(id)
+    let rsponseid = await fetch(`http://localhost:3000/deletecategory/${id}`, {
+      method: "DELETE"
+    });
+
+    let delresponse = await rsponseid.json();
+    console.log(delresponse);
+      let filternewdata = 
+
+  } catch (error) {
+    console.log("data is not fetch", error);
+  }
+};
+
+
+  useEffect(() => {
+    let showinguidata = async () => {
+      try {
+        let res = await fetch("http://localhost:3000/api/fetbrowcategory")
+        let resdatas = await res.json()
+        // console.log(resdatas)
+        setresponse(resdatas)
+      } catch (error) {
+        console.log("data is missing", error)
+      }
+    }
+    showinguidata()
+  }, [])
+
 
   return (
     <div className="admin-wrappers">
@@ -72,7 +106,7 @@ const HomeAdmin = () => {
         </div>
       </div>
 
-      {/* ================= BROWSE BY CATEGORY ================= */}
+      {/* ================= Feature Categories ================= */}
       <div className="admin-headers">
         <h2>Browse by Category</h2>
       </div>
@@ -90,6 +124,20 @@ const HomeAdmin = () => {
         </div>
 
         <div className="card-lists">
+          <div className="admin-card-lists">
+            {response.map((cat, _id) => (
+              <div className="admin-card-item" key={_id}>
+
+                <button onClick={()=>handeldelete(cat._id)} className="admin-delete-btn">
+                  ✕
+                </button>
+
+                <img className="admin-card-img" src={cat.Image} alt="category" />
+                <p className="admin-card-text">{cat.title}</p>
+
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

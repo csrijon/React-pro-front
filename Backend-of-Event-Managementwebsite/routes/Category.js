@@ -38,5 +38,22 @@ router.get("/", async (req, res) => {
     }
 }
 )
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID:", id);
+
+    let finddata = await BrowsebycategoryModel.findByIdAndDelete(id);
+
+    res.status(200).json({
+      mess: "data is deleted",
+      finddata
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ mess: "data not found" });
+  }
+});
 
 export default router;
