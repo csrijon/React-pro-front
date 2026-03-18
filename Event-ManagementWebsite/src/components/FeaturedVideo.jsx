@@ -72,7 +72,9 @@ const FeaturedVideo = () => {
                                 key={index}
                             >
                                 <motion.div className="card-image">
+                                    {/* <SlideshowLightbox> */}
                                     <motion.img loading="lazy" src={item.thumbnail} alt="img" />
+                                    {/* </SlideshowLightbox> */}
                                 </motion.div>
 
                                 <motion.div className="card-titless">

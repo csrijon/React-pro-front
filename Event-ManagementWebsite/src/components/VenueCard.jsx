@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion"
 
-const VenueCard = ({ city, designernames, image }) => {
+const VenueCard = ({ city, designernames, image,onClick }) => {
   const cardAnimation = {
     hidden: {
       opacity: 0,
@@ -22,7 +22,7 @@ const VenueCard = ({ city, designernames, image }) => {
   }
 
   return (
-    <motion.div className="venue-card" variants={cardAnimation} >
+    <motion.div onClick={onClick} className="venue-card" variants={cardAnimation} >
       <div className="venue-image">
         <motion.img
         loading="lazy"

@@ -4,6 +4,7 @@ import Topsection from "../ui/Topsection"
 import "../css/Media.css"
 import { motion } from "framer-motion"
 
+
 const Media = () => {
 
     const [isLoading, setIsLoading] = useState(true)
@@ -70,7 +71,10 @@ const Media = () => {
                                 key={item.id}
                             >
                                 <motion.div className="info-image">
-                                    <img loading="lazy" src={item.image} alt="card" />
+                                    {/* <SlideshowLightbox> */}
+                                        <img loading="lazy" src={item.image} alt="card" />
+                                    {/* </SlideshowLightbox> */}
+                                    
                                 </motion.div>
 
                                 <motion.div className="info-content">
