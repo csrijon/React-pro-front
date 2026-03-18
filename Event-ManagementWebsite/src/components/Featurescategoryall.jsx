@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react"
 import "../css/Category.css";
 import { motion } from "framer-motion";
 
+
 const Featurescategoryall = () => {
 
     const container = {
