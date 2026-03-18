@@ -42,6 +42,7 @@ app.use("/addaboutblock1", Secendaboutroute)
 app.use("/api/fetchaboutblock1", Secendaboutroute)
 app.use("/api/fetchaboutstats", Statistics)
 app.use("/api/fetbrowcategory", Category)
+app.use("/deletecategory", Category);
 app.use("/featuredvideo", FeaturedVideosroute)
 app.use("/apifeaturedvideo", FeaturedVideosroute)
 app.use("/videophotographer", Photographvideoroute)
