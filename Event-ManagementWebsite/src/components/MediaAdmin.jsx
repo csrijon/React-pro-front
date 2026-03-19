@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/MediaAdmin.css";
 
 const MediaAdmin = () => {
@@ -6,6 +6,7 @@ const MediaAdmin = () => {
   const [heading, setheading] = useState("")
   const [discreption, setdiscreption] = useState("")
   const [image, setimage] = useState("")
+  const [mediadata, setmediadata] = useState([])
 
   const Addmediabutton = async () => {
 
@@ -26,6 +27,18 @@ const MediaAdmin = () => {
       console.log(error, "this the error reason i dont know")
     }
   }
+
+  useEffect(() => {
+    let getmediadata = async () => {
+      let getmediadata = await fetch("http://localhost:3000/fetchmedia")
+      let mediaresponse = await getmediadata.json()
+      setmediadata(mediaresponse)
+      console.log(mediaresponse)
+    }
+    getmediadata()
+  }, [])
+
+
   return (
     <div className="admin-wrapper">
       {/* HEADER */}
@@ -56,41 +69,24 @@ const MediaAdmin = () => {
         <h3>Media Cards</h3>
 
         <div className="media-admin-list">
-          {/* CARD 1 */}
-          <div className="media-admin-item">
-            <img loading="lazy" src="/placeholder.jpg" alt="media" />
+          {
+            mediadata.map((item,index) => (
+              <div key={index} className="media-admin-item">
+                <img loading="lazy" src={item.image} alt="media" />
 
-            <div className="media-fields">
-              <input type="text" defaultValue="Media Heading 1" />
-              <textarea rows="3" defaultValue="Short media description..." />
-            </div>
+                <div className="media-fields">
 
-            <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btn">×</button>
-            </div>
-          </div>
+                  <p>{item.heading}</p>
+                  <p>{item.discreption}</p>
+                </div>
 
-          {/* CARD 2 */}
-          <div className="media-admin-item">
-            <img loading="lazy" src="/placeholder.jpg" alt="media" />
+                <div className="actions">
+                  <button className="remove-btn">×</button>
+                </div>
+              </div>
+            ))
+          }
 
-            <div className="media-fields">
-              <input type="text" defaultValue="Media Heading 2" />
-              <textarea rows="3" defaultValue="Short media description..." />
-            </div>
-
-            <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btn">×</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
