@@ -55,7 +55,11 @@ const HomeAdmin = () => {
 
     let delresponse = await rsponseid.json();
     console.log(delresponse);
-      let filternewdata = 
+      let filternewdata = response.filter(item=>
+        item._id!==id
+      )
+      setresponse(filternewdata)
+      alert("data delete successfully")
 
   } catch (error) {
     console.log("data is not fetch", error);
@@ -141,37 +145,7 @@ const HomeAdmin = () => {
         </div>
       </div>
 
-      {/* ================= POPULAR VENUE ================= */}
-      <div className="admin-headers">
-        <h2>Popular Venue</h2>
-      </div>
 
-      <div className="admin-cards">
-        <h3>Add Venue Card</h3>
-
-        <div className="add-rows">
-          <input placeholder="Venue name / City" />
-          <label className="upload-btns">
-            Upload Image
-            <input type="file" hidden />
-          </label>
-          <button>Add</button>
-        </div>
-
-        <div className="card-lists">
-          <div className="card-items">
-            <img loading="lazy" src="/placeholder.jpg" alt="venue" />
-            <input defaultValue="Dubai" />
-            <div className="actions">
-              <label className="icon-btn">
-                Change Image
-                <input type="file" hidden />
-              </label>
-              <button className="remove-btns">×</button>
-            </div>
-          </div>
-        </div>
-      </div>
       {/* ================= FEATURED VIDEOS ================= */}
       <div className="admin-headers">
         <h2>Featured Videos</h2>
