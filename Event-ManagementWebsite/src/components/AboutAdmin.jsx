@@ -114,198 +114,146 @@ const AboutAdmin = () => {
   };
 
   return (
-    <div className="admin-wrapper">
+   <div className="aboutAdminX-wrapper">
 
-      {/* HEADER */}
-      <div className="admin-header">
-        <h2>About Page Content</h2>
-      </div>
+  {/* HEADER */}
+  <div className="aboutAdminX-header">
+    <h2>About Page Content</h2>
+  </div>
 
-      {/* ================= MAIN ABOUT SECTION ================= */}
-      <div className="admin-card">
+  {/* MAIN ABOUT */}
+  <div className="aboutAdminX-card">
 
-        <h3>Main About Section</h3>
+    <h3>Main About Section</h3>
 
-        <div className="form-group">
-          <label>Section Title</label>
+    <div className="aboutAdminX-group">
+      <label>Section Title</label>
+      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 1</label>
+      <textarea rows="4" value={para1} onChange={(e) => setPara1(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 2</label>
+      <textarea rows="4" value={para2} onChange={(e) => setPara2(e.target.value)} />
+    </div>
+
+    <label className="aboutAdminX-upload">
+      Upload Main Image
+      <input type="file" hidden onChange={(e) => setMainImage(e.target.files[0])} />
+    </label>
+
+    <button className="aboutAdminX-btn" onClick={handleMainAdd}>Add</button>
+  </div>
+
+
+  {/* STATS */}
+  <div className="aboutAdminX-card">
+
+    <h3>Statistics</h3>
+
+    <div className="aboutAdminX-stats">
+
+      {stats.map((item, index) => (
+        <div className="aboutAdminX-statItem" key={index}>
+
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Number"
+            value={item.number}
+            onChange={(e) =>
+              handleStatsChange(index, "number", e.target.value)
+            }
           />
-        </div>
 
-        <div className="form-group">
-          <label>Paragraph 1</label>
-          <textarea
-            rows="4"
-            value={para1}
-            onChange={(e) => setPara1(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Paragraph 2</label>
-          <textarea
-            rows="4"
-            value={para2}
-            onChange={(e) => setPara2(e.target.value)}
-          />
-        </div>
-
-        <label className="upload-btn">
-          Upload Main Image
-          <input
-            type="file"
-            hidden
-            onChange={(e) => setMainImage(e.target.files[0])}
-          />
-        </label>
-
-        <button className="save-btn" onClick={handleMainAdd}>
-          Add
-        </button>
-
-      </div>
-
-
-      {/* ================= STATS ================= */}
-      <div className="admin-card">
-
-        <h3>Statistics</h3>
-
-        <div className="stats-grid">
-
-          {stats.map((item, index) => (
-            <div className="stat-item" key={index}>
-
-              <input
-                type="text"
-                placeholder="Number"
-                value={item.number}
-                onChange={(e) =>
-                  handleStatsChange(index, "number", e.target.value)
-                }
-              />
-
-              <input
-                type="text"
-                placeholder="Label"
-                value={item.label}
-                onChange={(e) =>
-                  handleStatsChange(index, "label", e.target.value)
-                }
-              />
-
-            </div>
-          ))}
-
-        </div>
-
-        <button className="save-btn" onClick={handleStatsAdd}>
-          Add Statistics
-        </button>
-
-      </div>
-
-
-      {/* ================= BLOCK 1 ================= */}
-      <div className="admin-card">
-
-        <h3>Block 1 – What We Offer</h3>
-
-        <div className="form-group">
-          <label>Title</label>
           <input
             type="text"
-            value={block1Title}
-            onChange={(e) => setBlock1Title(e.target.value)}
+            placeholder="Label"
+            value={item.label}
+            onChange={(e) =>
+              handleStatsChange(index, "label", e.target.value)
+            }
           />
+
         </div>
-
-        <div className="form-group">
-          <label>Paragraph 1</label>
-          <textarea
-            rows="4"
-            value={block1Para1}
-            onChange={(e) => setBlock1Para1(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Paragraph 2</label>
-          <textarea
-            rows="4"
-            value={block1Para2}
-            onChange={(e) => setBlock1Para2(e.target.value)}
-          />
-        </div>
-
-        <label className="upload-btn">
-          Upload Block Image
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={(e) => setBlock1Image(e.target.files[0])}
-          />
-        </label>
-
-        <button className="save-btn" onClick={handleBlock1Add}>
-          Add Block 1
-        </button>
-
-      </div>
-
-
-      {/* ================= BLOCK 2 ================= */}
-      <div className="admin-card">
-
-        <h3>Block 2 – Who We Are</h3>
-
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            type="text"
-            value={block2Title}
-            onChange={(e) => setBlock2Title(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Paragraph 1</label>
-          <textarea
-            rows="4"
-            value={block2Para1}
-            onChange={(e) => setBlock2Para1(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Paragraph 2</label>
-          <textarea
-            rows="4"
-            value={block2Para2}
-            onChange={(e) => setBlock2Para2(e.target.value)}
-          />
-        </div>
-
-        <label className="upload-btn">
-          Upload Block Image
-          <input
-            type="file"
-            hidden
-            onChange={(e) => setBlock2Image(e.target.files[0])}
-          />
-        </label>
-
-        <button className="save-btn" onClick={handleBlock2Add}>
-          Add Block 2
-        </button>
-
-      </div>
+      ))}
 
     </div>
+
+    <button className="aboutAdminX-btn" onClick={handleStatsAdd}>
+      Add Statistics
+    </button>
+
+  </div>
+
+
+  {/* BLOCK 1 */}
+  <div className="aboutAdminX-card">
+
+    <h3>Block 1 – What We Offer</h3>
+
+    <div className="aboutAdminX-group">
+      <label>Title</label>
+      <input type="text" value={block1Title} onChange={(e) => setBlock1Title(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 1</label>
+      <textarea rows="4" value={block1Para1} onChange={(e) => setBlock1Para1(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 2</label>
+      <textarea rows="4" value={block1Para2} onChange={(e) => setBlock1Para2(e.target.value)} />
+    </div>
+
+    <label className="aboutAdminX-upload">
+      Upload Block Image
+      <input type="file" hidden onChange={(e) => setBlock1Image(e.target.files[0])} />
+    </label>
+
+    <button className="aboutAdminX-btn" onClick={handleBlock1Add}>
+      Add Block 1
+    </button>
+
+  </div>
+
+
+  {/* BLOCK 2 */}
+  <div className="aboutAdminX-card">
+
+    <h3>Block 2 – Who We Are</h3>
+
+    <div className="aboutAdminX-group">
+      <label>Title</label>
+      <input type="text" value={block2Title} onChange={(e) => setBlock2Title(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 1</label>
+      <textarea rows="4" value={block2Para1} onChange={(e) => setBlock2Para1(e.target.value)} />
+    </div>
+
+    <div className="aboutAdminX-group">
+      <label>Paragraph 2</label>
+      <textarea rows="4" value={block2Para2} onChange={(e) => setBlock2Para2(e.target.value)} />
+    </div>
+
+    <label className="aboutAdminX-upload">
+      Upload Block Image
+      <input type="file" hidden onChange={(e) => setBlock2Image(e.target.files[0])} />
+    </label>
+
+    <button className="aboutAdminX-btn" onClick={handleBlock2Add}>
+      Add Block 2
+    </button>
+
+  </div>
+
+</div>
   );
 };
 

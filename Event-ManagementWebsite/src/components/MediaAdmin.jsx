@@ -49,56 +49,80 @@ const MediaAdmin = () => {
 
 
   return (
-    <div className="admin-wrapper">
-      {/* HEADER */}
-      <div className="admin-header">
-        <h2>Media Section</h2>
-        <button className="save-btn">Save Changes</button>
-      </div>
-      {/* ADD NEW MEDIA */}
-      <div className="admin-card">
-        <h3>Add New Media Card</h3>
+   <div className="mediaX-wrapper">
 
-        <div className="add-row">
-          <input value={heading} onChange={(e) => setheading(e.target.value)
-          } type="text" placeholder="Heading" />
-          <input type="text" value={discreption} onChange={(e) => setdiscreption(e.target.value)} placeholder="Short description" />
+  {/* HEADER */}
+  <div className="mediaX-header">
+    <h2>Media Section</h2>
+    <button className="mediaX-saveBtn">Save Changes</button>
+  </div>
 
-          <label className="upload-btn">
-            Upload Image
-            <input accept="image/*" onChange={(e) => setimage(e.target.files[0])} type="file" hidden />
-          </label>
+  {/* ADD NEW MEDIA */}
+  <div className="mediaX-card">
+    <h3>Add New Media Card</h3>
 
-          <button onClick={Addmediabutton} >Add</button>
-        </div>
-      </div>
+    <div className="mediaX-addRow">
+      <input
+        value={heading}
+        onChange={(e) => setheading(e.target.value)}
+        type="text"
+        placeholder="Heading"
+      />
 
-      {/* EXISTING MEDIA LIST */}
-      <div className="admin-card">
-        <h3>Media Cards</h3>
+      <input
+        type="text"
+        value={discreption}
+        onChange={(e) => setdiscreption(e.target.value)}
+        placeholder="Short description"
+      />
 
-        <div className="media-admin-list">
-          {
-            mediadata.map((item, index) => (
-              <div key={index} className="media-admin-item">
-                <img loading="lazy" src={item.image} alt="media" />
+      <label className="mediaX-upload">
+        Upload Image
+        <input
+          accept="image/*"
+          onChange={(e) => setimage(e.target.files[0])}
+          type="file"
+          hidden
+        />
+      </label>
 
-                <div className="media-fields">
-
-                  <p>{item.heading}</p>
-                  <p>{item.discreption}</p>
-                </div>
-
-                <div className="actions">
-                  <button onClick={()=>removemedia(item._id)} className="remove-btn">×</button>
-                </div>
-              </div>
-            ))
-          }
-
-        </div>
-      </div>
+      <button onClick={Addmediabutton}>Add</button>
     </div>
+  </div>
+
+  {/* EXISTING MEDIA LIST */}
+  <div className="mediaX-card">
+    <h3>Media Cards</h3>
+
+    <div className="mediaX-list">
+      {
+        mediadata.map((item, index) => (
+          <div key={index} className="mediaX-item">
+
+            <img loading="lazy" src={item.image} alt="media" />
+
+            <div className="mediaX-fields">
+              <p>{item.heading}</p>
+              <p>{item.discreption}</p>
+            </div>
+
+            <div className="mediaX-actions">
+              <button
+                onClick={() => removemedia(item._id)}
+                className="mediaX-removeBtn"
+              >
+                ×
+              </button>
+            </div>
+
+          </div>
+        ))
+      }
+    </div>
+
+  </div>
+
+</div>
   );
 };
 
