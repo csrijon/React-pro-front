@@ -13,4 +13,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+
+  try {
+    let getid = req.params.id;
+    console.log(getid)
+    await Categorymodel.findByIdAndDelete(getid)
+    res.status(200).json({ mess: "delete suppplycard", getid })
+  } catch (error) {
+    res.status(500).json({ mess: "key is not matching" })
+  }
+}
+)
+
 export default router;

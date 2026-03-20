@@ -52,6 +52,10 @@ router.get("/", async (req,res) => {
         console.log(error)
         res.status(500).json({ error: "server error" })
     }
+})
+
+router.delete("/:id",(req,res) => {
+  
 }
 )
 

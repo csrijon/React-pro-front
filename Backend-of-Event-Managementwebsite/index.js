@@ -28,6 +28,7 @@ app.use(cors({ origin: "http://localhost:5173" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/api/fetchtreding", Trandingroute)
+app.use("/apitrending",Trandingroute)
 app.use("/trending", Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
@@ -49,8 +50,10 @@ app.use("/videophotographer", Photographvideoroute)
 app.use("/apivideophotographer", Photographvideoroute)
 app.use("/popvenue", PopularVenu)
 app.use("/api/fetchvenu", PopularVenu)
+app.use("/removepopular",PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
+app.use("/deletesupply",supply)
 
 
 app.get("/", (req, res) => {

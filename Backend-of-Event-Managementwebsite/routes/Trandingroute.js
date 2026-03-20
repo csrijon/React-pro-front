@@ -1,5 +1,5 @@
 import express from "express";
-import {Trendingmodel} from "../models/Schema.js"
+import { Trendingmodel } from "../models/Schema.js"
 import multer from "multer";
 import fs from 'fs';
 
@@ -48,9 +48,20 @@ router.post("/", multer().single("images"), async (req, res) => {
     }
 });
 
-router.get("/",async  (req,res) => {
+router.get("/", async (req, res) => {
     let trendingdata = await Trendingmodel.find()
     res.status(200).json(trendingdata)
+})
+
+router.delete("/:id",async (req,res) => {
+  try {
+    let trendid = req.params.id
+    console.log(trendid)
+    await Trendingmodel.findByIdAndDelete(trendid)
+    res.status(200).json({message:"data is deleted parmanently"})
+  } catch (error) {
+    res.status(500).json({message:"key is missing"})
+  }
 }
 )
 
