@@ -11,7 +11,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .rating{
@@ -32,12 +32,7 @@
     cursor: pointer;
     border: rgba(212, 175, 55, 0.4) 1px solid;
 }
-/* 
-.Event-card:hover{
-    transform: translateY(-8px);
-    box-shadow: 0 18px 35px rgba(0,0,0,0.15);
-} */
- 
+
 
 .Event-card img{
     width: 100%;
