@@ -1,69 +1,103 @@
-.admin-wrapper {
+/* Wrapper */
+.aboutAdminX-wrapper {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 32px 20px;
+  padding: 30px 20px;
+  background: #f7f7f7;
 }
 
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 28px;
+/* Header */
+.aboutAdminX-header {
+  margin-bottom: 20px;
 }
 
-.save-btn {
-  background: #000;
-  color: #fff;
-  padding: 10px 22px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+.aboutAdminX-header h2 {
+  font-size: 20px;
 }
 
-.admin-card {
+/* Card */
+.aboutAdminX-card {
   background: #fff;
-  border-radius: 10px;
   padding: 20px;
-  border: 1px solid #e5e5e5;
-  margin-bottom: 24px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #eee;
 }
 
-.admin-card h3 {
-  font-size: 16px;
-  margin-bottom: 16px;
-}
-
-.form-group {
+/* Form group */
+.aboutAdminX-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.form-group input,
-.form-group textarea {
-  padding: 10px 12px;
+.aboutAdminX-group input,
+.aboutAdminX-group textarea {
+  padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
 }
 
-.upload-btn {
+/* Upload */
+.aboutAdminX-upload {
   display: inline-block;
-  margin-top: 10px;
-  padding: 10px 14px;
   background: #eee;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+/* Button */
+.aboutAdminX-btn {
+  background: #000;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.stats-grid {
+/* Stats */
+.aboutAdminX-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 
-.stat-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+.aboutAdminX-statItem {
+  display: flex;
+  gap: 8px;
+}
+
+.aboutAdminX-statItem input {
+  width: 100%;
+  padding: 8px;
+}
+
+/* ================= 📱 Responsive ================= */
+
+@media (max-width: 768px) {
+
+  .aboutAdminX-stats {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 500px) {
+
+  .aboutAdminX-wrapper {
+    padding: 20px 12px;
+  }
+
+  .aboutAdminX-card {
+    padding: 15px;
+  }
+
+  .aboutAdminX-btn {
+    width: 100%;
+  }
+
 }
