@@ -1,8 +1,10 @@
+/* Default (Desktop) */
 .sidebar {
   width: 240px;
   background: #fff;
   border-right: 1px solid #ddd;
   padding: 24px;
+  height: 100vh;
 }
 
 .sidebar nav {
@@ -19,4 +21,43 @@
 
 .sidebar a.active {
   color: #000;
+}
+
+
+/* 📱 Tablet (<= 768px) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+    padding: 16px;
+  }
+}
+.menu-btn {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  z-index: 1100;
+}
+@media (max-width: 500px) {
+
+  .menu-btn {
+    display: block;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    background: #fff;
+    transition: 0.3s;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
 }

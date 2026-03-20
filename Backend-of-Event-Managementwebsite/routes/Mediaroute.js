@@ -39,4 +39,17 @@ router.get("/",async (req,res) => {
    }
 }
 )
+
+router.delete("/:id", async(req,res) => {
+
+ try {
+      let mediaid = req.params.id
+      console.log(mediaid)
+  await MediaModel.findByIdAndDelete(mediaid)
+  res.status(200).json({mess:"media data is deleted from media model"})
+ } catch (error) {
+    res.status(500).json({mess:"data is not deleted from media model "})
+ }
+}
+)
 export default router

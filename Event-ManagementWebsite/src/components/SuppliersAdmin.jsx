@@ -17,6 +17,7 @@ const SuppliersAdmin = () => {
   const [supplydata, setsupplydata] = useState([])
   const [trenddata, settrenddata] = useState([])
   const [populardata, setpopulardata] = useState([])
+  const [photovideo, setphotovideo] = useState([])
 
   const handelvideophotographer = async () => {
     try {
@@ -123,12 +124,23 @@ const SuppliersAdmin = () => {
     settrenddata(filtertrenddata)
     console.log(removetrendresponse)
   }
-  let removepopularcard= async (id)=>{
-    let removeidsend = await fetch(`http://localhost:3000/removepopular/${id}`,{
-      method:"DELETE"
+  let removepopularcard = async (id) => {
+    let removeidsend = await fetch(`http://localhost:3000/removepopular/${id}`, {
+      method: "DELETE"
     })
     let getremoveid = await removeidsend.json()
+    let filterpopulardata = populardata.filter(item => item._id !== id)
+    setpopulardata(filterpopulardata)
     console.log(getremoveid)
+  }
+  let removephotovideo = async (id) => {
+    let removepv = await fetch(`http://localhost:3000/pvdeleted/${id}`,{
+      method:"DELETE"
+    })
+    let pvresponse = await removepv.json()
+    let pvfilter = photovideo.filter(item=>item._id!==id)
+    setphotovideo(pvfilter)
+    console.log(pvresponse)
   }
 
   useEffect(() => {
@@ -154,6 +166,14 @@ const SuppliersAdmin = () => {
       console.log(getresponse)
     }
     fetchpopulardata()
+
+    let fetchphotovideo = async () => {
+      let getphotovideo = await fetch("http://localhost:3000/apivideophotographer")
+      let photovideoresponse = await getphotovideo.json()
+      setphotovideo(photovideoresponse)
+      console.log(photovideoresponse)
+    }
+    fetchphotovideo()
   }, [])
 
 
@@ -317,7 +337,7 @@ const SuppliersAdmin = () => {
                 <div key={index} className="card">
 
                   {/* Remove Button */}
-                  <button onClick={()=>removepopularcard(item._id)} className="remove-btnes">×</button>
+                  <button onClick={() => removepopularcard(item._id)} className="remove-btnes">×</button>
 
                   <img src={item.image} alt="popular" />
                   <h3>{item.venuename}</h3>
@@ -376,15 +396,15 @@ const SuppliersAdmin = () => {
           <div className="admin-card-display">
 
             {
-              supplydata.map((item, index) => (
+              photovideo.map((item, index) => (
                 <div key={index} className="card">
 
                   {/* Remove Button */}
-                  <button className="remove-btnes">×</button>
+                  <button onClick={() => removephotovideo(item._id)} className="remove-btnes">×</button>
 
-                  <img src={item.Image} alt="video" />
-                  <h3>{item.title}</h3>
-                  <p>{item.location}</p>
+                  <img src={item.videoimage} alt="video" />
+                  <h3>{item.videoname}</h3>
+                  <p>{item.videolocation}</p>
 
                 </div>
               ))
