@@ -41,6 +41,7 @@ const HomeAdmin = () => {
       });
 
       let data = await response.json();
+      alert("data add successfully")
       console.log(data);
     } catch (error) {
       console.error("Error adding category:", error);

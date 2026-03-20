@@ -11,7 +11,7 @@
     justify-content: center;
     flex-direction: column;
     height: 70vh;
-    background-image: url(../assets/company\ intro.jpg);
+    background-image: url(../assets//background.avif);
     background-size: cover;
     background-position: center;
     text-align: center; /* add this */

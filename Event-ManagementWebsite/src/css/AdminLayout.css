@@ -1,14 +1,72 @@
+/* Page Layout */
 .admin-page {
   display: flex;
   min-height: 100vh;
 }
 
+/* Sidebar space handle */
+.admin-page .sidebar {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+/* Right side */
 .admin-right {
   flex: 1;
   display: flex;
   flex-direction: column;
+  margin-left: 240px; /* ✅ IMPORTANT */
+  transition: 0.3s;
 }
 
+/* Content */
 .admin-content {
   padding: 24px;
+}
+
+
+/* =========================
+   📱 Tablet (<= 992px)
+========================= */
+@media (max-width: 992px) {
+
+  .admin-page .sidebar {
+    width: 200px;
+  }
+
+  .admin-right {
+    margin-left: 200px;
+  }
+
+}
+
+
+/* =========================
+   📱 Mobile (<= 600px)
+========================= */
+@media (max-width: 600px) {
+
+  /* Sidebar overlay mode */
+  .admin-page .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    z-index: 1000;
+  }
+
+  .admin-page .sidebar.active {
+    left: 0;
+  }
+
+  /* Remove margin */
+  .admin-right {
+    margin-left: 0;
+  }
+
+  .admin-content {
+    padding: 16px;
+  }
+
 }

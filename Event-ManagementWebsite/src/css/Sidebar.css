@@ -1,63 +1,100 @@
-/* Default (Desktop) */
+/* ===== Sidebar Base ===== */
 .sidebar {
   width: 240px;
+  height: 100vh;
   background: #fff;
   border-right: 1px solid #ddd;
   padding: 24px;
-  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.3s ease;
+  z-index: 1000;
 }
 
+/* Logo */
+.logo {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* Nav */
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .sidebar a {
   text-decoration: none;
   color: #6a0dad;
   font-weight: 500;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.sidebar a:hover {
+  background: #f2f2f2;
 }
 
 .sidebar a.active {
-  color: #000;
+  background: #000;
+  color: #fff;
 }
 
 
-/* 📱 Tablet (<= 768px) */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-    padding: 16px;
-  }
-}
+/* ===== Menu Button ===== */
 .menu-btn {
   display: none;
   font-size: 22px;
-  background: none;
+  background: #000;
+  color: #fff;
   border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  margin: 10px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
   z-index: 1100;
 }
+
+
+/* =========================
+   📱 Tablet (<= 768px)
+========================= */
+@media (max-width: 768px) {
+
+  .sidebar {
+    width: 200px;
+    padding: 20px;
+  }
+
+}
+
+
+/* =========================
+   📱 Mobile (<= 500px)
+========================= */
 @media (max-width: 500px) {
 
+  /* Show menu button */
   .menu-btn {
     display: block;
   }
 
+  /* Hide sidebar by default */
   .sidebar {
-    position: fixed;
     left: -100%;
-    top: 0;
     width: 220px;
-    height: 100vh;
     background: #fff;
-    transition: 0.3s;
-    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.2);
   }
 
+  /* Active state */
   .sidebar.active {
     left: 0;
   }
+
 }

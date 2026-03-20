@@ -181,7 +181,6 @@ const SuppliersAdmin = () => {
     <div className="admin-wrapper">
       <div className="admin-header">
         <h2>Suppliers Categories</h2>
-        <button className="save-btn">Save Changes</button>
       </div>
       <div className="admin-category">
         <div className="add-row">
@@ -230,7 +229,7 @@ const SuppliersAdmin = () => {
 
       <div className="card-list-section">
 
-        <h3 className="section-title">Trending Designers</h3>
+        <h3 className="section-titles">Trending Designers</h3>
 
         <div className="admin-card-trend">
 

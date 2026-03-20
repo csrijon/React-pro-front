@@ -18,13 +18,13 @@ const Sidebar = () => {
         <h2 className="logo">Dashboard</h2>
 
         <nav>
-          <NavLink to="/admin">Dashboard</NavLink>
-          <NavLink to="/admin/home">Home</NavLink>
-          <NavLink to="/admin/venu">Venues</NavLink>
-          <NavLink to="/admin/supply">Suppliers</NavLink>
-          <NavLink to="/admin/aboutadmin">About</NavLink>
-          <NavLink to="/admin/mediaadmin">Media</NavLink>
-          <NavLink to="/admin/contactadmin">Contact</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin">Dashboard</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/home">Home</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/venu">Venues</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/supply">Suppliers</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/aboutadmin">About</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/mediaadmin">Media</NavLink>
+          <NavLink onClick={() => setOpen(false)} to="/admin/contactadmin">Contact</NavLink>
         </nav>
       </aside>
     </>
