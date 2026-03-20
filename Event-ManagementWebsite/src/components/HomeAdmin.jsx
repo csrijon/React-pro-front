@@ -3,7 +3,7 @@ import "../css/HomeAdmin.css";
 // import data from "../Latestdata"
 
 const HomeAdmin = () => {
-  const [locations] = useState(["Delhi", "Mumbai", "Bangalore"]);
+
   const [videoTitle, setVideoTitle] = useState("");
   const [videoimage, setVideoImage] = useState("");
   const [categoryName, setCategoryName] = useState("");
@@ -83,61 +83,36 @@ const HomeAdmin = () => {
 
 
   return (
-    <div className="admin-wrappers">
-      {/* ================= HERO SECTION ================= */}
-      <div className="admin-headers">
-        <h2>Hero Section</h2>
-        <button className="save-btns">Save Changes</button>
-      </div>
-
-      <div className="fields">
-
-        <div className="admin-cards">
-          <h3>Locations</h3>
-
-          <div className="add-rows">
-            <input placeholder="Add location" />
-            <button>Add</button>
-          </div>
-
-          <div className="pill-groups">
-            {locations.map((l, i) => (
-              <span className="pills" key={i}>
-                {l} <button>×</button>
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
+    <div className="admin-wrapper-hero">
 
       {/* ================= Feature Categories ================= */}
-      <div className="admin-headers">
+      <div className="admin-header-hero">
         <h2>Browse by Category</h2>
       </div>
 
-      <div className="admin-cards">
+      <div className="admin-card-hero">
         <h3>Add Category Card</h3>
 
-        <div className="add-rows">
+        <div className="add-row-hero">
           <input placeholder="Category name" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} />
-          <label className="upload-btns">
+          <label className="upload-btns-hero">
             Upload Image
             <input type="file" accept="image/*" onChange={(e) => setCategoryImage(e.target.files[0])} hidden />
           </label>
           <button onClick={handelcategoryadd}>Add</button>
         </div>
 
-        <div className="card-lists">
-          <div className="admin-card-lists">
+        <div className="card-list-hero">
+          <div className="admin-card-lists-hero">
             {response.map((cat, _id) => (
-              <div className="admin-card-item" key={_id}>
+              <div className="admin-card-item-hero" key={_id}>
 
-                <button onClick={()=>handeldelete(cat._id)} className="admin-delete-btn">
+                <button onClick={()=>handeldelete(cat._id)} className="admin-delete-btn-hero">
                   ✕
                 </button>
 
-                <img className="admin-card-img" src={cat.Image} alt="category" />
-                <p className="admin-card-text">{cat.title}</p>
+                <img className="admin-card-img-hero" src={cat.Image} alt="category" />
+                <p className="admin-card-text-hero">{cat.title}</p>
 
               </div>
             ))}
@@ -147,18 +122,18 @@ const HomeAdmin = () => {
 
 
       {/* ================= FEATURED VIDEOS ================= */}
-      <div className="admin-headers">
+      <div className="admin-header-hero">
         <h2>Featured Videos</h2>
       </div>
 
-      <div className="admin-cards">
+      <div className="admin-card-hero">
         <h3>Add Featured Video</h3>
 
-        <div className="add-row">
+        <div className="add-row-hero">
           <input value={videoTitle} onChange={(e) => setVideoTitle(e.target.value)} placeholder="Video title" />
           <input placeholder="Short description" />
 
-          <label className="upload-btns">
+          <label className="upload-btns-hero">
             Upload Thumbnail
             <input type="file" onChange={(e) => setVideoImage(e.target.files[0])} accept="image/*" hidden />
           </label>
@@ -166,13 +141,13 @@ const HomeAdmin = () => {
           <button onClick={handleAddVideo}>Add</button>
         </div>
 
-        <div className="card-lists">
+        <div className="card-list-hero">
 
-          <div className="card-items">
+          <div className="card-items-hero">
           </div>
 
           {/* CARD 2 */}
-          <div className="card-items">
+          <div className="card-items-hero">
           </div>
         </div>
       </div>

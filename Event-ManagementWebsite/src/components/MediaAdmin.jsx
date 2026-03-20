@@ -27,6 +27,15 @@ const MediaAdmin = () => {
       console.log(error, "this the error reason i dont know")
     }
   }
+  let removemedia = async (id) => {
+    let removemedia = await fetch(`http://localhost:3000/mediadelete/${id}`,{
+      method:"DELETE"
+    })
+    let mediares = await removemedia.json()
+    let mediafilterdata = mediadata.filter(item=>item._id !==id)
+    setmediadata(mediafilterdata)
+    console.log(mediares)
+  }
 
   useEffect(() => {
     let getmediadata = async () => {
@@ -70,7 +79,7 @@ const MediaAdmin = () => {
 
         <div className="media-admin-list">
           {
-            mediadata.map((item,index) => (
+            mediadata.map((item, index) => (
               <div key={index} className="media-admin-item">
                 <img loading="lazy" src={item.image} alt="media" />
 
@@ -81,7 +90,7 @@ const MediaAdmin = () => {
                 </div>
 
                 <div className="actions">
-                  <button className="remove-btn">×</button>
+                  <button onClick={()=>removemedia(item._id)} className="remove-btn">×</button>
                 </div>
               </div>
             ))

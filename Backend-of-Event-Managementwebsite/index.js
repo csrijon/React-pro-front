@@ -54,6 +54,8 @@ app.use("/removepopular",PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
 app.use("/deletesupply",supply)
+app.use("/pvdeleted",Photographvideoroute)
+app.use("/mediadelete",Mediaroute)
 
 
 app.get("/", (req, res) => {

@@ -40,4 +40,16 @@ router.get("/", async (req, res) => {
 }
 )
 
+router.delete("/:id", async (req,res) => {
+  try {
+    let pvid = req.params.id
+    console.log(pvid)
+    await PhotographvideorouteModel.findByIdAndDelete(pvid)
+    res.status(200).json({mess:"data is remove from pv model"})
+  } catch (error) {
+    res.status(500).json({mess:"data is not delete from pv model"})
+  }
+}
+)
+
 export default router

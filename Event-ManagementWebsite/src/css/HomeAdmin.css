@@ -3,20 +3,20 @@
   --card-bg:#fff;
 }
 
-/* WRAPPER */
 
-.admin-wrappers{
+
+.admin-wrapper-hero{
   background:var(--admin-bg);
   padding:30px;
 }
-.admin-card-lists {
+.admin-card-lists-hero {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   margin-top: 20px;
 }
 
-.admin-card-item {
+.admin-card-item-hero {
   position: relative;
   width: 150px;
   border-radius: 12px;
@@ -27,22 +27,19 @@
   transition: 0.3s;
 }
 
-.admin-card-item:hover {
-  transform: scale(1.05);
-}
 
-.admin-card-img {
+.admin-card-img-hero {
   width: 100%;
   height: 100px;
   object-fit: cover;
 }
 
-.admin-card-text {
+.admin-card-text-hero {
   padding: 8px;
   font-size: 14px;
 }
 
-.admin-delete-btn {
+.admin-delete-btn-hero {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -57,12 +54,12 @@
   z-index: 2;
 }
 
-.admin-delete-btn:hover {
+.admin-delete-btn-hero:hover {
   background: darkred;
 }
 /* HEADER */
 
-.admin-headers{
+.admin-header-hero{
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -71,80 +68,36 @@ padding:16px 24px;
 border-radius:6px;
 }
 
-.admin-headers h2{
+.admin-header-hero h2{
 color:#fff;
 margin:0;
 }
 
-.save-btns{
-background:#000;
-color:#fff;
-padding:10px 22px;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
 
-/* GRID */
-
-/* .admin-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:24px;
-} */
-
-/* CARD */
-
-.admin-cards{
+.admin-card-hero{
   background:var(--card-bg);
   border-radius:10px;
   padding:20px;
   box-shadow:0 8px 24px rgba(0,0,0,0.05);
 }
 
-.admin-cards h3{
+.admin-card-hero h3{
   margin-bottom:16px;
   font-size:15px;
   font-weight:600;
 }
 
-/* FIELD */
-
-.fields{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  margin-bottom:14px;
-}
-
-.field label{
-  font-size:13px;
-  color:#555;
-}
-
-.field input{
-  padding:10px 12px;
-  border-radius:6px;
-  border:1px solid #ddd;
-  width:100%;
-}
-
-/* ADD ROW */
-
-.add-rows{
-  /* display:flex; */
+.add-row-hero{
   gap:10px;
   margin-bottom:14px;
 }
-
-.add-rows input{
+.add-row-hero input{
   flex:1;
   padding:10px 12px;
   border-radius:6px;
   border:1px solid #ddd;
 }
-
-.add-rows button{
+.add-row-hero button{
   background:#000;
   color:#fff;
   border-radius:6px;
@@ -153,41 +106,14 @@ cursor:pointer;
   cursor:pointer;
 }
 
-/* PILLS */
-
-.pill-groups{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-
-.pills{
-  background:#f1f1f1;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:13px;
-  display:flex;
-  align-items:center;
-  gap:6px;
-}
-
-.pill button{
-  background:none;
-  border:none;
-  cursor:pointer;
-  font-size:14px;
-}
-
-/* CARD LIST */
-
-.card-lists{
+.card-list-hero{
   display:flex;
   flex-direction:column;
   gap:14px;
   margin-top:16px;
 }
 
-.card-items{
+.card-items-hero{
   display:grid;
   grid-template-columns:80px 1fr auto;
   align-items:center;
@@ -199,7 +125,7 @@ cursor:pointer;
 
 /* IMAGE */
 
-.card-items img{
+.card-items-hero img{
   width:70px;
   height:70px;
   object-fit:cover;
@@ -208,7 +134,7 @@ cursor:pointer;
 
 /* INPUT */
 
-.card-items input{
+.card-items-hero input{
   padding:8px 10px;
   border-radius:6px;
   border:1px solid #ccc;
@@ -217,124 +143,107 @@ cursor:pointer;
 
 /* BUTTONS */
 
-.upload-btns{
+.upload-btns-hero{
   padding:10px 14px;
   background:#eee;
   border-radius:6px;
   cursor:pointer;
 }
 
-.icon-btns{
-  padding:8px 10px;
-  background:#ddd;
-  border-radius:6px;
-  font-size:13px;
-  cursor:pointer;
-}
+/* =========================
+   📱 Tablet (<= 768px)
+========================= */
+@media (max-width: 768px) {
 
-.remove-btns{
-  background:#ffdddd;
-  border:none;
-  padding:8px 10px;
-  border-radius:6px;
-  cursor:pointer;
-}
+  .admin-wrapper-hero {
+    padding: 20px;
+  }
 
-/* CARD FIELDS */
+  .admin-header-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
 
-.card-fields{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+  .admin-card-item-hero {
+    width: 45%; /* 2 cards per row */
+  }
 
-.card-fields input,
-.card-fields textarea{
-  padding:8px 10px;
-  border-radius:6px;
-  border:1px solid #ccc;
-  font-size:14px;
-  width:100%;
-}
+  .card-items-hero {
+    grid-template-columns: 60px 1fr;
+    gap: 10px;
+  }
 
-/* ============================= */
-/* TABLET RESPONSIVE */
-/* ============================= */
-
-@media (max-width:1024px){
-
-.admin-grid{
-grid-template-columns:1fr 1fr;
-}
-
-.admin-wrappers{
-padding:20px;
-}
+  .card-items-hero img {
+    width: 60px;
+    height: 60px;
+  }
 
 }
 
-/* ============================= */
-/* MOBILE RESPONSIVE */
-/* ============================= */
 
-@media (max-width:768px){
+/* =========================
+   📱 Mobile (<= 500px)
+========================= */
+@media (max-width: 500px) {
 
-.admin-grid{
-grid-template-columns:1fr;
+  .admin-wrapper-hero {
+    padding: 15px;
+  }
+
+  /* Header */
+  .admin-header-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .admin-header-hero h2 {
+    font-size: 16px;
+  }
+
+  /* Cards Grid */
+  .admin-card-lists-hero {
+    justify-content: flex-start;
+  }
+
+  .admin-card-item-hero {
+    width: 100%; /* full width */
+  }
+
+  .admin-card-img-hero {
+    height: 140px;
+  }
+
+  /* Form inputs */
+  .add-row-hero {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .add-row-hero input {
+    width: 100%;
+  }
+
+  .add-row-hero button {
+    width: 100%;
+  }
+
+  /* Card items (edit section) */
+  .card-items-hero {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .card-items-hero img {
+    width: 100%;
+    height: 120px;
+  }
+
+  .upload-btns-hero {
+    text-align: center;
+  }
+
 }
 
-.admin-headers{
-flex-direction:column;
-gap:12px;
-align-items:flex-start;
-}
 
-.save-btns{
-width:100%;
-}
-
-.add-rows{
-flex-direction:column;
-}
-
-.add-rows button{
-width:100%;
-}
-
-.card-items{
-grid-template-columns:1fr;
-text-align:left;
-}
-
-.card-items img{
-width:100%;
-height:160px;
-}
-
-.upload-btns,
-.icon-btns,
-.remove-btns{
-width:100%;
-}
-
-}
-
-/* ============================= */
-/* SMALL MOBILE */
-/* ============================= */
-
-@media (max-width:480px){
-
-.admin-wrappers{
-padding:16px;
-}
-
-.admin-headers h2{
-font-size:18px;
-}
-
-.fields input{
-font-size:14px;
-}
-
-}
