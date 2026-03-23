@@ -55,7 +55,7 @@ const Header = () => {
               <motion.li variants={item}    ><NavLink to="/About" onClick={() => setMenuOpen(false)}>About</NavLink></motion.li>
               <motion.li variants={item}    ><NavLink to="/Media" onClick={() => setMenuOpen(false)}>Media</NavLink></motion.li>
               <motion.li variants={item}    ><NavLink to="/Contact" onClick={() => setMenuOpen(false)}>Contact</NavLink></motion.li>
-              <motion.li variants={item}    ><NavLink to="/PastCategory" onClick={() => setMenuOpen(false)}>Past Category</NavLink></motion.li>
+              <motion.li variants={item}    ><NavLink to="/PastCategory" onClick={() => setMenuOpen(false)}>Past Event</NavLink></motion.li>
             </motion.ul>
           </div>
 

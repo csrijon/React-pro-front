@@ -1,4 +1,4 @@
-import "../css/Featuresection.css"
+import "../../css/Featuresection.css"
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import BusinessIcon from '@mui/icons-material/Business';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';

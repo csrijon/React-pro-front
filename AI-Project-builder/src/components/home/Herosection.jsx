@@ -1,5 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import "../css/Herosection.css"
+import "../../css/Herosection.css"
 
 
 const Herosection = () => {

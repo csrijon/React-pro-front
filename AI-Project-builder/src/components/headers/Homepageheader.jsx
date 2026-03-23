@@ -1,5 +1,6 @@
-import "../css/Header.css"
-import logo from "../assets/logo.png"
+import "../../css/Header.css"
+// import logo from "../../assets/logo.png"
+import Logo from "../common/Logo"
 
 const Header=()=>{
     return(
@@ -7,10 +8,7 @@ const Header=()=>{
        <header className="Header" >
         <div className="container">
         <div className="Navbar">
-            <div className="first-Nav">
-                <img src={logo} alt="logo" />
-                 <p>Note-GTP</p>
-            </div>
+            <Logo/>
             <div className="secend-Nav">
                 <ul>
                     <li><a href="">Features</a></li>

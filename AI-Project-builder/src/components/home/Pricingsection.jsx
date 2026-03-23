@@ -1,4 +1,4 @@
-import "../css/Pricingsection.css"
+import "../../css/Pricingsection.css"
 
 
 const Pricingsection = () => {

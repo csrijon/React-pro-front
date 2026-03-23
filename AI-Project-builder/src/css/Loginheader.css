@@ -1,0 +1,41 @@
+/* Main header */
+.login-header {
+    width: 100%;
+    background: #101122;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(12px);
+}
+
+/* Flex header */
+.login-header .login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+/* Right side menu */
+.secend-login-header ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    align-items: center;
+}
+
+/* Menu links */
+.secend-login-header ul li a {
+    text-decoration: none;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+}
+
+.secend-login-header ul li a:hover {
+    color: #6467f2;
+}
+
+/* Make header sticky */

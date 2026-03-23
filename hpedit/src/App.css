@@ -1,31 +1,42 @@
+
+
 #root {
   width: 100%;
   margin: 0 auto;
   /* padding: 2rem; */
   text-align: center;
+
 }
 
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
-  background-color: #f4f2ef; /* Off-white background for the page */
+  font-family: "Space Grotesk", sans-serif;
+  background-color: #f4f2ef;
+  /* Off-white background for the page */
   color: #333;
 }
 
 * {
   box-sizing: border-box;
 }
+
 /* src/App.css */
 
 .scroll-snap-container {
   /* height: 100vh;  */
   /* overflow-y: scroll;  */
-  scroll-snap-type: y mandatory; /* Snap vertically, mandatory snap */
-  scroll-behavior: smooth; /* Smooth scrolling between sections */
+  scroll-snap-type: y mandatory;
+  /* Snap vertically, mandatory snap */
+  scroll-behavior: smooth;
+  /* Smooth scrolling between sections */
 }
+
 .scroll-section {
   width: 100%;
-  scroll-snap-align: start; /* Snap to the beginning of the element */
-  position: relative; /* For positioning content within the section if needed */
-  overflow: auto; /* Allows scrolling within a section if content is larger than the viewport */
+  scroll-snap-align: start;
+  /* Snap to the beginning of the element */
+  position: relative;
+  /* For positioning content within the section if needed */
+  overflow: auto;
+  /* Allows scrolling within a section if content is larger than the viewport */
 }
