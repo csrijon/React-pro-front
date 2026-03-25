@@ -1,0 +1,12 @@
+.SIgnuppage-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+.SIgnuppage-footer .material-symbols-outlined{
+    color: #6467f2;
+    cursor: pointer;
+}

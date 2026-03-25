@@ -3,11 +3,10 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Sign In - AI Project Builder</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -26,84 +25,107 @@
             },
         }
     </script>
-<style>
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-        }
-    </style>
+<title>Register | AI Project Builder</title>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
-<header class="w-full flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4">
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between border-b border-slate-200 dark:border-primary/20 px-6 py-4 lg:px-20">
 <div class="flex items-center gap-3">
-<div class="bg-primary p-2 rounded">
-<span class="material-symbols-outlined text-white text-xl block">deployed_code</span>
+<div class="size-8 bg-primary flex items-center justify-center rounded-lg text-white">
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
 </div>
-<h1 class="text-xl font-bold tracking-tight">AI Project Builder</h1>
+<h2 class="text-xl font-bold leading-tight tracking-tight">AI Project Builder</h2>
 </div>
-<nav>
+<div class="hidden md:flex items-center gap-6">
 <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Documentation</a>
-</nav>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+</div>
 </header>
-<main class="flex-1 flex items-center justify-center p-6">
-<div class="w-full max-w-md bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-8 rounded-xl shadow-2xl">
-<div class="flex flex-col gap-2 mb-8">
-<h2 class="text-3xl font-black tracking-tight">Sign In</h2>
-<p class="text-slate-500 dark:text-slate-400">Welcome back! Please enter your details.</p>
+<!-- Main Content Container -->
+<main class="flex flex-1 items-center justify-center py-12 px-6">
+<div class="w-full max-w-[480px] flex flex-col gap-8">
+<!-- Header Text -->
+<div class="flex flex-col gap-3">
+<h1 class="text-4xl font-bold leading-tight tracking-tight lg:text-5xl">Create account</h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg">Start building your next AI project in minutes.</p>
 </div>
-<form action="#" class="space-y-6">
-<div class="space-y-2">
-<label class="text-sm font-medium block" for="email">Email</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
-<input class="w-full pl-12 pr-4 py-3 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="email" name="email" placeholder="name@company.com" type="email"/>
+<!-- Registration Form -->
+<form class="flex flex-col gap-5" onsubmit="return false;">
+<!-- Full Name -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Full Name</label>
+<input class="w-full rounded-lg border-none bg-slate-200/50 dark:bg-primary/10 p-4 text-base focus:ring-2 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="John Doe" type="text"/>
 </div>
+<!-- Email -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Email Address</label>
+<input class="w-full rounded-lg border-none bg-slate-200/50 dark:bg-primary/10 p-4 text-base focus:ring-2 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="name@company.com" type="email"/>
 </div>
-<div class="space-y-2">
-<div class="flex items-center justify-between">
-<label class="text-sm font-medium block" for="password">Password</label>
-<a class="text-xs text-primary font-semibold hover:underline" href="#">Forgot password?</a>
-</div>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
-<input class="w-full pl-12 pr-4 py-3 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="password" name="password" placeholder="••••••••" type="password"/>
-</div>
-</div>
-<div class="flex items-center gap-2">
-<input class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" id="remember" type="checkbox"/>
-<label class="text-sm text-slate-500 dark:text-slate-400" for="remember">Remember for 30 days</label>
-</div>
-<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded transition-all flex items-center justify-center gap-2" type="submit">
-<span>Sign In</span>
-<span class="material-symbols-outlined text-lg">login</span>
+<!-- Password -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Password</label>
+<div class="relative flex items-center">
+<input class="w-full rounded-lg border-none bg-slate-200/50 dark:bg-primary/10 p-4 pr-12 text-base focus:ring-2 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="Create a strong password" type="password"/>
+<button class="absolute right-4 text-slate-400 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
 </button>
-<div class="relative py-4">
-<div class="absolute inset-0 flex items-center">
-<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
-</div>
-<div class="relative flex justify-center text-xs uppercase">
-<span class="bg-white dark:bg-[#101122] px-2 text-slate-500">Or continue with</span>
 </div>
 </div>
-<div class="grid grid-cols-2 gap-4">
-<button class="flex items-center justify-center gap-2 py-2 px-4 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" type="button">
-<img alt="Google Logo" class="w-4 h-4" data-alt="Google colorful G logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcXsy-a9oB1Ht6d2YmiIGp7Vg3wGQuuHWSD8clElupMiEvv99wH2OOAL_UIn4b_b0s63VnC5CbAQeyz1ykSkM_UnWXA5vNdoHHnIMejrP-Dvl475UE7Qyx02Qj5cRUYAJrCWNVrEIr_6sHPXDYm0mvzJozzig62JygQ85h5sgWsTya-k2E2hGLYUWVkyMx94vuwtJnEZSU4vy6XWpJgAFBsQuxLG4KhibYqaftgRkt3weJguMf_rNIh9RMF2DTTtGitxwuft4sggY"/>
+<!-- Confirm Password -->
+<div class="flex flex-col gap-2">
+<label class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Confirm Password</label>
+<div class="relative flex items-center">
+<input class="w-full rounded-lg border-none bg-slate-200/50 dark:bg-primary/10 p-4 pr-12 text-base focus:ring-2 focus:ring-primary placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="Repeat your password" type="password"/>
+<button class="absolute right-4 text-slate-400 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-4 w-full rounded-lg bg-primary px-8 py-4 text-lg font-bold text-white transition-opacity hover:opacity-90 active:scale-[0.98]" type="submit">
+                            Create Account
+                        </button>
+</form>
+<!-- Footer Links -->
+<div class="flex flex-col items-center gap-6">
+<div class="flex items-center gap-4 w-full">
+<div class="h-[1px] flex-1 bg-slate-200 dark:bg-primary/20"></div>
+<span class="text-xs uppercase tracking-widest text-slate-400">Or continue with</span>
+<div class="h-[1px] flex-1 bg-slate-200 dark:bg-primary/20"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 w-full">
+<button class="flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-primary/20 py-3 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors">
+<img alt="Google" class="size-5" data-alt="Google logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcU3owhwe66KRXB-tDb8fezwyC2hIOX6KIA3mU72NkbuZ0WgGIkBr9j5NRhrUwqJIAtxJX7NlzgbDwp_4-EtbYckHUMz1y6BVqMqu1CNjN6GP8A68OGKhc4PGXS1eMYCXEqV9VBt6s0CCC2R2U8D58nWpJ6E3RFbW1XANCK3l-T1snaFBkYmREXYs7jRPa2Lh3RvmAvz1plrAMyLB9c0QC3JbUfaRs_LXmcNkuWU5IXULzu28s0n5qK6v6k3dLyGhUS8J86P-EUVM"/>
 <span class="text-sm font-medium">Google</span>
 </button>
-<button class="flex items-center justify-center gap-2 py-2 px-4 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" type="button">
-<img alt="Github Logo" class="w-4 h-4 dark:invert" data-alt="Github octocat black logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0PFRWexclUgBBKxk6o5cxpzqvQE4oK3TRgtoCk6lgthSjegbx2zXaryjsIyipd8QSXi5-SRLo7HFs5XfYrWOcyAOwwIzGddemG0bfgJ4hfhUhR5vPz9D8ip6vlyRf5Bw2jr3vRrftyf7XSlmmsvosnVswHZQhZ09p1LI6QmCZRXlUgkBf415F5dT1vcZ6fhD1smrlkjjdvTax3I8BMFBCsxNSXTTPRh8gK8zkwychzK2px949a9RpYmy59fyYtXtTNTBTIifu_i8"/>
+<button class="flex items-center justify-center gap-2 rounded-lg border border-slate-200 dark:border-primary/20 py-3 hover:bg-slate-100 dark:hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-xl">terminal</span>
 <span class="text-sm font-medium">GitHub</span>
 </button>
 </div>
-</form>
-<div class="mt-8 text-center">
-<p class="text-sm text-slate-500 dark:text-slate-400">
-                    Don't have an account? 
-                    <a class="text-primary font-bold hover:underline ml-1" href="#">Create an account</a>
+<p class="text-slate-600 dark:text-slate-400 text-base">
+                            Already have an account? 
+                            <a class="font-bold text-primary hover:underline" href="#">Log in</a>
 </p>
 </div>
+<!-- Terms -->
+<p class="text-center text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+                        By creating an account, you agree to our 
+                        <a class="underline" href="#">Terms of Service</a> and 
+                        <a class="underline" href="#">Privacy Policy</a>.
+                    </p>
 </div>
 </main>
-<footer class="p-6 text-center text-slate-500 dark:text-slate-500 text-xs">
-<p>© 2024 AI Project Builder. All rights reserved. <a class="hover:text-primary mx-2" href="#">Privacy Policy</a> <a class="hover:text-primary mx-2" href="#">Terms of Service</a></p>
+<!-- Bottom decorative element -->
+<footer class="p-8 flex justify-center opacity-30">
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary">deployed_code</span>
+<span class="material-symbols-outlined text-primary">memory</span>
+<span class="material-symbols-outlined text-primary">data_object</span>
+</div>
 </footer>
+</div>
+</div>
 </body></html>
