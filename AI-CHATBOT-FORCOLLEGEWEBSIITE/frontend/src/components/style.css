@@ -1,0 +1,36 @@
+.chat-container {
+  width: 400px;
+  margin: 40px auto;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background: #bb2828;
+}
+
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: rgb(124, 240, 175);
+}
+
+.chat-box p {
+  margin: 5px 0;
+}
+
+input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 5px;
+}
+
+button {
+  padding: 8px 15px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}

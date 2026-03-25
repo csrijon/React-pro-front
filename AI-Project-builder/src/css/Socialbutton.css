@@ -1,0 +1,19 @@
+.social-btn {
+  width: 100%;
+  padding: 16px 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #eaeaea;
+  background: transparent;
+  border: 1px solid #334155 ;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  backdrop-filter: blur(6px);
+}
+
+
+.social-text {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+}

@@ -3,7 +3,7 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AI Project Builder - Generate Full-Stack Apps Instantly</title>
+<title>Sign In - AI Project Builder</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -19,7 +19,7 @@
                         "background-dark": "#101122",
                     },
                     fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"]
+                        "display": ["Space Grotesk"]
                     },
                     borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
                 },
@@ -30,175 +30,80 @@
         body {
             font-family: 'Space Grotesk', sans-serif;
         }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased transition-colors duration-300">
-<!-- Top Navigation Bar -->
-<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex h-16 items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="flex h-8 w-8 items-center justify-center rounded bg-primary text-white">
-<span class="material-symbols-outlined">auto_awesome</span>
-</div>
-<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">AI Project Builder</span>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Features</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Docs</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Pricing</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">GitHub</a>
-</nav>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<header class="w-full flex items-center justify-between border-b border-slate-200 dark:border-slate-800 px-6 py-4">
 <div class="flex items-center gap-3">
-<button class="hidden sm:flex px-4 py-2 text-sm font-bold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors">
-                        Login
-                    </button>
-<button class="flex px-5 py-2 text-sm font-bold text-white bg-primary hover:opacity-90 rounded shadow-sm transition-all">
-                        Sign Up
-                    </button>
+<div class="bg-primary p-2 rounded">
+<span class="material-symbols-outlined text-white text-xl block">deployed_code</span>
 </div>
+<h1 class="text-xl font-bold tracking-tight">AI Project Builder</h1>
 </div>
-</div>
+<nav>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">Documentation</a>
+</nav>
 </header>
-<main>
-<!-- Hero Section -->
-<section class="relative overflow-hidden pt-16 pb-20 lg:pt-24 lg:pb-32">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-<div class="flex flex-col gap-8">
-<div class="space-y-4">
-<h1 class="text-5xl lg:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-                                Generate <span class="text-primary">Full-Stack</span> Projects With AI
-                            </h1>
-<p class="text-lg lg:text-xl text-slate-600 dark:text-slate-400 max-w-xl">
-                                Transform your ideas into production-ready code instantly with our advanced AI engine. Stop boilerplate fatigue and start building.
-                            </p>
+<main class="flex-1 flex items-center justify-center p-6">
+<div class="w-full max-w-md bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 p-8 rounded-xl shadow-2xl">
+<div class="flex flex-col gap-2 mb-8">
+<h2 class="text-3xl font-black tracking-tight">Sign In</h2>
+<p class="text-slate-500 dark:text-slate-400">Welcome back! Please enter your details.</p>
 </div>
-<!-- Prompt Input Box -->
-<div class="w-full max-w-2xl">
-<div class="flex flex-col sm:flex-row gap-3 p-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-xl">
-<div class="flex-1 flex items-center gap-3 px-3">
-<span class="material-symbols-outlined text-slate-400">terminal</span>
-<input class="w-full border-none bg-transparent focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-400 py-3" placeholder="Create a MERN blog app with authentication and dashboard" type="text"/>
+<form action="#" class="space-y-6">
+<div class="space-y-2">
+<label class="text-sm font-medium block" for="email">Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">mail</span>
+<input class="w-full pl-12 pr-4 py-3 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="email" name="email" placeholder="name@company.com" type="email"/>
 </div>
-<button class="bg-primary text-white font-bold px-6 py-3 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
-<span>Generate Project</span>
-<span class="material-symbols-outlined text-sm">bolt</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="text-sm font-medium block" for="password">Password</label>
+<a class="text-xs text-primary font-semibold hover:underline" href="#">Forgot password?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg">lock</span>
+<input class="w-full pl-12 pr-4 py-3 rounded border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none" id="password" name="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<input class="rounded border-slate-300 dark:border-slate-700 text-primary focus:ring-primary bg-transparent" id="remember" type="checkbox"/>
+<label class="text-sm text-slate-500 dark:text-slate-400" for="remember">Remember for 30 days</label>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded transition-all flex items-center justify-center gap-2" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-lg">login</span>
+</button>
+<div class="relative py-4">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-slate-800"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-white dark:bg-[#101122] px-2 text-slate-500">Or continue with</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 py-2 px-4 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" type="button">
+<img alt="Google Logo" class="w-4 h-4" data-alt="Google colorful G logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcXsy-a9oB1Ht6d2YmiIGp7Vg3wGQuuHWSD8clElupMiEvv99wH2OOAL_UIn4b_b0s63VnC5CbAQeyz1ykSkM_UnWXA5vNdoHHnIMejrP-Dvl475UE7Qyx02Qj5cRUYAJrCWNVrEIr_6sHPXDYm0mvzJozzig62JygQ85h5sgWsTya-k2E2hGLYUWVkyMx94vuwtJnEZSU4vy6XWpJgAFBsQuxLG4KhibYqaftgRkt3weJguMf_rNIh9RMF2DTTtGitxwuft4sggY"/>
+<span class="text-sm font-medium">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-2 px-4 border border-slate-200 dark:border-slate-700 rounded hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" type="button">
+<img alt="Github Logo" class="w-4 h-4 dark:invert" data-alt="Github octocat black logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0PFRWexclUgBBKxk6o5cxpzqvQE4oK3TRgtoCk6lgthSjegbx2zXaryjsIyipd8QSXi5-SRLo7HFs5XfYrWOcyAOwwIzGddemG0bfgJ4hfhUhR5vPz9D8ip6vlyRf5Bw2jr3vRrftyf7XSlmmsvosnVswHZQhZ09p1LI6QmCZRXlUgkBf415F5dT1vcZ6fhD1smrlkjjdvTax3I8BMFBCsxNSXTTPRh8gK8zkwychzK2px949a9RpYmy59fyYtXtTNTBTIifu_i8"/>
+<span class="text-sm font-medium">GitHub</span>
 </button>
 </div>
-<div class="mt-4 flex flex-wrap gap-4 px-2">
-<button class="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary flex items-center gap-1 transition-colors">
-<span class="material-symbols-outlined text-lg">visibility</span>
-                                    View Examples
-                                </button>
-<span class="text-slate-300 dark:text-slate-700">|</span>
-<span class="text-sm text-slate-500">Popular: Next.js, Django, FastAPI, MERN</span>
+</form>
+<div class="mt-8 text-center">
+<p class="text-sm text-slate-500 dark:text-slate-400">
+                    Don't have an account? 
+                    <a class="text-primary font-bold hover:underline ml-1" href="#">Create an account</a>
+</p>
 </div>
 </div>
-</div>
-<div class="relative hidden lg:block">
-<div class="absolute -inset-1 bg-primary/20 rounded-xl blur-2xl"></div>
-<div class="relative rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-2 shadow-2xl">
-<div class="rounded-lg overflow-hidden aspect-video bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-<img alt="Project Preview" class="w-full h-full object-cover opacity-80" data-alt="Modern code editor displaying clean typescript architecture and directory structure" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPytdfJvRMmDjPwyO3vDjeMH5Oj8qAHWZmnaCXBKMUpJMburDLzy3e21bggCDYSDpQpG3fDsR0FBqgJzQTvgHkk-pX8i3PGWm4vyXbGccFph0wUbDThXkRZ1WcmwICroXRynTWQDnFoNgHO6aCQoJSPCXULllI-wojvC8VHw6JdOmeFIFbyEJJswsaGn0drCJU7J2wEGx3C9NYGkWgNKnbuWcum2XgKWMH8Z-iKTj9_y6ykwG72IfOl0L7OnDezDFhMTAdPfMfmVc"/>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Features Section -->
-<section class="py-24 bg-slate-50 dark:bg-slate-900/50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="mb-16 text-center max-w-3xl mx-auto">
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
-                        Powerful Features for Developers
-                    </h2>
-<p class="text-slate-600 dark:text-slate-400 text-lg">
-                        Everything you need to jumpstart your next big idea with clean, maintainable, and scalable architecture.
-                    </p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Feature 1 -->
-<div class="flex flex-col gap-6 p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-primary/50 transition-colors group">
-<div class="w-12 h-12 flex items-center justify-center rounded bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined text-2xl">neurology</span>
-</div>
-<div class="space-y-3">
-<h3 class="text-xl font-bold text-slate-900 dark:text-white">AI Code Generation</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                High-quality, clean code generated based on your specific requirements and modern tech stack preferences.
-                            </p>
-</div>
-</div>
-<!-- Feature 2 -->
-<div class="flex flex-col gap-6 p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-primary/50 transition-colors group">
-<div class="w-12 h-12 flex items-center justify-center rounded bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined text-2xl">account_tree</span>
-</div>
-<div class="space-y-3">
-<h3 class="text-xl font-bold text-slate-900 dark:text-white">Instant Project Structure</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Automatically organized folder structures following industry best practices for modularity and scalability.
-                            </p>
-</div>
-</div>
-<!-- Feature 3 -->
-<div class="flex flex-col gap-6 p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-primary/50 transition-colors group">
-<div class="w-12 h-12 flex items-center justify-center rounded bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-<span class="material-symbols-outlined text-2xl">download_for_offline</span>
-</div>
-<div class="space-y-3">
-<h3 class="text-xl font-bold text-slate-900 dark:text-white">Download Ready Projects</h3>
-<p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Get a complete repository of your entire project, ready to be deployed or further customized in your IDE.
-                            </p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- CTA Section -->
-<section class="py-20 border-t border-slate-200 dark:border-slate-800">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="bg-primary rounded-2xl p-8 lg:p-16 text-center text-white relative overflow-hidden">
-<div class="relative z-10 space-y-8">
-<h2 class="text-3xl lg:text-5xl font-bold tracking-tight">Ready to build your next big thing?</h2>
-<p class="text-white/80 text-lg max-w-2xl mx-auto">
-                            Join over 10,000 developers building faster with AI-powered project generation.
-                        </p>
-<div class="flex flex-wrap justify-center gap-4">
-<button class="bg-white text-primary px-8 py-4 rounded-lg font-bold hover:bg-slate-100 transition-colors">Get Started Free</button>
-<button class="bg-primary border border-white/20 px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition-colors">Contact Sales</button>
-</div>
-</div>
-</div>
-</div>
-</section>
 </main>
-<!-- Footer -->
-<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 py-16">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<div class="flex flex-col md:flex-row justify-between items-center gap-10">
-<div class="flex items-center gap-2">
-<div class="flex h-6 w-6 items-center justify-center rounded bg-primary text-white">
-<span class="material-symbols-outlined text-sm">auto_awesome</span>
-</div>
-<span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">AI Project Builder</span>
-</div>
-<div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Docs</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">GitHub</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Contact</a>
-<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
-</div>
-<div class="text-sm text-slate-500 dark:text-slate-600">
-                    © 2024 AI Project Builder. All rights reserved.
-                </div>
-</div>
-</div>
+<footer class="p-6 text-center text-slate-500 dark:text-slate-500 text-xs">
+<p>© 2024 AI Project Builder. All rights reserved. <a class="hover:text-primary mx-2" href="#">Privacy Policy</a> <a class="hover:text-primary mx-2" href="#">Terms of Service</a></p>
 </footer>
 </body></html>
