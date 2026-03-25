@@ -1,0 +1,150 @@
+/* Full page background */
+.Login-pagsecton {
+  min-height: 100vh;
+  background: #101122;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Center section */
+.mainlogin-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glass card */
+.loginpage {
+  width: 420px;
+  padding: 40px;
+  border-radius: 16px;
+  background: #101426;
+  backdrop-filter: blur(12px);
+  border: 1px solid #1e293b;
+  /* box-shadow: 0 0 40px rgba(199, 255, 0, 0.08); */
+  color: #eaeaea;
+}
+
+/* Title */
+.login-text h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 30px;
+}
+
+.login-text p {
+  text-align: center;
+  font-size: 14px;
+  color: #94A3B8;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+/* Labels */
+.login-middle p {
+  font-size: 12px;
+  margin: 10px 0 5px;
+  color: #bdbdbd;
+}
+
+/* Inputs */
+.login-middle input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  margin-bottom: 15px;
+}
+
+.login-middle input:focus {
+  border: 2px solid #6467F2;
+  /* box-shadow: 0 0 8px #c6ff00; */
+}
+
+/* Password row */
+.password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password p:last-child {
+  color: #6467f2;
+  font-size: 12px;
+  cursor: pointer;
+}
+.check-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0 20px;
+  font-size: 14px;
+  color: #bdbdbd;
+}
+
+/* Hide default checkbox */
+.check-box input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(199, 255, 0, 0.6);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 0;
+  position: relative;
+  transition: 0.2s;
+}
+
+.buttens {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+/* Checkbox */
+.check-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 20px;
+}
+
+.check-box input {
+  accent-color: #c6ff00;
+}
+
+/* OR text */
+.login-middle > p {
+  margin: 15px 0;
+  font-size: 0.875rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Social buttons container */
+.social-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-buttons button {
+  flex: 1;
+}
+
+/* Create account */
+.account {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.account span {
+  color:#6467f2;
+  cursor: pointer;
+  margin-left: 5px;
+}

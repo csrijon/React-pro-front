@@ -1,0 +1,17 @@
+.neon-btn {
+  width: 100%;
+  padding: 18px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background: #6467F2;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+.neon-btn:active {
+  transform: scale(0.98);
+}
