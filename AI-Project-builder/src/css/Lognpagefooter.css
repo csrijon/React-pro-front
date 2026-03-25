@@ -1,0 +1,23 @@
+.loginpagesection{
+    width: 100%;
+    padding: 25px;
+    color: #94a3b8;
+}
+.loginfooter{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.secend-element{
+    display: flex;
+    gap: 10px;
+}
+.secend-element li{
+    list-style: none;
+     cursor: pointer;
+}
+.secend-element li:hover{
+    color: #6467f2;
+}

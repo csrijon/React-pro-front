@@ -50,7 +50,7 @@
 }
 
 /* Inputs */
-.login-middle input {
+.login-middle .text {
   width: 100%;
   padding: 14px;
   border-radius: 8px;
@@ -61,7 +61,7 @@
   margin-bottom: 15px;
 }
 
-.login-middle input:focus {
+.login-middle .text:focus {
   border: 2px solid #6467F2;
   /* box-shadow: 0 0 8px #c6ff00; */
 }
@@ -88,8 +88,8 @@
 }
 
 /* Hide default checkbox */
-.check-box input {
-  appearance: none;
+.check-box .check-boxinput {
+  /* appearance: none; */
   width: 18px;
   height: 18px;
   border: 2px solid rgba(199, 255, 0, 0.6);
@@ -114,8 +114,8 @@
   margin: 10px 0 20px;
 }
 
-.check-box input {
-  accent-color: #c6ff00;
+.check-box .check-boxinput {
+  accent-color: #6467f2;
 }
 
 /* OR text */

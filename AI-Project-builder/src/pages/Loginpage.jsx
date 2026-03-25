@@ -1,6 +1,7 @@
 import Loginheader from "../components/headers/Loginheader"
 import NeonButton from "../components/common/NeonButton"
 import Socialbutton from "../components/common/Socialbutton"
+import Loginpagefooter from "../components/Footer/Loginpagefooter"
 import "../css/Loginpage.css"
 
 const Loginpage = () => {
@@ -42,6 +43,7 @@ const Loginpage = () => {
                     </div>
                 </div>
             </div>
+            <Loginpagefooter/>
         </section>
     )
 }
