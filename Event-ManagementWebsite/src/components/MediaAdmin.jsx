@@ -16,7 +16,7 @@ const MediaAdmin = () => {
       formdata.append("discreption", discreption)
       formdata.append("image", image)
       let response = await fetch("https://backendof-event.onrender.com/Addmedia", {
-        method: "PUT",
+        method: "POST",
         body: formdata
       })
       let resdata = await response.json()
