@@ -1,69 +1,68 @@
-import express from "express"
-import multer from "multer"
-import fs from "fs"
-import { PopularVenuModel } from "../models/Schema.js"
+import express from "express";
+import multer from "multer";
+import cloudinary from "./cloudinary.js";
+import { PopularVenuModel } from "../models/Schema.js";
 
-const router = express.Router()
+const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", multer().single("popimage"), async (req, res) => {
-
+// POST
+router.post("/", upload.single("popimage"), async (req, res) => {
   try {
+    const { popular, poplocation } = req.body;
 
-    const { popular, poplocation } = req.body
-    const popimage = req.file
-
-    if (!popular || !poplocation || !popimage) {
-      return res.status(400).json({ message: "All fields required" })
+    if (!popular || !poplocation || !req.file) {
+      return res.status(400).json({ message: "All fields required" });
     }
 
-    const filename = Date.now() + "-" + popimage.originalname
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64," + req.file.buffer.toString("base64"),
+      { folder: "event-management" }
+    );
 
-    fs.writeFileSync(`./uploads/${filename}`, popimage.buffer)
-
-    let imagePath = `http://localhost:3000/uploads/${filename}`
+    const imageUrl = result.secure_url;
 
     let popularvenue = new PopularVenuModel({
       venuename: popular,
       location: poplocation,
-      image: imagePath
-    })
+      image: imageUrl
+    });
 
-    await popularvenue.save()
+    await popularvenue.save();
 
-    res.json({
-      message: "data accepted",
-      popular,
-      poplocation
-    })
+    res.status(200).json({
+      message: "Popular venue added",
+      imageUrl: imageUrl
+    });
 
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: "server error" })
+    console.log(error);
+    res.status(500).json({ error: "Upload failed" });
   }
+});
 
-})
-
+// GET
 router.get("/", async (req, res) => {
   try {
-    let popularvenues = await PopularVenuModel.find()
-    res.status(200).json(popularvenues)
+    let popularvenues = await PopularVenuModel.find();
+    res.status(200).json(popularvenues);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
   }
-  catch (error) {
-    console.log(error)
-    res.status(500).json({ error: "server error" })
-  }
-})
+});
 
+// DELETE
 router.delete("/:id", async (req, res) => {
   try {
-    let popid = req.params.id
-    console.log(popid)
-    await PopularVenuModel.findByIdAndDelete(popid)
-    res.status(200).json({ message: "popuular data is now deleted" })
-  } catch (error) {
-    res.status(500).json({ message: "popular data is missing" })
-  }
-}
-)
+    let popid = req.params.id;
+    await PopularVenuModel.findByIdAndDelete(popid);
 
-export default router
+    res.status(200).json({ message: "Popular venue deleted" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Delete failed" });
+  }
+});
+
+export default router;

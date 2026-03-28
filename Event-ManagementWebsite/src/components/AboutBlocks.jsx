@@ -50,8 +50,8 @@ const container = {
 };
 
 const AboutBlocks = () => {
-  const [aboutBlock1Data, setAboutBlock1Data] = useState({});
-  const [aboutBlock2Data, setAboutBlock2Data] = useState({});
+  const [aboutBlock1Data, setAboutBlock1Data] = useState([]);
+  const [aboutBlock2Data, setAboutBlock2Data] = useState([]);
 
   useEffect(() => {
     let fetchaboutblocks1 = async () => {

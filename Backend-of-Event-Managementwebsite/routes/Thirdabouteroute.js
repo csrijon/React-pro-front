@@ -1,50 +1,52 @@
-import express from 'express';
-import multer from 'multer';
-import fs from 'fs';
-import { Aboutblock2Model } from "../models/Schema.js"
+import express from "express";
+import multer from "multer";
+import cloudinary from "./cloudinary.js";
+import { Aboutblock2Model } from "../models/Schema.js";
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", multer().single('Image'), async (req, res) => {
-    try {
-        const { blockpara1, blockpara2, title } = req.body;
-        let image = req.file
-        console.log(blockpara1, blockpara2, title, image)
-        let filename = Date.now() + "-" + image.originalname
-        fs.writeFile(`./uploads/${filename}`, image.buffer, (err) => {
-            if (err) {
-                console.error("Error saving file:", err);
-                return res.status(500).json({ error: "Failed to save image" });
-            }
-        });
-        let imagePath = `http://localhost:3000/uploads/${filename}`
-        const aboutblock2data = new Aboutblock2Model({
-            title: title,
-            blockpara1: blockpara1,
-            blockpara2: blockpara2,
-            Image: imagePath
-        })
-        await aboutblock2data.save()
-        res.status(200).json({ mess: "data is save " })
-    }
-    catch (error) {
-        console.log(error, "showing error")
-        res.status(400).json({ mess: "not working" })
-    }
-}
-)
+// POST
+router.post("/", upload.single("Image"), async (req, res) => {
+  try {
+    const { blockpara1, blockpara2, title } = req.body;
 
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64," + req.file.buffer.toString("base64"),
+      { folder: "event-management" }
+    );
+
+    const imageUrl = result.secure_url;
+
+    const aboutblock2data = new Aboutblock2Model({
+      title: title,
+      blockpara1: blockpara1,
+      blockpara2: blockpara2,
+      Image: imageUrl
+    });
+
+    await aboutblock2data.save();
+
+    res.status(200).json({
+      message: "Data saved",
+      imageUrl: imageUrl
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ mess: "Upload failed" });
+  }
+});
+
+// GET
 router.get("/", async (req, res) => {
-    try {
-        let aboutblock2data = await Aboutblock2Model.find()
-        console.log(aboutblock2data)
-        res.status(200).json(aboutblock2data)
-    }
-    catch (error) {
-        console.log(error, "data is missing")
-        res.status(400).json({ mess: "data can not find" })
-    }
-}
-)
+  try {
+    let aboutblock2data = await Aboutblock2Model.find();
+    res.status(200).json(aboutblock2data);
+  } catch (error) {
+    res.status(400).json({ mess: "Data not found" });
+  }
+});
 
 export default router;
