@@ -1,55 +1,64 @@
 import express from "express";
 import multer from "multer";
-import fs from "fs"
+import cloudinary from "./cloudinary.js";
 import { PhotographvideorouteModel } from "../models/Schema.js";
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", multer().single("videoimage"), async (req, res) => {
-    try {
-        const { videoname, videolocation} = req.body
-        const videoimage = req.file
-        console.log(videoname, videolocation, videoimage)
-        res.status(200).json({ mess: "data is save " })
-        let filename = Date.now() + "-" + videoimage.originalname
-        fs.writeFileSync(`./uploads/${filename}`, videoimage.buffer)
-        let imagepath = `http://localhost:3000/uploads/${filename}`
-        const videophotographerdata = new PhotographvideorouteModel({
-            videoname: videoname,
-            videolocation: videolocation,
-            videoimage: imagepath
-        })
-        await videophotographerdata.save()
-    } catch (error) {
-        console.log(error, "showing error")
-        res.status(400).json({ mess: "not working" })
-    }
-
-})
-
-router.get("/", async (req, res) => {
-    try {
-        let videophotographerdata = await PhotographvideorouteModel.find()
-        console.log(videophotographerdata)
-        res.status(200).json(videophotographerdata)
-    }
-    catch (error) {
-        console.log(error, "data is missing")
-        res.status(400).json({ mess: "data can not find" })
-    }
-}
-)
-
-router.delete("/:id", async (req,res) => {
+// POST
+router.post("/", upload.single("videoimage"), async (req, res) => {
   try {
-    let pvid = req.params.id
-    console.log(pvid)
-    await PhotographvideorouteModel.findByIdAndDelete(pvid)
-    res.status(200).json({mess:"data is remove from pv model"})
-  } catch (error) {
-    res.status(500).json({mess:"data is not delete from pv model"})
-  }
-}
-)
+    const { videoname, videolocation } = req.body;
 
-export default router
+    // Upload image to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64," + req.file.buffer.toString("base64"),
+      { folder: "event-management" }
+    );
+
+    const imageUrl = result.secure_url;
+
+    const videophotographerdata = new PhotographvideorouteModel({
+      videoname: videoname,
+      videolocation: videolocation,
+      videoimage: imageUrl
+    });
+
+    await videophotographerdata.save();
+
+    res.status(200).json({
+      message: "Data saved",
+      imageUrl: imageUrl
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ mess: "Upload failed" });
+  }
+});
+
+// GET
+router.get("/", async (req, res) => {
+  try {
+    let videophotographerdata = await PhotographvideorouteModel.find();
+    res.status(200).json(videophotographerdata);
+  } catch (error) {
+    res.status(400).json({ mess: "Data not found" });
+  }
+});
+
+// DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    let pvid = req.params.id;
+    await PhotographvideorouteModel.findByIdAndDelete(pvid);
+
+    res.status(200).json({ mess: "Data deleted" });
+
+  } catch (error) {
+    res.status(500).json({ mess: "Delete failed" });
+  }
+});
+
+export default router;

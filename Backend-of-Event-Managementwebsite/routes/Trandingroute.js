@@ -1,68 +1,68 @@
 import express from "express";
-import { Trendingmodel } from "../models/Schema.js"
 import multer from "multer";
-import fs from 'fs';
+import cloudinary from "./cloudinary.js";
+import { Trendingmodel } from "../models/Schema.js";
 
-const router = express.Router()
+const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.post("/", multer().single("images"), async (req, res) => {
-    try {
-        const { designername, location } = req.body;
-        const image = req.file;
+// POST
+router.post("/", upload.single("images"), async (req, res) => {
+  try {
+    const { designername, location } = req.body;
 
-        console.log(designername, location, image);
-
-        if (!designername || !location || !image) {
-            return res.status(400).json({ message: "All fields required" });
-        }
-
-        const filename = Date.now() + "-" + image.originalname;
-
-        fs.writeFile(`./uploads/${filename}`, image.buffer, (err) => {
-            if (err) {
-                console.error("Error saving file:", err);
-                return res.status(500).json({ error: "Failed to save image" });
-            }
-        });
-
-        let imagePath = `http://localhost:3000/uploads/${filename}`;
-
-        const trendingdata = new Trendingmodel({
-            designername,
-            location,
-            image: imagePath
-        });
-
-        await trendingdata.save();
-
-        res.status(200).json({
-            message: "Trending designer added successfully",
-            designername,
-            location,
-            image: imagePath
-        });
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: "Failed to add designer" });
+    if (!designername || !location || !req.file) {
+      return res.status(400).json({ message: "All fields required" });
     }
+
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64," + req.file.buffer.toString("base64"),
+      { folder: "event-management" }
+    );
+
+    const imageUrl = result.secure_url;
+
+    const trendingdata = new Trendingmodel({
+      designername: designername,
+      location: location,
+      image: imageUrl
+    });
+
+    await trendingdata.save();
+
+    res.status(200).json({
+      message: "Trending designer added",
+      imageUrl: imageUrl
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Upload failed" });
+  }
 });
 
+// GET
 router.get("/", async (req, res) => {
-    let trendingdata = await Trendingmodel.find()
-    res.status(200).json(trendingdata)
-})
-
-router.delete("/:id",async (req,res) => {
   try {
-    let trendid = req.params.id
-    console.log(trendid)
-    await Trendingmodel.findByIdAndDelete(trendid)
-    res.status(200).json({message:"data is deleted parmanently"})
+    let trendingdata = await Trendingmodel.find();
+    res.status(200).json(trendingdata);
   } catch (error) {
-    res.status(500).json({message:"key is missing"})
+    res.status(500).json({ error: "Failed to fetch data" });
   }
-}
-)
+});
 
-export default router
+// DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    let trendid = req.params.id;
+    await Trendingmodel.findByIdAndDelete(trendid);
+
+    res.status(200).json({ message: "Data deleted permanently" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Delete failed" });
+  }
+});
+
+export default router;

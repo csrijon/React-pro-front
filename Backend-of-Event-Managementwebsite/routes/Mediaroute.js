@@ -1,55 +1,64 @@
-import express from "express"
-import multer from "multer"
-import fs from "fs/promises"
-import { MediaModel } from "../models/Schema.js"
-import path from "path"
+import express from "express";
+import multer from "multer";
+import cloudinary from "./cloudinary.js";
+import { MediaModel } from "../models/Schema.js";
 
-const router = express.Router()
+const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
-router.put("/", multer().single("image"), async (req, res) => {
-    try {
-        const { heading, discreption } = req.body
-        const image = req.file
-        let imgpath = path.join(process.cwd(), "uploads", image.originalname)
-        await fs.writeFile(imgpath, image.buffer)
+// PUT - Upload Media
+router.put("/", upload.single("image"), async (req, res) => {
+  try {
+    const { heading, discreption } = req.body;
 
-        let imagepaths = `http://localhost:3000/uploads/${image.originalname}`
-        const Mediadata = new MediaModel({
-            heading: heading,
-            discreption,
-            image: imagepaths
-        })
-        await Mediadata.save()
-        res.status(200).json({ mess: "data is save " })
-    } catch (error) {
-        console.log(error, "showing error")
-        res.status(400).json({ mess: "not working" })
-    }
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      "data:image/png;base64," + req.file.buffer.toString("base64"),
+      { folder: "event-management" }
+    );
 
-})
+    const imageUrl = result.secure_url;
 
-router.get("/",async (req,res) => {
-   try {
-     let mediavalue = await MediaModel.find()
-     console.log(mediavalue)
-     res.status(200).json(mediavalue)
-   } catch (error) {
-    console.log(error,"data is missing")
-    res.status(400).json({mess:"data can not find"})
-   }
-}
-)
+    const Mediadata = new MediaModel({
+      heading: heading,
+      discreption: discreption,
+      image: imageUrl
+    });
 
-router.delete("/:id", async(req,res) => {
+    await Mediadata.save();
 
- try {
-      let mediaid = req.params.id
-      console.log(mediaid)
-  await MediaModel.findByIdAndDelete(mediaid)
-  res.status(200).json({mess:"media data is deleted from media model"})
- } catch (error) {
-    res.status(500).json({mess:"data is not deleted from media model "})
- }
-}
-)
-export default router
+    res.status(200).json({
+      mess: "Media saved",
+      imageUrl: imageUrl
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ mess: "Upload failed" });
+  }
+});
+
+// GET
+router.get("/", async (req, res) => {
+  try {
+    let mediavalue = await MediaModel.find();
+    res.status(200).json(mediavalue);
+  } catch (error) {
+    res.status(400).json({ mess: "Data not found" });
+  }
+});
+
+// DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    let mediaid = req.params.id;
+    await MediaModel.findByIdAndDelete(mediaid);
+
+    res.status(200).json({ mess: "Media deleted" });
+
+  } catch (error) {
+    res.status(500).json({ mess: "Delete failed" });
+  }
+});
+
+export default router;
