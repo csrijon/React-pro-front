@@ -33,7 +33,7 @@ const Herosection = ({ heading, subheading, setSearchResults }) => {
     let searchclciked = async () => {
         try {
             console.log(iscategorySelected, islocationSelected)
-            let response = await fetch(`http://localhost:3000/search?category=${iscategorySelected}`, {
+            let response = await fetch(`https://backend-ofevent.onrender.com/search?category=${iscategorySelected}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             })

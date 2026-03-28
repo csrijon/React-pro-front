@@ -64,7 +64,7 @@ const FirstAboutSection = () => {
   useEffect(() => {
     let fetchmainabout = async () => {
       try {
-        let response = await fetch("http://localhost:3000/api/fetchaboutmain");
+        let response = await fetch("https://backend-ofevent.onrender.com/api/fetchaboutmain");
         let data = await response.json();
         setMainAboutData(data);
       } catch (error) {
@@ -75,7 +75,7 @@ const FirstAboutSection = () => {
 
     let fetchaboutstarts = async () => {
       try {
-        let response = await fetch("http://localhost:3000/api/fetchaboutstats");
+        let response = await fetch("https://backend-ofevent.onrender.com/api/fetchaboutstats");
         let data = await response.json();
         setStatsData(data[2].stats);
       } catch (error) {

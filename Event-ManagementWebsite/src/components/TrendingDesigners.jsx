@@ -22,7 +22,7 @@ const TrendingDesigners = ({ title }) => {
     useEffect(() => {
         const fetchTrendingDesigners = async () => {
             try {
-                let response = await fetch("http://localhost:3000/api/fetchtreding")
+                let response = await fetch("https://backend-ofevent.onrender.com/api/fetchtreding")
                 let data = await response.json()
                 settrendingdata(data)
                 console.log(data)

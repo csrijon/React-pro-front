@@ -74,7 +74,7 @@ app.post("/supplyers", multer().single("Image"), async (req, res) => {
             return res.status(500).json({ error: "Failed to save image" });
         }
     });
-    let imagePath = `http://localhost:3000/uploads/${Image.originalname}`
+    let imagePath = `https://backend-ofevent.onrender.com/uploads/${Image.originalname}`
     const categorydata = new Categorymodel({
         title: newCategory,
         Image: imagePath

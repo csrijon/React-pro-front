@@ -18,7 +18,7 @@ const HomeAdmin = () => {
 
       formData.append("videoimage", videoimage);
 
-      let response = await fetch("http://localhost:3000/featuredvideo", {
+      let response = await fetch("https://backend-ofevent.onrender.com/featuredvideo", {
         method: "POST",
         body: formData
       });
@@ -35,7 +35,7 @@ const HomeAdmin = () => {
       formData.append("categoryName", categoryName);
       formData.append("categoryImage", categoryImage);
 
-      let response = await fetch("http://localhost:3000/addcategory", {
+      let response = await fetch("https://backend-ofevent.onrender.com/addcategory", {
         method: "POST",
         body: formData
       });
@@ -50,7 +50,7 @@ const HomeAdmin = () => {
  let handeldelete = async (id) => {
   try {
     console.log(id)
-    let rsponseid = await fetch(`http://localhost:3000/deletecategory/${id}`, {
+    let rsponseid = await fetch(`https://backend-ofevent.onrender.com/deletecategory/${id}`, {
       method: "DELETE"
     });
 
@@ -71,7 +71,7 @@ const HomeAdmin = () => {
   useEffect(() => {
     let showinguidata = async () => {
       try {
-        let res = await fetch("http://localhost:3000/api/fetbrowcategory")
+        let res = await fetch("https://backend-ofevent.onrender.com/api/fetbrowcategory")
         let resdatas = await res.json()
         // console.log(resdatas)
         setresponse(resdatas)
