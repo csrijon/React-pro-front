@@ -32,7 +32,7 @@ const Featurescategoryall = () => {
 
     useEffect(() => {
         const alldatafetch = async () => {
-            let response = await fetch("https://backend-ofevent.onrender.com/api/fetbrowcategory")
+            let response = await fetch("https://backendof-event.onrender.com/api/fetbrowcategory")
             let result = await response.json()
             setData(result)
         }

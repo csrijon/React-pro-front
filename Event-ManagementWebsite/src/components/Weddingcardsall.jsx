@@ -8,7 +8,7 @@ const Weddingcardsall = () => {
 
     useEffect(() => {
         const fetchallweddingcard = async () => {
-            const response = await fetch("https://backend-ofevent.onrender.com/api/venue");
+            const response = await fetch("https://backendof-event.onrender.com/api/venue");
             const data = await response.json();
             setweddingdata(data)
             console.log(data);

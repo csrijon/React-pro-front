@@ -26,7 +26,7 @@ const SuppliersAdmin = () => {
       formdata.append("videolocation", videolocation)
       formdata.append("videoimage", videoimage)
 
-      let response = await fetch("https://backend-ofevent.onrender.com/videophotographer", {
+      let response = await fetch("https://backendof-event.onrender.com/videophotographer", {
         method: "POST",
         body: formdata
       })
@@ -46,7 +46,7 @@ const SuppliersAdmin = () => {
       const formData = new FormData();
       formData.append("newCategory", newCategory);
       formData.append("Image", Image);
-      let response = await fetch("https://backend-ofevent.onrender.com/supplyers", {
+      let response = await fetch("https://backendof-event.onrender.com/supplyers", {
         method: "POST",
         body: formData
       })
@@ -64,7 +64,7 @@ const SuppliersAdmin = () => {
       formdata.append("poplocation", poplocation)
       formdata.append("popimage", popimage)
 
-      let popresponse = await fetch("https://backend-ofevent.onrender.com/popvenue", {
+      let popresponse = await fetch("https://backendof-event.onrender.com/popvenue", {
         method: "POST",
         body: formdata
       })
@@ -88,7 +88,7 @@ const SuppliersAdmin = () => {
       formdata.append("location", location)
       formdata.append("images", images)
 
-      const response = await fetch("https://backend-ofevent.onrender.com/trending", {
+      const response = await fetch("https://backendof-event.onrender.com/trending", {
         method: "POST",
         body: formdata
       })
@@ -107,7 +107,7 @@ const SuppliersAdmin = () => {
 
   let deletesupplycard = async (id) => {
     console.log(id)
-    let senddelete = await fetch(`https://backend-ofevent.onrender.com/deletesupply/${id}`, {
+    let senddelete = await fetch(`https://backendof-event.onrender.com/deletesupply/${id}`, {
       method: "DELETE"
     })
     let responsedelete = await senddelete.json()
@@ -116,7 +116,7 @@ const SuppliersAdmin = () => {
     console.log(responsedelete)
   }
   let removetrendcard = async (id) => {
-    let removetrend = await fetch(`https://backend-ofevent.onrender.com/apitrending/${id}`, {
+    let removetrend = await fetch(`https://backendof-event.onrender.com/apitrending/${id}`, {
       method: "DELETE"
     })
     let removetrendresponse = await removetrend.json()
@@ -125,7 +125,7 @@ const SuppliersAdmin = () => {
     console.log(removetrendresponse)
   }
   let removepopularcard = async (id) => {
-    let removeidsend = await fetch(`https://backend-ofevent.onrender.com/removepopular/${id}`, {
+    let removeidsend = await fetch(`https://backendof-event.onrender.com/removepopular/${id}`, {
       method: "DELETE"
     })
     let getremoveid = await removeidsend.json()
@@ -134,7 +134,7 @@ const SuppliersAdmin = () => {
     console.log(getremoveid)
   }
   let removephotovideo = async (id) => {
-    let removepv = await fetch(`https://backend-ofevent.onrender.com/pvdeleted/${id}`,{
+    let removepv = await fetch(`https://backendof-event.onrender.com/pvdeleted/${id}`,{
       method:"DELETE"
     })
     let pvresponse = await removepv.json()
@@ -145,14 +145,14 @@ const SuppliersAdmin = () => {
 
   useEffect(() => {
     let fetchsupplydata = async () => {
-      let getsupplydata = await fetch("https://backend-ofevent.onrender.com/supplyers")
+      let getsupplydata = await fetch("https://backendof-event.onrender.com/supplyers")
       let resgetsupplydata = await getsupplydata.json()
       setsupplydata(resgetsupplydata)
     }
     fetchsupplydata()
 
     let fetchtrenddata = async () => {
-      let getrenddata = await fetch("https://backend-ofevent.onrender.com/api/fetchtreding")
+      let getrenddata = await fetch("https://backendof-event.onrender.com/api/fetchtreding")
       let responsetrend = await getrenddata.json()
       settrenddata(responsetrend)
       console.log(responsetrend)
@@ -160,7 +160,7 @@ const SuppliersAdmin = () => {
     fetchtrenddata()
 
     let fetchpopulardata = async () => {
-      let getpopulardata = await fetch("https://backend-ofevent.onrender.com/api/fetchvenu")
+      let getpopulardata = await fetch("https://backendof-event.onrender.com/api/fetchvenu")
       let getresponse = await getpopulardata.json()
       setpopulardata(getresponse)
       console.log(getresponse)
@@ -168,7 +168,7 @@ const SuppliersAdmin = () => {
     fetchpopulardata()
 
     let fetchphotovideo = async () => {
-      let getphotovideo = await fetch("https://backend-ofevent.onrender.com/apivideophotographer")
+      let getphotovideo = await fetch("https://backendof-event.onrender.com/apivideophotographer")
       let photovideoresponse = await getphotovideo.json()
       setphotovideo(photovideoresponse)
       console.log(photovideoresponse)

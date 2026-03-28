@@ -26,7 +26,7 @@ const Videophotopopular = ({ title }) => {
         const fetchvideophotographer = async () => {
             try {
 
-                let response = await fetch("https://backend-ofevent.onrender.com/apivideophotographer")
+                let response = await fetch("https://backendof-event.onrender.com/apivideophotographer")
                 let data = await response.json()
                 setvideophotographerdata(data)
                 console.log(data)

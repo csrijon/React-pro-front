@@ -11,7 +11,7 @@ const SuppliersCategories = () => {
   useEffect(() => {
     const responsedata = async () => {
       try {
-        const response = await fetch("https://backend-ofevent.onrender.com/supplyers");
+        const response = await fetch("https://backendof-event.onrender.com/supplyers");
         const data = await response.json();
         setdataarray(data);
       } catch (error) {
