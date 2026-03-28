@@ -42,7 +42,7 @@ const Media = () => {
     useEffect(() => {
         let getresponse = async () => {
             try {
-                let fetchmedia = await fetch("https://backend-ofevent.onrender.com/fetchmedia")
+                let fetchmedia = await fetch("https://backendof-event.onrender.com/fetchmedia")
                 let res = await fetchmedia.json()
                 setmediainfo(res)
                 console.log(res)

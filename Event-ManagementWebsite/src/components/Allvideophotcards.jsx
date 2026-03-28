@@ -21,7 +21,7 @@ const Allvideophotcards = () => {
 
         useEffect(()=>{
             const fetchallpopuvidecards = async ()=>{
-                 let response = await fetch("https://backend-ofevent.onrender.com/apivideophotographer")
+                 let response = await fetch("https://backendof-event.onrender.com/apivideophotographer")
                 let data = await response.json()
                 setdatas(data)
                 console.log(data)

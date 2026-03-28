@@ -30,7 +30,7 @@ const PopularVenu = ({ title }) => {
     useEffect(() => {
         let fetchpopularvenue = async () => {
             try {
-                let response = await fetch("https://backend-ofevent.onrender.com/api/fetchvenu")
+                let response = await fetch("https://backendof-event.onrender.com/api/fetchvenu")
                 let data = await response.json()
                 console.log(data)
                 setPopularVenues(data)
