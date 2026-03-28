@@ -25,7 +25,7 @@ dotenv.config()
 const app = express()
 const port = 3000
 app.use("/uploads", express.static('uploads'));
-app.use(cors({ origin: "https://event-management-gamma-two.vercel.app/" }))
+app.use(cors({ origin: "https://event-management-gamma-two.vercel.app" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/api/fetchtreding", Trandingroute)
