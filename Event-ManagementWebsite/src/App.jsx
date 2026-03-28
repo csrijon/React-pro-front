@@ -53,8 +53,8 @@ const router = createBrowserRouter([
         element: <Mediapage />
       },
       {
-        path: "admin",
-        element: <Contactpage />
+        path: "Contact",
+        element: <AdminLayout />
       },
       {
         path: "PastCategory",
