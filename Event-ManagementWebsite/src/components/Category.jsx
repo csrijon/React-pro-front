@@ -40,7 +40,7 @@ const Category = ({ title, searchResults }) => {
     useEffect(() => {
         const handelfetchcategory = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/fetbrowcategory");
+                const response = await fetch("https://backend-ofevent.onrender.com/api/fetbrowcategory");
                 const data = await response.json();
                 setCategoryData(data);
             } catch (error) {

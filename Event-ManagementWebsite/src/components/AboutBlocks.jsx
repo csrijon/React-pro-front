@@ -56,7 +56,7 @@ const AboutBlocks = () => {
   useEffect(() => {
     let fetchaboutblocks1 = async () => {
       try {
-        let response = await fetch("http://localhost:3000/api/fetchaboutblock1");
+        let response = await fetch("https://backend-ofevent.onrender.com/api/fetchaboutblock1");
         let data = await response.json();
         setAboutBlock1Data(data);
       } catch (error) {
@@ -67,7 +67,7 @@ const AboutBlocks = () => {
 
     let fetchaboutblock2 = async () => {
       try {
-        let response = await fetch("http://localhost:3000/api/fetchaboutblock2");
+        let response = await fetch("https://backend-ofevent.onrender.com/api/fetchaboutblock2");
         let data = await response.json();
         setAboutBlock2Data(data);
       } catch (error) {
