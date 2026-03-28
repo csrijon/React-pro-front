@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from 'dotenv'
 import cors from "cors"
 import multer from "multer"
+import mongoose from "mongoose"
 import fs from "fs"
 import mailsender from "./routes/mailsender.js"
 import supply from "./routes/Supply.js"
@@ -24,11 +25,11 @@ dotenv.config()
 const app = express()
 const port = 3000
 app.use("/uploads", express.static('uploads'));
-app.use(cors({ origin: "http://localhost:5173" }))
+app.use(cors({ origin: "https://event-management-gamma-two.vercel.app/" }))
 app.use(express.json())
 app.use("/api/mailsend", mailsender)
 app.use("/api/fetchtreding", Trandingroute)
-app.use("/apitrending",Trandingroute)
+app.use("/apitrending", Trandingroute)
 app.use("/trending", Trandingroute)
 app.use("/supplyers", supply)
 app.use("/venueadd", Venueadd)
@@ -50,12 +51,15 @@ app.use("/videophotographer", Photographvideoroute)
 app.use("/apivideophotographer", Photographvideoroute)
 app.use("/popvenue", PopularVenu)
 app.use("/api/fetchvenu", PopularVenu)
-app.use("/removepopular",PopularVenu)
+app.use("/removepopular", PopularVenu)
 app.use("/Addmedia", Mediaroute)
 app.use("/fetchmedia", Mediaroute)
-app.use("/deletesupply",supply)
-app.use("/pvdeleted",Photographvideoroute)
-app.use("/mediadelete",Mediaroute)
+app.use("/deletesupply", supply)
+app.use("/pvdeleted", Photographvideoroute)
+app.use("/mediadelete", Mediaroute)
+
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log('mongodb is Connected!'))
 
 
 app.get("/", (req, res) => {

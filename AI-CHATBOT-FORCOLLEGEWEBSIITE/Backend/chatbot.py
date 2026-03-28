@@ -63,31 +63,42 @@ def get_bot_response(message):
     if not is_college_related(msg):
         return "I only provide information about JIS College."
 
-    # Exact match
-    for index, row in data.iterrows():
-        question = str(row["question"]).lower().strip()
-        if msg == question:
-            response = row["answer"]
-            collection.insert_one({"user_message": message, "bot_response": response})
-            return response
+    best_match = None
+    best_score = 0
 
-    # Keyword match (important)
     for index, row in data.iterrows():
         question = str(row["question"]).lower().strip()
         question_words = question.split()
 
-        match_count = 0
-        for word in question_words:
-            if word in words:
-                match_count += 1
+        score = 0
 
-        # If most words match → return answer
-        if match_count >= len(question_words) / 2:
-            response = row["answer"]
-            collection.insert_one({"user_message": message, "bot_response": response})
-            return response
+        # Exact phrase match gets high score
+        if question in msg:
+            score += 5
+
+        # Word match score
+        for qw in question_words:
+            if qw in words:
+                score += 2
+
+        # Prefer longer questions (like "mca fees" over "mca")
+        score += len(question_words)
+
+        if score > best_score:
+            best_score = score
+            best_match = row["answer"]
+
+    if best_match:
+        collection.insert_one({
+            "user_message": message,
+            "bot_response": best_match
+        })
+        return best_match
 
     # AI fallback
     ai_response = ask_ai(message)
-    collection.insert_one({"user_message": message, "bot_response": ai_response})
+    collection.insert_one({
+        "user_message": message,
+        "bot_response": ai_response
+    })
     return ai_response

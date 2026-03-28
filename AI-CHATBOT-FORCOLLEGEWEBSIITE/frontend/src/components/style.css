@@ -1,36 +1,146 @@
+/* 1. KEYFRAMES FOR ANIMATIONS */
+
+/* Animates the whole chat window on page load */
+@keyframes containerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Animates individual messages when they appear */
+@keyframes messageSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. MAIN STYLES */
+
 .chat-container {
-  width: 400px;
+  max-width: 400px; 
   margin: 40px auto;
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 10px;
-  background: #bb2828;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Apply the container animation */
+  animation: containerFadeIn 0.5s ease-out forwards;
 }
 
 .chat-box {
-  height: 300px;
+  height: 350px;
   overflow-y: auto;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: rgb(124, 240, 175);
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 15px;
+  background: #9dbad7; 
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-box p {
-  margin: 5px 0;
+  margin: 6px 0;
+  padding: 10px 15px;
+  background: #e3f2fd; 
+  color: #333333;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word;
+  align-self: flex-start; 
+  
+  /* Apply the message animation */
+  animation: messageSlideUp 0.3s ease-out forwards;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px; 
 }
 
 input {
-  width: 70%;
-  padding: 8px;
-  margin-right: 5px;
+  flex: 1; 
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 24px; 
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus {
+  border-color: #007bff; 
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); /* Subtle glow when typing */
 }
 
 button {
-  padding: 8px 15px;
-  background: #4CAF50;
+  padding: 10px 20px;
+  background: #007bff; 
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 24px;
+  font-weight: 600;
+  margin-left: 90px;
+  font-size: 14px;
+  transition: background-color 0.2s, transform 0.1s; /* Added transform transition */
+}
+
+button:hover {
+  background: #0056b3; 
+}
+
+/* Gives a satisfying "click" effect by scaling down slightly */
+button:active {
+  transform: scale(0.95);
+}
+
+.chat-box::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 10px;
+}
+/* --- Styles for the College Header --- */
+.college-header {
+  text-align: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 15px;
+}
+
+.college-image {
+  width: 100%; /* Makes the image span the full width of the container */
+  height: 140px; /* Sets a fixed height for the banner */
+  object-fit: cover; /* Prevents the image from stretching or looking squished */
+  border-radius: 8px; /* Rounds the corners of the image slightly */
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Adds a subtle shadow behind the image */
+}
+
+.college-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Fix for the input container alignment */
+.input-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }

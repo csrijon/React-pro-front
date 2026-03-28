@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-mongoose.connect('mongodb://127.0.0.1:27017/EventDatabase')
-    .then(() => console.log('mongodb is Connected!'))
+dotenv.config();
+
 
 const categorySchema = new mongoose.Schema({
     title: String,
