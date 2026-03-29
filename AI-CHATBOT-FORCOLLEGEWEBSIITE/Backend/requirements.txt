@@ -1,6 +1,5 @@
 Flask
 flask-cors
 pymongo
-pandas
-google-generativeai
 python-dotenv
+groq

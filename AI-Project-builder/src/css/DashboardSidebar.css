@@ -1,0 +1,12 @@
+.DashboardSidebar-section{
+    width:10%;
+    height: 100vh;
+    background-color: aqua;
+}
+.dashboard-sidecontainer{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 15px;
+}

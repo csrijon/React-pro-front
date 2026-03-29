@@ -1,104 +1,45 @@
-import pandas as pd
 from db import collection
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+from groq import Groq
 
 load_dotenv()
 
-# OpenRouter AI setup
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    default_headers={
-        "HTTP-Referer": "http://localhost:5173",
-        "X-Title": "JIS College Chatbot"
-    }
-)
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-# Load CSV
-data = pd.read_csv("college_data.csv")
-
-college_keywords = [
-    "jis", "college", "bca", "mca", "btech", "mba", "bba",
-    "fees", "hostel", "placement", "admission", "course",
-    "campus", "library", "principal", "department", "stream",
-    "percentage", "package", "salary", "company", "recruiter",
-    "engineering", "cse", "ece", "civil", "mechanical"
-]
-
-# Check if question is college related
-def is_college_related(message):
-    for word in college_keywords:
-        if word in message.lower():
-            return True
-    return False
-
-# AI response
 def ask_ai(question):
     try:
-        response = client.chat.completions.create(
-            model="liquid/lfm-2.5-1.2b-thinking:free",
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
             messages=[
-                {
-                    "role": "system",
-                    "content": "You are a chatbot for JIS College only. Answer only JIS College related questions like courses, fees, placement, hostel, admission, campus."
-                },
-                {
-                    "role": "user",
-                    "content": question
-                }
-            ]
+                {"role": "system", "content": "You are a helpful AI chatbot."},
+                {"role": "user", "content": question}
+            ],
+            temperature=0.7,
+            max_tokens=1024
         )
 
-        return response.choices[0].message.content
+        return completion.choices[0].message.content
 
     except Exception as e:
-        print("AI ERROR:", e)
-        return "Sorry, AI service is not available right now."
+        print("Groq Error:", e)
+        return "AI server error."
+
+
 def get_bot_response(message):
-    msg = message.lower().strip()
-    words = msg.split()
+    try:
+        ai_response = ask_ai(message)
 
-    if not is_college_related(msg):
-        return "I only provide information about JIS College."
+        try:
+            collection.insert_one({
+                "user_message": message,
+                "bot_response": ai_response
+            })
+        except Exception as db_error:
+            print("MongoDB Error:", db_error)
 
-    best_match = None
-    best_score = 0
+        return ai_response
 
-    for index, row in data.iterrows():
-        question = str(row["question"]).lower().strip()
-        question_words = question.split()
-
-        score = 0
-
-        # Exact phrase match gets high score
-        if question in msg:
-            score += 5
-
-        # Word match score
-        for qw in question_words:
-            if qw in words:
-                score += 2
-
-        # Prefer longer questions (like "mca fees" over "mca")
-        score += len(question_words)
-
-        if score > best_score:
-            best_score = score
-            best_match = row["answer"]
-
-    if best_match:
-        collection.insert_one({
-            "user_message": message,
-            "bot_response": best_match
-        })
-        return best_match
-
-    # AI fallback
-    ai_response = ask_ai(message)
-    collection.insert_one({
-        "user_message": message,
-        "bot_response": ai_response
-    })
-    return ai_response
+    except Exception as e:
+        print("CHATBOT ERROR:", e)
+        return "Server error."
