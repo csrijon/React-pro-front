@@ -26,7 +26,7 @@ const Videophotopopular = ({ title }) => {
         const fetchvideophotographer = async () => {
             try {
 
-                let response = await fetch("http://localhost:3000/apivideophotographer")
+                let response = await fetch("https://react-pro-front.onrender.com/apivideophotographer")
                 let data = await response.json()
                 setvideophotographerdata(data)
                 console.log(data)

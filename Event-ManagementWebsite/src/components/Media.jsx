@@ -42,7 +42,7 @@ const Media = () => {
     useEffect(() => {
         let getresponse = async () => {
             try {
-                let fetchmedia = await fetch("http://localhost:3000/fetchmedia")
+                let fetchmedia = await fetch("https://react-pro-front.onrender.com/fetchmedia")
                 let res = await fetchmedia.json()
                 setmediainfo(res)
                 console.log(res)

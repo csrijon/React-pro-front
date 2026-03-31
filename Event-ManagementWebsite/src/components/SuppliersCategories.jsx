@@ -11,7 +11,7 @@ const SuppliersCategories = () => {
   useEffect(() => {
     const responsedata = async () => {
       try {
-        const response = await fetch("http://localhost:3000/supplyers");
+        const response = await fetch("https://react-pro-front.onrender.com/supplyers");
         const data = await response.json();
         setdataarray(data);
       } catch (error) {
