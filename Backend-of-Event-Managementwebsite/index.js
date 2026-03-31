@@ -25,7 +25,7 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://react-pro-front-nine.vercel.app" }));
 app.use(express.json());
 
 // Multer memory storage (for Cloudinary)
