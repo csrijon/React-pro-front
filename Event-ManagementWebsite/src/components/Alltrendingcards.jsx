@@ -20,7 +20,7 @@ const Alltrendingcards = () => {
 
     useEffect(() => {
         const fetchtrendingdataall = async () => {
-            let response = await fetch("https://backendof-event.onrender.com/api/fetchtreding")
+            let response = await fetch("http://localhost:3000/api/fetchtreding")
             let data = await response.json()
             settrend(data)
             console.log(data)

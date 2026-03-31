@@ -41,7 +41,7 @@ const FeaturedVideo = () => {
     useEffect(() => {
         let fetchFeaturedVideos = async () => {
             try {
-                let response = await fetch("https://backendof-event.onrender.com/apifeaturedvideo")
+                let response = await fetch("http://localhost:3000/apifeaturedvideo")
                 let data = await response.json()
                 console.log(data)
                 setFeaturedVideos(data)

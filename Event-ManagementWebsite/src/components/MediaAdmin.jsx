@@ -15,7 +15,7 @@ const MediaAdmin = () => {
       formdata.append("heading", heading)
       formdata.append("discreption", discreption)
       formdata.append("image", image)
-      let response = await fetch("https://backendof-event.onrender.com/Addmedia", {
+      let response = await fetch("http://localhost:3000/Addmedia", {
         method: "POST",
         body: formdata
       })
@@ -28,7 +28,7 @@ const MediaAdmin = () => {
     }
   }
   let removemedia = async (id) => {
-    let removemedia = await fetch(`https://backendof-event.onrender.com/mediadelete/${id}`,{
+    let removemedia = await fetch(`http://localhost:3000/mediadelete/${id}`,{
       method:"DELETE"
     })
     let mediares = await removemedia.json()
@@ -39,7 +39,7 @@ const MediaAdmin = () => {
 
   useEffect(() => {
     let getmediadata = async () => {
-      let getmediadata = await fetch("https://backendof-event.onrender.com/fetchmedia")
+      let getmediadata = await fetch("http://localhost:3000/fetchmedia")
       let mediaresponse = await getmediadata.json()
       setmediadata(mediaresponse)
       console.log(mediaresponse)

@@ -39,7 +39,7 @@ const VenueGrid = ({ title }) => {
   useEffect(() => {
     const venudata = async () => {
       try {
-        const response = await fetch("https://backendof-event.onrender.com/api/venue");
+        const response = await fetch("http://localhost:3000/api/venue");
         const data = await response.json();
         console.log(data);
         setvenueinfo(data);

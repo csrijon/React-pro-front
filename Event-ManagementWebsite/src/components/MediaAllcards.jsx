@@ -35,7 +35,7 @@ const MediaAllcards = () => {
 
     useEffect(()=>{
         const fetchallmediacards= async ()=>{
-             let fetchmedia = await fetch("https://backendof-event.onrender.com/fetchmedia")
+             let fetchmedia = await fetch("http://localhost:3000/fetchmedia")
                 let res = await fetchmedia.json()
                 setgetdata(res)
                 console.log(res)

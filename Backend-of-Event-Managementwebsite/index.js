@@ -25,7 +25,7 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: "https://event-management-gamma-two.vercel.app" }));
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 // Multer memory storage (for Cloudinary)
@@ -109,6 +109,18 @@ app.get("/api/venue", async (req, res) => {
     res.status(200).json(venuedata);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch venues" });
+  }
+});
+
+app.get("/testcloud", async (req, res) => {
+  try {
+    const result = await cloudinary.uploader.upload(
+      "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+    );
+    res.send("Cloudinary Working");
+  } catch (err) {
+    console.log(err);
+    res.send("Cloudinary Error");
   }
 });
 

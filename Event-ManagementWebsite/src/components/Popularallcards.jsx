@@ -9,7 +9,7 @@ const Popularallcards = () => {
 
     useEffect(() => {
         const fetchallpopularcards = async () => {
-            let response = await fetch("https://backendof-event.onrender.com/api/fetchvenu")
+            let response = await fetch("http://localhost:3000/api/fetchvenu")
             let data = await response.json()
             setalldata(data)
             console.log(data)

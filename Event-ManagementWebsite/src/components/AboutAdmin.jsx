@@ -17,7 +17,7 @@ const AboutAdmin = () => {
       formData.append("para2", para2);
       formData.append("mainImage", mainImage);
 
-      let response = await fetch("https://backendof-event.onrender.com/addaboutmain", {
+      let response = await fetch("http://localhost:3000/addaboutmain", {
         method: "POST",
         body: formData
 
@@ -40,7 +40,7 @@ const AboutAdmin = () => {
   const handleStatsAdd = async () => {
     // console.log("Stats:", stats);
     try {
-      let response = await fetch("https://backendof-event.onrender.com/addaboutstats", {
+      let response = await fetch("http://localhost:3000/addaboutstats", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -68,7 +68,7 @@ const AboutAdmin = () => {
       formdata.append("blockpara1", block1Para1);
       formdata.append("blockpara2", block1Para2);
       formdata.append("Image", block1Image);
-      let reponse = await fetch("https://backendof-event.onrender.com/addaboutblock1", {
+      let reponse = await fetch("http://localhost:3000/addaboutblock1", {
         method: "POST",
 
         body: formdata
@@ -94,7 +94,7 @@ const AboutAdmin = () => {
       formdata.append("blockpara1", block2Para1);
       formdata.append("blockpara2", block2Para2);
       formdata.append("Image", block2Image);
-      let response = await fetch("https://backendof-event.onrender.com/addaboutblock2", {
+      let response = await fetch("http://localhost:3000/addaboutblock2", {
         method: "POST",
         body: formdata
       });

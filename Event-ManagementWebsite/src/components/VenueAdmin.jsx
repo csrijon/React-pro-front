@@ -18,7 +18,7 @@ const VenueAdmin = () => {
       formdata.append("guests", guests);
       formdata.append("image", image);
 
-      let response = await fetch("https://backendof-event.onrender.com/venueadd", {
+      let response = await fetch("http://localhost:3000/venueadd", {
         method: "POST",
         body: formdata
       })
@@ -32,7 +32,7 @@ const VenueAdmin = () => {
 
   useEffect(() => {
     let getpopulardata = async () => {
-      let getdata = await fetch("https://backendof-event.onrender.com/api/venue")
+      let getdata = await fetch("http://localhost:3000/api/venue")
       let getresponse = await getdata.json()
       setupdateadddata(getresponse)
       console.log(getresponse)
