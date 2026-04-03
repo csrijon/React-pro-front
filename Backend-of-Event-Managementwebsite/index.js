@@ -25,7 +25,7 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-app.use(cors({ origin: "https://event-management-gamma-two.vercel.app" }));
+app.use(cors({ origin: "https://react-pro-front-nine.vercel.app" }));
 app.use(express.json());
 
 // Multer memory storage (for Cloudinary)
