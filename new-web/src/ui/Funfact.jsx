@@ -6,18 +6,18 @@ import { delay, motion } from "framer-motion"
 
 const Funfact = () => {
 
-   const data = [
-    { fact: "I love hiking and exploring new places." },
-    { fact: "I can code for hours if there’s an interesting problem to solve." },
-    { fact: "I once built a website entirely from scratch." },
-    { fact: "My favorite debugging tool is a good console log." },
-    { fact: "I enjoy solving logic puzzles in my free time." },
-    { fact: "I can remember many CSS color codes by heart." },
-    { fact: "I’m a night owl developer — most of my work happens at night." },
-    { fact: "I once spent 3 hours fixing a bug caused by a missing semicolon." },
-    { fact: "I enjoy learning random tech facts and tricks." },
-    { fact: "I love clean, minimal, and user-friendly design." }
-];
+    const data = [
+        { fact: "I love hiking and exploring new places." },
+        { fact: "I can code for hours if there’s an interesting problem to solve." },
+        { fact: "I once built a website entirely from scratch." },
+        { fact: "My favorite debugging tool is a good console log." },
+        { fact: "I enjoy solving logic puzzles in my free time." },
+        { fact: "I can remember many CSS color codes by heart." },
+        { fact: "I’m a night owl developer — most of my work happens at night." },
+        { fact: "I once spent 3 hours fixing a bug caused by a missing semicolon." },
+        { fact: "I enjoy learning random tech facts and tricks." },
+        { fact: "I love clean, minimal, and user-friendly design." }
+    ];
 
     return (
         <div className="about-fun-text" >
