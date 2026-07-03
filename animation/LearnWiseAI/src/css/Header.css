@@ -1,0 +1,7 @@
+.Headersection{
+    /* width: 100%; */
+    height: 70px;
+    display: flex;
+    padding: 48px 16px;
+    justify-content: space-between;
+}
