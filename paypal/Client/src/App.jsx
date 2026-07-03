@@ -1,29 +1,18 @@
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import Home from "./Home";
 
-
-
-const App = () => {
-
-    const onprojectpaypal = async ()=>{
-      const response = await fetch("http://localhost:5000/payment",{
-        method:"POST",
-        headers:{
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify({
-          amount:100
-        })
-      })
-
-      const resdata = await response.json()
-      console.log(resdata)
-    }
+function App() {
+  console.log(import.meta.env.VITE_PAYPAL_PUBLICKEY);
 
   return (
-    <div>
-      <p>58$</p>
-      <p onClick={onprojectpaypal} >Pay</p>
-    </div>
-  )
+    <PayPalScriptProvider
+      options={{
+         clientId: import.meta.env.VITE_PAYPAL_PUBLICKEY,
+      }}
+    >
+      <Home />
+    </PayPalScriptProvider>
+  );
 }
 
-export default App
+export default App;
