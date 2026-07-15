@@ -1,0 +1,63 @@
+:root{
+    --card-bg-color:#efeaf9;
+    --clay-dark: #99816e59;
+    --clay-light: #ffffffd9;
+    --text-color:#616174;
+}
+
+.Servicecard {
+    width: 100%;
+    max-width: 380px;
+    min-height: 360px;
+    padding: 16px;
+    background-color: var(--card-bg-color);
+    box-shadow: 8px 8px 20px var(--clay-dark), -8px -8px 20px var(--clay-light);
+    border-radius: 50px;
+    margin-right: 10px;
+}
+.Servicecard img{
+    width: 100%;
+    border-radius: 40px;
+    object-fit:cover ;
+    height:auto;
+    margin-bottom: 16px;
+}
+.card-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-title h4{
+    font-weight: 700;
+    letter-spacing: -0.16px;
+}
+.rating.star-icon{
+    font-size: 14px !important ;
+}
+.rating{
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: inset 3px 3px 6px var(--clay-dark), inset -3px -3px 6px var(--clay-light);
+    background-color: var(--card-bg-color);
+    border-radius: 999px;
+}
+.rating span{
+    font-size: 14px;
+}
+.sub-title{
+    color: var(--text-color);
+    font-size: 0.85rem;
+    margin-top: 2px;
+}
+.location{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+.location p{
+    color: var(--text-color);
+}

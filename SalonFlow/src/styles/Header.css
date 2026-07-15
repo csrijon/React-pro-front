@@ -8,11 +8,12 @@ header {
     height: 70px;
     position: sticky;
     top: 0;
+    backdrop-filter:blur(20px);
 }
 .header-container {
     display: flex;
     justify-content: space-around;
-    padding:16px 24px;
+    padding:16px 0px;
     align-items: center;
 }
 

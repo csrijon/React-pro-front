@@ -1,0 +1,47 @@
+:root {
+    --seeallbg: #ad98d5;
+}
+
+.mainservicepage-section {
+    width: 100%;
+    padding-bottom: 30px;
+}
+
+.mainservicepage-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.top-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.see-all-section {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+}
+
+.top-title h2 {
+    letter-spacing: -0.24px;
+}
+
+.see-all-section span {
+    color: var(--seeallbg);
+    font-size: .875rem;
+    font-weight: 600;
+}
+
+.Arrow-icon {
+    color: var(--seeallbg);
+}
+.services-items {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
