@@ -25,6 +25,7 @@
  font-size: var(--fontsize);
  letter-spacing: -0.9px;
  font-weight: 800;
+ text-align: center;
 }
 .title  span{
   font-size: var(--fontsize);
@@ -100,8 +101,8 @@
       transition: all 0.3s ease;
 }
 .service-icon:hover{
-    box-shadow: 5px 5px 12px var(--clay-dark), -2px -3px 12px black;
-    border-radius: 22px;
+    box-shadow: inset  -3px -3px 12px var(--clay-dark);
+    border-radius: 12px;
 }
 .service-items span{
     color: #616174;

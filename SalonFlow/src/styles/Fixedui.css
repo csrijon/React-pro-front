@@ -1,0 +1,37 @@
+:root {
+    --card-bg-color: #efeaf9;
+    --clay-dark: #99816e59;
+    --clay-light: #ffffffd9;
+}
+
+
+.Fixedui-Section {
+    width: max-content;
+    padding: 8px;
+    background-color: var(--card-bg-color);
+    box-shadow: 5px 5px 12px var(--clay-dark), -5px -5px 12px var(--clay-light);
+    display: flex;
+    border-radius: 999px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.Fixedui-Section ul {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.Fixedui-Section ul a {
+    text-decoration: none;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    color: black;
+    transition: 0.3s ease-in;
+}
+
+.Fixedui-Section ul a:hover {
+    box-shadow: 3px 3px 6px var(--clay-dark), -3px -3px 6px var(--clay-light);
+    border-radius: 999px;
+}
