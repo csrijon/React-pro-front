@@ -1,0 +1,155 @@
+:root {
+    --clay-dark: #99816e59;
+    --clay-light: #ffffffd9;
+    --bg-color: #efeaf9;
+    --herotextcolor: #616174;
+    --btn-bg:#ad98d5;
+    --btn-textcolor:#141327;
+}
+
+.provider-page{
+    max-width:1100px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.provider-banner{
+    height:290px;
+    border-radius:30px 30px 0 0;
+    overflow:hidden;
+    box-shadow: 8px 8px 20px var(--clay-dark), -8px -8px 20px var(--clay-light)
+}
+
+.provider-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.provider-info{
+    background:var(--bg-color);
+    padding:32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-radius:0 0 30px 30px;
+    box-shadow: 8px 8px 20px var(--clay-dark), -8px -8px 20px var(--clay-light)
+}
+
+.provider-info h1{
+    margin:0;
+    font-size:1.875rem;
+    font-weight:700;
+}
+
+.provider-meta{
+    display:flex;
+    gap:18px;
+    margin-top:8px;
+    color:var(--herotextcolor);
+    align-items:center;
+}
+
+.provider-meta span{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.provider-info p{
+    margin-top:22px;
+    max-width:650px;
+    color:var(--herotextcolor);
+    line-height:1.8;
+}
+
+.rating-box{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#fff;
+    border-radius:999px;
+    padding:10px 18px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.rating-box strong{
+    font-size:15px;
+}
+
+.rating-box small{
+    color:var(--herotextcolor);
+}
+
+.service-heading{
+    margin:45px 0 20px;
+    /* font-size:34px; */
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+.service-card{
+    background:var(--bg-color);
+    border-radius:25px;
+    padding:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  box-shadow: 8px 8px 20px var(--clay-dark), -8px -8px 20px var(--clay-light)
+}
+
+.service-card h3{
+    margin-bottom:8px;
+}
+
+.service-card p{
+    color:var(--herotextcolor);
+    margin-bottom:20px;
+}
+
+.bottom{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.bottom span{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:#666;
+}
+
+.service-card button{
+    border:none;
+    padding:12px 22px;
+    border-radius:999px;
+    background:var(--btn-bg);
+    color:var(--btn-textcolor);
+    cursor:pointer;
+    font-size:15px;
+    font-weight: 600;
+}
+
+
+
+@media(max-width:900px){
+
+    .provider-info{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .provider-info h1{
+        font-size:34px;
+    }
+
+    .service-grid{
+        grid-template-columns:1fr;
+    }
+
+}
