@@ -18,7 +18,7 @@ import ProviderDetails from "../src/components/ProviderDetails.jsx"
 
 const App = () => {
   return (
-    <><Header /><Herosection /><Mainservicepage /><Fixedui /><SearchBarlong/><Searchpage/><ProviderDetails/></>
+    <><Header /><Herosection /><Mainservicepage /><Fixedui /><SearchBarlong/><ProviderDetails/></>
   )
 }
 

@@ -3,6 +3,7 @@ import {
   Clock3,
   Star
 } from "lucide-react";
+import StarIcon from '@mui/icons-material/Star';
 
 import "../styles/ProviderDetails.css";
 
@@ -36,6 +37,21 @@ const servicesdetails = [
     price: "$120",
   },
 ];
+
+const Reviewdetalis = [
+  {
+    id: 1,
+    titlename: "Jorden",
+    comment: "Softest, kindest experience. Booking was seamless.",
+    rating: 4.5
+  },
+  {
+    id: 2,
+    titlename: "Amelia",
+    comment: "Space feels like a warm hug. Highly recommend.",
+    rating: 4.5
+  }
+]
 
 export default function ProviderDetails() {
   return (
@@ -115,6 +131,20 @@ export default function ProviderDetails() {
 
         ))}
 
+      </div>
+
+      <div className="review-info">
+        <h2>Review</h2>
+         <div className="review-card">
+          <div className="top-title-info">
+            <p>Srijon</p>
+            <div className="rating-info">
+               <StarIcon sx={{ fontSize: 14,color:"#ad98d5" }} className='star-icon' />
+               <p>6</p>
+            </div>
+          </div>
+          <p  className="review-subtitle" >Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo, molestiae quod asperiores nobis a explicabo? Ut tenetur earum laudantium quia.</p>
+         </div>
       </div>
 
     </div>
