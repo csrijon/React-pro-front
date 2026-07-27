@@ -1,0 +1,23 @@
+:root {
+    --clay-dark: #99816e59;
+    --clay-light: #ffffffd9;
+    --bg-color: #efeaf9;
+}
+
+.Datecard {
+    width: 100%;
+    max-width: 64px;
+    padding: 12px 0px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 5px 5px 12px var(--clay-dark), -5px -5px 12px var(--clay-light);
+    border-radius: 20px;
+}
+
+.Datecard a {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-decoration: none;
+    align-items: center;
+}

@@ -1,0 +1,15 @@
+:root{
+        --bg-color: #efeaf9;
+        --clay-dark: #99816e59;
+    --clay-light: #ffffffd9;
+}
+
+.TimeCard{
+    padding: 12px 0px;
+    display: flex;
+    justify-content:center ;
+    background-color: var(--bg-color);
+    box-shadow: 5px 5px 12px var(--clay-dark), -5px -5px 12px var(--clay-light);
+    border-radius: 28px;
+    max-width: 120px;
+}
