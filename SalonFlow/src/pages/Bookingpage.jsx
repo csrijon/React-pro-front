@@ -4,6 +4,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import "../styles/Bookingpage.css"
 import Datecard from "../ui/Datecard.jsx"
 import TimeCard from "../ui/TimeCard.jsx"
+import Continuebutton from "../ui/Continuebutton.jsx"
 
 const timeSlots = [
     { time: "09:00", available: true },
@@ -67,6 +68,10 @@ const Bookingpage = () => {
                         ))
                     }
                 </div>
+            </div>
+
+            <div className="Continue-buttonsection">
+                <Continuebutton />
             </div>
         </div>
     )

@@ -9,19 +9,21 @@ import Layout from "./pages/Layout.jsx"
 import Homepage from "./pages/Homepage.jsx"
 import Searchpagemain from "./pages/Searchpagemain.jsx"
 import Bookingpage from "./pages/Bookingpage.jsx"
+import Confirmpage from "./pages/Confirmpage.jsx"
 
 import {
   Routes, Route
 } from "react-router-dom"
 
 const App = () => {
-  return (  
+  return (
     <Routes>
       <Route path="/" element={<Layout />} >
         <Route index element={<Homepage />} />
         <Route path="Search" element={<Searchpagemain />} />
-        <Route path="Provider" element ={<ProviderDetails/>}/>
-        <Route path="Booking" element = {<Bookingpage/>}/>
+        <Route path="Provider" element={<ProviderDetails />} />
+        <Route path="Booking" element={<Bookingpage />} />
+        <Route path="Confirm" element={<Confirmpage/>}/>
       </Route>
     </Routes>
   )
