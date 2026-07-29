@@ -10,6 +10,7 @@ import Homepage from "./pages/Homepage.jsx"
 import Searchpagemain from "./pages/Searchpagemain.jsx"
 import Bookingpage from "./pages/Bookingpage.jsx"
 import Confirmpage from "./pages/Confirmpage.jsx"
+import BookingSuccess from "./pages/BookingSuccess.jsx"
 
 import {
   Routes, Route
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="Provider" element={<ProviderDetails />} />
         <Route path="Booking" element={<Bookingpage />} />
         <Route path="Confirm" element={<Confirmpage/>}/>
+        <Route path="BookingSuccess" element={<BookingSuccess/>}/>
       </Route>
     </Routes>
   )
