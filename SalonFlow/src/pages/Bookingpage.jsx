@@ -71,7 +71,7 @@ const Bookingpage = () => {
             </div>
 
             <div className="Continue-buttonsection">
-                <Continuebutton />
+                <Continuebutton title={" Continue-2026-07-29 at 15:00"} />
             </div>
         </div>
     )

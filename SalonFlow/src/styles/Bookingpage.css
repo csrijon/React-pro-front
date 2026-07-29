@@ -101,15 +101,16 @@
 
 .Continuebutton {
     padding: 16px 28px;
-    background-color: var(--btn-bg);
+    /* background-color: var(--btn-bg); */
     width: 100%;
-    max-width: 300px;
+    max-width: max-content;
     display: flex;
     justify-content: center;
     text-decoration: none;
-    color: #141327;
+    /* color: #141327; */
     font-weight: 600;
     border-radius: 22px;
+    box-shadow: 5px 5px 12px var(--clay-dark), -5px -5px 12px var(--clay-light);
 }
 
 .Continue-buttonsection {

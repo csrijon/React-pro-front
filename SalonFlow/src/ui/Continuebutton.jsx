@@ -1,8 +1,8 @@
 import "../styles/Bookingpage.css"
-const Continuebutton = () => {
+const Continuebutton = ({ title }) => {
     return (
-        <a className="Continuebutton" href="">
-            Continue-2026-07-29 at 15:00
+        <a style={{ backgroundColor: title === "Cancel" ? "#efeaf9" : "#ad98d5", color: title === "Cancel" ? "#2c2c3d" : "#141327" }} className="Continuebutton" href="">
+            {title}
         </a>
     )
 }
