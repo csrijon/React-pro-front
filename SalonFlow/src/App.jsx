@@ -1,34 +1,32 @@
-// import Header from "./components/Header"
-// import Herosection from "./components/Herosection"
-// import Mainservicepage from "./components/Mainservicepage"
-// import Fixedui from "./ui/Fixedui"
-// import SearchBarlong from "../src/ui/SearchBarlong"
-import Searchpage from "../src/components/Searchpage"
-import ProviderDetails from "../src/components/ProviderDetails.jsx"
-import Layout from "./pages/Layout.jsx"
-import Homepage from "./pages/Homepage.jsx"
-import Searchpagemain from "./pages/Searchpagemain.jsx"
-import Bookingpage from "./pages/Bookingpage.jsx"
-import Confirmpage from "./pages/Confirmpage.jsx"
-import BookingSuccess from "./pages/BookingSuccess.jsx"
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import {
-  Routes, Route
-} from "react-router-dom"
+// Layout
+import Layout from "./pages/Layout";
+
+// Lazy Loaded Pages
+const Homepage = lazy(() => import("./pages/Homepage"));
+const Searchpagemain = lazy(() => import("./pages/Searchpagemain"));
+const ProviderDetails = lazy(() => import("./components/ProviderDetails"));
+const Bookingpage = lazy(() => import("./pages/Bookingpage"));
+const Confirmpage = lazy(() => import("./pages/Confirmpage"));
+const BookingSuccess = lazy(() => import("./pages/BookingSuccess"));
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />} >
-        <Route index element={<Homepage />} />
-        <Route path="Search" element={<Searchpagemain />} />
-        <Route path="Provider" element={<ProviderDetails />} />
-        <Route path="Booking" element={<Bookingpage />} />
-        <Route path="Confirm" element={<Confirmpage/>}/>
-        <Route path="BookingSuccess" element={<BookingSuccess/>}/>
-      </Route>
-    </Routes>
-  )
-}
+    <Suspense fallback={<h2>Loading...</h2>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Homepage />} />
+          <Route path="search" element={<Searchpagemain />} />
+          <Route path="provider" element={<ProviderDetails />} />
+          <Route path="booking" element={<Bookingpage />} />
+          <Route path="confirm" element={<Confirmpage />} />
+          <Route path="bookingsuccess" element={<BookingSuccess />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  );
+};
 
-export default App
+export default App;

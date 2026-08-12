@@ -28,4 +28,4 @@ date.setDate(date.getDate()+i)
 // console.log(date)
 dates.push(date)
 }
-console.log(dates[0].getMonth())
+console.log(dates)
