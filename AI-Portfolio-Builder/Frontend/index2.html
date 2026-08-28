@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern AI Portfolio Builder</title>
+    <link rel="stylesheet" href="./styles/style2.css" />
+  </head>
+  <body>
+    <div class="action-header-nav">
+      <a href="index.html" class="back-dashboard-btn">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+
+      <div class="user-status-widget">
+        <div class="user-avatar-badge" id="userAvatarBadge">U</div>
+        <button id="logoutBtn" class="widget-logout-btn" type="button">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loader-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring-inner"></div>
+      </div>
+      <p class="loader-text" id="loaderText">
+        Generating your portfolio layout...
+      </p>
+    </div>
+
+    <div class="main-wrapper">
+      <div class="container class-margin-top-40">
+        <h1>Modern Portfolio <span>Builder</span></h1>
+
+        <p>
+          Build a polished professional CV with projects, skills, experience and
+          achievements.
+        </p>
+
+        <form id="cvForm" class="cv-form">
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Full Name</label>
+              <input type="text" id="name" placeholder="Enter your full name" />
+            </div>
+
+            <div class="input-group">
+              <label>Email Address</label>
+              <input type="email" id="email" placeholder="Enter your email" />
+            </div>
+
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input
+                type="text"
+                id="phone"
+                placeholder="Enter your phone number"
+              />
+            </div>
+
+            <div class="input-group">
+              <label>Location</label>
+              <input type="text" id="location" placeholder="City, Country" />
+            </div>
+          </div>
+
+          <div class="input-group profile-upload-group">
+            <label>Profile Picture</label>
+            <div class="profile-upload-box">
+              <img
+                id="profilePreview"
+                src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                alt="Profile Preview"
+              />
+              <input type="file" id="profileImage" accept="image/*" />
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Education & Qualifications</h2>
+              <button type="button" class="add-btn" id="addEducation">
+                + Add Education
+              </button>
+            </div>
+
+            <div id="educationContainer">
+              <div class="dynamic-card education-item">
+                <div class="input-group">
+                  <label>Institution / University</label>
+                  <input
+                    type="text"
+                    class="education-school"
+                    placeholder="e.g., University of Oxford"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Degree / Major / Certification</label>
+                  <input
+                    type="text"
+                    class="education-degree"
+                    placeholder="e.g., B.A. in Business Administration"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Duration</label>
+                  <input
+                    type="text"
+                    class="education-duration"
+                    placeholder="e.g., 2019 - 2023"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Core Skills & Competencies</h2>
+              <button type="button" class="add-btn" id="addSkill">
+                + Add Skill
+              </button>
+            </div>
+
+            <div id="skillsContainer">
+              <div class="dynamic-card skill-item">
+                <div class="input-group">
+                  <label>Skill / Area of Expertise</label>
+                  <input
+                    type="text"
+                    class="skill-input"
+                    placeholder="e.g., Project Management"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Key Projects / Case Studies</h2>
+              <button type="button" class="add-btn" id="addProject">
+                + Add Project
+              </button>
+            </div>
+
+            <div id="projectsContainer">
+              <div class="dynamic-card project-item">
+                <div class="input-group">
+                  <label>Project Title</label>
+                  <input
+                    type="text"
+                    class="project-title"
+                    placeholder="e.g., Q4 Marketing Campaign Expansion"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Tools / Methodologies Used</label>
+                  <input
+                    type="text"
+                    class="project-tech"
+                    placeholder="e.g., Agile Scrum, Asana, Google Analytics"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Project Link (Live Demo / GitHub)</label>
+                  <input
+                    type="url"
+                    class="project-link-input"
+                    placeholder="https://github.com/yourusername/project"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Project Details / Scope</label>
+                  <textarea
+                    class="project-description"
+                    placeholder="Describe your responsibilities, targets, and measurable outcomes..."
+                  ></textarea>
+                </div>
+
+                <div class="input-group">
+                  <label>Project Background Image / Graphic</label>
+                  <input
+                    type="file"
+                    class="project-image-input"
+                    accept="image/*"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Visual Portfolio / Work Gallery</h2>
+            </div>
+
+            <div id="galleryContainer">
+              <div class="dynamic-card art-item">
+                <div class="art-top-bar">
+                  <div class="input-group">
+                    <label>Work Showcase Title</label>
+                    <input
+                      type="text"
+                      class="art-title"
+                      placeholder="e.g., Corporate Presentation Deck / Design Drafts"
+                    />
+                  </div>
+
+                  <button type="button" class="minimal-add-btn addMoreArtBtn">
+                    + Add Images
+                  </button>
+                </div>
+
+                <div class="art-upload-wrapper">
+                  <input
+                    type="file"
+                    class="art-images"
+                    accept="image/*"
+                    multiple
+                  />
+                </div>
+
+                <div class="art-preview-grid"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Professional Experience</h2>
+              <button type="button" class="add-btn" id="addExperience">
+                + Add Experience
+              </button>
+            </div>
+
+            <div id="experienceContainer">
+              <div class="dynamic-card experience-item">
+                <div class="input-group">
+                  <label>Company / Organization</label>
+                  <input
+                    type="text"
+                    class="experience-company"
+                    placeholder="e.g., Deloitte Corporate Services"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Role / Job Title</label>
+                  <input
+                    type="text"
+                    class="experience-role"
+                    placeholder="e.g., Senior Operations Associate"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Duration</label>
+                  <input
+                    type="text"
+                    class="experience-duration"
+                    placeholder="e.g., Jan 2024 - Present"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Job Responsibilities & Achievements</label>
+                  <textarea
+                    class="experience-description"
+                    placeholder="Outline your key roles, daily duties, and notable business impacts..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block additional-wrapper">
+            <div class="section-header">
+              <div>
+                <h2>Additional Details</h2>
+                <p class="additional-subtitle">
+                  Add certifications, leadership positions, languages, research,
+                  publications or custom honors.
+                </p>
+              </div>
+
+              <button type="button" class="add-btn" id="addFieldBtn">
+                + Add Section
+              </button>
+            </div>
+
+            <div id="customSectionsContainer"></div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Key Achievements & Awards</h2>
+              <button type="button" class="add-btn" id="addAchievement">
+                + Add Achievement
+              </button>
+            </div>
+
+            <div id="achievementsContainer">
+              <div class="dynamic-card achievement-item">
+                <div class="input-group">
+                  <label>Achievement Description</label>
+                  <textarea
+                    class="achievement-input"
+                    placeholder="e.g., Awarded Employee of the Quarter for optimization initiatives saving 15% operational runtime..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <h2>Professional Profiles & Links</h2>
+              <button type="button" class="add-btn" id="addSocial">
+                + Add Profile
+              </button>
+            </div>
+
+            <div id="socialContainer">
+              <div class="dynamic-card social-item">
+                <div class="input-group">
+                  <label>Platform</label>
+                  <select class="social-platform">
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="portfolio">Personal Website / Blog</option>
+                    <option value="github">GitHub</option>
+                    <option value="instagram">Instagram / Behance</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="twitter">Twitter / X</option>
+                  </select>
+                </div>
+
+                <div class="input-group">
+                  <label>Profile Link</label>
+                  <input
+                    type="text"
+                    class="social-link"
+                    placeholder="https://linkedin.com/in/yourname"
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Display Style</label>
+                  <select class="social-display">
+                    <option value="both">Logo + Name</option>
+                    <option value="logo">Logo Only</option>
+                    <option value="name">Name Only</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="template-select-wrapper">
+              <label for="template">Select Template Style</label>
+              <select id="template" class="template-select">
+                <option value="template1">Modern Dark</option>
+                <option value="template2">Professional Light</option>
+                <option value="template3">Minimal Elegant</option>
+                <option value="template4">Ultra Premium White</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <div>
+                <h2>Customize Theme Colors</h2>
+                <p class="additional-subtitle">
+                  Choose your preferred layout canvas and typography palette
+                </p>
+              </div>
+            </div>
+
+            <div class="color-group">
+              <label class="palette-label">Canvas Background</label>
+              <div class="palette-wrapper">
+                <input
+                  type="color"
+                  id="backgroundPicker"
+                  class="theme-picker"
+                  value="#f5f1eb"
+                />
+                <span id="bgColorCode"></span>
+              </div>
+              <div class="palette-container" id="backgroundSwatchesContainer">
+                <div class="color-swatch-white" data-color="#ffffff" title="Pure White"></div>
+                <div class="color-swatch-alabaster" data-color="#fafafa" title="Minimal Alabaster"></div>
+                <div class="color-swatch-cream" data-color="#f5f1eb" title="Classic Warm Cream"></div>
+                <div class="color-swatch-gray" data-color="#f4f6f8" title="Modern Cool Gray"></div>
+                <div class="color-swatch-ice" data-color="#eef2f6" title="Corporate Ice Blue"></div>
+                <div class="color-swatch-slate" data-color="#e2e8f0" title="Soft Slate Gray"></div>
+                <div class="color-swatch-medgray" data-color="#cbd5e1" title="Medium Executive Gray"></div>
+                <div class="color-swatch-steel" data-color="#475569" title="Deep Steel Blue"></div>
+                <div class="color-swatch-darkslate" data-color="#1e293b" title="Premium Dark Slate"></div>
+                <div class="color-swatch-obsidian" data-color="#0f172a" title="Midnight Obsidian"></div>
+              </div>
+            </div>
+
+            <div class="color-group">
+              <label class="palette-label">Typography / Text Color</label>
+              <div class="palette-wrapper">
+                <input
+                  type="color"
+                  id="textPicker"
+                  class="theme-picker"
+                  value="#17201c"
+                />
+                <span id="textColorCode"></span>
+              </div>
+              <div class="palette-container" id="textSwatchesContainer">
+                <div class="text-swatch-white" data-color="#f8fafc" title="Crisp Contrast White"></div>
+                <div class="text-swatch-lightslate" data-color="#e2e8f0" title="Soft Light Slate"></div>
+                <div class="text-swatch-muteblue" data-color="#64748b" title="Muted Slate Blue"></div>
+                <div class="text-swatch-workgray" data-color="#4a5568" title="Standard Work Gray"></div>
+                <div class="text-swatch-amber" data-color="#b45309" title="Corporate Amber Brown"></div>
+                <div class="text-swatch-ocean" data-color="#0369a1" title="Executive Ocean Blue"></div>
+                <div class="text-swatch-teal" data-color="#0f766e" title="Professional Dark Teal"></div>
+                <div class="text-swatch-charcoal" data-color="#17201c" title="Deep Charcoal"></div>
+                <div class="text-swatch-midnight" data-color="#0f172a" title="Ink Midnight Blue"></div>
+                <div class="text-swatch-black" data-color="#000000" title="High-Contrast Black"></div>
+              </div>
+
+              <div class="recommended-theme-section border-dash-top">
+                <h3>Recommended Theme Generator</h3>
+                <p class="additional-subtitle" id="syncStatusMsg">
+                  Click any color below to automatically sync a matching
+                  combination with high contrast scores.
+                </p>
+
+                <div class="smart-lists-wrapper">
+                  <div class="rec-bg-group">
+                    <label class="palette-label font-small">
+                      Select Background (Text will be automatically selected)
+                    </label>
+                    <div class="palette-container flex-wrap-gap" id="syncBgContainer">
+                      <div class="sync-swatch-white" data-bg="#ffffff" data-text="#000000" title="Pure White Background -> Syncs Ink Black Text"></div>
+                      <div class="sync-swatch-alabaster" data-bg="#fafafa" data-text="#17201c" title="Minimal Alabaster Background -> Syncs Charcoal Text"></div>
+                      <div class="sync-swatch-cream" data-bg="#f5f1eb" data-text="#17201c" title="Classic Warm Cream Background -> Syncs Charcoal Text"></div>
+                      <div class="sync-swatch-gray" data-bg="#f4f6f8" data-text="#0f172a" title="Modern Cool Gray Background -> Syncs Midnight Slate Text"></div>
+                      <div class="sync-swatch-ice" data-bg="#eef2f6" data-text="#0369a1" title="Corporate Ice Blue Background -> Syncs Executive Ocean Blue Text"></div>
+                      <div class="sync-swatch-slate" data-bg="#e2e8f0" data-text="#4a5568" title="Soft Slate Gray Background -> Syncs Work Gray Text"></div>
+                      <div class="sync-swatch-steel" data-bg="#475569" data-text="#f8fafc" title="Deep Steel Blue Background -> Syncs Contrast White Text"></div>
+                      <div class="sync-swatch-darkslate" data-bg="#1e293b" data-text="#e2e8f0" title="Premium Dark Slate Background -> Syncs Light Slate Text"></div>
+                      <div class="sync-swatch-obsidian" data-bg="#0f172a" data-text="#ffffff" title="Midnight Obsidian Background -> Syncs Pure White Text"></div>
+                      <div class="sync-swatch-teal" data-bg="#0f766e" data-text="#ffffff" title="Professional Dark Teal Background -> Syncs Pure White Text"></div>
+                    </div>
+                  </div>
+
+                  <div class="rec-text-group">
+                    <label class="palette-label font-small">
+                      Select Text (Background will be automatically selected)
+                    </label>
+                    <div class="palette-container flex-wrap-gap" id="syncTextContainer">
+                      <div class="sync-text-black" data-text="#000000" data-bg="#ffffff" title="High-Contrast Black Text -> Syncs Pure White Background"></div>
+                      <div class="sync-text-charcoal" data-text="#17201c" data-bg="#f5f1eb" title="Deep Charcoal Text -> Syncs Warm Cream Background"></div>
+                      <div class="sync-text-midnight" data-text="#0f172a" data-bg="#f4f6f8" title="Ink Midnight Blue Text -> Syncs Cool Gray Background"></div>
+                      <div class="sync-text-ocean" data-text="#0369a1" data-bg="#eef2f6" title="Executive Ocean Blue Text -> Syncs Ice Blue Background"></div>
+                      <div class="sync-text-workgray" data-text="#4a5568" data-bg="#e2e8f0" title="Standard Work Gray Text -> Syncs Soft Slate Background"></div>
+                      <div class="sync-text-white" data-text="#f8fafc" data-bg="#475569" title="Crisp Contrast White Text -> Syncs Steel Blue Background"></div>
+                      <div class="sync-text-lightslate" data-text="#e2e8f0" data-bg="#1e293b" title="Soft Light Slate Text -> Syncs Dark Slate Background"></div>
+                      <div class="sync-text-purewhite" data-text="#ffffff" data-bg="#0f172a" title="Pure White Typography Text -> Syncs Midnight Background"></div>
+                      <div class="sync-text-amber" data-text="#b45309" data-bg="#ffffff" title="Corporate Amber Brown Text -> Syncs Pure White Background"></div>
+                      <div class="sync-text-muteblue" data-text="#64748b" data-bg="#fafafa" title="Muted Slate Blue Text -> Syncs Minimal Alabaster Background"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="match-container">
+                <div class="match-bar">
+                  <div id="matchFill" class="match-fill"></div>
+                </div>
+                <p id="matchText"></p>
+              </div>
+
+              <div class="contrast-container">
+                <div class="contrast-bar">
+                  <div id="contrastFill" class="contrast-fill"></div>
+                </div>
+                <p id="contrastText"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <div class="section-header">
+              <div>
+                <h2>Typography & Global Fonts</h2>
+                <p class="additional-subtitle">
+                  Dynamically streaming 900+ font families. Choose your preferred structure.
+                </p>
+              </div>
+            </div>
+
+            <div class="font-picker-layout">
+              <div class="font-controls-pane">
+                <div class="input-group">
+                  <label for="fontSearch">Search Font Family</label>
+                  <input
+                    type="text"
+                    id="fontSearch"
+                    placeholder="Type to filter (e.g., Roboto, Open Sans, Playfair)..."
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label for="fontFamilySelector">
+                    Select Font Variant (<span id="fontCount">Loading...</span>)
+                  </label>
+                  <select id="fontFamilySelector" class="template-select">
+                    <option value="'Inter', sans-serif">
+                      Inter (System Default)
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="fontTesterInput">Live Typography Canvas Preview</label>
+                <textarea id="fontTesterInput" placeholder="Type custom test phrases here...">The quick brown fox jumps over the lazy dog. Designed with structural elegance and high readability matrix score.</textarea>
+              </div>
+            </div>
+
+            <div class="font-size-layers-block">
+              <h3>Layout Typographic Hierarchy (Scale 1-10)</h3>
+              <div class="font-size-grid">
+                <div class="input-group">
+                  <label for="sizeTitle">Title Size</label>
+                  <input type="number" id="sizeTitle" min="1" max="10" value="8" />
+                </div>
+                <div class="input-group">
+                  <label for="sizeSubtitle">Subtitle Size</label>
+                  <input type="number" id="sizeSubtitle" min="1" max="10" value="6" />
+                </div>
+                <div class="input-group">
+                  <label for="sizeHeading1">Heading 1 Size</label>
+                  <input type="number" id="sizeHeading1" min="1" max="10" value="5" />
+                </div>
+                <div class="input-group">
+                  <label for="sizeHeading2">Heading 2 Size</label>
+                  <input type="number" id="sizeHeading2" min="1" max="10" value="4" />
+                </div>
+                <div class="input-group">
+                  <label for="sizeBody">Body Text Size</label>
+                  <input type="number" id="sizeBody" min="1" max="10" value="2" />
+                </div>
+              </div>
+
+              <div class="typography-analysis-container">
+                <div class="match-bar">
+                  <div id="typoScaleFill" class="match-fill"></div>
+                </div>
+                <p id="typoScaleText"></p>
+                <ul id="typoLayerSuggestionsList" class="typo-suggestions-list"></ul>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="generate-btn">
+            Generate Professional CV
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="success-popup" id="successPopup">
+      <div class="success-content">
+        <div class="success-icon">✓</div>
+        <h2>CV Generated Successfully</h2>
+        <p>Preview templates before downloading.</p>
+        <div class="success-actions">
+          <button class="view-btn" id="viewCvBtn">View Template</button>
+          <button class="download-btn" id="downloadCvBtn">Download CV</button>
+          <button class="back-btn" id="backBtn">Go Back</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="previewModal">
+      <button id="closePreview">Close Preview</button>
+      <iframe id="previewFrame"></iframe>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./js/script2.js"></script>
+  </body>
+</html>

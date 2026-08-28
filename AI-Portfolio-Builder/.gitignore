@@ -1,0 +1,7 @@
+# Ignore backend dependencies and environment variables
+Backend/node_modules/
+Backend/.env
+
+# Ignore any standard OS files
+.DS_Store
+Thumbs.db

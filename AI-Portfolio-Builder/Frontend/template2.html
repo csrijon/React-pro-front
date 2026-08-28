@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{name}} Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: {{bgColor}};
+      --card: {{cardColor}};
+      --text: {{textColor}};
+      --muted: {{mutedColor}};
+      --accent: {{accentColor}};
+      --accent2: {{accent2Color}};
+      --accent-rgb: {{accentRgb}};
+      --font-family-chosen: {{fontFamily}};
+
+      /* ─── MATHEMATICAL PIXEL MATRIX MAPPING (1-10 Scale to Real PX Baselines) ─── */
+      --size-title: calc({{fontSizeTitle}} * 12px);         /* Level 8 = 96px */
+      --size-subtitle: calc({{fontSizeSubtitle}} * 5.5px);   /* Level 6 = 33px */
+      --size-h1: calc({{fontSizeHeading1}} * 6.5px);        /* Level 5 = 32.5px */
+      --size-h2: calc({{fontSizeHeading2}} * 6px);          /* Level 4 = 24px */
+      --size-body: calc({{fontSizeBody}} * 7.5px);          /* Level 2 = 15px */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        opacity 0.35s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-family-chosen), 'Sora', sans-serif;
+      font-size: var(--size-body); /* Injected Base Body Scale */
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+      background-size: 70px 70px;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, rgba(var(--accent-rgb), 0.06), transparent 70%);
+      top: -250px;
+      right: -250px;
+      z-index: -1;
+    }
+
+    nav {
+      width: 100%;
+      padding: 1.6rem 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.15);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      font-size: calc(var(--size-body) * 0.9);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .nav-right {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--muted);
+      font-size: calc(var(--size-body) * 0.8);
+    }
+
+    header {
+      min-height: 100vh;
+      padding: 8rem 8% 5rem 8%;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: center;
+      background: transparent;
+    }
+
+    header.no-avatar {
+      grid-template-columns: 1fr !important;
+      text-align: center;
+    }
+
+    header.no-avatar .hero-left {
+      align-items: center;
+      justify-content: center;
+    }
+
+    header.no-avatar .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero-badge {
+      width: max-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(var(--accent-rgb), 0.06);
+      border: 1px solid rgba(var(--accent-rgb), 0.15);
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      font-size: calc(var(--size-body) * 0.8);
+      font-weight: 600;
+    }
+
+    .hero-badge span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .hero-left h1 {
+      font-size: var(--size-title); /* Injected Dynamic Title Scale */
+      line-height: 0.95;
+      letter-spacing: -3px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-left h1 em {
+      font-style: normal;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--accent);
+    }
+
+    .hero-description {
+      max-width: 700px;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: var(--size-body);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem 2.4rem;
+      border-radius: 18px;
+      text-decoration: none;
+      font-size: calc(var(--size-body) * 0.95);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 15px 35px rgba(var(--accent-rgb), 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(var(--accent-rgb), 0.04);
+      border-color: rgba(var(--accent-rgb), 0.2);
+      transform: translateY(-5px);
+    }
+
+    .profile-card {
+      background: var(--card);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 36px;
+      padding: 3.5rem;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card.image-missing {
+      display: none !important;
+    }
+
+    .profile-image-wrapper {
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 2.5rem;
+      padding: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.85), rgba(0, 0, 0, 0.05));
+      box-shadow: 0 20px 50px rgba(var(--accent-rgb), 0.15);
+      animation: floatImage 4s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 4px solid var(--card);
+    }
+
+    @keyframes floatImage {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .profile-item {
+      padding-bottom: 1.6rem;
+      margin-bottom: 1.6rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      text-align: left !important;
+    }
+
+    .profile-item:last-child {
+      border: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .profile-label {
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      font-size: calc(var(--size-body) * 0.85);
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .profile-value {
+      color: var(--text);
+      line-height: 1.6;
+      font-size: var(--size-body);
+      word-break: break-word;
+    }
+
+    .socials-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .social-link-card {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: calc(var(--size-body) * 0.85);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    }
+
+    .social-link-card:hover {
+      transform: translateY(-4px);
+      background: rgba(var(--accent-rgb), 0.05);
+      border-color: rgba(var(--accent-rgb), 0.2);
+    }
+
+    .info-section {
+      padding: 3rem 8% 5rem;
+      background: transparent;
+    }
+
+    .info-title {
+      margin-bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--accent);
+      font-size: var(--size-subtitle); /* Injected Dynamic Subtitle Scale */
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .info-title::before {
+      content: "";
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .main-card {
+      background: var(--card);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 36px;
+      padding: 3.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.02);
+    }
+
+    .main-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(var(--accent-rgb), 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.04);
+    }
+
+    .education-card,
+    .experience-card,
+    .additional-block {
+      padding-bottom: 2.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      text-align: left;
+    }
+
+    .education-card:last-child,
+    .experience-card:last-child,
+    .additional-block:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border: none;
+    }
+
+    .edu-school,
+    .exp-role {
+      font-size: var(--size-h1); /* Injected Dynamic Heading 1 Scale */
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      color: var(--text);
+    }
+
+    .edu-degree,
+    .exp-company,
+    .additional-heading {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: var(--size-h2); /* Injected Dynamic Heading 2 Scale */
+      margin-bottom: 0.8rem;
+    }
+
+    .edu-duration,
+    .exp-duration {
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: calc(var(--size-body) * 0.85);
+    }
+
+    .exp-points,
+    .achievement-list {
+      padding-left: 1.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .exp-points li,
+    .achievement-list li {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+      font-size: var(--size-body);
+    }
+
+    .exp-points li:hover,
+    .achievement-list li:hover {
+      color: var(--text);
+      transform: translateX(6px);
+    }
+
+    .projects-grid {
+      display: grid !important;
+      grid-auto-flow: column !important;
+      grid-auto-columns: max-content !important;
+      gap: 2.5rem !important;
+      width: 100% !important;
+      overflow-x: auto !important;
+      overflow-y: visible !important;
+      padding: 2rem !important;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      -webkit-mask-image: linear-gradient(to right, black 88%, transparent 100%);
+      mask-image: linear-gradient(to right, black 88%, transparent 100%);
+    }
+
+    .projects-grid::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .projects-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .projects-grid::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+    }
+
+    .flip-card {
+      background-color: transparent !important;
+      width: 340px !important;
+      height: 500px !important;
+      perspective: 1600px !important;
+      cursor: pointer !important;
+      position: relative !important;
+      transition: transform 0.35s ease !important;
+    }
+
+    .flip-card.active {
+      transform: translateY(-10px);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: left;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.active .flip-card-inner {
+      transform: rotateY(180deg) !important;
+    }
+
+    .flip-card-front,
+    .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 30px;
+      border: 1px solid rgba(var(--accent-rgb), 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    .flip-card-front {
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 2;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      backdrop-filter: blur(18px);
+      color: #ffffff;
+    }
+
+    .flip-card-front .project-title {
+      color: #ffffff !important;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85) !important;
+      font-size: var(--size-h2) !important; /* Managed card level parameters */
+      font-weight: 700 !important;
+      line-height: 1.25 !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .flip-card-front .project-tech {
+      display: inline-flex !important;
+      align-items: center !important;
+      width: fit-content !important;
+      font-family: 'IBM Plex Mono', monospace !important;
+      font-size: calc(var(--size-body) * 0.85) !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0.55rem 0.9rem !important;
+      border-radius: 999px !important;
+      color: #ffffff !important;
+      background: rgba(0, 0, 0, 0.65) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .flip-card-front .tap-indicator {
+      margin-top: 0.6rem;
+      font-size: calc(var(--size-body) * 0.76);
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 2px;
+      padding-top: 0rem;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+      z-index: 2;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 0 !important;
+      color: var(--text);
+    }
+
+    .flip-card-back .project-title {
+      font-size: var(--size-h2) !important;
+      font-weight: 700 !important;
+      line-height: 1.25 !important;
+      margin-bottom: 1rem !important;
+      color: var(--text) !important;
+      text-shadow: none !important;
+    }
+
+    .flip-card-back .project-tech {
+      display: inline-flex !important;
+      align-items: center !important;
+      width: fit-content !important;
+      font-family: 'IBM Plex Mono', monospace !important;
+      font-size: calc(var(--size-body) * 0.85) !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 1.5rem !important;
+      padding: 0.55rem 0.9rem !important;
+      border-radius: 999px !important;
+      color: var(--text) !important;
+      background: rgba(var(--accent-rgb), 0.08) !important;
+      border: 1px solid rgba(var(--accent-rgb), 0.2) !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+
+    .flip-card-back .project-description,
+    .flip-card-back .project-details li {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: var(--size-body);
+      text-shadow: none;
+      margin-bottom: 0.7rem;
+    }
+
+    .project-back-content-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-back-scrollable {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 2.2rem 2rem 2.2rem 2rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(120, 120, 120, 0.3) transparent;
+      -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+    }
+
+    .project-back-fixed-footer {
+      flex-shrink: 0;
+      width: 100%;
+      padding: 0.5rem 2rem 2.2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      z-index: 10;
+    }
+
+    .project-external-link {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      margin-top: auto !important;
+      margin-bottom: 0rem !important;
+      padding: 0.8rem 1.6rem !important;
+      text-decoration: none !important;
+      font-family: 'IBM Plex Mono', monospace !important;
+      font-size: calc(var(--size-body) * 0.9) !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px !important;
+      border-radius: 14px !important;
+      width: 85% !important;
+      color: var(--bg, #000000) !important;
+      background-color: var(--accent, #ffffff) !important;
+      border: 1px solid var(--accent, #ffffff) !important;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .project-external-link:hover {
+      background-color: transparent !important;
+      color: var(--accent, #ffffff) !important;
+      transform: translateY(-4px) !important;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2),
+                  0 0 15px rgba(var(--accent-rgb), 0.3) !important;
+    }
+
+    .project-external-link[href=""],
+    .project-external-link[href*="undefined"],
+    .project-external-link:not([href]) {
+      display: none !important;
+    }
+
+    .project-back-scrollable::-webkit-scrollbar,
+    .flip-card-front::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .project-back-scrollable::-webkit-scrollbar-track,
+    .flip-card-front::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .project-back-scrollable::-webkit-scrollbar-thumb,
+    .flip-card-front::-webkit-scrollbar-thumb {
+      background: rgba(120, 120, 120, 0.3);
+      border-radius: 20px;
+    }
+
+    .skills-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .skill-chip {
+      padding: 0.8rem 1.4rem;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: var(--size-body);
+      color: var(--text);
+    }
+
+    .skill-chip:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateY(-4px);
+    }
+
+    .artworks-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 5rem;
+      width: 100%;
+    }
+
+    .artwork-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-bottom: 4rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .artwork-block:last-child {
+      border: none;
+      padding-bottom: 0;
+    }
+
+    .artwork-title {
+      font-size: var(--size-h1);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .artwork-gallery {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      overflow-x: auto;
+      overflow-y: visible;
+      width: 100%;
+      padding: 2rem 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+    }
+
+    .artwork-gallery::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .artwork-gallery::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+    }
+
+    .artwork-image {
+      flex: 0 0 auto !important;
+      width: 340px !important;
+      height: 260px !important;
+      border-radius: 28px !important;
+      overflow: hidden !important;
+      background: rgba(0, 0, 0, 0.02) !important;
+      border: 1px solid rgba(0, 0, 0, 0.05) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+      position: relative !important;
+      cursor: pointer;
+    }
+
+    .artwork-image img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+
+    .artwork-image:hover {
+      transform: translateY(-16px) scale(1.05);
+      border-color: rgba(var(--accent-rgb), 0.3) !important;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+      z-index: 10;
+    }
+
+    .artwork-gallery:hover .artwork-image:not(:hover) {
+      opacity: 0.5;
+      transform: scale(0.96);
+      filter: blur(1px);
+    }
+
+    /* LIGHTBOX MODAL */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    [data-theme-detected="dark"] .lightbox-overlay {
+      background: rgba(10, 10, 10, 0.95) !important;
+    }
+
+    .lightbox-overlay.show-lightbox {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-view {
+      position: relative;
+      width: 80vw;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-view img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.06);
+      transform: scale(0.95);
+      transition: transform 0.45s ease;
+    }
+
+    .lightbox-overlay.show-lightbox .lightbox-view img {
+      transform: scale(1);
+    }
+
+    .lightbox-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .lightbox-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: var(--card);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 30;
+      font-size: 1.1rem;
+    }
+
+    .lightbox-prev-btn { left: -80px; }
+    .lightbox-next-btn { right: -80px; }
+
+    .lightbox-nav-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .lightbox-overlay.profile-isolation-mode .lightbox-nav-btn {
+      display: none !important;
+    }
+
+    .additional-details-content div {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: var(--size-body);
+    }
+
+    .section-hidden {
+      display: none !important;
+    }
+
+    footer {
+      padding: 4rem 8%;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: calc(var(--size-body) * 0.8);
+      background: transparent;
+    }
+
+    @media(max-width:950px) {
+      header {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-left h1 {
+        font-size: clamp(3rem, 8vw, var(--size-title));
+      }
+
+      .profile-card,
+      .main-card {
+        padding: 2.5rem 2rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+
+    @media(max-width:768px) {
+      .projects-grid {
+        gap: 1.5rem !important;
+        padding: 1rem !important;
+      }
+
+      .flip-card {
+        width: 310px !important;
+        height: 480px !important;
+      }
+
+      .profile-image-wrapper {
+        width: 160px;
+        height: 160px;
+      }
+
+      .artwork-gallery {
+        gap: 1rem;
+      }
+
+      .artwork-image {
+        width: 82vw !important;
+        height: 240px !important;
+      }
+
+      .lightbox-nav-btn {
+        width: 46px;
+        height: 46px;
+        font-size: 0.9rem;
+      }
+
+      .lightbox-prev-btn { left: 8px; }
+      .lightbox-next-btn { right: 8px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid-overlay"></div>
+  <div class="kinetic-bg"></div>
+
+  <nav>
+    <div class="logo">
+      {{name}}.PORTFOLIO
+    </div>
+    <div class="nav-right">
+      // DIGITAL PRESENCE
+    </div>
+  </nav>
+
+  <header id="heroHeader">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span></span>
+        AVAILABLE FOR WORK
+      </div>
+      <h1>
+        {{name}}<br>
+        <em>PORTFOLIO</em>
+      </h1>
+      <div class="hero-description" id="summaryDescription" data-val="{{summary}}">{{summary}}</div>
+      <div class="socials-wrapper" id="headerSocials">
+        {{socials}}
+      </div>
+      <div class="hero-actions">
+        <a href="mailto:{{email}}" class="btn btn-primary" id="mainContactBtn">CONTACT</a>
+        <a href="#projectsSection" class="btn btn-secondary">VIEW PROJECTS</a>
+      </div>
+    </div>
+
+    <div class="profile-card" id="headerProfileCard">
+      <div class="profile-image-wrapper" id="profileImageWrapper">
+        <img src="{{profileImage}}" alt="{{name}}" class="profile-image" id="profileImageNode" />
+      </div>
+      <div class="profile-item" id="profEmailRow" data-val="{{email}}">
+        <div class="profile-label">EMAIL</div>
+        <div class="profile-value">{{email}}</div>
+      </div>
+      <div class="profile-item" id="profPhoneRow" data-val="{{phone}}">
+        <div class="profile-label">PHONE</div>
+        <div class="profile-value">{{phone}}</div>
+      </div>
+      <div class="profile-item" id="profLocRow" data-val="{{location}}">
+        <div class="profile-label">LOCATION</div>
+        <div class="profile-value">{{location}}</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="info-section" id="educationSection">
+    <div class="info-title">EDUCATION</div>
+    <div class="main-card">
+      {{education}}
+    </div>
+  </section>
+
+  <section class="info-section" id="skillsSection">
+    <div class="info-title">SKILLS</div>
+    <div class="main-card">
+      <div class="skills-wrapper">
+        {{skills}}
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section" id="projectsSection">
+    <div class="info-title">SELECTED PROJECTS // 2026</div>
+    <div class="main-card" style="padding: 1rem 0rem;">
+      <div class="projects-grid" id="projectsContainer">
+        {{projects}}
+      </div>
+    </div>
+  </section>
+
+  <section class="info-section" id="experienceSection">
+    <div class="info-title">EXPERIENCE</div>
+    <div class="main-card">
+      {{experience}}
+    </div>
+  </section>
+
+  <section class="info-section" id="achievementsSection">
+    <div class="info-title">ACHIEVEMENTS</div>
+    <div class="main-card">
+      <ul class="achievement-list">
+        {{achievements}}
+      </ul>
+    </div>
+  </section>
+
+  <section class="info-section" id="gallerySection">
+    <div class="info-title">ARTWORK GALLERY</div>
+    <div class="main-card artworks-wrapper" id="galleryContainer">
+      {{artworksSection}}
+    </div>
+  </section>
+
+  <section class="info-section" id="additionalSection">
+    <div class="info-title">ADDITIONAL DETAILS</div>
+    <div class="main-card" id="additionalCard">
+      <div class="additional-details-content">
+        {{additionalDetailsSection}}
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 {{name}} // ALL RIGHTS RESERVED</span>
+    <span id="footerEmailField">{{email}}</span>
+  </footer>
+
+  <div class="lightbox-overlay" id="lightboxModal">
+    <div class="lightbox-view">
+      <button class="lightbox-close-btn" id="lightboxClose">
+        <i class="fas fa-times"></i>
+      </button>
+      <button class="lightbox-nav-btn lightbox-prev-btn" id="lightboxPrev">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="lightbox-nav-btn lightbox-next-btn" id="lightboxNext">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <img id="lightboxImg" src="" alt="Enlarged gallery presentation view container">
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // ========================================================
+      // CLEAN EXTRACTION MASK ENGINE (VISIBILITY SANITIZER)
+      // ========================================================
+      const isBlank = (val) => {
+        if (!val) return true;
+        const processed = val.replace(/\{\{[^}]+}\}/g, '').trim();
+        return processed === "" || processed === "undefined" || processed === "null";
+      };
+
+      const checkAndNormalizeLighterThemes = () => {
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        const cardColorValue = window.getComputedStyle(document.body).getPropertyValue('--card').trim();
+        const rgb = bodyBg.match(/\d+/g);
+
+        if (rgb) {
+          const r = parseInt(rgb[0]), g = parseInt(rgb[1]), b = parseInt(rgb[2]);
+          const relativeLuminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+          if (relativeLuminance > 165) {
+            document.documentElement.style.setProperty('--card', cardColorValue === '#111111' ? 'rgba(0, 0, 0, 0.035)' : cardColorValue);
+            document.documentElement.style.setProperty('--text', '#1c1c1e');
+            document.documentElement.style.setProperty('--muted', '#545458');
+          } else {
+            document.body.setAttribute('data-theme-detected', 'dark');
+          }
+        }
+      };
+      checkAndNormalizeLighterThemes();
+
+      const structuralSegments = [
+        { sectionId: 'educationSection', token: `{{education}}` },
+        { sectionId: 'skillsSection', token: `{{skills}}` },
+        { sectionId: 'projectsSection', token: `{{projects}}` },
+        { sectionId: 'experienceSection', token: `{{experience}}` },
+        { sectionId: 'achievementsSection', token: `{{achievements}}` },
+        { sectionId: 'gallerySection', token: `{{artworksSection}}` },
+        { sectionId: 'additionalSection', token: `{{additionalDetailsSection}}` }
+      ];
+
+      structuralSegments.forEach(segment => {
+        const domEl = document.getElementById(segment.sectionId);
+        if (domEl && isBlank(segment.token)) {
+          domEl.classList.add('section-hidden');
+        }
+      });
+
+      const avatarImg = document.getElementById('profileImageNode');
+      const cardContainer = document.getElementById('headerProfileCard');
+      const headerLayout = document.getElementById('heroHeader');
+
+      if (avatarImg && isBlank(avatarImg.getAttribute('src'))) {
+        const imageBox = document.getElementById('profileImageWrapper');
+        if (imageBox) imageBox.style.display = 'none';
+
+        const emailCheck = isBlank(document.getElementById('profEmailRow').getAttribute('data-val'));
+        const phoneCheck = isBlank(document.getElementById('profPhoneRow').getAttribute('data-val'));
+        const locCheck = isBlank(document.getElementById('profLocRow').getAttribute('data-val'));
+
+        if (emailCheck && phoneCheck && locCheck) {
+          cardContainer.classList.add('section-hidden');
+          headerLayout.classList.add('no-avatar');
+        } else {
+          if (emailCheck) document.getElementById('profEmailRow').remove();
+          if (phoneCheck) document.getElementById('profPhoneRow').remove();
+          if (locCheck) document.getElementById('profLocRow').remove();
+        }
+      }
+
+      const summaryBox = document.getElementById('summaryDescription');
+      if (summaryBox && isBlank(summaryBox.getAttribute('data-val'))) {
+        summaryBox.remove();
+      }
+
+      const rowSocials = document.getElementById('headerSocials');
+      if (rowSocials && isBlank(`{{socials}}`)) {
+        rowSocials.remove();
+      }
+
+      // ========================================================
+      // REPLICATED HIGH-PERFORMANCE 3D CARD INTERACTION ENGINE
+      // ========================================================
+      const container = document.getElementById('projectsContainer');
+      if (container && !isBlank(`{{projects}}`)) {
+        const blocks = Array.from(container.children);
+
+        let isLightText = true;
+        const currentTextColor = window.getComputedStyle(document.documentElement).getPropertyValue('--text').trim();
+        if (currentTextColor === '#1c1c1e') isLightText = false;
+
+        blocks.forEach(block => {
+          block.removeAttribute('onclick');
+          block.className = 'flip-card';
+
+          const originalHTML = block.innerHTML;
+          const temp = document.createElement('div');
+          temp.innerHTML = originalHTML;
+
+          const titleNode = temp.querySelector('.project-title') || temp.querySelector('h2') || temp.querySelector('h3');
+          const techNode = temp.querySelector('.project-tech') || temp.querySelector('p');
+
+          let imageSrc = '';
+          const cssVarBg = block.style.getPropertyValue('--project-bg');
+          if (cssVarBg) {
+            const match = cssVarBg.match(/url\(['"]?([^'"]*)['"]?\)/);
+            imageSrc = match ? match[1] : cssVarBg.replace(/['"]/g, '').trim();
+          }
+          if (!imageSrc) {
+            const imgEl = temp.querySelector('img');
+            if (imgEl && imgEl.getAttribute('src')) imageSrc = imgEl.getAttribute('src');
+          }
+          if (!imageSrc && block.style.backgroundImage) {
+            const match = block.style.backgroundImage.match(/url\(['"]?([^'"]*)['"]?\)/);
+            if (match) imageSrc = match[1];
+          }
+          if (!imageSrc) {
+            const imageCandidate = temp.querySelector('[data-image], [data-src]');
+            if (imageCandidate) {
+              imageSrc = imageCandidate.getAttribute('data-image') || imageCandidate.getAttribute('data-src');
+            }
+          }
+
+          const linkNode = temp.querySelector('a');
+          let linkHref = '';
+          if (linkNode) {
+            linkHref = linkNode.getAttribute('href');
+            linkNode.remove();
+          }
+
+          const front = document.createElement('div');
+          front.className = 'flip-card-front';
+          
+          if (imageSrc && !imageSrc.includes('{{')) {
+            front.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.70)), url('${imageSrc}')`;
+          } else {
+            front.style.backgroundImage = `linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), var(--card, #111111))`;
+          }
+
+          if (titleNode) {
+            const cloneTitle = titleNode.cloneNode(true);
+            cloneTitle.className = 'project-title';
+            front.appendChild(cloneTitle);
+          }
+          if (techNode) {
+            const cloneTech = techNode.cloneNode(true);
+            cloneTech.className = 'project-tech';
+            front.appendChild(cloneTech);
+          }
+
+          const indicator = document.createElement('div');
+          indicator.className = 'tap-indicator';
+          indicator.innerHTML = 'TAP TO FLIP //';
+          front.appendChild(indicator);
+
+          const back = document.createElement('div');
+          back.className = 'flip-card-back';
+          
+          if (imageSrc && !imageSrc.includes('{{')) {
+            const opacityMask = isLightText ? 'rgba(15, 15, 15, 0.94)' : 'rgba(255, 255, 255, 0.94)';
+            back.style.backgroundImage = `linear-gradient(${opacityMask}, ${opacityMask}), url('${imageSrc}')`;
+          } else {
+            back.style.backgroundImage = `linear-gradient(180deg, var(--card, #111111), var(--bg, #000000))`;
+          }
+
+          const backWrapper = document.createElement('div');
+          backWrapper.className = 'project-back-content-wrapper';
+
+          const scrollArea = document.createElement('div');
+          scrollArea.className = 'project-back-scrollable';
+
+          if (titleNode) titleNode.remove();
+          if (techNode) techNode.remove();
+          const leftoverImg = temp.querySelector('img');
+          if (leftoverImg) leftoverImg.remove();
+
+          scrollArea.innerHTML = temp.innerHTML;
+          backWrapper.appendChild(scrollArea);
+
+          const fixedFooter = document.createElement('div');
+          fixedFooter.className = 'project-back-fixed-footer';
+
+          if (linkHref && !linkHref.includes('{{')) {
+            const externalLink = document.createElement('a');
+            externalLink.className = 'project-external-link';
+            externalLink.setAttribute('href', linkHref);
+            externalLink.setAttribute('target', '_blank');
+            externalLink.innerHTML = 'LAUNCH PROJECT <i class="fas fa-external-link-alt"></i>';
+            fixedFooter.appendChild(externalLink);
+          }
+
+          backWrapper.appendChild(fixedFooter);
+          back.appendChild(backWrapper);
+
+          const inner = document.createElement('div');
+          inner.className = 'flip-card-inner';
+          inner.appendChild(front);
+          inner.appendChild(back);
+
+          block.innerHTML = '';
+          block.style.backgroundImage = 'none';
+          block.appendChild(inner);
+
+          block.addEventListener('click', function (e) {
+            if (e.target.closest('.project-external-link')) return;
+            this.classList.toggle('active');
+          });
+        });
+      }
+
+      // ========================================================
+      // GALLERY CAROUSEL CONTROLS & AUTO-ANIMATION 
+      // ========================================================
+      const galleryContainer = document.getElementById('galleryContainer');
+      if (galleryContainer && !isBlank(`{{artworksSection}}`)) {
+        const setupGalleryGridItems = () => {
+          const blocks = galleryContainer.querySelectorAll('.artwork-image, [class*="artwork-image"]');
+          blocks.forEach(card => {
+            card.classList.add('artwork-image');
+          });
+        };
+        setupGalleryGridItems();
+
+        const galleries = document.querySelectorAll('.artwork-gallery');
+        galleries.forEach(gallery => {
+          let autoSlide;
+          let isHovered = false;
+
+          const startSlider = () => {
+            autoSlide = setInterval(() => {
+              if (isHovered) return;
+              gallery.scrollBy({ left: 1.2, behavior: "smooth" });
+              if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 5) {
+                gallery.scrollTo({ left: 0, behavior: "smooth" });
+              }
+            }, 20);
+          };
+
+          startSlider();
+          gallery.addEventListener('mouseenter', () => { isHovered = true; });
+          gallery.addEventListener('mouseleave', () => { isHovered = false; });
+          gallery.addEventListener('touchstart', () => { clearInterval(autoSlide); });
+          gallery.addEventListener('touchend', () => { startSlider(); });
+        });
+      }
+
+      // ========================================================
+      // LIGHTBOX INTERACTION MATRIX
+      // ========================================================
+      const lightboxModal = document.getElementById('lightboxModal');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxClose = document.getElementById("lightboxClose");
+      const prevBtn = document.getElementById('lightboxPrev');
+      const nextBtn = document.getElementById('lightboxNext');
+      const profileImageWrapper = document.getElementById('profileImageWrapper');
+
+      let currentIndex = 0;
+      let artworkImages = [];
+      let isProfileTarget = false;
+
+      const syncLightboxData = () => {
+        const artworkCards = document.querySelectorAll('.artwork-image, [class*="artwork-image"]');
+        artworkImages = Array.from(artworkCards).map(card => {
+          const imgNode = card.querySelector('img');
+          return imgNode ? imgNode.src : '';
+        }).filter(src => src !== '');
+
+        artworkCards.forEach((card, index) => {
+          card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openLightbox(index, false);
+          });
+        });
+      };
+
+      function openLightbox(index, isProfileClick = false) {
+        isProfileTarget = isProfileClick;
+        
+        if (isProfileTarget) {
+          lightboxModal.classList.add('profile-isolation-mode');
+          lightboxImg.src = avatarImg.src;
+        } else {
+          if (artworkImages.length === 0) return;
+          lightboxModal.classList.remove('profile-isolation-mode');
+          currentIndex = index;
+          lightboxImg.src = artworkImages[currentIndex];
+        }
+        
+        lightboxModal.classList.add('show-lightbox');
+      }
+
+      function showImage(index) {
+        if (isProfileTarget) return;
+
+        if (index < 0) { currentIndex = artworkImages.length - 1; }
+        else if (index >= artworkImages.length) { currentIndex = 0; }
+        else { currentIndex = index; }
+
+        lightboxImg.style.opacity = 0;
+        setTimeout(() => {
+          lightboxImg.src = artworkImages[currentIndex];
+          lightboxImg.onload = () => { lightboxImg.style.opacity = 1; };
+        }, 120);
+      }
+
+      if (profileImageWrapper && avatarImg) {
+        profileImageWrapper.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openLightbox(0, true);
+        });
+      }
+
+      if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex + 1); });
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showImage(currentIndex - 1); });
+      }
+
+      if (lightboxModal) {
+        lightboxModal.addEventListener('click', (e) => {
+          if (e.target === lightboxModal || e.target === lightboxClose || e.target.closest('#lightboxClose')) {
+            lightboxModal.classList.remove('show-lightbox');
+          }
+        });
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (!lightboxModal.classList.contains('show-lightbox')) return;
+        if (e.key === 'Escape') lightboxModal.classList.remove('show-lightbox');
+        if (!isProfileTarget) {
+          if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+          if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+        }
+      });
+
+      setTimeout(syncLightboxData, 600);
+    });
+  </script>
+</body>
+
+</html>

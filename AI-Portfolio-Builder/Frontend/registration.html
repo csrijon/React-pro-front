@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Modern AI Portfolio Builder</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles/reg.css" />
+  </head>
+  <body>
+    <div class="loading-overlay" id="processingOverlay">
+      <div class="loader-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring-inner"></div>
+      </div>
+      <p class="loader-text" id="overlayText">Authenticating Identity...</p>
+    </div>
+
+    <div class="main-wrapper">
+      <div class="container">
+        <div class="brand-banner">
+          <h2>AI Portfolio Builder</h2>
+        </div>
+
+        <div class="auth-card">
+          <div id="authErrorMessage" class="auth-error-message"></div>
+
+          <div class="auth-scope active" id="registerScope">
+            <div class="hero-section">
+              <h1>Create <span>Account</span></h1>
+              <p>
+                Register your credentials below to establish a new user profile.
+              </p>
+            </div>
+
+            <form id="registerForm">
+              <div class="form-group">
+                <label for="regName">Full Name</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-user"></i>
+                  <input
+                    type="text"
+                    id="regName"
+                    placeholder="e.g., Ayan Sinha"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="regEmail">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="regEmail"
+                    placeholder="name@example.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="regPhone">Phone Number</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-phone"></i>
+                  <input
+                    type="tel"
+                    id="regPhone"
+                    placeholder="e.g., +91 98765 43210"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="regPassword">Password</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    id="regPassword"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="action-row">
+                <button type="submit">REGISTER PROFILE</button>
+              </div>
+            </form>
+
+            <div class="oauth-divider">
+              <span>OR</span>
+            </div>
+
+            <div class="action-row">
+              <a
+                href="http://localhost:5000/auth/google"
+                class="google-btn"
+                id="googleAuthBtnReg"
+                style="text-decoration: none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  style="display: block"
+                >
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  />
+                </svg>
+                <span>Google</span>
+              </a>
+            </div>
+
+            <div class="switch-directory">
+              Already registered?
+              <a href="#" id="linkToLogin">Access existing account</a>
+            </div>
+          </div>
+
+          <div class="auth-scope" id="loginScope">
+            <div class="hero-section">
+              <h1>User <span>Login</span></h1>
+              <p>
+                Provide your system credentials to access your dashboard
+                configuration.
+              </p>
+            </div>
+
+            <form id="loginForm">
+              <div class="form-group">
+                <label for="loginEmail">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="name@example.com"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+                <div style="text-align: right; margin-top: 8px">
+                  <a
+                    href="#"
+                    id="linkToForgot"
+                    style="
+                      font-size: 0.85rem;
+                      text-decoration: none;
+                      color: #2563eb;
+                    "
+                    >Forgot Password?</a
+                  >
+                </div>
+              </div>
+
+              <div class="action-row">
+                <button type="submit">INITIALIZE LOGIN</button>
+              </div>
+            </form>
+
+            <div class="oauth-divider">
+              <span>OR</span>
+            </div>
+
+            <div class="action-row">
+              <a
+                href="http://localhost:5000/auth/google"
+                class="google-btn"
+                id="googleAuthBtnLogin"
+                style="text-decoration: none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  style="display: block"
+                >
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                  />
+                </svg>
+                <span>Google</span>
+              </a>
+            </div>
+
+            <div class="switch-directory">
+              Need an account?
+              <a href="#" id="linkToRegister">Create a profile node</a>
+            </div>
+          </div>
+
+          <div class="auth-scope" id="forgotPasswordScope">
+            <div class="hero-section">
+              <h1>Reset <span>Password</span></h1>
+              <p>
+                Enter your registered email address to receive a secure
+                validation code.
+              </p>
+            </div>
+
+            <form id="forgotPasswordForm">
+              <div id="recoveryEmailGroup" class="form-group">
+                <label for="forgotEmail">Email Address</label>
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="forgotEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+              </div>
+
+              <div id="otpFieldsContainer" style="display: none">
+                <div class="form-group" style="margin-bottom: 15px">
+                  <label for="recoveryOtp">Verification Code</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-key"></i>
+                    <input
+                      type="text"
+                      id="recoveryOtp"
+                      placeholder="Enter 4-digit OTP"
+                      maxlength="4"
+                      autocomplete="off"
+                    />
+                  </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 15px">
+                  <label for="recoveryNewPassword">New Secure Password</label>
+                  <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input
+                      type="password"
+                      id="recoveryNewPassword"
+                      placeholder="Create new password"
+                      minlength="6"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="action-row" style="margin-top: 20px">
+                <button type="submit" id="forgotSubmitBtn">
+                  SEND VERIFICATION CODE
+                </button>
+              </div>
+            </form>
+
+            <div class="switch-directory">
+              Remembered your credentials?
+              <a href="#" id="forgotToLogin">Return to login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/reg.js"></script>
+  </body>
+</html>
