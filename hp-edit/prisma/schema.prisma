@@ -1,0 +1,351 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Organization {
+  id                     String   @id @default("default")
+  name                   String   @default("HP Edit Enterprise")
+  tagline                String   @default("Architecting Intelligent Software, AI Agents & Enterprise Systems")
+  description            String   @default("We are an elite software engineering studio crafting high-speed web apps, mobile solutions, autonomous AI agents, enterprise automation pipelines, and WhatsApp growth engines.")
+  logoUrl                String?  // Uploadable logo URL or Base64
+  
+  // Secret Admin Portal Slug (Configurable & Hidden)
+  adminPortalSlug        String   @default("admin")
+  
+  // Theme Mode
+  themeMode              String   @default("system") // "dark", "light", "system"
+  
+  // Dark Mode Custom Palette
+  darkBgColor            String   @default("#030712")
+  darkTextColor          String   @default("#f9fafb")
+  darkCardColor          String   @default("rgba(17, 24, 39, 0.65)")
+  darkAccentColor        String   @default("#06B6D4")
+  darkSecondaryAccent    String   @default("#8B5CF6")
+  
+  // Light Mode Custom Palette
+  lightBgColor           String   @default("#f8fafc")
+  lightTextColor         String   @default("#0f172a")
+  lightCardColor         String   @default("rgba(255, 255, 255, 0.85)")
+  lightAccentColor       String   @default("#0284c7")
+  lightSecondaryAccent   String   @default("#7c3aed")
+  
+  // Preset Theme Color & Font Family
+  themeColor             String   @default("cyan") // cyan, purple, emerald, amber, rose, blue, mono, custom
+  fontFamily             String   @default("inter") // inter, space-grotesk, outfit, syne, plus-jakarta, custom
+  fontSizeScale          String   @default("normal") // compact, normal, large
+  enableSoundFX          Boolean  @default(true)
+  
+  // Custom Fonts (Google Fonts or Uploaded Font File)
+  customFontType         String   @default("preset") // "preset", "google", "upload"
+  googleFontUrl          String?  // e.g. "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+  googleFontName         String?  // e.g. "Poppins"
+  uploadedFontData       String?  // Base64 data URI of .woff2 / .ttf / .otf
+  uploadedFontName       String?  // e.g. "MyCustomFont"
+  
+  // Contact & Headquarters
+  address                String   @default("ST 24, Awfis 4th Floor, Siddha Esplanade")
+  city                   String   @default("Kolkata")
+  country                String   @default("India")
+  postalCode             String   @default("700013")
+  primaryPhone           String   @default("+91 9836847984")
+  secondaryPhone         String?  @default("+91 9681389425")
+  whatsappNumber         String   @default("+919836847984")
+  whatsappDefaultMessage String   @default("Hello HP Edit Enterprise! I am interested in building a high-performance software / AI project.")
+  primaryEmail           String   @default("info@hpedit.com")
+  salesEmail             String?  @default("info@hpedit.com")
+  supportEmail           String?  @default("info@hpedit.com")
+  googleMapsEmbed        String?  @default("https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.4010935461924!2d88.34919327587184!3d22.564097233280936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02778b594141dd%3A0x5e6b76eb8a8b475e!2sHP%20EDIT%20Enterprise!5e0!3m2!1sen!2sin!4v1787734113644!5m2!1sen!2sin")
+  businessHours          String   @default("Monday - Saturday: 9:00 AM - 8:30 PM IST")
+  availabilityStatus     String   @default("🚀 Accepting High-Impact Projects for 2026")
+  
+  // Dynamic Social Media Links (JSON array with icons)
+  customSocials          String?  @default("[]")
+  linkedinUrl            String?  @default("https://linkedin.com/company/hp-edit-enterprise")
+  githubUrl              String?  @default("https://github.com/hp-edit")
+  twitterUrl             String?  @default("https://x.com/hpedit_tech")
+  instagramUrl           String?  @default("https://instagram.com/hpedit_enterprise")
+  youtubeUrl             String?  @default("https://youtube.com/@hpedit")
+  
+  // About Us & Company Story
+  aboutHeading           String?  @default("Forging Digital Supremacy for Modern Enterprises")
+  aboutStory             String?  @default("Founded with a mission to bridge high-level computer science, frontier artificial intelligence, and pragmatic business engineering, HP Edit Enterprise has engineered mission-critical software for global logistics, hyper-scale retail brands, and venture-backed tech startups.")
+  aboutMission           String?  @default("To empower visionary organizations with autonomous AI agents, frictionless workflows, and sub-100ms software architectures that scale effortlessly.")
+  aboutStats             String?  @default("[{\"label\":\"Production Systems Deployed\",\"value\":\"120+\"},{\"label\":\"Average Performance Boost\",\"value\":\"340%\"},{\"label\":\"Enterprise API Uptime\",\"value\":\"99.99%\"},{\"label\":\"Happy Global Clients\",\"value\":\"50+\"}]")
+  
+  // SEO & OpenGraph
+  seoTitle               String?  @default("HP Edit Enterprise | Next-Gen Software, AI Agents & Enterprise Systems")
+  seoDescription         String?  @default("We architect superfast web apps, mobile apps, autonomous AI agents, enterprise automation systems, WhatsApp integrations, and growth engines.")
+  seoKeywords            String?  @default("HP Edit, software development, AI agents, Next.js, Flutter, WhatsApp API")
+
+  // Cal.com / Booking Integration
+  calEmbedUrl            String?  @default("")
+
+  // Gemini 2.0 Free Tier AI Chatbot Integration
+  geminiApiKey           String?  @default("")
+  geminiModelName        String   @default("gemini-2.0-flash")
+  geminiSystemPrompt     String?  @default("You are the Principal AI Architect of HP Edit Enterprise (www.hpedit.com), an elite software engineering studio crafting sub-100ms web apps, Flutter mobile apps, autonomous AI agent pipelines, and official Meta WhatsApp Cloud API funnels. Answer questions politely, precisely, and guide clients toward scheduling a 15-minute discovery sprint or contacting on WhatsApp.")
+
+  // Outbound Webhook & Meta WhatsApp Alerts
+  outboundWebhookUrl     String?  @default("")
+  founderAlertWhatsapp   String?  @default("+919876543210")
+  metaWhatsappApiToken   String?  @default("")
+  metaWhatsappPhoneId    String?  @default("")
+  
+  // Granular Site Modules & Section Toggles (JSON configuration)
+  featureToggles         String?  @default("{}")
+  
+  updatedAt              DateTime @updatedAt
+}
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  fullName     String    @default("Studio Administrator")
+  passwordHash String
+  role         String    @default("SUPER_ADMIN") // SUPER_ADMIN, SALES_LEAD, CONTENT_MANAGER, TALENT_HR, SECURITY_AUDITOR
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+}
+
+model AdminNotification {
+  id        String   @id @default(cuid())
+  type      String   // LEAD, APPLICANT, THREAT, PROPOSAL, SYSTEM, ACCESS_REQUEST, BOOKING
+  title     String
+  message   String
+  linkTab   String   @default("inquiries") // inquiries, bookings, applications, threats, analytics, users, audit
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id            String   @id @default(cuid())
+  adminUsername String
+  adminRole     String
+  action        String   // LOGIN, LOGOUT, CREATE_USER, ROLE_CHANGED, INQUIRY_UPDATED, MESSAGE_DISPATCHED, SETTINGS_UPDATED, ACCESS_GRANTED, BOOKING_CREATED
+  resource      String   // Inquiries, Bookings, Users, Organization, Services, Security
+  details       String
+  ipAddress     String?
+  isArchived    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+}
+
+model AccessRequest {
+  id            String   @id @default(cuid())
+  userId        String
+  username      String
+  currentRole   String
+  requestedRole String
+  reason        String
+  status        String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  reviewedBy    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+}
+
+model LeadCommunication {
+  id             String   @id @default(cuid())
+  inquiryId      String
+  channel        String   // WHATSAPP, EMAIL, PHONE
+  subject        String?
+  messageContent String
+  sentByAdmin    String
+  createdAt      DateTime @default(now())
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  meetingType   String   // 15-min Sprint Discovery, 30-min Architecture Consultation
+  platform      String   // Google Meet, Zoom, Phone
+  bookingDate   String   // YYYY-MM-DD
+  bookingTime   String   // HH:MM
+  timezone      String   // IST, UTC, EST, etc.
+  topic         String
+  meetingLink   String?
+  status        String   @default("CONFIRMED") // CONFIRMED, COMPLETED, CANCELLED
+  createdAt     DateTime @default(now())
+}
+
+model Inquiry {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  phone         String?
+  serviceType   String
+  projectBudget String?
+  timeline      String?
+  message       String
+  status        String   @default("NEW")
+  pipelineStage String   @default("NEW") // NEW, CONTACTED, SCOPING, PROPOSAL_SENT, CLOSED_WON, ARCHIVED
+  createdAt     DateTime @default(now())
+}
+
+model JobApplication {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  roleTitle    String
+  portfolioUrl String?
+  githubUrl    String?
+  resumeNotes  String?
+  status       String   @default("REVIEW")
+  createdAt    DateTime @default(now())
+}
+
+model ServiceOffering {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  shortDescription String
+  fullDescription  String
+  category         String
+  icon             String
+  features         String
+  order            Int      @default(0)
+  isFeatured       Boolean  @default(true)
+  isActive         Boolean  @default(true)
+}
+
+model ProjectShowcase {
+  id          String   @id @default(cuid())
+  title       String
+  client      String
+  category    String
+  description String
+  metrics     String
+  techStack   String
+  demoUrl     String?
+  featured    Boolean  @default(true)
+  order       Int      @default(0)
+}
+
+model BlogPost {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  excerpt      String
+  content      String
+  coverImage   String?
+  authorName   String   @default("HP Edit Engineering Team")
+  authorRole   String?  @default("Principal Architect")
+  authorAvatar String?
+  tags         String
+  readTime     String   @default("4 min read")
+  published    Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  name        String
+  designation String
+  bio         String
+  photoUrl    String?
+  email       String?
+  phone       String?
+  linkedinUrl String?
+  githubUrl   String?
+  twitterUrl  String?
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+}
+
+model FaqItem {
+  id       String @id @default(cuid())
+  question String
+  answer   String
+  category String @default("General")
+  order    Int    @default(0)
+}
+
+model TestimonialItem {
+  id        String  @id @default(cuid())
+  author    String
+  role      String
+  company   String
+  quote     String
+  highlight String
+  rating    Int     @default(5)
+  avatarUrl String?
+  order     Int     @default(0)
+}
+
+model VisitorActivity {
+  id        String   @id @default(cuid())
+  sessionId String
+  eventType String   // PAGE_VIEW, ESTIMATOR_CALC, AI_DEMO_RUN, WHATSAPP_CLICK, PDF_DOWNLOAD, FORM_SUBMIT, BOOKING_SUBMIT
+  path      String
+  details   String?  // JSON metadata
+  device    String?  // Desktop, Mobile, Tablet
+  browser   String?
+  os        String?
+  ipHash    String?
+  createdAt DateTime @default(now())
+}
+
+model SecurityEvent {
+  id         String   @id @default(cuid())
+  type       String   // HONEYPOT_TRIGGER, RATE_LIMIT_BLOCKED, XSS_ATTEMPT_BLOCKED, BOT_REJECTED
+  details    String
+  ipHash     String?
+  isArchived Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model ClientProject {
+  id              String             @id @default(cuid())
+  projectCode     String             @unique // e.g. HPE-7849
+  clientName      String
+  clientEmail     String
+  clientCompany   String?
+  title           String             // e.g. "OmniAI Multi-Tenant LLM Platform"
+  description     String
+  tier            String             @default("Enterprise Sprint") // MVP, Growth, Enterprise
+  status          String             @default("IN_PROGRESS") // DISCOVERY, ARCHITECTURE, IN_PROGRESS, STAGING, COMPLETED, DELIVERED
+  progressPercent Int                @default(25) // 0-100
+  stagingUrl      String?            // e.g. https://staging-omni.hpedit.com
+  figmaUrl        String?            // e.g. https://figma.com/design/...
+  repoUrl         String?            // e.g. https://github.com/hp-edit/...
+  startDate       String?
+  targetDelivery  String?
+  completedDate   String?
+  milestones      ProjectMilestone[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @default(now()) @updatedAt
+}
+
+model ProjectMilestone {
+  id                 String         @id @default(cuid())
+  projectId          String
+  project            ClientProject  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title              String         // e.g. "Sprint 1: Architecture & Vector Database Cluster"
+  description        String
+  deliverables       String         // JSON or comma separated string of checklist items
+  status             String         @default("PENDING") // PENDING, IN_PROGRESS, REVIEW, COMPLETED
+  targetDate         String?
+  completedAt        DateTime?
+  signedOffByClient  Boolean        @default(false)
+  signOffClientName  String?
+  signOffNotes       String?
+  signOffDate        DateTime?
+  invoiceAmount      String?        // e.g. "$4,500"
+  invoiceStatus      String?        @default("UNPAID") // UNPAID, PAID, WAIVED
+  paymentLink        String?        // e.g. "https://buy.stripe.com/..."
+  clientFeedback     String?
+  order              Int            @default(0)
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @default(now()) @updatedAt
+}
+

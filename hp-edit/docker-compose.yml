@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hp_edit_app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/data/prod.db
+      - ADMIN_JWT_SECRET=hp-edit-enterprise-ultra-secure-secret-key-2026
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - META_WHATSAPP_TOKEN=${META_WHATSAPP_TOKEN:-}
+      - OUTBOUND_WEBHOOK_URL=${OUTBOUND_WEBHOOK_URL:-}
+    volumes:
+      - app_data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - hp_network
+
+networks:
+  hp_network:
+    driver: bridge
+
+volumes:
+  app_data:
+    driver: local
