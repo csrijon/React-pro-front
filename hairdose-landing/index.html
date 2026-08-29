@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="hairDose helps you discover trusted salons, stylists and beauty professionals near you." />
+  <title>hairDose — Find Your Perfect Salon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="hairDose home">
+        <span class="brand-logo-wrap">
+          <img
+            class="brand-logo"
+            src="assets/images/logo.png"
+            alt="hairDose logo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+          />
+          <span class="brand-logo-fallback" aria-hidden="true">hD</span>
+        </span>
+        <span class="brand-copy">
+          <strong>hairDose</strong>
+          <small>Beauty, near you.</small>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#for-salons">For salons</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="text-link desktop-only" href="#early-access">Join waitlist</a>
+        <a class="button button-dark button-small desktop-only" href="#discover">Explore preview</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#how-it-works">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#for-salons">For salons</a>
+      <a href="#early-access">Join waitlist</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="discover">
+      <div class="hero-orb hero-orb-one"></div>
+      <div class="hero-orb hero-orb-two"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span class="dot"></span> Coming soon</div>
+          <h1>Your next great hair day starts <em>nearby.</em></h1>
+          <p class="hero-text">
+            Discover trusted salons, talented stylists and beauty professionals around you — with real reviews, transparent details and effortless discovery.
+          </p>
+
+          <form class="search-card" id="salonSearch">
+            <div class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 4.9 12l4 4 1.4-1.4-4-4A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/></svg>
+              <div>
+                <label for="service">What are you looking for?</label>
+                <input id="service" type="text" placeholder="Haircut, styling, colour..." />
+              </div>
+            </div>
+            <div class="search-divider"></div>
+            <div class="search-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.4 7 13 7 13s7-7.6 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
+              <div>
+                <label for="location">Where?</label>
+                <input id="location" type="text" placeholder="City or neighbourhood" />
+              </div>
+            </div>
+            <button class="search-button" type="submit" aria-label="Search salons">
+              <svg viewBox="0 0 24 24"><path d="M11 4a7 7 0 1 0 4.9 12l4 4 1.4-1.4-4-4A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/></svg>
+            </button>
+          </form>
+
+          <div class="hero-actions">
+            <a href="#early-access" class="button button-dark">Get early access</a>
+            <a href="#how-it-works" class="button button-ghost">See how it works <span>→</span></a>
+          </div>
+
+          <div class="trust-row">
+            <div class="avatar-stack" aria-hidden="true">
+              <span>HA</span><span>IR</span><span>DO</span><span>SE</span>
+            </div>
+            <p><strong>Built for better beauty discovery.</strong><br />No endless scrolling. Just the right salon for you.</p>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal delay-1" aria-label="hairDose app preview">
+          <div class="visual-backdrop"></div>
+          <div class="floating-card floating-card-top">
+            <span class="floating-icon">✦</span>
+            <div><strong>Curated for you</strong><small>Smart local discovery</small></div>
+          </div>
+          <div class="phone-shell">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="app-topline">
+                <div><small>Good afternoon</small><strong>Find your salon</strong></div>
+                <span class="mini-avatar">G</span>
+              </div>
+              <div class="app-search">⌕&nbsp;&nbsp; Search salons, services...</div>
+              <div class="app-location-row"><span>Near you</span><small>View map ↗</small></div>
+              <div class="map-card">
+                <div class="map-line l1"></div><div class="map-line l2"></div><div class="map-line l3"></div>
+                <span class="pin p1">✦</span><span class="pin p2">✦</span><span class="pin p3">✦</span>
+              </div>
+              <div class="salon-card">
+                <div class="salon-thumb thumb-one"></div>
+                <div class="salon-info"><strong>Maison Hair Studio</strong><span>★ 4.9 · 0.8 km</span><small>Haircut · Colour · Styling</small></div>
+                <button>♡</button>
+              </div>
+              <div class="salon-card">
+                <div class="salon-thumb thumb-two"></div>
+                <div class="salon-info"><strong>The Blow Room</strong><span>★ 4.8 · 1.2 km</span><small>Blowout · Treatments</small></div>
+                <button>♡</button>
+              </div>
+              <div class="app-tabs"><span class="active">⌂<small>Home</small></span><span>⌕<small>Search</small></span><span>♡<small>Saved</small></span><span>○<small>Profile</small></span></div>
+            </div>
+          </div>
+          <div class="floating-card floating-card-bottom">
+            <span class="rating-badge">4.9</span>
+            <div><strong>Loved locally</strong><small>Real reviews. Better choices.</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee-strip" aria-label="Featured services">
+      <div class="marquee-track">
+        <span>Haircuts</span><i>✦</i><span>Hair Colour</span><i>✦</i><span>Blowouts</span><i>✦</i><span>Bridal</span><i>✦</i><span>Treatments</span><i>✦</i><span>Barbering</span><i>✦</i>
+        <span>Haircuts</span><i>✦</i><span>Hair Colour</span><i>✦</i><span>Blowouts</span><i>✦</i><span>Bridal</span><i>✦</i><span>Treatments</span><i>✦</i><span>Barbering</span><i>✦</i>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="how-it-works">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div class="eyebrow">Designed around you</div>
+          <h2>Beauty discovery should feel <em>effortless.</em></h2>
+          <p>hairDose is being built to make finding the right salon simple, trustworthy and genuinely enjoyable.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card reveal"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>Tell us what you need</h3><p>Search by service, location, vibe or the look you want to achieve.</p></article>
+          <article class="step-card reveal delay-1"><span class="step-number">02</span><div class="step-icon">◎</div><h3>Discover your matches</h3><p>Compare nearby salons with useful details, ratings, services and photos.</p></article>
+          <article class="step-card reveal delay-2"><span class="step-number">03</span><div class="step-icon">♡</div><h3>Save your favourites</h3><p>Build a shortlist of salons and professionals that fit your personal style.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container feature-layout">
+        <div class="feature-panel reveal">
+          <div class="feature-image-placeholder">
+            <div class="abstract-shape shape-a"></div><div class="abstract-shape shape-b"></div>
+            <div class="mini-review-card"><span>★★★★★</span><strong>“Exactly what I was looking for.”</strong><small>Verified local review</small></div>
+          </div>
+        </div>
+        <div class="feature-copy reveal delay-1">
+          <div class="eyebrow">Confidence built in</div>
+          <h2>Less guessing.<br /><em>Better bookings.</em></h2>
+          <p class="feature-intro">The salon you choose matters. hairDose gives you the context you need before you decide.</p>
+          <div class="feature-list">
+            <div><span>✓</span><p><strong>Meaningful salon profiles</strong><small>Services, atmosphere, specialties, pricing cues and more.</small></p></div>
+            <div><span>✓</span><p><strong>Reviews you can actually use</strong><small>See what real clients loved before making your choice.</small></p></div>
+            <div><span>✓</span><p><strong>Local discovery made smarter</strong><small>Spend less time searching and more time finding your fit.</small></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section salon-section" id="for-salons">
+      <div class="container salon-banner reveal">
+        <div>
+          <div class="eyebrow eyebrow-light">For salons & professionals</div>
+          <h2>Be where your next client is <em>looking.</em></h2>
+          <p>hairDose will help independent professionals and salons showcase their work, get discovered locally and build stronger client relationships.</p>
+          <a class="button button-light" href="#early-access">Register your interest</a>
+        </div>
+        <div class="salon-stats">
+          <div><strong>01</strong><span>Beautiful business profiles</span></div>
+          <div><strong>02</strong><span>Service & specialty discovery</span></div>
+          <div><strong>03</strong><span>More relevant local visibility</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section early-access" id="early-access">
+      <div class="container waitlist-card reveal">
+        <div class="waitlist-copy">
+          <div class="eyebrow eyebrow-light">Be first in the chair</div>
+          <h2>Get early access to <em>hairDose.</em></h2>
+          <p>Join the launch list for product updates, early access invitations and salon discovery news.</p>
+        </div>
+        <form class="waitlist-form" id="waitlistForm">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" type="email" placeholder="Enter your email address" required />
+          <button class="button button-blush" type="submit">Join the waitlist</button>
+          <small id="formMessage">No spam. Just useful launch updates.</small>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#top">
+          <span class="brand-logo-wrap">
+            <img class="brand-logo" src="assets/images/logo.png" alt="hairDose logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+            <span class="brand-logo-fallback" aria-hidden="true">hD</span>
+          </span>
+          <span class="brand-copy"><strong>hairDose</strong><small>Beauty, near you.</small></span>
+        </a>
+        <p>Discover better. Book beautifully.</p>
+      </div>
+      <div><h4>Explore</h4><a href="#how-it-works">How it works</a><a href="#features">Features</a><a href="#for-salons">For salons</a></div>
+      <div><h4>Company</h4><a href="#">About</a><a href="#">Contact</a><a href="#">Privacy</a></div>
+      <div><h4>Follow</h4><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Pinterest</a></div>
+    </div>
+    <div class="container footer-bottom"><span>© <span id="year"></span> hairDose. All rights reserved.</span><span>Made for better hair days.</span></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
