@@ -3,10 +3,11 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-.env/
+hpedit.zip
+*.zip
 # testing
 /coverage
-
+*.db
 # next.js
 /.next/
 /out/
