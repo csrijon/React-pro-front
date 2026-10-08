@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { GENDERS, qs } from '../lib/api.js';
 import { useFetch } from '../lib/hooks.jsx';
 import ProductCard from '../components/ProductCard.jsx';
-import { Empty, ErrorBox, Pagination, ProductSkeletons } from '../components/ui.jsx';
+import { Empty, ErrorBox, Pagination, ProductSkeletons, ShoeImage, Spinner } from '../components/ui.jsx';
 
 const csv = (v) => (v ? v.split(',').filter(Boolean) : []);
 const SORTS = [['newest', 'Newest'], ['price_asc', 'Price: low → high'], ['price_desc', 'Price: high → low'], ['name', 'Product name']];
@@ -24,7 +24,9 @@ export default function Products() {
     featured: sp.get('featured') || '', sort: sp.get('sort') || 'newest', page: sp.get('page') || '1', limit: 12,
   }), [sp, gender, cSlug]);
 
-  const url = invalidGender ? null : `/api/products${qs(query)}`;
+  // Opening Men / Women / Kids (no category, search or filter yet) first shows the categories that have products.
+  const chooser = Boolean(gender) && !cSlug && sp.toString() === '';
+  const url = invalidGender || chooser ? null : `/api/products${qs(query)}`;
   const { data, error, loading, reload } = useFetch(url);
   const { data: cats } = useFetch('/api/categories');
   const { data: brands } = useFetch('/api/brands');
@@ -52,10 +54,32 @@ export default function Products() {
 
   const activeCat = visibleCats.find((c) => c.slug === query.category);
   const title = [gender ? `${gender.label}'s` : null, activeCat?.name || (query.category ? query.category : null)].filter(Boolean).join(' ')
-    || (query.featured ? 'Featured products' : query.q ? `Results for “${query.q}”` : 'All products');
+    || (query.featured ? 'Highlighted products' : query.q ? `Results for “${query.q}”` : 'All products');
 
   const activeCount = ['brand', 'size', 'color', 'minMrp', 'maxMrp', 'availability', 'featured'].filter((k) => query[k]).length;
   const clearAll = () => nav(gender ? `/products/${gender.slug}${cSlug ? '/' + cSlug : ''}${query.q ? `?q=${encodeURIComponent(query.q)}` : ''}` : (query.q ? `/products?q=${encodeURIComponent(query.q)}` : '/products'));
+
+  if (chooser) {
+    const available = visibleCats.filter((c) => c.productCount > 0);
+    return (
+      <div className="container page">
+        <nav className="crumbs" aria-label="Breadcrumb"><Link to="/">Home</Link> / <span>{gender.label}</span></nav>
+        <h1>{gender.label}&apos;s shoes</h1>
+        <p className="muted">Choose a category to see its products.</p>
+        {!cats ? <Spinner /> : available.length === 0 ? <Empty title="No products yet">Nothing is available in this section right now.</Empty> : (
+          <div className="grid cat-grid">
+            {available.map((c) => (
+              <Link key={c.id} className="card cat-card" to={`/products/${gender.slug}/${c.slug}`}>
+                <ShoeImage src={c.imageUrl} alt="" />
+                <div><strong>{c.name}</strong><span className="small muted">{c.productCount} product{c.productCount === 1 ? '' : 's'}</span></div>
+              </Link>
+            ))}
+          </div>
+        )}
+        <p><Link className="btn" to={`/products/${gender.slug}?all=1`}>View all {gender.label.toLowerCase()}&apos;s shoes</Link></p>
+      </div>
+    );
+  }
 
   if (invalidGender) return <div className="container"><Empty title="Page not found">That section does not exist. <Link to="/products">Browse all products</Link></Empty></div>;
 
@@ -108,7 +132,7 @@ export default function Products() {
         <select value={query.availability} onChange={(e) => setParam({ availability: e.target.value })} aria-label="Availability">
           <option value="">Any</option><option value="in_stock">In stock</option><option value="low">Low stock</option><option value="out_of_stock">Out of stock</option>
         </select>
-        <label className="check"><input type="checkbox" checked={!!query.featured} onChange={(e) => setParam({ featured: e.target.checked ? '1' : '' })} /> Featured only</label>
+        <label className="check"><input type="checkbox" checked={!!query.featured} onChange={(e) => setParam({ featured: e.target.checked ? '1' : '' })} /> Highlighted only</label>
       </fieldset>
     </div>
   );

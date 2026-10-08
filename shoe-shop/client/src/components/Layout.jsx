@@ -66,7 +66,7 @@ export default function Layout() {
             ))}
             <NavLink to="/categories" className="nav-link">Categories</NavLink>
             <NavLink to="/brands" className="nav-link">Brands</NavLink>
-            <Link to="/products?featured=1" className="nav-link">Featured</Link>
+            <Link to="/products?featured=1" className="nav-link">Highlighted</Link>
             <NavLink to="/products" end className="nav-link">All products</NavLink>
           </div>
         </nav>

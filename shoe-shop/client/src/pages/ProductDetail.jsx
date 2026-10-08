@@ -23,7 +23,7 @@ export default function ProductDetail() {
       || p.variants.find((v) => v.status !== 'OUT') || p.variants[0];
   }, [p, colorName]);
   const sizeLabel = sp.get('size');
-  const size = variant?.sizes.find((s) => s.size === sizeLabel) || null;
+  const size = variant?.sizes.find((s) => s.size === sizeLabel) || (variant?.sizes.length === 1 ? variant.sizes[0] : null);
 
   const select = (changes) => {
     const next = new URLSearchParams(sp);

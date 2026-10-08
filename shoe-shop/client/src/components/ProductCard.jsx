@@ -40,7 +40,7 @@ export default function ProductCard({ product: p }) {
     <article ref={ref} className={`card product-card reveal ${shown ? 'in' : ''}`}>
       <Link to={`/product/${p.slug}`} className="card-img" aria-label={p.name}>
         <ShoeImage src={p.image} alt={p.name} />
-        {p.featured && <span className="badge featured">Featured</span>}
+        {p.featured && <span className="badge featured">Highlighted</span>}
       </Link>
       <div className="card-body">
         <div className="small muted">{p.brand.name} · {genderLabel(p.gender)} · {p.category.name}</div>

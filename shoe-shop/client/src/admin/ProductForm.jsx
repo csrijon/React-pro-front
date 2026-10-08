@@ -159,7 +159,7 @@ export default function ProductForm() {
           <Field label="Purchase cost per pair (₹)" hint={margin == null ? 'What you pay the supplier. Only admins see this; used for profit reports.' : <span className={margin < 0 ? 'minus' : 'plus'}>Margin at wholesale price: {margin}% ({margin < 0 ? 'loss' : 'profit'} ₹{Math.abs(Number(f.wholesalePrice) - Number(f.costPrice)).toLocaleString('en-IN')} per pair)</span>}><input type="number" min="0" step="0.01" inputMode="decimal" value={f.costPrice} onChange={set('costPrice')} /></Field>
         </div>
         <Field label="Description"><textarea rows={4} value={f.description} onChange={set('description')} maxLength={5000} /></Field>
-        <div className="toggles"><Toggle checked={f.featured} onChange={(v) => setF({ ...f, featured: v })} label="Featured on homepage" /><Toggle checked={f.active} onChange={(v) => setF({ ...f, active: v })} label="Active (visible to customers)" /></div>
+        <div className="toggles"><Toggle checked={f.featured} onChange={(v) => setF({ ...f, featured: v })} label="Highlighted on homepage" /><Toggle checked={f.active} onChange={(v) => setF({ ...f, active: v })} label="Active (visible to customers)" /></div>
       </section>
 
       <section className="panel">

@@ -5,7 +5,7 @@ import { Spinner } from '../components/ui.jsx';
 
 const NAV = [
   ['/admin', 'Dashboard', true], ['/admin/products', 'Products'], ['/admin/products/new', 'Add Product'], ['/admin/categories', 'Categories'],
-  ['/admin/brands', 'Brands'], ['/admin/customers', 'Customers'], ['/admin/inventory', 'Inventory'], ['/admin/stock-history', 'Stock History'], ['/admin/reorder', 'Reorder Report'], ['/admin/featured', 'Featured Products'],
+  ['/admin/brands', 'Brands'], ['/admin/customers', 'Customers'], ['/admin/inventory', 'Inventory'], ['/admin/stock-history', 'Stock History'], ['/admin/reorder', 'Reorder Report'], ['/admin/featured', 'Highlighted Products'],
   ['/admin/settings', 'Settings'], ['/admin/profile', 'Admin Profile'],
 ];
 

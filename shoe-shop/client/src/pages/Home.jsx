@@ -19,7 +19,7 @@ export default function Home() {
   const { settings } = useSettings();
   if (loading) return <Spinner />;
   if (error) return <ErrorBox error={error} onRetry={reload} />;
-  const { featured, newArrivals, popularCategories, brands } = data;
+  const { featured, popularCategories, brands } = data;
   return (
     <>
       <section className="hero">
@@ -47,15 +47,10 @@ export default function Home() {
       </Section>
 
       {featured.length > 0 && (
-        <Section title="Featured products" to="/products?featured=1">
+        <Section title="Highlighted products" to="/products?featured=1">
           <div className="grid products">{featured.map((p) => <ProductCard key={p.id} product={p} />)}</div>
         </Section>
       )}
-
-      <Section title="New arrivals" to="/products?sort=newest">
-        {newArrivals.length === 0 ? <Empty title="No products yet">Check back soon.</Empty>
-          : <div className="grid products">{newArrivals.map((p) => <ProductCard key={p.id} product={p} />)}</div>}
-      </Section>
 
       {brands.length > 0 && (
         <Section title="Brands we sell" to="/brands">
