@@ -20,7 +20,10 @@ async function request(method, url, body) {
     throw new ApiError('Cannot reach the server. Check your connection and try again.', 0);
   }
   let data = null;
-  try { data = await res.json(); } catch { /* empty body */ }
+  const isJson = (res.headers.get('content-type') || '').includes('application/json');
+  if (isJson) { try { data = await res.json(); } catch { /* empty body */ } }
+  // A 200 that is not JSON means the request never reached the API (e.g. a host serving index.html for /api/*).
+  if (res.ok && !isJson) throw new ApiError('Cannot reach the shop server. The backend is not connected to this site.', 502);
   if (!res.ok) throw new ApiError((data && data.error) || `Request failed (${res.status})`, res.status, data && data.fields);
   return data;
 }

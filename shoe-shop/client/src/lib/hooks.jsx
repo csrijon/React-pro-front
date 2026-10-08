@@ -49,7 +49,7 @@ export const useAuth = () => useContext(AuthCtx);
 const SettingsCtx = createContext({});
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState({ shopName: 'Footwear Wholesale' });
-  const reload = useCallback(() => api.get('/api/settings').then(setSettings).catch(() => {}), []);
+  const reload = useCallback(() => api.get('/api/settings').then((s) => s && setSettings(s)).catch(() => {}), []);
   useEffect(() => { reload(); }, [reload]);
   useEffect(() => { document.title = settings.shopName; }, [settings.shopName]);
   return <SettingsCtx.Provider value={{ settings, reload }}>{children}</SettingsCtx.Provider>;

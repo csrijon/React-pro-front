@@ -26,6 +26,10 @@ module.exports = {
   // Optional: keep all tables in a dedicated schema (the test-suite uses this to stay isolated).
   dbSchema: process.env.DB_SCHEMA || '',
   uploadDir: process.env.UPLOAD_DIR || path.join(__dirname, '..', 'uploads'),
+  // Cloud image storage (Supabase Storage). When both are set, uploads go to the bucket instead of local disk.
+  supabaseUrl: (process.env.SUPABASE_URL || '').replace(/\/+$/, ''),
+  supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
+  supabaseBucket: process.env.SUPABASE_BUCKET || 'shoe-shop',
   clientDist: path.join(__dirname, '..', '..', 'client', 'dist'),
   adminUsername: process.env.ADMIN_USERNAME || 'admin',
   adminPassword: process.env.ADMIN_PASSWORD || null,

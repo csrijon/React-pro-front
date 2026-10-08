@@ -1,13 +1,12 @@
 const express = require('express');
 const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
 const multer = require('multer');
 const { db, getSettings, lowStockThreshold, slugify, DEFAULT_SETTINGS } = require('../db');
 const config = require('../config');
 const { HttpError, parse, z, id: idSchema } = require('../http');
 const { requireAdmin } = require('../auth');
 const svc = require('../productService');
+const { saveImage } = require('../storage');
 
 const router = express.Router();
 router.use(requireAdmin);
@@ -416,31 +415,24 @@ router.put('/profile', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------- upload */
-fs.mkdirSync(config.uploadDir, { recursive: true });
 const MIME_EXT = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp' };
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: config.uploadDir,
-    filename: (_req, file, cb) => cb(null, crypto.randomBytes(12).toString('hex') + (MIME_EXT[file.mimetype] || '')),
-  }),
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 10 },
   fileFilter: (_req, file, cb) => (MIME_EXT[file.mimetype] ? cb(null, true) : cb(new HttpError(400, 'Only JPG, PNG or WebP images are allowed'))),
 });
+// Checks the real file signature, not just the declared type.
 function looksLikeImage(file) {
-  const b = Buffer.alloc(12);
-  const fd = fs.openSync(file.path, 'r');
-  fs.readSync(fd, b, 0, 12, 0);
-  fs.closeSync(fd);
+  const b = file.buffer;
   if (file.mimetype === 'image/jpeg') return b[0] === 0xff && b[1] === 0xd8;
   if (file.mimetype === 'image/png') return b.slice(0, 4).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47]));
   return b.slice(0, 4).toString() === 'RIFF' && b.slice(8, 12).toString() === 'WEBP';
 }
-router.post('/upload', upload.array('files', 10), (req, res) => {
-  const files = req.files || [];
+router.post('/upload', upload.array('files', 10), async (req, res) => {
   const urls = [];
-  for (const f of files) {
-    if (looksLikeImage(f)) urls.push(`/uploads/${path.basename(f.path)}`);
-    else fs.unlink(f.path, () => {});
+  for (const f of req.files || []) {
+    if (!looksLikeImage(f)) continue;
+    urls.push(await saveImage(f.buffer, crypto.randomBytes(12).toString('hex') + MIME_EXT[f.mimetype], f.mimetype));
   }
   if (!urls.length) throw new HttpError(400, 'No valid image was uploaded');
   res.status(201).json({ urls });
