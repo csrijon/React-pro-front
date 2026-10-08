@@ -1,3 +1,7 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://react-pro-front-1.onrender.com/api/:path*" },
+    { "source": "/uploads/:path*", "destination": "https://react-pro-front-1.onrender.com/uploads/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
