@@ -7,7 +7,8 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "seed": "node src/seed.js",
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "set-admin": "node src/setAdmin.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.0",
