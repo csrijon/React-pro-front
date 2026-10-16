@@ -24,9 +24,20 @@ export function WholesaleCTA({ compact }) {
 }
 
 export function PriceBlock({ product, compact }) {
+  const mrp = product.mrp;
+  const retail = product.retail || mrp;
+  const discounted = retail && mrp && (retail.min < mrp.min || retail.max < mrp.max);
   return (
     <div className="prices">
-      <div className="mrp"><span className="muted small">MRP</span> <strong>{range(product.mrp.min, product.mrp.max)}</strong></div>
+      {discounted ? (
+        <div className="retail">
+          <span className="mrp-strike">MRP {range(mrp.min, mrp.max)}</span>
+          <strong className="retail-price">{range(retail.min, retail.max)}</strong>
+          {product.discountPct > 0 && <span className="off-pill">{product.discountPct}% off</span>}
+        </div>
+      ) : (
+        <div className="mrp"><span className="muted small">MRP</span> <strong>{range(mrp.min, mrp.max)}</strong></div>
+      )}
       {product.wholesale && product.wholesale.min != null
         ? <div className="ws"><span className="small">Wholesale</span> <strong>{range(product.wholesale.min, product.wholesale.max)}</strong></div>
         : <WholesaleCTA compact={compact} />}
@@ -40,16 +51,20 @@ export default function ProductCard({ product: p }) {
     <article ref={ref} className={`card product-card reveal ${shown ? 'in' : ''}`}>
       <Link to={`/product/${p.slug}`} className="card-img" aria-label={p.name}>
         <ShoeImage src={p.image} alt={p.name} />
-        {p.featured && <span className="badge featured">Highlighted</span>}
+        {p.featured && <span className="badge featured">Featured</span>}
+        <span className="card-quick" aria-hidden="true">View details</span>
       </Link>
       <div className="card-body">
-        <div className="small muted">{p.brand.name} · {genderLabel(p.gender)} · {p.category.name}</div>
+        <div className="p-eyebrow">{p.brand.name}</div>
         <h3><Link to={`/product/${p.slug}`}>{p.name}</Link></h3>
-        <div className="small muted">Code: {p.sku}</div>
-        <div className="swatches">{p.colors.slice(0, 6).map((c) => <span key={c} title={c}><ColorDot name={c} /></span>)}</div>
-        <div className="small muted">Sizes: {p.sizes.join(', ')}</div>
+        <div className="p-meta">
+          <span className="small muted">{genderLabel(p.gender)} · {p.category.name}</span>
+          <span className="small muted">Code: {p.sku}</span>
+          <span className="small muted">Sizes: {p.sizes.join(', ')}</span>
+        </div>
+        <div className="swatches"><span className="small muted swatch-label">Colours</span>{p.colors.slice(0, 6).map((c) => <span key={c} title={c}><ColorDot name={c} /></span>)}</div>
         <PriceBlock product={p} compact />
-        <StockBadge status={p.stockStatus} />
+        <div className="p-foot"><StockBadge status={p.stockStatus} /></div>
       </div>
     </article>
   );

@@ -1,0 +1,97 @@
+MASTER PROMPT FOR AI CODING AGENT — PHASE 1 + PHASE 2
+Project: Voice-Based Bengali Crop Advisory AI Agent
+Source of truth: Read the supplied abstract before making changes. Inspect the existing repository first.
+
+ROLE
+You are a senior full-stack engineer and pragmatic AI engineer. Implement Phase 1 (frontend prototype) and Phase 2 (basic working backend + AI-agent workflow) for this final-year MCA project. The student is learning AI agents and must be able to understand, explain, and later extend the implementation. Build incrementally; do not claim unimplemented features work.
+
+PROJECT PURPOSE
+Help Bengali-speaking farmers in West Bengal access first-level crop guidance. The proposed long-term system may use Bengali voice input, speech-to-text, an AI agent, an agricultural knowledge base/RAG, weather tools, crop-image analysis, and Bengali text-to-speech. This milestone must provide a usable frontend and a real text-based advisory workflow. It must not replace agricultural experts.
+
+NON-NEGOTIABLE WORKFLOW
+1. Inspect the repository, README, package files, framework, routes, components, environment variables (never print secret values), backend, and existing tests.
+2. Summarize current architecture and existing features. Identify what is already working and what is missing.
+3. Propose a step-by-step plan and wait for approval if major architecture changes, data deletion, migrations, or paid services would be required. Otherwise proceed with small reversible changes.
+4. Preserve the current stack and working functionality. If no app exists, use React + Vite for frontend and Node.js + Express for backend unless the repository strongly suggests another stack.
+5. Implement in small stages. After each stage, run available checks and report actual outcomes.
+6. Never overwrite or expose secrets. Add .env.example with placeholders only and ensure .env is ignored by Git.
+
+PHASE 1 — FRONTEND
+- Build a responsive, mobile-first, Bengali-first UI titled “বাংলা কৃষি সহায়ক” with English subtitle “Voice-Based Bengali Crop Advisory AI Agent”.
+- Pages/sections: Home, Ask Advice, Crop Guide, Weather, About/Project Roadmap.
+- Ask Advice: Bengali/English typed question input, example questions, loading/error states, answer panel, source/evidence panel when available, and clear expert-escalation caution.
+- Microphone control may be shown as “coming soon” or demo-only. Do not pretend speech recognition works unless it is implemented and tested.
+- Crop Guide: searchable sample entries for crops such as rice/paddy, potato, jute, vegetables; label unreviewed seed content as demo and do not give unsupported pesticide dosages.
+- Weather: show live data only if a real provider is configured; otherwise clearly label placeholder/demo data.
+- Crop image: optional local preview only; label disease detection as future work unless a real model exists.
+- Add accessible controls, keyboard focus states, semantic HTML, readable Bengali fonts, responsive layouts, and reusable components.
+- No dead links; handle empty input and API errors gracefully.
+
+PHASE 2 — BACKEND + BASIC AI WORKFLOW
+- Add or extend a backend API using the repository’s current backend stack. If none exists, use Node.js + Express.
+- Create a documented POST endpoint such as /api/advice that accepts a question and optional language/crop context and returns a structured response.
+- Validate input, apply reasonable request size limits, use clear HTTP status codes, and handle timeouts/provider failures.
+- Integrate an LLM through a provider adapter. Use environment variables for API keys and model configuration. Never hardcode keys or commit secrets.
+- Build a basic agent workflow that:
+  1. validates and classifies the question (crop problem, irrigation, pest, fertilizer, general),
+  2. retrieves relevant entries from a small curated local agricultural knowledge base,
+  3. constructs a grounded prompt with retrieved context,
+  4. generates a Bengali response using the LLM,
+  5. returns answer, topic/category, retrieved source titles/IDs, and an uncertainty/escalation flag.
+- Do not call this full RAG unless retrieval, grounding, and source attribution are genuinely implemented. For a small first version, keyword or simple local retrieval is acceptable if documented honestly.
+- The system prompt must instruct the model to answer in the user’s language, avoid unsupported certainty and unsafe chemical dosage instructions, distinguish general guidance from diagnosis, mention when evidence is insufficient, and advise a local agricultural expert/Krishi Vigyan Kendra for serious or uncertain cases.
+- Include at least a small structured seed knowledge base with source metadata fields (title, publisher/organization, URL if verified, crop/topic, reviewed date). Do not fabricate URLs, citations, official endorsements, or source contents. If source details are not verified, mark them as needing review.
+- Add an explicit demo/mock provider mode only for local development; make the UI show when mock mode is active. Do not silently fall back to fake answers in production.
+- Add health endpoint such as GET /api/health and clear API documentation.
+- Add CORS configuration for the frontend origin, request validation, safe error messages, and basic logging without storing unnecessary personal data.
+- Do not add user accounts or a database unless required by the existing project. Keep this milestone minimal.
+
+AGENT VS CHATBOT
+- Do not claim that one LLM call is a complete autonomous agent.
+- Implement at least one explicit routing/tool-selection step, such as selecting knowledge retrieval based on detected topic. If the model uses tool calling, document the tools and decision logic.
+- Keep agent logic in a separate module so the student can study and improve it.
+
+TESTING
+- Add/run tests for valid question, empty question, unsupported/oversized input, retrieval result, LLM provider failure, timeout, and health endpoint.
+- Verify the frontend actually calls the backend and renders the returned answer/source metadata.
+- Run available lint, typecheck, unit tests, and production build. Report commands and exact results; do not say “passed” if not run.
+- If no test framework exists, add a minimal appropriate one only if it fits the current stack.
+- Check mobile responsiveness and keyboard usability.
+
+DOCUMENTATION / STUDENT LEARNING
+- Update README with prerequisites, setup, frontend/backend run commands, env configuration, API contract, architecture diagram in text/Mermaid, test commands, limitations, and future work.
+- Add a short “How the agent works” explanation, sample request/response, and a file-by-file change summary.
+- Explain new concepts simply: endpoint, provider adapter, retrieval, grounding, tool routing, environment variables.
+- Add comments where they aid learning, not on every line.
+- Create a truthful milestone report separating implemented, partially implemented, mocked, and not implemented features.
+
+SAFETY AND HONESTY
+- This is first-level informational support, not a medical or expert diagnosis system.
+- Do not invent agricultural facts, citations, source links, or claims of model accuracy.
+- Never provide hazardous unsupported pesticide instructions or exact chemical doses without verified authoritative guidance.
+- When confidence/evidence is insufficient, say so and advise contacting a qualified agricultural expert/Krishi Vigyan Kendra.
+- Do not claim live voice, weather, image disease detection, production readiness, or “50% completion” unless demonstrably implemented and evaluated.
+
+DELIVERABLES
+1. Working responsive frontend.
+2. Backend API connected to the frontend.
+3. Basic tool-routed, retrieval-grounded Bengali advisory workflow with source metadata and uncertainty handling.
+4. .env.example, .gitignore checks, and API documentation.
+5. Tests/build results with commands.
+6. Updated README and truthful implementation report.
+7. A list of remaining work for Phase 3 (speech-to-text, text-to-speech, live weather, image model, richer RAG, evaluation).
+
+FINAL RESPONSE FORMAT
+Report:
+- Repository baseline discovered
+- Features implemented by Phase 1 and Phase 2
+- Architecture and request flow
+- Files created/changed
+- Environment variables needed (names only, no secret values)
+- Commands run and their actual results
+- Manual testing still needed
+- Mocked/partial/not implemented features
+- Next 3 recommended tasks
+- A short beginner-friendly explanation so the student can explain the code in viva
+
+Start by inspecting the project. Do not assume the stack or claim progress before verifying the repository.

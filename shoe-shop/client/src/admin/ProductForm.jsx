@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { GENDERS, api } from '../lib/api.js';
+import { GENDERS, api, inr } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
+import { uploadImage } from '../lib/upload.js';
 import { ColorDot, ErrorBox, Field, Spinner, Toggle, useConfirm } from '../components/ui.jsx';
+import ImageEditor from '../components/ImageEditor.jsx';
 
-const blankSize = () => ({ size: '', quantity: '', mrp: '', wholesalePrice: '' });
+const blankSize = () => ({ size: '', quantity: '', mrp: '', retailPrice: '', wholesalePrice: '' });
 const blankColor = () => ({ color: '', sizes: [blankSize()] });
 const COLOR_SUGGESTIONS = ['Black', 'White', 'Brown', 'Tan', 'Navy', 'Blue', 'Red', 'Grey', 'Green', 'Pink', 'Beige', 'Gold'];
+const round2 = (n) => Math.round(n * 100) / 100;
+const num = (v) => (v === '' || v == null ? null : Number(v));
 
 // "6-10" -> 6..10, "6,7,8" -> list, mixes allowed. Returns [] when it cannot be parsed.
 function parseSizes(text) {
@@ -28,19 +32,27 @@ export default function ProductForm() {
   const { data: brands } = useFetch('/api/admin/brands');
   const existing = useFetch(editing ? `/api/admin/products/${id}` : null);
 
-  const [f, setF] = useState({ name: '', sku: '', brandId: '', gender: 'men', categoryId: '', subcategoryId: '', description: '', mrp: '', wholesalePrice: '', costPrice: '', featured: false, active: true });
+  const [f, setF] = useState({ name: '', modelNumber: '', brandId: '', gender: 'men', categoryId: '', subcategoryId: '', description: '', mrp: '', retailMode: 'mrp', discountPct: '10', retailPrice: '', wsDiscountPct: '', wholesalePrice: '', costPrice: '', featured: false, active: true });
   const [variants, setVariants] = useState([blankColor()]);
   const [images, setImages] = useState([]);
   const [errs, setErrs] = useState([]);
   const [busy, setBusy] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [bulk, setBulk] = useState({});
+  const [editingImg, setEditingImg] = useState(null); // { url, index }
 
   useEffect(() => {
     const p = existing.data?.product;
     if (!p) return;
-    setF({ name: p.name, sku: p.sku, brandId: String(p.brand.id), gender: p.gender, categoryId: String(p.category.id), subcategoryId: p.subcategory ? String(p.subcategory.id) : '', description: p.description, mrp: String(p.mrp), wholesalePrice: p.wholesalePrice != null ? String(p.wholesalePrice) : '', costPrice: p.costPrice != null ? String(p.costPrice) : '', featured: p.featured, active: p.active });
-    setVariants(p.variants.map((v) => ({ color: v.color, sizes: v.sizes.map((s) => ({ size: s.size, quantity: String(s.quantity), mrp: s.mrpOverride != null ? String(s.mrpOverride) : '', wholesalePrice: s.wholesalePriceOverride != null ? String(s.wholesalePriceOverride) : '' })) })));
+    const mode = p.retailPriceInput != null ? 'direct' : 'mrp';
+    setF({
+      name: p.name, modelNumber: p.sku, brandId: String(p.brand.id), gender: p.gender, categoryId: String(p.category.id),
+      subcategoryId: p.subcategory ? String(p.subcategory.id) : '', description: p.description, mrp: String(p.mrp),
+      retailMode: mode, discountPct: '10', retailPrice: p.retailPriceInput != null ? String(p.retailPriceInput) : '',
+      wsDiscountPct: '', wholesalePrice: p.wholesalePrice != null ? String(p.wholesalePrice) : '',
+      costPrice: p.costPrice != null ? String(p.costPrice) : '', featured: p.featured, active: p.active,
+    });
+    setVariants(p.variants.map((v) => ({ color: v.color, sizes: v.sizes.map((s) => ({ size: s.size, quantity: String(s.quantity), mrp: s.mrpOverride != null ? String(s.mrpOverride) : '', retailPrice: s.retailOverride != null ? String(s.retailOverride) : '', wholesalePrice: s.wholesalePriceOverride != null ? String(s.wholesalePriceOverride) : '' })) })));
     setImages(p.images);
   }, [existing.data]);
 
@@ -62,6 +74,16 @@ export default function ProductForm() {
   };
   const copySizesToAll = (ci) => setVariants((v) => v.map((c, i) => (i === ci ? c : { ...c, sizes: v[ci].sizes.map((s) => ({ ...s, quantity: '' })) })));
 
+  // Retail selling price: MRP (no discount) | percentage off MRP | a fixed amount.
+  const mrpN = Number(f.mrp);
+  const computedRetail = (() => {
+    if (!Number.isFinite(mrpN) || mrpN < 0) return null;
+    if (f.retailMode === 'percent') { const p = Number(f.discountPct); return Number.isFinite(p) && p >= 0 && p <= 90 ? round2(mrpN * (1 - p / 100)) : null; }
+    if (f.retailMode === 'direct') { const v = Number(f.retailPrice); return Number.isFinite(v) && v >= 0 ? round2(v) : null; }
+    return null;
+  })();
+  const retailOut = f.retailMode === 'mrp' ? null : computedRetail;
+
   const margin = f.costPrice !== '' && Number(f.wholesalePrice) > 0 && f.wholesalePrice !== '' ? Math.round(((Number(f.wholesalePrice) - Number(f.costPrice)) / Number(f.wholesalePrice)) * 1000) / 10 : null;
   const colorTotal = (c) => c.sizes.reduce((a, s) => a + (parseInt(s.quantity, 10) || 0), 0);
   const total = variants.reduce((a, c) => a + colorTotal(c), 0);
@@ -77,13 +99,26 @@ export default function ProductForm() {
     try { const { urls } = await api.post('/api/admin/upload', fd); setImages((i) => [...i, ...urls]); } catch (ex) { toast.error(ex.message); } finally { setUploading(false); }
   }
 
+  async function saveEditedImage(blob) {
+    try {
+      const file = new File([blob], 'edited.jpg', { type: 'image/jpeg' });
+      const url = await uploadImage(file);
+      setImages((arr) => arr.map((u, i) => (i === editingImg.index ? url : u)));
+      setEditingImg(null);
+      toast.success('Image updated');
+    } catch (ex) { toast.error(ex.message); }
+  }
+
   function clientValidate() {
     const e = [];
-    if (f.name.trim().length < 2) e.push('Product name is required');
-    if (!f.sku.trim()) e.push('SKU / product code is required');
+    if (!f.modelNumber.trim()) e.push('Model number is required');
+    if (editing && f.name.trim().length < 2) e.push('Product name is required');
     if (!f.brandId) e.push('Select a brand');
     if (!f.categoryId) e.push('Select a category');
     if (f.mrp === '' || Number(f.mrp) < 0) e.push('Enter a valid MRP');
+    if (f.retailMode === 'percent' && (f.discountPct === '' || Number(f.discountPct) < 0 || Number(f.discountPct) > 90)) e.push('Discount must be between 0 and 90%');
+    if (f.retailMode === 'direct' && (f.retailPrice === '' || Number(f.retailPrice) < 0)) e.push('Enter a valid retail price');
+    if (retailOut != null && f.mrp !== '' && retailOut > Number(f.mrp)) e.push('Retail price cannot exceed MRP');
     if (f.wholesalePrice !== '' && Number(f.wholesalePrice) > Number(f.mrp)) e.push('Wholesale price cannot exceed MRP');
     const seen = new Set();
     variants.forEach((c, ci) => {
@@ -99,6 +134,7 @@ export default function ProductForm() {
         ss.add(s.size.trim().toLowerCase());
         if (s.quantity === '' || !/^\d+$/.test(String(s.quantity))) e.push(`${label} size ${s.size || '?'}: enter stock as a whole number (0 or more)`);
         if (s.mrp !== '' && s.wholesalePrice !== '' && Number(s.wholesalePrice) > Number(s.mrp)) e.push(`${label} size ${s.size}: wholesale price cannot exceed MRP`);
+        if (s.mrp !== '' && s.retailPrice !== '' && Number(s.retailPrice) > Number(s.mrp)) e.push(`${label} size ${s.size}: retail price cannot exceed MRP`);
       });
     });
     return e;
@@ -109,11 +145,10 @@ export default function ProductForm() {
     const e = clientValidate();
     setErrs(e);
     if (e.length) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    const num = (v) => (v === '' ? null : Number(v));
     const body = {
-      name: f.name.trim(), sku: f.sku.trim(), brandId: Number(f.brandId), categoryId: Number(f.categoryId), subcategoryId: f.subcategoryId ? Number(f.subcategoryId) : null,
-      description: f.description, mrp: Number(f.mrp), wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, images,
-      variants: variants.map((c) => ({ color: c.color.trim(), sizes: c.sizes.map((s) => ({ size: s.size.trim(), quantity: Number(s.quantity), mrp: num(s.mrp), wholesalePrice: num(s.wholesalePrice) })) })),
+      name: f.name.trim(), modelNumber: f.modelNumber.trim(), sku: f.modelNumber.trim(), brandId: Number(f.brandId), categoryId: Number(f.categoryId), subcategoryId: f.subcategoryId ? Number(f.subcategoryId) : null,
+      description: f.description, mrp: Number(f.mrp), retailPrice: retailOut, wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, images,
+      variants: variants.map((c) => ({ color: c.color.trim(), sizes: c.sizes.map((s) => ({ size: s.size.trim(), quantity: Number(s.quantity), mrp: num(s.mrp), retailPrice: num(s.retailPrice), wholesalePrice: num(s.wholesalePrice) })) })),
     };
     setBusy(true);
     try {
@@ -140,8 +175,9 @@ export default function ProductForm() {
       <section className="panel">
         <h2>Basic details</h2>
         <div className="form-grid">
-          <Field label="Product name" required><input value={f.name} onChange={set('name')} maxLength={160} /></Field>
-          <Field label="SKU / product code" required><input value={f.sku} onChange={set('sku')} maxLength={60} /></Field>
+          <Field label="Model number" required hint="The main identifier for this product (also used as the SKU).">
+            <input value={f.modelNumber} onChange={set('modelNumber')} maxLength={60} placeholder="e.g. PAR-SP-101" />
+          </Field>
           <Field label="Brand" required>
             <select value={f.brandId} onChange={set('brandId')}><option value="">Select brand</option>{(brands?.brands || []).map((b) => <option key={b.id} value={b.id}>{b.name}{b.active ? '' : ' (inactive)'}</option>)}</select>
           </Field>
@@ -154,12 +190,50 @@ export default function ProductForm() {
           <Field label="Subcategory (optional)">
             <select value={f.subcategoryId} onChange={set('subcategoryId')} disabled={!category?.subcategories.length}><option value="">None</option>{(category?.subcategories || []).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}</select>
           </Field>
-          <Field label="MRP (₹)" required><input type="number" min="0" step="0.01" inputMode="decimal" value={f.mrp} onChange={set('mrp')} /></Field>
-          <Field label="Wholesale price (₹)" hint="Default for all sizes. Only approved customers can see it."><input type="number" min="0" step="0.01" inputMode="decimal" value={f.wholesalePrice} onChange={set('wholesalePrice')} /></Field>
-          <Field label="Purchase cost per pair (₹)" hint={margin == null ? 'What you pay the supplier. Only admins see this; used for profit reports.' : <span className={margin < 0 ? 'minus' : 'plus'}>Margin at wholesale price: {margin}% ({margin < 0 ? 'loss' : 'profit'} ₹{Math.abs(Number(f.wholesalePrice) - Number(f.costPrice)).toLocaleString('en-IN')} per pair)</span>}><input type="number" min="0" step="0.01" inputMode="decimal" value={f.costPrice} onChange={set('costPrice')} /></Field>
         </div>
         <Field label="Description"><textarea rows={4} value={f.description} onChange={set('description')} maxLength={5000} /></Field>
-        <div className="toggles"><Toggle checked={f.featured} onChange={(v) => setF({ ...f, featured: v })} label="Highlighted on homepage" /><Toggle checked={f.active} onChange={(v) => setF({ ...f, active: v })} label="Active (visible to customers)" /></div>
+        <div className="toggles"><Toggle checked={f.featured} onChange={(v) => setF({ ...f, featured: v })} label="Show in the featured section" /><Toggle checked={f.active} onChange={(v) => setF({ ...f, active: v })} label="Active (visible to customers)" /></div>
+      </section>
+
+      <section className="panel">
+        <h2>Pricing</h2>
+        <div className="pricing-grid">
+          <Field label="MRP (₹)" required><input type="number" min="0" step="0.01" inputMode="decimal" value={f.mrp} onChange={set('mrp')} /></Field>
+          <Field label="Purchase cost per pair (₹)" hint={margin == null ? 'What you pay the supplier. Only admins see this.' : <span className={margin < 0 ? 'minus' : 'plus'}>Margin at wholesale: {margin}% ({margin < 0 ? 'loss' : 'profit'} ₹{Math.abs(Number(f.wholesalePrice) - Number(f.costPrice)).toLocaleString('en-IN')} per pair)</span>}>
+            <input type="number" min="0" step="0.01" inputMode="decimal" value={f.costPrice} onChange={set('costPrice')} />
+          </Field>
+        </div>
+
+        <fieldset className="price-block">
+          <legend>Retail selling price</legend>
+          <div className="seg mode-seg" role="radiogroup" aria-label="Retail pricing method">
+            <button type="button" className={f.retailMode === 'mrp' ? 'on' : ''} onClick={() => setF({ ...f, retailMode: 'mrp' })}>Same as MRP</button>
+            <button type="button" className={f.retailMode === 'percent' ? 'on' : ''} onClick={() => setF({ ...f, retailMode: 'percent' })}>% Discount</button>
+            <button type="button" className={f.retailMode === 'direct' ? 'on' : ''} onClick={() => setF({ ...f, retailMode: 'direct' })}>Fixed price</button>
+          </div>
+          <div className="pricing-grid">
+            {f.retailMode === 'percent' && (
+              <Field label="Discount on MRP (%)" hint="Retail = MRP × (1 − discount ÷ 100)"><input type="number" min="0" max="90" step="0.01" inputMode="decimal" value={f.discountPct} onChange={set('discountPct')} /></Field>
+            )}
+            {f.retailMode === 'direct' && (
+              <Field label="Retail price (₹)"><input type="number" min="0" step="0.01" inputMode="decimal" value={f.retailPrice} onChange={set('retailPrice')} /></Field>
+            )}
+          </div>
+          <p className="price-preview">
+            <span>MRP <strong>{f.mrp === '' ? '—' : inr(Number(f.mrp))}</strong></span>
+            <span>Discount <strong>{retailOut == null || !mrpN ? '0%' : `${Math.round((1 - retailOut / mrpN) * 100)}%`}</strong></span>
+            <span className="final">Retail price <strong>{retailOut == null ? (f.mrp === '' ? '—' : inr(Number(f.mrp))) : inr(retailOut)}</strong></span>
+          </p>
+        </fieldset>
+
+        <fieldset className="price-block">
+          <legend>Wholesale price <span className="muted small">(approved shop owners only)</span></legend>
+          <div className="pricing-grid">
+            <Field label="Wholesale price (₹)" hint="Default for all sizes. Leave blank if not sold wholesale."><input type="number" min="0" step="0.01" inputMode="decimal" value={f.wholesalePrice} onChange={(e) => setF({ ...f, wholesalePrice: e.target.value })} /></Field>
+            <Field label="or discount on MRP (%)" hint="Type a percentage to fill the wholesale price."><input type="number" min="0" max="90" step="0.01" inputMode="decimal" value={f.wsDiscountPct} onChange={(e) => { const pct = e.target.value; setF((x) => ({ ...x, wsDiscountPct: pct, wholesalePrice: pct !== '' && Number.isFinite(Number(x.mrp)) ? String(round2(Number(x.mrp) * (1 - Math.min(90, Math.max(0, Number(pct))) / 100))) : x.wholesalePrice })); }} /></Field>
+          </div>
+          <p className="price-preview"><span className="final">Wholesale price <strong>{f.wholesalePrice === '' ? 'Not set' : inr(Number(f.wholesalePrice))}</strong></span></p>
+        </fieldset>
       </section>
 
       <section className="panel">
@@ -169,6 +243,7 @@ export default function ProductForm() {
             <div key={u} className="img-tile"><img src={u} alt={`Product ${i + 1}`} />
               {i === 0 && <span className="badge featured">Main</span>}
               <div className="img-actions">
+                <button type="button" className="btn sm" onClick={() => setEditingImg({ url: u, index: i })}>Edit &amp; crop</button>
                 {i > 0 && <button type="button" className="btn sm" onClick={() => setImages((a) => [u, ...a.filter((x) => x !== u)])}>Make main</button>}
                 <button type="button" className="btn sm danger-o" onClick={() => setImages((a) => a.filter((x) => x !== u))}>Remove</button>
               </div>
@@ -176,12 +251,12 @@ export default function ProductForm() {
           ))}
           <label className="img-add">{uploading ? 'Uploading…' : '+ Add images'}<input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={onFiles} disabled={uploading} hidden /></label>
         </div>
-        <p className="small muted">JPG, PNG or WebP, up to 5 MB each. The first image is the main image.</p>
+        <p className="small muted">Add 2–3 photos. JPG, PNG or WebP up to 5 MB each. The first image is the main image. Use “Edit &amp; crop” to rotate, crop and adjust brightness.</p>
       </section>
 
       <section className="panel">
         <div className="panel-head"><h2>Colours, sizes &amp; stock</h2><div className="total-pill">Total stock: <strong>{total}</strong> pairs</div></div>
-        <p className="small muted">Stock is tracked per colour and size. Totals are calculated automatically. Per-size MRP / wholesale price are optional and override the product price.</p>
+        <p className="small muted">Stock is tracked per colour and size. Totals are calculated automatically. Per-size MRP / wholesale price are optional and override the product price. Size ranges like 6-9, 11×13 or 4×5 can be added in bulk.</p>
         <datalist id="colors">{COLOR_SUGGESTIONS.map((c) => <option key={c} value={c} />)}</datalist>
         {variants.map((c, ci) => (
           <div className="variant" key={ci}>
@@ -205,7 +280,7 @@ export default function ProductForm() {
             </div>
             <div className="variant-foot">
               <button type="button" className="btn sm" onClick={() => addSize(ci)}>+ Add another size</button>
-              <span className="bulk"><input placeholder="Bulk: 6-10 or 6,7,8" value={bulk[ci] || ''} onChange={(e) => setBulk({ ...bulk, [ci]: e.target.value })} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addBulk(ci); } }} aria-label="Bulk add sizes" /><button type="button" className="btn sm" onClick={() => addBulk(ci)}>Add sizes</button></span>
+              <span className="bulk"><input placeholder="Bulk: 6-9, 11×13, 4×5" value={bulk[ci] || ''} onChange={(e) => setBulk({ ...bulk, [ci]: e.target.value })} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addBulk(ci); } }} aria-label="Bulk add sizes" /><button type="button" className="btn sm" onClick={() => addBulk(ci)}>Add sizes</button></span>
               {variants.length > 1 && <button type="button" className="btn sm ghost" onClick={() => copySizesToAll(ci)}>Use these sizes for all colours</button>}
             </div>
           </div>
@@ -214,6 +289,8 @@ export default function ProductForm() {
       </section>
 
       <div className="form-actions"><button className="btn primary" disabled={busy || uploading}>{busy ? 'Saving…' : editing ? 'Save changes' : 'Create product'}</button><Link className="btn" to="/admin/products">Cancel</Link></div>
+
+      {editingImg && <ImageEditor src={editingImg.url} onCancel={() => setEditingImg(null)} onSave={saveEditedImage} />}
     </form>
   );
 }

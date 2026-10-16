@@ -29,7 +29,7 @@ function readCookie(req, name) {
 
 const loadUser = (id) => db.get(`
   SELECT u.id, u.username, u.role,
-         c.id AS customer_id, c.shop_name, c.owner_name, c.mobile, c.email, c.address, c.status, c.created_at AS registered_at
+         c.id AS customer_id, c.account_type, c.shop_name, c.owner_name, c.mobile, c.email, c.address, c.status, c.created_at AS registered_at
   FROM users u LEFT JOIN customers c ON c.user_id = u.id WHERE u.id = ?`, id);
 
 // Loads the current user fresh from the DB on every request, so status changes
@@ -64,29 +64,33 @@ function requireCustomer(req, _res, next) {
   next();
 }
 
-// The single source of truth for wholesale price visibility.
+// The single source of truth for wholesale price visibility. Only shop-owner accounts that an
+// admin has approved can see wholesale prices; plain retail customers never can.
 async function canSeeWholesale(req) {
   const u = req.user;
   if (!u) return false;
   if (u.role === 'ADMIN') return true;
-  return u.role === 'CUSTOMER' && u.status === 'APPROVED' && (await wholesaleEnabled());
+  return u.role === 'CUSTOMER' && u.account_type === 'SHOP_OWNER' && u.status === 'APPROVED' && (await wholesaleEnabled());
 }
 
 async function publicUser(u) {
   if (!u) return null;
   if (u.role === 'ADMIN') return { id: u.id, role: 'ADMIN', username: u.username };
+  const isShop = u.account_type === 'SHOP_OWNER';
   return {
     id: u.id,
     role: 'CUSTOMER',
+    accountType: u.account_type || 'SHOP_OWNER',
     customerId: u.customer_id,
     shopName: u.shop_name,
     ownerName: u.owner_name,
+    name: u.owner_name,
     mobile: u.mobile,
     email: u.email,
     address: u.address,
     status: u.status,
     registeredAt: u.registered_at,
-    wholesaleAccess: u.status === 'APPROVED' && (await wholesaleEnabled()),
+    wholesaleAccess: isShop && u.status === 'APPROVED' && (await wholesaleEnabled()),
   };
 }
 

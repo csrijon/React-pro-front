@@ -1,0 +1,20 @@
+{
+  "name": "bengali-crop-advisory-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Phase 2 backend: tool-routed, retrieval-grounded Bengali crop advisory API",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

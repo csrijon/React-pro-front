@@ -7,6 +7,9 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "seed": "node src/seed.js",
+    "import-csv": "node src/importCsv.js",
+    "import-staging": "node src/importCsv.js --staging",
+    "import-staging:dry": "node src/importCsv.js --staging --dry-run",
     "test": "node --test test/",
     "set-admin": "node src/setAdmin.js"
   },

@@ -85,6 +85,29 @@ router.get('/products', async (req, res) => {
   res.json(await svc.listProducts(req.query, { wholesale: true, admin: true }));
 });
 
+// Preview what the shop-wide discount would do. The global rule is applied at render time and
+// never rewrites product records, so products with their own retail price are left untouched.
+router.get('/products/global-discount/preview', async (req, res) => {
+  const percent = Math.min(90, Math.max(0, parseFloat(req.query.percent) || 0));
+  const rows = await db.all(`
+    SELECT p.id, p.name, p.sku, p.mrp, p.retail_price,
+           (SELECT MIN(COALESCE(i.mrp, p.mrp)) FROM inventory i WHERE i.product_id = p.id) AS min_mrp
+    FROM products p WHERE p.active = 1 ORDER BY p.created_at DESC LIMIT 200`);
+  const round2 = (n) => Math.round(n * 100) / 100;
+  const items = rows.map((r) => {
+    const base = r.retail_price != null ? r.retail_price : (r.min_mrp ?? r.mrp);
+    const individual = r.retail_price != null;
+    const discounted = individual || percent <= 0 ? base : round2(base * (1 - percent / 100));
+    return { id: r.id, name: r.name, sku: r.sku, mrp: base, retail: discounted, individual, changed: !individual && percent > 0 };
+  });
+  res.json({
+    percent, total: items.length,
+    affected: items.filter((i) => i.changed).length,
+    individual: items.filter((i) => i.individual).length,
+    sample: items.filter((i) => i.changed).slice(0, 12),
+  });
+});
+
 router.get('/products/:id', async (req, res) => {
   const p = await svc.getProduct('p.id = ?', pid(req), { wholesale: true, admin: true });
   if (!p) throw new HttpError(404, 'Product not found');
@@ -115,6 +138,20 @@ function setFlag(col, key) {
 }
 router.patch('/products/:id/featured', setFlag('featured', 'featured'));
 router.patch('/products/:id/active', setFlag('active', 'active'));
+
+// Bulk activate/deactivate. Never deletes: records, stock and history are preserved so
+// products can be reactivated later. Validated on the server, not just in the browser.
+const bulkSchema = z.object({
+  ids: z.array(z.coerce.number().int().positive()).min(1, 'Select at least one product').max(500),
+  action: z.enum(['activate', 'deactivate']),
+});
+router.patch('/products/bulk', async (req, res) => {
+  const d = parse(bulkSchema, req.body);
+  const ids = [...new Set(d.ids)];
+  const active = d.action === 'activate' ? 1 : 0;
+  const r = await db.run(`UPDATE products SET active = ?, updated_at = now() WHERE id IN (${ids.map(() => '?').join(',')})`, active, ...ids);
+  res.json({ ok: true, updated: r.changes, active: !!active });
+});
 
 router.delete('/products/:id', async (req, res) => {
   const i = pid(req);
@@ -252,8 +289,8 @@ router.delete('/brands/:id', async (req, res) => {
 });
 
 /* ---------------------------------------------------------------- customers */
-const CUSTOMER_COLS = `c.id, c.shop_name AS "shopName", c.owner_name AS "ownerName", c.mobile, c.email, c.address, c.status, c.created_at AS "createdAt"`;
-const withAccess = (c) => ({ ...c, wholesaleAccess: c.status === 'APPROVED' });
+const CUSTOMER_COLS = `c.id, c.account_type AS "accountType", c.shop_name AS "shopName", c.owner_name AS "ownerName", c.mobile, c.email, c.address, c.status, c.created_at AS "createdAt"`;
+const withAccess = (c) => ({ ...c, wholesaleAccess: c.accountType === 'SHOP_OWNER' && c.status === 'APPROVED' });
 
 router.get('/customers', async (req, res) => {
   const where = [], args = [];
@@ -381,10 +418,13 @@ const settingsSchema = z.object({
   reorderTarget: z.coerce.number('Reorder level must be a number').int().min(1, 'Must be at least 1').max(100000),
   wholesaleEnabled: z.boolean(),
   wholesaleNote: z.string().trim().max(300),
+  globalDiscountEnabled: z.boolean(),
+  globalDiscountPercent: z.coerce.number('Discount must be a number').min(0, 'Discount cannot be negative').max(90, 'Discount cannot exceed 90%'),
 });
 const SETTING_MAP = {
   shopName: 'shop_name', logoUrl: 'logo_url', phone: 'phone', address: 'address', whatsapp: 'whatsapp', facebookUrl: 'facebook_url',
   instagramUrl: 'instagram_url', youtubeUrl: 'youtube_url', lowStockThreshold: 'low_stock_threshold', reorderTarget: 'reorder_target', wholesaleEnabled: 'wholesale_enabled', wholesaleNote: 'wholesale_note',
+  globalDiscountEnabled: 'global_discount_enabled', globalDiscountPercent: 'global_discount_percent',
 };
 const settingsOut = async () => {
   const s = await getSettings();
@@ -393,6 +433,8 @@ const settingsOut = async () => {
   o.lowStockThreshold = Number(o.lowStockThreshold);
   o.reorderTarget = Number(o.reorderTarget);
   o.wholesaleEnabled = o.wholesaleEnabled !== 'false';
+  o.globalDiscountEnabled = o.globalDiscountEnabled === 'true';
+  o.globalDiscountPercent = Number(o.globalDiscountPercent) || 0;
   return o;
 };
 router.get('/settings', async (_req, res) => res.json({ settings: await settingsOut() }));

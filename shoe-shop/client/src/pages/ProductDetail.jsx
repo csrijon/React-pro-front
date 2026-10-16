@@ -36,10 +36,15 @@ export default function ProductDetail() {
   if (error) return <ErrorBox error={error} onRetry={reload} />;
 
   const shownMrp = size ? size.mrp : null;
+  const shownRetail = size ? size.retail : (p.retail ? p.retail.min : null);
   const mrps = variant.sizes.map((s) => s.mrp);
   const wsAll = variant.sizes.map((s) => s.wholesalePrice).filter((x) => x != null);
   const hasWs = wsAll.length > 0;
   const fmtRange = (arr) => (Math.min(...arr) === Math.max(...arr) ? inr(arr[0]) : `${inr(Math.min(...arr))} – ${inr(Math.max(...arr))}`);
+  const mrpMin = shownMrp != null ? shownMrp : Math.min(...mrps);
+  const retailLabel = shownRetail != null ? inr(shownRetail) : (p.retail ? fmtRange([p.retail.min, p.retail.max]) : null);
+  const retailMin = shownRetail != null ? shownRetail : (p.retail ? p.retail.min : mrpMin);
+  const discounted = retailLabel != null && retailMin < mrpMin;
 
   return (
     <div className="container page">
@@ -48,16 +53,16 @@ export default function ProductDetail() {
       </nav>
       <div className="detail">
         <div className="gallery">
-          <div className="gallery-main"><ShoeImage key={p.images[img] || 'none'} src={p.images[img]} alt={p.name} className="fade-in" /></div>
+          <div className="gallery-main"><ShoeImage key={p.images[img] || 'none'} src={p.images[img]} alt={p.name} className="fade-in" priority sizes="(min-width: 900px) 46vw, 92vw" widths={[480, 720, 960, 1280]} /></div>
           {p.images.length > 1 && (
             <div className="thumbs">{p.images.map((u, i) => (
-              <button key={u} className={i === img ? 'on' : ''} onClick={() => setImg(i)} aria-label={`Image ${i + 1}`}><img src={u} alt="" loading="lazy" /></button>
+              <button key={u} className={i === img ? 'on' : ''} onClick={() => setImg(i)} aria-label={`Image ${i + 1}`}><ShoeImage src={u} alt="" sizes="70px" widths={[70, 140]} /></button>
             ))}</div>
           )}
         </div>
 
         <div className="info">
-          <div className="muted small"><Link to={`/products?brand=${p.brand.slug}`}>{p.brand.name}</Link></div>
+          <div className="detail-brand small"><Link to={`/products?brand=${p.brand.slug}`}>{p.brand.name}</Link></div>
           <h1>{p.name}</h1>
           <dl className="meta">
             <div><dt>Product code</dt><dd>{p.sku}</dd></div>
@@ -66,7 +71,15 @@ export default function ProductDetail() {
           </dl>
 
           <div className="price-panel">
-            <div className="mrp-big"><span className="muted">MRP</span> <strong>{shownMrp != null ? inr(shownMrp) : fmtRange(mrps)}</strong></div>
+            {discounted ? (
+              <div className="price-inline">
+                <span className="mrp-strike">MRP {shownMrp != null ? inr(shownMrp) : fmtRange(mrps)}</span>
+                <div className="mrp-big"><span className="muted">Price</span> <strong>{retailLabel}</strong></div>
+                <span className="off-pill">{Math.round((1 - retailMin / mrpMin) * 100)}% off</span>
+              </div>
+            ) : (
+              <div className="mrp-big"><span className="muted">{retailLabel && shownMrp == null ? 'Price' : 'MRP'}</span> <strong>{retailLabel && shownMrp == null ? retailLabel : (shownMrp != null ? inr(shownMrp) : fmtRange(mrps))}</strong></div>
+            )}
             {hasWs ? (
               <div className="ws-big"><span>Your wholesale price</span> <strong>{size?.wholesalePrice != null ? inr(size.wholesalePrice) : fmtRange(wsAll)}</strong></div>
             ) : <WholesaleCTA />}

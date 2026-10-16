@@ -29,7 +29,7 @@ module.exports = {
   // Cloud image storage (Supabase Storage). When both are set, uploads go to the bucket instead of local disk.
   supabaseUrl: (process.env.SUPABASE_URL || '').replace(/\/+$/, ''),
   supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
-  supabaseBucket: process.env.SUPABASE_BUCKET || 'shoe-shop',
+  supabaseBucket: process.env.SUPABASE_BUCKET || 'product-images',
   clientDist: path.join(__dirname, '..', '..', 'client', 'dist'),
   adminUsername: process.env.ADMIN_USERNAME || 'admin',
   adminPassword: process.env.ADMIN_PASSWORD || null,

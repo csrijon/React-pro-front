@@ -1,4 +1,4 @@
-const { db, lowStockThreshold, slugify } = require('./db');
+const { db, lowStockThreshold, wholesaleEnabled, globalDiscount, applyRetail, slugify } = require('./db');
 const { HttpError, z } = require('./http');
 const { logMovement } = require('./stockLog');
 
@@ -14,6 +14,24 @@ const sizeSort = (label) => {
   const n = parseFloat(label);
   return Number.isFinite(n) ? n : 1000;
 };
+// Expands a size filter token into concrete size labels so ranges like "6-9", "11×13",
+// "1 x 5" and "4 × 5" work against the individual labels stored in `sizes`.
+// The shop uses kids' sizing that wraps after 13 (11,12,13,1,2...), so "11×1" -> 11,12,13,1.
+function expandSizeFilter(token) {
+  const raw = String(token).trim();
+  const m = raw.match(/^(\d+(?:\.\d+)?)\s*[-–×xX*]\s*(\d+(?:\.\d+)?)$/);
+  if (!m) return [raw];
+  const start = parseFloat(m[1]), end = parseFloat(m[2]);
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return [raw];
+  const out = [];
+  if (start <= end) {
+    for (let n = start; n <= end + 1e-9 && out.length < 60; n += 1) out.push(String(Math.round(n * 10) / 10));
+  } else {
+    for (let n = start; n <= 13 + 1e-9 && out.length < 60; n += 1) out.push(String(Math.round(n * 10) / 10));
+    for (let n = 1; n <= end + 1e-9 && out.length < 60; n += 1) out.push(String(Math.round(n * 10) / 10));
+  }
+  return out.length ? out : [raw];
+}
 const csv = (v) => (v == null || v === '' ? [] : String(v).split(',').map((s) => s.trim()).filter(Boolean));
 const placeholders = (arr) => arr.map(() => '?').join(',');
 
@@ -21,6 +39,7 @@ const placeholders = (arr) => arr.map(() => '?').join(',');
 
 async function listProducts(q, { wholesale = false, admin = false } = {}) {
   const th = await lowStockThreshold();
+  const g = await globalDiscount();
   const where = [];
   const args = [];
 
@@ -67,8 +86,9 @@ async function listProducts(q, { wholesale = false, admin = false } = {}) {
   const fArgs = [];
   const sizes = csv(q.size);
   if (sizes.length) {
-    F.push(`i.size_id IN (SELECT id FROM sizes WHERE label IN (${placeholders(sizes)}))`);
-    fArgs.push(...sizes);
+    const labels = [...new Set(sizes.flatMap(expandSizeFilter))];
+    F.push(`i.size_id IN (SELECT id FROM sizes WHERE label IN (${placeholders(labels)}))`);
+    fArgs.push(...labels);
   }
   const colors = csv(q.color);
   if (colors.length) {
@@ -120,21 +140,34 @@ async function listProducts(q, { wholesale = false, admin = false } = {}) {
   const rows = await db.all(`
     SELECT p.id, p.name, p.slug, p.sku, p.gender, p.featured, p.active, p.created_at,
            ${admin ? 'p.cost_price, p.wholesale_price,' : ''}
+           p.retail_price AS product_retail,
            b.id brand_id, b.name brand_name, b.slug brand_slug,
            c.id category_id, c.name category_name, c.slug category_slug,
            sc.name subcategory_name,
            COALESCE((SELECT MIN(COALESCE(i.mrp, p.mrp)) FROM inventory i WHERE i.product_id = p.id), p.mrp) AS min_mrp,
            COALESCE((SELECT MAX(COALESCE(i.mrp, p.mrp)) FROM inventory i WHERE i.product_id = p.id), p.mrp) AS max_mrp,
+           (SELECT MIN(i.retail_price) FROM inventory i WHERE i.product_id = p.id AND i.retail_price IS NOT NULL) AS min_retail_v,
+           (SELECT MAX(i.retail_price) FROM inventory i WHERE i.product_id = p.id AND i.retail_price IS NOT NULL) AS max_retail_v,
            COALESCE((SELECT SUM(i.quantity) FROM inventory i WHERE i.product_id = p.id), 0) AS total_stock
            ${admin ? `, (SELECT COALESCE(SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)),0) FROM inventory i WHERE i.product_id = p.id) AS stock_value_ws,
                        (SELECT COALESCE(SUM(i.quantity * COALESCE(i.mrp, p.mrp)),0) FROM inventory i WHERE i.product_id = p.id) AS stock_value_mrp` : ''}
            ${wholesaleCols}
     ${from} ORDER BY ${orderBy} LIMIT ? OFFSET ?`, ...args, limit, (page - 1) * limit);
 
-  return { items: await hydrate(rows, { wholesale, admin, th }), total, page, limit, pages: Math.max(1, Math.ceil(total / limit)) };
+  return { items: await hydrate(rows, { wholesale, admin, th, g }), total, page, limit, pages: Math.max(1, Math.ceil(total / limit)) };
 }
 
-async function hydrate(rows, { wholesale, admin, th }) {
+// Effective retail price for a listing row from its raw per-size/product values, falling back
+// to the global discount (or MRP) so the storefront always has a selling price to show.
+function listingRetail(r, g) {
+  const indivMin = r.min_retail_v ?? r.product_retail;
+  const indivMax = r.max_retail_v ?? r.product_retail;
+  const min = applyRetail(r.min_mrp, indivMin, g);
+  const max = applyRetail(r.max_mrp, indivMax, g);
+  return { min, max };
+}
+
+async function hydrate(rows, { wholesale, admin, th, g = { enabled: false, percent: 0 } }) {
   if (!rows.length) return [];
   const ids = rows.map((r) => r.id);
   const ph = placeholders(ids);
@@ -149,6 +182,7 @@ async function hydrate(rows, { wholesale, admin, th }) {
     (sizes[r.product_id] ||= []).push(r.label);
   }
   return rows.map((r) => {
+    const retail = listingRetail(r, g);
     const o = {
       id: r.id, name: r.name, slug: r.slug, sku: r.sku, gender: r.gender, featured: !!r.featured,
       brand: { id: r.brand_id, name: r.brand_name, slug: r.brand_slug },
@@ -159,6 +193,8 @@ async function hydrate(rows, { wholesale, admin, th }) {
       colors: colors[r.id] || [],
       sizes: sizes[r.id] || [],
       mrp: { min: r.min_mrp, max: r.max_mrp },
+      retail,
+      discountPct: r.max_mrp > 0 && retail.max != null && retail.max < r.max_mrp ? Math.round((1 - retail.max / r.max_mrp) * 100) : 0,
       stockStatus: stockStatus(r.total_stock, th),
       createdAt: r.created_at,
     };
@@ -173,6 +209,7 @@ async function hydrate(rows, { wholesale, admin, th }) {
 
 async function getProduct(where, arg, { wholesale = false, admin = false } = {}) {
   const th = await lowStockThreshold();
+  const g = await globalDiscount();
   const p = await db.get(`
     SELECT p.*, b.name brand_name, b.slug brand_slug, b.logo_url brand_logo, b.active brand_active,
            c.name category_name, c.slug category_slug, c.active category_active, sc.name subcategory_name, sc.slug subcategory_slug
@@ -184,20 +221,25 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
 
   const images = (await db.all('SELECT url FROM product_images WHERE product_id = ? ORDER BY position, id', p.id)).map((r) => r.url);
   const inv = await db.all(`
-    SELECT i.color_id, co.name color, i.size_id, s.label size, s.sort, i.quantity, i.mrp, i.wholesale_price
+    SELECT i.color_id, co.name color, i.size_id, s.label size, s.sort, i.quantity, i.mrp, i.retail_price, i.wholesale_price
     FROM inventory i JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
     WHERE i.product_id = ? ORDER BY co.name, s.sort`, p.id);
 
   const colorMap = new Map();
   let total = 0;
+  const retailValues = [];
   for (const r of inv) {
     if (!colorMap.has(r.color_id)) colorMap.set(r.color_id, { colorId: r.color_id, color: r.color, total: 0, sizes: [] });
     const c = colorMap.get(r.color_id);
     c.total += r.quantity;
     total += r.quantity;
+    const sizeMrp = r.mrp ?? p.mrp;
+    const retail = applyRetail(sizeMrp, r.retail_price ?? p.retail_price, g);
+    retailValues.push(retail);
     const sz = {
       sizeId: r.size_id, size: r.size, status: stockStatus(r.quantity, th),
-      mrp: r.mrp ?? p.mrp, mrpOverride: r.mrp,
+      mrp: sizeMrp, mrpOverride: r.mrp,
+      retail, retailOverride: r.retail_price,
     };
     if (admin) { sz.quantity = r.quantity; sz.wholesalePriceOverride = r.wholesale_price; }
     if (wholesale) sz.wholesalePrice = r.wholesale_price ?? p.wholesale_price;
@@ -216,21 +258,28 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     category: { id: p.category_id, name: p.category_name, slug: p.category_slug },
     subcategory: p.subcategory_id ? { id: p.subcategory_id, name: p.subcategory_name, slug: p.subcategory_slug } : null,
     mrp: p.mrp, images, variants,
+    retail: retailValues.length ? { min: Math.min(...retailValues), max: Math.max(...retailValues) } : { min: applyRetail(p.mrp, p.retail_price, g), max: applyRetail(p.mrp, p.retail_price, g) },
+    retailPrice: applyRetail(p.mrp, p.retail_price, g),
+    discountPct: p.mrp > 0 && applyRetail(p.mrp, p.retail_price, g) < p.mrp ? Math.round((1 - applyRetail(p.mrp, p.retail_price, g) / p.mrp) * 100) : 0,
     stockStatus: stockStatus(total, th),
     createdAt: p.created_at,
   };
-  if (admin) { out.active = !!p.active; out.totalStock = total; out.costPrice = p.cost_price; }
+  if (admin) { out.active = !!p.active; out.totalStock = total; out.costPrice = p.cost_price; out.retailPriceInput = p.retail_price; }
   if (wholesale) out.wholesalePrice = p.wholesale_price;
   return out;
 }
 
 async function related(product, { wholesale }) {
   const th = await lowStockThreshold();
+  const g = await globalDiscount();
   const rows = await db.all(`
     SELECT p.id, p.name, p.slug, p.sku, p.gender, p.featured, p.active, p.created_at,
+           p.retail_price AS product_retail,
            b.id brand_id, b.name brand_name, b.slug brand_slug, c.id category_id, c.name category_name, c.slug category_slug, sc.name subcategory_name,
            COALESCE((SELECT MIN(COALESCE(i.mrp, p.mrp)) FROM inventory i WHERE i.product_id = p.id), p.mrp) AS min_mrp,
            COALESCE((SELECT MAX(COALESCE(i.mrp, p.mrp)) FROM inventory i WHERE i.product_id = p.id), p.mrp) AS max_mrp,
+           (SELECT MIN(i.retail_price) FROM inventory i WHERE i.product_id = p.id AND i.retail_price IS NOT NULL) AS min_retail_v,
+           (SELECT MAX(i.retail_price) FROM inventory i WHERE i.product_id = p.id AND i.retail_price IS NOT NULL) AS max_retail_v,
            COALESCE((SELECT SUM(i.quantity) FROM inventory i WHERE i.product_id = p.id), 0) AS total_stock
            ${wholesale ? `, (SELECT MIN(COALESCE(i.wholesale_price, p.wholesale_price)) FROM inventory i WHERE i.product_id = p.id) AS min_ws,
                             (SELECT MAX(COALESCE(i.wholesale_price, p.wholesale_price)) FROM inventory i WHERE i.product_id = p.id) AS max_ws` : ''}
@@ -240,7 +289,7 @@ async function related(product, { wholesale }) {
     ORDER BY (CASE WHEN p.category_id = ? THEN 4 ELSE 0 END) + (CASE WHEN p.brand_id = ? THEN 2 ELSE 0 END)
              + (CASE WHEN COALESCE((SELECT SUM(i.quantity) FROM inventory i WHERE i.product_id = p.id), 0) > 0 THEN 1 ELSE 0 END) DESC, p.created_at DESC
     LIMIT 8`, product.id, product.gender, product.category.id, product.brand.id);
-  return hydrate(rows, { wholesale, admin: false, th });
+  return hydrate(rows, { wholesale, admin: false, th, g });
 }
 
 /* -------------------------------------------------------------------- write */
@@ -250,6 +299,7 @@ const sizeEntry = z.object({
   size: z.string().trim().min(1, 'Size is required').max(10),
   quantity: z.coerce.number('Stock must be a number').int('Stock must be a whole number').min(0, 'Stock cannot be negative').max(1000000),
   mrp: money.optional().default(null),
+  retailPrice: money.optional().default(null),
   wholesalePrice: money.optional().default(null),
 });
 const colorEntry = z.object({
@@ -257,14 +307,19 @@ const colorEntry = z.object({
   sizes: z.array(sizeEntry).min(1, 'Add at least one size for every colour'),
 });
 const imageUrl = z.string().max(500).refine((u) => /^\/uploads\/[\w.-]+$/.test(u) || /^https:\/\/\S+$/.test(u), 'Invalid image URL');
+const nameRe = /^[A-Za-z0-9._\-/ ]*$/;
 const productSchema = z.object({
-  name: z.string().trim().min(2, 'Product name is required').max(160),
-  sku: z.string().trim().min(1, 'SKU is required').max(60).regex(/^[A-Za-z0-9._\-/ ]+$/, 'SKU may only contain letters, numbers and . _ - /'),
+  // The model number is the primary identifier in the simplified add-product form. `name` and
+  // `sku` remain supported (imports/seed and older clients) and are derived from it when absent.
+  modelNumber: z.string().trim().max(60).regex(nameRe, 'Model number may only contain letters, numbers and . _ - /').optional().default(''),
+  name: z.string().trim().max(160).optional().default(''),
+  sku: z.string().trim().max(60).regex(nameRe, 'SKU may only contain letters, numbers and . _ - /').optional().default(''),
   brandId: z.coerce.number().int().positive('Select a brand'),
   categoryId: z.coerce.number().int().positive('Select a category'),
   subcategoryId: z.preprocess((v) => (v === '' || v === 0 || v === '0' ? null : v), z.coerce.number().int().positive().nullable()).optional().default(null),
   description: z.string().max(5000).optional().default(''),
   mrp: z.coerce.number('MRP is required').min(0).max(10000000),
+  retailPrice: money.optional().default(null),
   wholesalePrice: money.optional().default(null),
   costPrice: money.optional().default(null),
   featured: z.boolean().optional().default(false),
@@ -287,9 +342,13 @@ function validateVariants(data) {
       if (s.mrp != null && s.wholesalePrice != null && s.wholesalePrice > s.mrp) {
         throw new HttpError(400, `${v.color} size ${s.size}: wholesale price cannot exceed MRP`);
       }
+      if (s.mrp != null && s.retailPrice != null && s.retailPrice > s.mrp) {
+        throw new HttpError(400, `${v.color} size ${s.size}: retail price cannot exceed MRP`);
+      }
     }
   }
   if (data.wholesalePrice != null && data.wholesalePrice > data.mrp) throw new HttpError(400, 'Wholesale price cannot exceed MRP');
+  if (data.retailPrice != null && data.retailPrice > data.mrp) throw new HttpError(400, 'Retail price cannot exceed MRP');
 }
 
 async function uniqueSlug(base, ignoreId) {
@@ -302,13 +361,19 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
   validateVariants(data);
   const cat = await db.get('SELECT id, gender FROM categories WHERE id = ?', data.categoryId);
   if (!cat) throw new HttpError(400, 'Selected category does not exist');
-  if (!(await db.get('SELECT 1 FROM brands WHERE id = ?', data.brandId))) throw new HttpError(400, 'Selected brand does not exist');
+  const brand = await db.get('SELECT name FROM brands WHERE id = ?', data.brandId);
+  if (!brand) throw new HttpError(400, 'Selected brand does not exist');
   if (data.subcategoryId) {
     const sc = await db.get('SELECT category_id FROM subcategories WHERE id = ?', data.subcategoryId);
     if (!sc || sc.category_id !== cat.id) throw new HttpError(400, 'Subcategory does not belong to the selected category');
   }
-  const dupe = await db.get('SELECT id FROM products WHERE sku = ? AND id <> ?', data.sku, existingId || 0);
-  if (dupe) throw new HttpError(409, `SKU "${data.sku}" is already used by another product`);
+  // The model number is the identifier; keep name/SKU backward compatible by deriving them.
+  const model = (data.modelNumber || '').trim() || (data.sku || '').trim();
+  const sku = (data.sku || '').trim() || model;
+  if (!sku) throw new HttpError(400, 'Enter a model number', { modelNumber: 'Model number is required' });
+  const name = (data.name || '').trim() || `${brand.name} ${model || sku}`.trim();
+  const dupe = await db.get('SELECT id FROM products WHERE sku = ? AND id <> ?', sku, existingId || 0);
+  if (dupe) throw new HttpError(409, `Model number / SKU "${sku}" is already used by another product`);
 
   let id = existingId;
   const before = new Map();   // "color|size" -> quantity, used to log what an edit changed
@@ -322,18 +387,18 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
     const cur = await db.get('SELECT name, slug FROM products WHERE id = ?', existingId);
     if (!cur) throw new HttpError(404, 'Product not found');
     await db.run(`UPDATE products SET name=?, sku=?, brand_id=?, category_id=?, subcategory_id=?, gender=?, description=?, mrp=?,
-                wholesale_price=?, cost_price=?, featured=?, active=?, updated_at=now() WHERE id=?`,
-      data.name, data.sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender, data.description, data.mrp,
-      data.wholesalePrice, data.costPrice, +data.featured, +data.active, existingId);
+                retail_price=?, wholesale_price=?, cost_price=?, featured=?, active=?, updated_at=now() WHERE id=?`,
+      name, sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender, data.description, data.mrp,
+      data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active, existingId);
     await db.run('DELETE FROM inventory WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_colors WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_sizes WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_images WHERE product_id = ?', existingId);
   } else {
-    id = await db.insert(`INSERT INTO products (name, slug, sku, brand_id, category_id, subcategory_id, gender, description, mrp, wholesale_price, cost_price, featured, active)
-                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-      data.name, await uniqueSlug(data.name), data.sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender,
-      data.description, data.mrp, data.wholesalePrice, data.costPrice, +data.featured, +data.active);
+    id = await db.insert(`INSERT INTO products (name, slug, sku, brand_id, category_id, subcategory_id, gender, description, mrp, retail_price, wholesale_price, cost_price, featured, active)
+                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      name, await uniqueSlug(name), sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender,
+      data.description, data.mrp, data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active);
   }
 
   // Find-or-create a colour/size row (case-insensitive; safe if another request creates it at the same moment).
@@ -351,8 +416,8 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
     for (const s of v.sizes) {
       const sid = await lookup('sizes', 'label', s.size, ', sort', [sizeSort(s.size)]);
       await db.run('INSERT INTO product_sizes (product_id, size_id) VALUES (?,?) ON CONFLICT DO NOTHING', id, sid);
-      await db.run('INSERT INTO inventory (product_id, color_id, size_id, quantity, mrp, wholesale_price) VALUES (?,?,?,?,?,?)',
-        id, cid, sid, s.quantity, s.mrp, s.wholesalePrice);
+      await db.run('INSERT INTO inventory (product_id, color_id, size_id, quantity, mrp, retail_price, wholesale_price) VALUES (?,?,?,?,?,?,?)',
+        id, cid, sid, s.quantity, s.mrp, s.retailPrice, s.wholesalePrice);
     }
   }
   // Audit trail: log every quantity that differs from what was there before this save.
@@ -365,17 +430,17 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
       seen.add(key);
       const was = before.get(key)?.quantity ?? 0;
       if (s.quantity !== was) {
-        await logMovement({ productId: id, productName: data.name, sku: data.sku, color: v.color, size: s.size, change: s.quantity - was, quantityAfter: s.quantity, type, reason, actor });
+        await logMovement({ productId: id, productName: name, sku, color: v.color, size: s.size, change: s.quantity - was, quantityAfter: s.quantity, type, reason, actor });
       }
     }
   }
   for (const [key, old] of before) {
     if (!seen.has(key) && old.quantity > 0) {
-      await logMovement({ productId: id, productName: data.name, sku: data.sku, color: old.color, size: old.size, change: -old.quantity, quantityAfter: 0, type: 'REMOVED', reason: 'Size/colour removed in edit', actor });
+      await logMovement({ productId: id, productName: name, sku, color: old.color, size: old.size, change: -old.quantity, quantityAfter: 0, type: 'REMOVED', reason: 'Size/colour removed in edit', actor });
     }
   }
   for (const [i, u] of data.images.entries()) await db.run('INSERT INTO product_images (product_id, url, position) VALUES (?,?,?)', id, u, i);
   return id;
 });
 
-module.exports = { listProducts, getProduct, related, saveProduct, productSchema, stockStatus, normGender, csv, placeholders, sizeSort };
+module.exports = { listProducts, getProduct, related, saveProduct, productSchema, stockStatus, normGender, csv, placeholders, sizeSort, expandSizeFilter };

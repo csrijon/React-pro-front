@@ -22,7 +22,7 @@ export function AuthRoute({ mode }) {
   if (user) return <Navigate to={user.role === 'ADMIN' ? '/admin' : '/account'} replace />;
   return (
     <div className="container page narrow">
-      <h1>{mode === 'login' ? 'Log in' : 'Register for wholesale'}</h1>
+      <h1>{mode === 'login' ? 'Log in' : 'Create an account'}</h1>
       <p className="muted">Use the form to continue. <button className="link" onClick={() => nav('/')}>Back to shop</button></p>
       <button className="btn primary" onClick={() => modal.open(mode)}>Open {mode === 'login' ? 'login' : 'registration'} form</button>
     </div>
@@ -37,14 +37,16 @@ export default function Account() {
   const [pw, setPw] = useState({ currentPassword: '', newPassword: '' });
   const [err, setErr] = useState({});
   const [busy, setBusy] = useState(false);
-  useEffect(() => { if (user?.role === 'CUSTOMER') setForm({ shopName: user.shopName, ownerName: user.ownerName, email: user.email || '', address: user.address || '' }); }, [user]);
+  useEffect(() => { if (user?.role === 'CUSTOMER') setForm({ shopName: user.shopName || '', ownerName: user.ownerName || user.name || '', email: user.email || '', address: user.address || '' }); }, [user]);
 
   if (user === undefined) return <Spinner />;
   if (!user) return <Navigate to="/login" replace />;
   if (user.role === 'ADMIN') return <Navigate to="/admin" replace />;
   if (!form) return <Spinner />;
 
-  const [label, info] = STATUS_INFO[user.status];
+  const isShop = user.accountType === 'SHOP_OWNER';
+  const [statusLabel, statusInfo] = STATUS_INFO[user.status];
+  const [label, info] = isShop ? [statusLabel, statusInfo] : ['Customer account', 'Browse everything at retail prices. Contact the shop to upgrade to a wholesale (shop owner) account.'];
   const saveProfile = async (e) => {
     e.preventDefault(); setBusy(true); setErr({});
     try { setUser((await api.put('/api/auth/profile', form)).user); toast.success('Profile updated'); }
@@ -61,16 +63,20 @@ export default function Account() {
       <h1>My account</h1>
       <div className="grid two">
         <section className="panel">
-          <h2>Shop information</h2>
+          <h2>{isShop ? 'Shop information' : 'Account information'}</h2>
           <dl className="kv">
-            <div><dt>Shop name</dt><dd>{user.shopName}</dd></div>
-            <div><dt>Proprietor</dt><dd>{user.ownerName}</dd></div>
+            {isShop && <div><dt>Shop name</dt><dd>{user.shopName}</dd></div>}
+            <div><dt>{isShop ? 'Proprietor' : 'Name'}</dt><dd>{user.ownerName}</dd></div>
             <div><dt>Mobile</dt><dd>{user.mobile}</dd></div>
             <div><dt>Registered</dt><dd>{fmtDate(user.registeredAt)}</dd></div>
-            <div><dt>Account status</dt><dd><span className={`badge status-${user.status.toLowerCase()}`}>{label}</span></dd></div>
-            <div><dt>Wholesale access</dt><dd>{user.wholesaleAccess ? 'Enabled' : 'Not enabled'}</dd></div>
+            {isShop ? (
+              <>
+                <div><dt>Account status</dt><dd><span className={`badge status-${user.status.toLowerCase()}`}>{label}</span></dd></div>
+                <div><dt>Wholesale access</dt><dd>{user.wholesaleAccess ? 'Enabled' : 'Not enabled'}</dd></div>
+              </>
+            ) : <div><dt>Account type</dt><dd><span className="badge">Customer</span></dd></div>}
           </dl>
-          <div className={`alert ${user.status === 'APPROVED' ? 'success' : 'info'}`}>{info}</div>
+          <div className={`alert ${isShop && user.status === 'APPROVED' ? 'success' : 'info'}`}>{info}</div>
           {settings.phone && <p className="small muted">Questions? Call {settings.phone}.</p>}
           <p><Link className="btn primary" to="/products">Browse products</Link> <button className="btn" onClick={async () => { await logout(); }}>Logout</button></p>
         </section>
@@ -78,11 +84,11 @@ export default function Account() {
         <div>
           <form className="panel" onSubmit={saveProfile} noValidate>
             <h2>Edit profile</h2>
-            <Field label="Shop name" required error={err.shopName}><input value={form.shopName} onChange={(e) => setForm({ ...form, shopName: e.target.value })} /></Field>
-            <Field label="Proprietor name" required error={err.ownerName}><input value={form.ownerName} onChange={(e) => setForm({ ...form, ownerName: e.target.value })} /></Field>
+            {isShop && <Field label="Shop name" required error={err.shopName}><input value={form.shopName} onChange={(e) => setForm({ ...form, shopName: e.target.value })} /></Field>}
+            <Field label={isShop ? 'Proprietor name' : 'Your name'} required error={err.ownerName}><input value={form.ownerName} onChange={(e) => setForm({ ...form, ownerName: e.target.value })} /></Field>
             <Field label="Mobile number" hint="Your mobile number is your login and cannot be changed here."><input value={user.mobile} disabled /></Field>
             <Field label="Email" error={err.email}><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
-            <Field label="Shop address" error={err.address}><textarea rows={2} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
+            <Field label={isShop ? 'Shop address' : 'Address'} error={err.address}><textarea rows={2} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
             <button className="btn primary" disabled={busy}>Save changes</button>
           </form>
           <form className="panel" onSubmit={savePw} noValidate>

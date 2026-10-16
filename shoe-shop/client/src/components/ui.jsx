@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { STOCK_LABEL } from '../lib/api.js';
+import { isSupabaseStorage, optimizedImage, optimizedSrcSet } from '../lib/image.js';
 
 export const Spinner = ({ label = 'Loading…' }) => (
   <div className="state" role="status"><div className="spinner" /><span>{label}</span></div>
@@ -14,19 +15,53 @@ export const ProductSkeletons = ({ count = 6 }) => (
     ))}
   </div>
 );
+const IconBox = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+  </svg>
+);
+const IconAlert = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16.5h.01" />
+  </svg>
+);
 export const Empty = ({ title = 'Nothing found', children }) => (
-  <div className="state empty"><strong>{title}</strong>{children && <p>{children}</p>}</div>
+  <div className="state empty">
+    <div className="state-ico"><IconBox /></div>
+    <strong>{title}</strong>
+    {children && <p>{children}</p>}
+  </div>
 );
 export const ErrorBox = ({ error, onRetry }) => (
   <div className="state error" role="alert">
+    <div className="state-ico"><IconAlert /></div>
     <strong>Something went wrong</strong>
     <p>{error?.message || 'Please try again.'}</p>
     {onRetry && <button className="btn" onClick={onRetry}>Try again</button>}
   </div>
 );
 
-export function ShoeImage({ src, alt = '', className = '' }) {
+const IMG_WIDTHS = [320, 480, 640, 960];
+// Responsive sizes for a product grid card (2 cols on phones, more on desktop).
+const CARD_SIZES = '(min-width: 1180px) 300px, (min-width: 760px) 30vw, 46vw';
+
+// Renders a product photo. Storage images are requested through Supabase's resizing endpoint
+// (small + edge-cached); everything else is used as-is. Falls back to the original URL if the
+// transform is unavailable, and to a branded placeholder if the image cannot load at all.
+export function ShoeImage({ src, alt = '', className = '', priority = false, sizes = CARD_SIZES, widths = IMG_WIDTHS }) {
+  const ref = useRef(null);
+  const [loaded, setLoaded] = useState(false);
   const [broken, setBroken] = useState(false);
+  const [useOriginal, setUseOriginal] = useState(false);
+
+  const resize = isSupabaseStorage(src) && !useOriginal;
+  const imgSrc = resize ? optimizedImage(src, { width: 640 }) : src;
+  const srcSet = resize ? optimizedSrcSet(src, widths) : undefined;
+
+  useEffect(() => {
+    if (ref.current && ref.current.complete && ref.current.naturalWidth > 0) setLoaded(true);
+  }, [imgSrc]);
+
   if (!src || broken) {
     return (
       <div className={`img-ph ${className}`} role="img" aria-label={alt || 'No image'}>
@@ -34,7 +69,22 @@ export function ShoeImage({ src, alt = '', className = '' }) {
       </div>
     );
   }
-  return <img src={src} alt={alt} className={className} loading="lazy" onError={() => setBroken(true)} />;
+  return (
+    <img
+      ref={ref}
+      src={imgSrc}
+      srcSet={srcSet}
+      sizes={srcSet ? sizes : undefined}
+      alt={alt}
+      className={`shoe-img ${loaded ? 'is-loaded' : ''} ${className}`.trim()}
+      loading={priority ? 'eager' : 'lazy'}
+      fetchPriority={priority ? 'high' : 'auto'}
+      decoding="async"
+      draggable="false"
+      onLoad={() => setLoaded(true)}
+      onError={() => { if (resize) setUseOriginal(true); else setBroken(true); }}
+    />
+  );
 }
 
 const COLOR_HEX = {

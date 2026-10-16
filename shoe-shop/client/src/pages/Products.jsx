@@ -34,6 +34,13 @@ export default function Products() {
 
   const [mrp, setMrp] = useState({ min: query.minMrp, max: query.maxMrp });
   useEffect(() => setMrp({ min: query.minMrp, max: query.maxMrp }), [query.minMrp, query.maxMrp]);
+  const [sizeInput, setSizeInput] = useState('');
+  const addSize = () => {
+    const v = sizeInput.trim();
+    if (!v) return;
+    if (!csv(query.size).includes(v)) setParam({ size: [...csv(query.size), v].join(',') });
+    setSizeInput('');
+  };
 
   const setParam = (changes) => {
     const next = new URLSearchParams(sp);
@@ -54,7 +61,7 @@ export default function Products() {
 
   const activeCat = visibleCats.find((c) => c.slug === query.category);
   const title = [gender ? `${gender.label}'s` : null, activeCat?.name || (query.category ? query.category : null)].filter(Boolean).join(' ')
-    || (query.featured ? 'Highlighted products' : query.q ? `Results for “${query.q}”` : 'All products');
+    || (query.featured ? 'Featured products' : query.q ? `Results for “${query.q}”` : 'All products');
 
   const activeCount = ['brand', 'size', 'color', 'minMrp', 'maxMrp', 'availability', 'featured'].filter((k) => query[k]).length;
   const clearAll = () => nav(gender ? `/products/${gender.slug}${cSlug ? '/' + cSlug : ''}${query.q ? `?q=${encodeURIComponent(query.q)}` : ''}` : (query.q ? `/products?q=${encodeURIComponent(query.q)}` : '/products'));
@@ -108,9 +115,19 @@ export default function Products() {
       </fieldset>
 
       <fieldset><legend>Size</legend>
-        <div className="chips">{(facets?.sizes || []).map((s) => (
-          <button key={s} type="button" className={`chip ${csv(query.size).includes(s) ? 'on' : ''}`} aria-pressed={csv(query.size).includes(s)} onClick={() => toggleIn('size', s)}>{s}</button>
-        ))}</div>
+        <div className="chips">
+          {(facets?.sizes || []).map((s) => (
+            <button key={s} type="button" className={`chip ${csv(query.size).includes(s) ? 'on' : ''}`} aria-pressed={csv(query.size).includes(s)} onClick={() => toggleIn('size', s)}>{s}</button>
+          ))}
+          {csv(query.size).filter((s) => !(facets?.sizes || []).includes(s)).map((s) => (
+            <button key={s} type="button" className="chip on" aria-pressed="true" title="Remove size filter" onClick={() => toggleIn('size', s)}>{s} ✕</button>
+          ))}
+        </div>
+        <div className="size-range">
+          <input value={sizeInput} onChange={(e) => setSizeInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addSize(); } }} placeholder="e.g. 6-9 or 11" aria-label="Add a size or range" />
+          <button type="button" className="btn sm" onClick={addSize}>Add</button>
+        </div>
+        <p className="small muted">Tap sizes above, or type a single size or a range like 6-9.</p>
       </fieldset>
 
       <fieldset><legend>Colour</legend>
@@ -132,7 +149,7 @@ export default function Products() {
         <select value={query.availability} onChange={(e) => setParam({ availability: e.target.value })} aria-label="Availability">
           <option value="">Any</option><option value="in_stock">In stock</option><option value="low">Low stock</option><option value="out_of_stock">Out of stock</option>
         </select>
-        <label className="check"><input type="checkbox" checked={!!query.featured} onChange={(e) => setParam({ featured: e.target.checked ? '1' : '' })} /> Highlighted only</label>
+        <label className="check"><input type="checkbox" checked={!!query.featured} onChange={(e) => setParam({ featured: e.target.checked ? '1' : '' })} /> Featured only</label>
       </fieldset>
     </div>
   );

@@ -13,6 +13,7 @@ router.get('/settings', async (_req, res) => {
     shopName: s.shop_name, logoUrl: s.logo_url, phone: s.phone, address: s.address, whatsapp: s.whatsapp,
     facebookUrl: s.facebook_url, instagramUrl: s.instagram_url, youtubeUrl: s.youtube_url,
     wholesaleEnabled: s.wholesale_enabled !== 'false', wholesaleNote: s.wholesale_note,
+    globalDiscountEnabled: s.global_discount_enabled === 'true', globalDiscountPercent: Number(s.global_discount_percent) || 0,
   });
 });
 
@@ -26,8 +27,13 @@ router.get('/brands', async (_req, res) => {
 });
 
 router.get('/categories', async (_req, res) => {
+  // Fall back to a real product photo from the category when no category image is set, so the
+  // tiles always show actual catalogue photography rather than a placeholder.
   const cats = await db.all(`
-    SELECT c.id, c.gender, c.name, c.slug, c.image_url AS "imageUrl",
+    SELECT c.id, c.gender, c.name, c.slug,
+           COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
+             JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
+             ORDER BY p2.created_at DESC, pi.position LIMIT 1)) AS "imageUrl",
            (SELECT COUNT(*) FROM products p JOIN brands b ON b.id = p.brand_id WHERE p.category_id = c.id AND p.active = 1 AND b.active = 1) AS "productCount"
     FROM categories c WHERE c.active = 1 ORDER BY c.sort_order, c.name`);
   const subs = await db.all('SELECT id, category_id AS "categoryId", name, slug FROM subcategories WHERE active = 1 ORDER BY name');
@@ -52,7 +58,11 @@ router.get('/home', async (req, res) => {
   const featured = (await svc.listProducts({ featured: '1', sort: 'newest', limit: 8 }, { wholesale })).items;
   const newArrivals = (await svc.listProducts({ sort: 'newest', limit: 8 }, { wholesale })).items;
   const popular = await db.all(`
-    SELECT c.id, c.gender, c.name, c.slug, c.image_url AS "imageUrl", COUNT(p.id) AS "productCount"
+    SELECT c.id, c.gender, c.name, c.slug,
+           COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
+             JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
+             ORDER BY p2.created_at DESC, pi.position LIMIT 1)) AS "imageUrl",
+           COUNT(p.id) AS "productCount"
     FROM categories c JOIN products p ON p.category_id = c.id AND p.active = 1
     JOIN brands b ON b.id = p.brand_id AND b.active = 1
     WHERE c.active = 1 GROUP BY c.id ORDER BY COUNT(p.id) DESC, c.name LIMIT 6`);

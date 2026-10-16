@@ -35,7 +35,7 @@ function client() {
 const leaks = (obj) => /wholesale|"ws"|min_ws/i.test(JSON.stringify(obj)) && !/wholesaleEnabled|wholesaleNote|wholesaleAccess/.test(JSON.stringify(obj).replace(/wholesale(Enabled|Note|Access)/g, ''));
 const hasWholesaleKey = (obj) => JSON.stringify(obj).replace(/wholesale(Enabled|Note|Access)/g, '').toLowerCase().includes('wholesale');
 
-const reg = (n) => ({ shopName: `Shop ${n}`, ownerName: `Owner ${n}`, mobile: `98765432${String(10 + n)}`, password: 'password123' });
+const reg = (n) => ({ accountType: 'SHOP_OWNER', shopName: `Shop ${n}`, name: `Owner ${n}`, mobile: `98765432${String(10 + n)}`, password: 'password123' });
 
 test('anonymous users never receive wholesale prices on any public endpoint', async () => {
   const c = client();
@@ -239,7 +239,7 @@ test('cost price, profit and margin are admin-only and calculated', async () => 
   const pub = JSON.stringify([(await anon.get('/api/products')).data, (await anon.get('/api/products/paragon-runner-pro')).data, (await anon.get('/api/home')).data]);
   assert.ok(!/cost|margin/i.test(pub));
   const cust = client();
-  await cust.post('/api/auth/register', { shopName: 'Cost Shop', ownerName: 'Cost Owner', mobile: '9876543299', password: 'password123' });
+  await cust.post('/api/auth/register', { accountType: 'SHOP_OWNER', shopName: 'Cost Shop', name: 'Cost Owner', mobile: '9876543299', password: 'password123' });
   const cid = (await admin.get('/api/admin/customers?q=9876543299')).data.customers[0].id;
   await admin.patch(`/api/admin/customers/${cid}/status`, { status: 'APPROVED' });
   assert.ok(!/cost|margin/i.test(JSON.stringify((await cust.get('/api/products/paragon-runner-pro')).data)));
@@ -303,4 +303,46 @@ test('reorder report lists low/out sizes with suggested quantities', async () =>
   const s = (await admin.get('/api/admin/settings')).data.settings;
   await admin.put('/api/admin/settings', { ...s, reorderTarget: 50 });
   assert.equal((await admin.get('/api/admin/stock/reorder')).data.target, 50);
+});
+
+test('bulk activate/deactivate hides and restores products in one action', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const picks = (await admin.get('/api/admin/products?limit=50')).data.items.filter((p) => p.active).slice(0, 2);
+  const ids = picks.map((p) => p.id);
+  assert.equal(ids.length, 2);
+  assert.equal((await admin.patch('/api/admin/products/bulk', { ids, action: 'deactivate' })).status, 200);
+  const after = (await admin.get('/api/admin/products?limit=50')).data.items.filter((p) => ids.includes(p.id));
+  assert.ok(after.every((p) => p.active === false));
+  assert.equal((await client().get(`/api/products/${picks[0].slug}`)).status, 404, 'deactivated products vanish from the storefront');
+  assert.equal((await admin.patch('/api/admin/products/bulk', { ids, action: 'activate' })).status, 200);
+  assert.equal((await client().get(`/api/products/${picks[0].slug}`)).status, 200);
+  assert.equal((await admin.patch('/api/admin/products/bulk', { ids: [], action: 'deactivate' })).status, 400, 'empty selection rejected');
+  assert.equal((await admin.patch('/api/admin/products/bulk', { ids, action: 'nuke' })).status, 400, 'unknown action rejected');
+});
+
+test('global discount applies at render time without rewriting product records', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const s = (await admin.get('/api/admin/settings')).data.settings;
+  const target = (await admin.get('/api/admin/products?limit=50')).data.items[0];
+  const before = (await client().get(`/api/products/${target.slug}`)).data.product;
+  assert.equal(before.discountPct, 0, 'no discount configured yet');
+
+  const preview = (await admin.get('/api/admin/products/global-discount/preview?percent=25')).data;
+  assert.ok(preview.affected >= 1 && preview.total >= preview.affected);
+  assert.ok(preview.sample.every((p) => p.retail < p.mrp));
+
+  await admin.put('/api/admin/settings', { ...s, globalDiscountEnabled: true, globalDiscountPercent: 25 });
+  const after = (await client().get(`/api/products/${target.slug}`)).data.product;
+  assert.equal(after.discountPct, 25);
+  assert.ok(Math.abs(after.retail.min - before.retail.min * 0.75) < 0.01, 'retail = MRP - 25%');
+  assert.equal(after.mrp, before.mrp, 'original MRP is untouched');
+  const record = (await admin.get('/api/admin/products?limit=50')).data.items[0];
+  assert.equal(record.mrp.min, target.mrp.min, 'stored product record is not rewritten');
+
+  await admin.put('/api/admin/settings', { ...s, globalDiscountEnabled: false, globalDiscountPercent: 25 });
+  const reverted = (await client().get(`/api/products/${target.slug}`)).data.product;
+  assert.equal(reverted.discountPct, 0);
+  assert.equal(reverted.retail.min, before.retail.min);
 });

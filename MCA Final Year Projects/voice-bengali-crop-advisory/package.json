@@ -1,0 +1,13 @@
+{
+  "name": "voice-bengali-crop-advisory",
+  "version": "0.1.0",
+  "private": true,
+  "description": "বাংলা কৃষি সহায়ক — Voice-Based Bengali Crop Advisory AI Agent (MCA final year project)",
+  "scripts": {
+    "dev:api": "npm --prefix backend run dev",
+    "dev:web": "npm --prefix frontend run dev",
+    "start:api": "npm --prefix backend start",
+    "build:web": "npm --prefix frontend run build",
+    "test:api": "npm --prefix backend test"
+  }
+}

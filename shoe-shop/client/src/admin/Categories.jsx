@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { GENDERS, api, genderLabel } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
+import { uploadImage } from '../lib/upload.js';
 import { Empty, ErrorBox, Field, Modal, Spinner, Toggle, useConfirm } from '../components/ui.jsx';
 
 export default function Categories() {
@@ -16,7 +17,7 @@ export default function Categories() {
     try {
       const base = kind === 'cat' ? '/api/admin/categories' : '/api/admin/subcategories';
       const body = kind === 'cat'
-        ? { gender: form.gender, name: form.name, active: form.active, sortOrder: Number(form.sortOrder) || 0 }
+        ? { gender: form.gender, name: form.name, active: form.active, sortOrder: Number(form.sortOrder) || 0, imageUrl: form.imageUrl || '' }
         : { categoryId: form.categoryId, name: form.name, active: form.active };
       if (form.id) await api.put(`${base}/${form.id}`, body); else await api.post(base, body);
       toast.success('Saved'); close(null); reload();
@@ -28,7 +29,7 @@ export default function Categories() {
     try { await api.del(`/api/admin/${kind === 'cat' ? 'categories' : 'subcategories'}/${row.id}`); toast.success('Deleted'); reload(); } catch (e) { toast.error(e.message); }
   };
   const toggle = async (c, active) => {
-    try { await api.put(`/api/admin/categories/${c.id}`, { gender: c.gender, name: c.name, active, sortOrder: c.sortOrder }); reload(); } catch (e) { toast.error(e.message); }
+    try { await api.put(`/api/admin/categories/${c.id}`, { gender: c.gender, name: c.name, active, sortOrder: c.sortOrder, imageUrl: c.imageUrl || '' }); reload(); } catch (e) { toast.error(e.message); }
   };
 
   if (loading) return <Spinner />;
@@ -36,7 +37,7 @@ export default function Categories() {
 
   return (
     <>
-      <div className="page-head"><h1>Categories</h1><button className="btn primary" onClick={() => { setErr(null); setEdit({ gender: 'men', name: '', active: true, sortOrder: 0 }); }}>+ Add category</button></div>
+      <div className="page-head"><h1>Categories</h1><button className="btn primary" onClick={() => { setErr(null); setEdit({ gender: 'men', name: '', active: true, sortOrder: 0, imageUrl: '' }); }}>+ Add category</button></div>
       {GENDERS.map((g) => {
         const list = data.categories.filter((c) => c.gender === g.key);
         return (
@@ -65,6 +66,13 @@ export default function Categories() {
       {edit && <FormModal title={edit.id ? `Edit ${genderLabel(edit.gender)} category` : 'Add category'} onClose={() => setEdit(null)} onSubmit={() => save('cat', edit, setEdit)} err={err}>
         <Field label="Gender" required error={err?.fields?.gender}><select value={edit.gender} onChange={(e) => setEdit({ ...edit, gender: e.target.value })}>{GENDERS.map((g) => <option key={g.key} value={g.key}>{g.label}</option>)}</select></Field>
         <Field label="Category name" required error={err?.fields?.name}><input value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} autoFocus /></Field>
+        <Field label="Category image" error={err?.fields?.imageUrl} hint="Optional. If none is set, a product photo from this category is shown automatically.">
+          <div className="logo-field">
+            {edit.imageUrl && <img className="logo-thumb" src={edit.imageUrl} alt="Category" />}
+            <input type="file" accept="image/jpeg,image/png,image/webp" onChange={async (e) => { const file = e.target.files[0]; e.target.value = ''; if (!file) return; try { setEdit({ ...edit, imageUrl: await uploadImage(file) }); } catch (ex) { toast.error(ex.message); } }} />
+            {edit.imageUrl && <button type="button" className="btn sm" onClick={() => setEdit({ ...edit, imageUrl: '' })}>Remove</button>}
+          </div>
+        </Field>
         <Field label="Display order" hint="Lower numbers appear first"><input type="number" min="0" value={edit.sortOrder} onChange={(e) => setEdit({ ...edit, sortOrder: e.target.value })} /></Field>
         <Toggle checked={edit.active} onChange={(v) => setEdit({ ...edit, active: v })} label="Active" />
       </FormModal>}

@@ -11,7 +11,15 @@ export default function Settings() {
   const [f, setF] = useState(null);
   const [err, setErr] = useState({});
   const [busy, setBusy] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const [previewBusy, setPreviewBusy] = useState(false);
   useEffect(() => { if (data) setF(data.settings); }, [data]);
+
+  const loadPreview = async () => {
+    setPreviewBusy(true);
+    try { setPreview(await api.get(`/api/admin/products/global-discount/preview?percent=${Number(f.globalDiscountPercent) || 0}`)); }
+    catch (ex) { toast.error(ex.message); } finally { setPreviewBusy(false); }
+  };
 
   if (loading || !f) return error ? <ErrorBox error={error} onRetry={reload} /> : <Spinner />;
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
@@ -64,6 +72,31 @@ export default function Settings() {
         <Toggle checked={f.wholesaleEnabled} onChange={(v) => setF({ ...f, wholesaleEnabled: v })} label="Show wholesale prices to approved customers" />
         <p className="small muted">When off, wholesale prices are hidden from everyone except admins and the “Request Wholesale Price” prompts disappear.</p>
         <Field label="Message shown to visitors" error={err.wholesaleNote}><input value={f.wholesaleNote} onChange={set('wholesaleNote')} /></Field>
+      </section>
+      <section className="panel">
+        <h2>Global retail discount</h2>
+        <p className="small muted">Apply a shop-wide discount on MRP for products that do not already have their own retail price. Individually configured retail prices are never overwritten, and original MRP values stay unchanged.</p>
+        <Toggle checked={f.globalDiscountEnabled} onChange={(v) => setF({ ...f, globalDiscountEnabled: v })} label="Enable a global discount on MRP" />
+        <div className="form-grid" style={{ marginTop: 12 }}>
+          <Field label="Discount (%)" hint="0–90%. Retail price = MRP × (1 − discount ÷ 100)." error={err.globalDiscountPercent}>
+            <input type="number" min="0" max="90" step="0.01" value={f.globalDiscountPercent} onChange={set('globalDiscountPercent')} />
+          </Field>
+        </div>
+        <div className="actions" style={{ justifyContent: 'flex-start' }}>
+          <button type="button" className="btn" onClick={loadPreview} disabled={previewBusy}>{previewBusy ? 'Calculating…' : 'Preview affected products'}</button>
+        </div>
+        {preview && (
+          <div className="discount-preview">
+            <p className="small"><strong>{preview.affected}</strong> of {preview.total} active products would be discounted by {preview.percent}%. <strong>{preview.individual}</strong> have their own retail price and are left untouched.</p>
+            {preview.sample.length > 0 && (
+              <div className="table-wrap"><table className="table">
+                <thead><tr><th>Product</th><th className="num">MRP</th><th className="num">New retail price</th></tr></thead>
+                <tbody>{preview.sample.map((p) => <tr key={p.id}><td>{p.name}<div className="small muted">{p.sku}</div></td><td className="num">₹{p.mrp}</td><td className="num"><strong>₹{p.retail}</strong></td></tr>)}</tbody>
+              </table></div>
+            )}
+            {preview.affected === 0 && <p className="small muted">No products would change with these settings.</p>}
+          </div>
+        )}
       </section>
     </form>
   );
