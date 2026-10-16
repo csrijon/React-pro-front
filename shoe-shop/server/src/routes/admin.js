@@ -407,7 +407,7 @@ router.get('/inventory/options', async (_req, res) => {
 const httpsUrl = (host) => z.string().trim().max(300).refine((u) => u === '' || (/^https:\/\/\S+$/.test(u) && (!host || host.test(new URL(u).hostname))), 'Enter a valid https:// link');
 const settingsSchema = z.object({
   shopName: z.string().trim().min(2, 'Shop name is required').max(80),
-  logoUrl: z.string().max(500).regex(/^(\/uploads\/[\w.-]+|https:\/\/\S+)?$/, 'Invalid logo URL'),
+  logoUrl: z.string().max(500).regex(/^(\/uploads\/[\w.-]+|\/[\w-]+\.(?:jpe?g|png|webp|svg)|https:\/\/\S+)?$/i, 'Invalid logo URL'),
   phone: z.string().trim().max(30).regex(/^[\d+\-\s()]*$/, 'Phone may only contain digits, spaces and + - ( )'),
   address: z.string().trim().max(400),
   whatsapp: z.string().trim().max(20).regex(/^\+?\d*$/, 'WhatsApp number: digits only (with country code)'),

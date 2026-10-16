@@ -255,7 +255,7 @@ CREATE INDEX IF NOT EXISTS idx_movements_product ON stock_movements(product_id);
 
 const DEFAULT_SETTINGS = {
   shop_name: 'Step Right Footwear',
-  logo_url: '',
+  logo_url: '/logoshoe.jpeg',
   phone: '',
   address: '',
   whatsapp: '',
