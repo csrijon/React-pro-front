@@ -27,7 +27,7 @@ const AuthCtx = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(undefined); // undefined = loading, null = anonymous
   const refresh = useCallback(async () => {
-    try { setUser((await api.get('/api/auth/me')).user); } catch { setUser(null); }
+    try { setUser((await getJson('/api/auth/me')).user); } catch { setUser(null); }
   }, []);
   useEffect(() => { refresh(); }, [refresh]);
   const login = async (username, password) => {
@@ -49,7 +49,7 @@ export const useAuth = () => useContext(AuthCtx);
 const SettingsCtx = createContext({});
 export function SettingsProvider({ children }) {
   const [settings, setSettings] = useState({ shopName: 'Footwear Wholesale' });
-  const reload = useCallback(() => api.get('/api/settings').then((s) => s && setSettings(s)).catch(() => {}), []);
+  const reload = useCallback(() => getJson('/api/settings').then((s) => s && setSettings(s)).catch(() => {}), []);
   useEffect(() => { reload(); }, [reload]);
   useEffect(() => { document.title = settings.shopName; }, [settings.shopName]);
   return <SettingsCtx.Provider value={{ settings, reload }}>{children}</SettingsCtx.Provider>;
@@ -57,6 +57,17 @@ export function SettingsProvider({ children }) {
 export const useSettings = () => useContext(SettingsCtx);
 
 /* ---- data fetching ---- */
+// Collapse concurrent GETs for the same URL (React Strict Mode's double effect, or two
+// components asking for /api/categories at once) into a single network request.
+const inflight = new Map();
+function getJson(url) {
+  const existing = inflight.get(url);
+  if (existing) return existing;
+  const p = api.get(url).finally(() => { if (inflight.get(url) === p) inflight.delete(url); });
+  inflight.set(url, p);
+  return p;
+}
+
 export function useFetch(url, deps = []) {
   const [state, setState] = useState({ data: null, error: null, loading: true });
   const [tick, setTick] = useState(0);
@@ -64,7 +75,7 @@ export function useFetch(url, deps = []) {
     if (url === null) return undefined;
     let cancelled = false;
     setState((s) => ({ ...s, loading: true, error: null }));
-    api.get(url).then(
+    getJson(url).then(
       (data) => !cancelled && setState({ data, error: null, loading: false }),
       (error) => !cancelled && setState({ data: null, error, loading: false }),
     );

@@ -15,6 +15,12 @@ const pool = new Pool({
   connectionString: config.databaseUrl,
   ssl: config.databaseSsl ? { rejectUnauthorized: false } : undefined,
   max: 10,
+  // Remote databases pay a large TCP/TLS handshake cost per connection. Keep pooled clients
+  // alive between browsing bursts so a pause longer than the default 10s does not force
+  // every subsequent request to re-open a connection to the hosted database.
+  idleTimeoutMillis: 60000,
+  connectionTimeoutMillis: 15000,
+  keepAlive: true,
   options: `-c timezone=UTC${schema ? ` -c search_path=${schema},public` : ''}`,
 });
 pool.on('error', (err) => console.error('[pg] idle client error', err.message));
@@ -26,11 +32,34 @@ const toPg = (sql) => { let i = 0; return sql.replace(/\?/g, () => `$${++i}`); }
 const txStore = new AsyncLocalStorage();
 const executor = () => txStore.getStore() || pool;
 
-const all = async (sql, ...args) => (await executor().query(toPg(sql), args)).rows;
+// Development-only, per-request counters: how many database round trips a request made and how
+// long those round trips took (network latency to the remote database + query execution). Stored
+// in AsyncLocalStorage so concurrent requests are measured independently. No-op in production.
+const metricsStore = new AsyncLocalStorage();
+const execQuery = async (sql, args) => {
+  const text = toPg(sql);
+  const m = config.logTiming ? metricsStore.getStore() : null;
+  if (!m) return executor().query(text, args);
+  const t0 = process.hrtime.bigint();
+  try {
+    return await executor().query(text, args);
+  } finally {
+    m.queries += 1;
+    m.ms += Number(process.hrtime.bigint() - t0) / 1e6;
+  }
+};
+// Express middleware that gives each request its own counters (read back from res.locals.dbStats).
+function metricsMiddleware(_req, res, next) {
+  const m = { queries: 0, ms: 0 };
+  res.locals.dbStats = m;
+  metricsStore.run(m, next);
+}
+
+const all = async (sql, ...args) => (await execQuery(sql, args)).rows;
 const get = async (sql, ...args) => (await all(sql, ...args))[0];
 // run(): { changes: affected rows, id: first column "id" of a RETURNING clause }
 const run = async (sql, ...args) => {
-  const r = await executor().query(toPg(sql), args);
+  const r = await execQuery(sql, args);
   return { changes: r.rowCount, id: r.rows[0] ? r.rows[0].id : undefined };
 };
 const insert = async (sql, ...args) => (await run(`${sql} RETURNING id`, ...args)).id;
@@ -270,17 +299,28 @@ function init() {
 
 // Used by the test-suite: optionally drops the private schema, then closes all connections.
 async function close({ dropSchema = false } = {}) {
+  invalidateSettings();
   if (dropSchema && schema) await pool.query(`DROP SCHEMA IF EXISTS ${schema} CASCADE`);
   await pool.end();
 }
 
-const db = { all, get, run, insert, transaction, pool };
+const db = { all, get, run, insert, transaction, pool, metricsMiddleware };
 
-async function getSettings() {
+// Settings are read many times per request (stock threshold, wholesale flag, global discount)
+// but change rarely. Cache them in-process for a short window so one HTTP request does not
+// make several identical round trips to the remote database. Admin writes invalidate it.
+let settingsCache = { at: 0, value: null };
+const SETTINGS_TTL_MS = 10000;
+async function getSettings({ fresh = false } = {}) {
+  const now = Date.now();
+  if (!fresh && settingsCache.value && now - settingsCache.at < SETTINGS_TTL_MS) return settingsCache.value;
   const out = {};
   for (const r of await all('SELECT key, value FROM settings')) out[r.key] = r.value;
+  settingsCache = { at: Date.now(), value: out };
   return out;
 }
+// Drop the cached settings so the next read reflects a just-saved change.
+function invalidateSettings() { settingsCache = { at: 0, value: null }; }
 async function lowStockThreshold() {
   const n = parseInt((await getSettings()).low_stock_threshold, 10);
   return Number.isFinite(n) && n >= 0 ? n : 5;
@@ -308,4 +348,4 @@ function slugify(s) {
   return String(s).toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-') || 'item';
 }
 
-module.exports = { db, init, close, DEFAULT_SETTINGS, getSettings, lowStockThreshold, wholesaleEnabled, globalDiscount, applyRetail, slugify };
+module.exports = { db, init, close, DEFAULT_SETTINGS, getSettings, invalidateSettings, lowStockThreshold, wholesaleEnabled, globalDiscount, applyRetail, slugify };

@@ -1,7 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const multer = require('multer');
-const { db, getSettings, lowStockThreshold, slugify, DEFAULT_SETTINGS } = require('../db');
+const { db, getSettings, invalidateSettings, lowStockThreshold, slugify, DEFAULT_SETTINGS } = require('../db');
 const config = require('../config');
 const { HttpError, parse, z, id: idSchema } = require('../http');
 const { requireAdmin } = require('../auth');
@@ -440,11 +440,14 @@ const settingsOut = async () => {
 router.get('/settings', async (_req, res) => res.json({ settings: await settingsOut() }));
 router.put('/settings', async (req, res) => {
   const d = parse(settingsSchema, req.body);
-  await db.transaction(async () => {
-    for (const [camel, key] of Object.entries(SETTING_MAP)) {
-      await db.run('INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT (key) DO UPDATE SET value = excluded.value', key, String(d[camel]));
-    }
-  });
+  // One multi-row upsert instead of fourteen sequential round trips to the remote database.
+  const entries = Object.entries(SETTING_MAP).map(([camel, key]) => [key, String(d[camel])]);
+  const values = entries.map(() => '(?, ?)').join(', ');
+  await db.run(
+    `INSERT INTO settings (key, value) VALUES ${values} ON CONFLICT (key) DO UPDATE SET value = excluded.value`,
+    ...entries.flat(),
+  );
+  invalidateSettings();
   res.json({ settings: await settingsOut() });
 });
 

@@ -7,7 +7,10 @@ import { ColorDot, Empty, ErrorBox, ShoeImage, Spinner, StockBadge } from '../co
 
 export default function ProductDetail() {
   const { slug } = useParams();
-  const { data, error, loading, reload } = useFetch(`/api/products/${encodeURIComponent(slug)}`, [useAuth().user?.status]);
+  // Depend on the visitor's wholesale status so an approval reveals prices, but keep it stable
+  // as `undefined -> null` while auth loads so anonymous visitors do not fetch the product twice.
+  const authStatus = useAuth().user?.status ?? null;
+  const { data, error, loading, reload } = useFetch(`/api/products/${encodeURIComponent(slug)}`, [authStatus]);
   const [sp, setSp] = useSearchParams();
   const [img, setImg] = useState(0);
   const { settings } = useSettings();

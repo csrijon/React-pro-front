@@ -6,9 +6,17 @@ const svc = require('../productService');
 
 const router = express.Router();
 
+// Public catalogue metadata (shop settings, categories, brands, filter facets) is identical for
+// every visitor, so let the browser reuse it for a short window instead of re-requesting it on
+// every page navigation. Product/stock data is never cached this way. Admin edits appear within
+// this window (and the in-process settings cache is invalidated immediately on save).
+const PUBLIC_META_MAX_AGE = 30;
+const cacheMeta = (res) => res.set('Cache-Control', `public, max-age=${PUBLIC_META_MAX_AGE}`);
+
 // Only fields the storefront needs. Never expose the low-stock threshold etc.
 router.get('/settings', async (_req, res) => {
   const s = await getSettings();
+  cacheMeta(res);
   res.json({
     shopName: s.shop_name, logoUrl: s.logo_url, phone: s.phone, address: s.address, whatsapp: s.whatsapp,
     facebookUrl: s.facebook_url, instagramUrl: s.instagram_url, youtubeUrl: s.youtube_url,
@@ -18,6 +26,7 @@ router.get('/settings', async (_req, res) => {
 });
 
 router.get('/brands', async (_req, res) => {
+  cacheMeta(res);
   res.json({
     brands: await db.all(`
       SELECT b.id, b.name, b.slug, b.logo_url AS "logoUrl",
@@ -29,15 +38,18 @@ router.get('/brands', async (_req, res) => {
 router.get('/categories', async (_req, res) => {
   // Fall back to a real product photo from the category when no category image is set, so the
   // tiles always show actual catalogue photography rather than a placeholder.
-  const cats = await db.all(`
+  const [cats, subs] = await Promise.all([
+    db.all(`
     SELECT c.id, c.gender, c.name, c.slug,
            COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
              JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
              ORDER BY p2.created_at DESC, pi.position LIMIT 1)) AS "imageUrl",
            (SELECT COUNT(*) FROM products p JOIN brands b ON b.id = p.brand_id WHERE p.category_id = c.id AND p.active = 1 AND b.active = 1) AS "productCount"
-    FROM categories c WHERE c.active = 1 ORDER BY c.sort_order, c.name`);
-  const subs = await db.all('SELECT id, category_id AS "categoryId", name, slug FROM subcategories WHERE active = 1 ORDER BY name');
+    FROM categories c WHERE c.active = 1 ORDER BY c.sort_order, c.name`),
+    db.all('SELECT id, category_id AS "categoryId", name, slug FROM subcategories WHERE active = 1 ORDER BY name'),
+  ]);
   for (const c of cats) c.subcategories = subs.filter((s) => s.categoryId === c.id);
+  cacheMeta(res);
   res.json({ categories: cats });
 });
 
@@ -50,14 +62,18 @@ router.get('/filters', async (_req, res) => {
     db.all(`SELECT DISTINCT co.name FROM colors co JOIN inventory i ON i.color_id = co.id JOIN products p ON p.id = i.product_id JOIN brands b ON b.id = p.brand_id JOIN categories c ON c.id = p.category_id WHERE ${vis} ORDER BY co.name`),
     db.get(`SELECT MIN(COALESCE(i.mrp, p.mrp)) AS min, MAX(COALESCE(i.mrp, p.mrp)) AS max ${join} WHERE ${vis}`),
   ]);
+  cacheMeta(res);
   res.json({ sizes: sizes.map((r) => r.label), colors: colors.map((r) => r.name), mrp });
 });
 
 router.get('/home', async (req, res) => {
   const wholesale = await canSeeWholesale(req);
-  const featured = (await svc.listProducts({ featured: '1', sort: 'newest', limit: 8 }, { wholesale })).items;
-  const newArrivals = (await svc.listProducts({ sort: 'newest', limit: 8 }, { wholesale })).items;
-  const popular = await db.all(`
+  // Four independent sections; run them together so the homepage costs one wait, not four
+  // sequential waits, against the remote database.
+  const [featuredRes, newArrivalsRes, popular, brands] = await Promise.all([
+    svc.listProducts({ featured: '1', sort: 'newest', limit: 8 }, { wholesale }),
+    svc.listProducts({ sort: 'newest', limit: 8 }, { wholesale }),
+    db.all(`
     SELECT c.id, c.gender, c.name, c.slug,
            COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
              JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
@@ -65,9 +81,10 @@ router.get('/home', async (req, res) => {
            COUNT(p.id) AS "productCount"
     FROM categories c JOIN products p ON p.category_id = c.id AND p.active = 1
     JOIN brands b ON b.id = p.brand_id AND b.active = 1
-    WHERE c.active = 1 GROUP BY c.id ORDER BY COUNT(p.id) DESC, c.name LIMIT 6`);
-  const brands = await db.all('SELECT id, name, slug, logo_url AS "logoUrl" FROM brands WHERE active = 1 ORDER BY name');
-  res.json({ featured, newArrivals, popularCategories: popular, brands });
+    WHERE c.active = 1 GROUP BY c.id ORDER BY COUNT(p.id) DESC, c.name LIMIT 6`),
+    db.all('SELECT id, name, slug, logo_url AS "logoUrl" FROM brands WHERE active = 1 ORDER BY name'),
+  ]);
+  res.json({ featured: featuredRes.items, newArrivals: newArrivalsRes.items, popularCategories: popular, brands });
 });
 
 router.get('/products', async (req, res) => {

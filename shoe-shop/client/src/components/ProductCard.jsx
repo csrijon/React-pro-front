@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { genderLabel, inr } from '../lib/api.js';
 import { useAuth, useSettings } from '../lib/hooks.jsx';
@@ -45,7 +46,7 @@ export function PriceBlock({ product, compact }) {
   );
 }
 
-export default function ProductCard({ product: p }) {
+function ProductCard({ product: p }) {
   const [ref, shown] = useReveal();
   return (
     <article ref={ref} className={`card product-card reveal ${shown ? 'in' : ''}`}>
@@ -69,3 +70,7 @@ export default function ProductCard({ product: p }) {
     </article>
   );
 }
+
+// Product identity only changes when the list data changes, so skip re-rendering cards when
+// unrelated page state (filter panel, size input, sort menu) updates.
+export default memo(ProductCard);

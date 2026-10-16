@@ -132,12 +132,15 @@ async function listProducts(q, { wholesale = false, admin = false } = {}) {
     LEFT JOIN subcategories sc ON sc.id = p.subcategory_id
     ${where.length ? 'WHERE ' + where.join(' AND ') : ''}`;
 
-  const total = (await db.get(`SELECT COUNT(*) n ${from}`, ...args)).n;
   const wholesaleCols = wholesale
     ? `, (SELECT MIN(COALESCE(i.wholesale_price, p.wholesale_price)) FROM inventory i WHERE i.product_id = p.id) AS min_ws,
          (SELECT MAX(COALESCE(i.wholesale_price, p.wholesale_price)) FROM inventory i WHERE i.product_id = p.id) AS max_ws`
     : '';
-  const rows = await db.all(`
+  // The count and the page of rows are independent, so issue them together: against a remote
+  // database this halves the number of sequential network round trips per listing request.
+  const [totalRow, rows] = await Promise.all([
+    db.get(`SELECT COUNT(*) n ${from}`, ...args),
+    db.all(`
     SELECT p.id, p.name, p.slug, p.sku, p.gender, p.featured, p.active, p.created_at,
            ${admin ? 'p.cost_price, p.wholesale_price,' : ''}
            p.retail_price AS product_retail,
@@ -152,7 +155,9 @@ async function listProducts(q, { wholesale = false, admin = false } = {}) {
            ${admin ? `, (SELECT COALESCE(SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)),0) FROM inventory i WHERE i.product_id = p.id) AS stock_value_ws,
                        (SELECT COALESCE(SUM(i.quantity * COALESCE(i.mrp, p.mrp)),0) FROM inventory i WHERE i.product_id = p.id) AS stock_value_mrp` : ''}
            ${wholesaleCols}
-    ${from} ORDER BY ${orderBy} LIMIT ? OFFSET ?`, ...args, limit, (page - 1) * limit);
+    ${from} ORDER BY ${orderBy} LIMIT ? OFFSET ?`, ...args, limit, (page - 1) * limit),
+  ]);
+  const total = totalRow.n;
 
   return { items: await hydrate(rows, { wholesale, admin, th, g }), total, page, limit, pages: Math.max(1, Math.ceil(total / limit)) };
 }
@@ -172,15 +177,16 @@ async function hydrate(rows, { wholesale, admin, th, g = { enabled: false, perce
   const ids = rows.map((r) => r.id);
   const ph = placeholders(ids);
   const images = {}, colors = {}, sizes = {};
-  for (const r of await db.all(`SELECT product_id, url FROM product_images WHERE product_id IN (${ph}) ORDER BY position, id`, ...ids)) {
-    (images[r.product_id] ||= []).push(r.url);
-  }
-  for (const r of await db.all(`SELECT DISTINCT i.product_id, co.name FROM inventory i JOIN colors co ON co.id = i.color_id WHERE i.product_id IN (${ph}) ORDER BY co.name`, ...ids)) {
-    (colors[r.product_id] ||= []).push(r.name);
-  }
-  for (const r of await db.all(`SELECT DISTINCT i.product_id, s.label, s.sort FROM inventory i JOIN sizes s ON s.id = i.size_id WHERE i.product_id IN (${ph}) ORDER BY s.sort`, ...ids)) {
-    (sizes[r.product_id] ||= []).push(r.label);
-  }
+  // These three batch lookups are independent of each other and of the listing rows, so run
+  // them concurrently instead of as three sequential round trips to the remote database.
+  const [imageRows, colorRows, sizeRows] = await Promise.all([
+    db.all(`SELECT product_id, url FROM product_images WHERE product_id IN (${ph}) ORDER BY position, id`, ...ids),
+    db.all(`SELECT DISTINCT i.product_id, co.name FROM inventory i JOIN colors co ON co.id = i.color_id WHERE i.product_id IN (${ph}) ORDER BY co.name`, ...ids),
+    db.all(`SELECT DISTINCT i.product_id, s.label, s.sort FROM inventory i JOIN sizes s ON s.id = i.size_id WHERE i.product_id IN (${ph}) ORDER BY s.sort`, ...ids),
+  ]);
+  for (const r of imageRows) (images[r.product_id] ||= []).push(r.url);
+  for (const r of colorRows) (colors[r.product_id] ||= []).push(r.name);
+  for (const r of sizeRows) (sizes[r.product_id] ||= []).push(r.label);
   return rows.map((r) => {
     const retail = listingRetail(r, g);
     const o = {
@@ -219,11 +225,15 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
   if (!p) return null;
   if (!admin && !(p.active && p.brand_active && p.category_active)) return null;
 
-  const images = (await db.all('SELECT url FROM product_images WHERE product_id = ? ORDER BY position, id', p.id)).map((r) => r.url);
-  const inv = await db.all(`
+  // Images and the inventory variant matrix are independent lookups; fetch them together.
+  const [imageRows, inv] = await Promise.all([
+    db.all('SELECT url FROM product_images WHERE product_id = ? ORDER BY position, id', p.id),
+    db.all(`
     SELECT i.color_id, co.name color, i.size_id, s.label size, s.sort, i.quantity, i.mrp, i.retail_price, i.wholesale_price
     FROM inventory i JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
-    WHERE i.product_id = ? ORDER BY co.name, s.sort`, p.id);
+    WHERE i.product_id = ? ORDER BY co.name, s.sort`, p.id),
+  ]);
+  const images = imageRows.map((r) => r.url);
 
   const colorMap = new Map();
   let total = 0;

@@ -17,6 +17,8 @@ if (isProd && !process.env.JWT_SECRET) {
 module.exports = {
   isProd,
   port: Number(process.env.PORT) || 4000,
+  // Development-only per-request timing log (query count + database time). Never on in production.
+  logTiming: !isProd || process.env.LOG_TIMING === 'true',
   // In development a random secret is used when none is configured (sessions reset on restart).
   jwtSecret: process.env.JWT_SECRET || crypto.randomBytes(32).toString('hex'),
   // PostgreSQL connection string, e.g. postgres://user:pass@host:5432/dbname
