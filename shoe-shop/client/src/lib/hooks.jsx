@@ -48,7 +48,7 @@ export const useAuth = () => useContext(AuthCtx);
 /* ---- public settings ---- */
 const SettingsCtx = createContext({});
 export function SettingsProvider({ children }) {
-  const [settings, setSettings] = useState({ shopName: 'Footwear Wholesale' });
+  const [settings, setSettings] = useState({ shopName: 'Modern Shoe House' });
   const reload = useCallback(() => getJson('/api/settings').then((s) => s && setSettings(s)).catch(() => {}), []);
   useEffect(() => { reload(); }, [reload]);
   useEffect(() => { document.title = settings.shopName; }, [settings.shopName]);

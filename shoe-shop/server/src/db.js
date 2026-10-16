@@ -254,7 +254,7 @@ CREATE INDEX IF NOT EXISTS idx_movements_product ON stock_movements(product_id);
 `;
 
 const DEFAULT_SETTINGS = {
-  shop_name: 'Step Right Footwear',
+  shop_name: 'Modern Shoe House',
   logo_url: '/logoshoe.jpeg',
   phone: '',
   address: '',
