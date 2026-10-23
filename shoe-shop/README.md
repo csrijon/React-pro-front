@@ -24,7 +24,9 @@ npm run install:all && npm run build
 NODE_ENV=production JWT_SECRET=... ADMIN_PASSWORD=... npm start   # serves API + built client on :4000
 ```
 
-See `.env.example`. The server refuses to start without `DATABASE_URL`, and in production without `JWT_SECRET`. Tables are created automatically on startup. Managed Postgres hosts that require TLS (Neon, Supabase, Render, Railway…) need `DATABASE_SSL=true`. Put `server/uploads` (or `UPLOAD_DIR`) on persistent storage and back up both it and the database. Run behind HTTPS (cookies are `Secure` in production).
+See `.env.example`. The server refuses to start without `DATABASE_URL`, and in production without `JWT_SECRET`. Tables are created automatically on startup. Managed Postgres hosts that require TLS (Neon, Supabase, Render, Railway…) need `DATABASE_SSL=true`.
+
+**Image storage.** Set `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` and (optionally) `SUPABASE_BUCKET` (default `product-images`) in production. Uploads then go to Supabase Storage and the database stores public `https://…/storage/v1/object/public/…` URLs. Without those variables, production uploads are rejected rather than written to local disk, because managed hosts such as Render wipe it on deploy/restart (existing `/uploads/...` rows then 404). `ALLOW_LOCAL_UPLOADS=true` is only for self-hosting with a persistent `UPLOAD_DIR`. Repair legacy `/uploads/...` references with `npm --prefix server run repair-images -- --csv ../Book-1.csv` (report only) and add `--apply` to write. Run behind HTTPS (cookies are `Secure` in production).
 
 The database user must be allowed to `CREATE EXTENSION citext` (it is used for case-insensitive usernames, SKUs and names); on most hosts run `CREATE EXTENSION citext;` once as the admin user if it is not.
 
@@ -54,4 +56,4 @@ Filters (`brand`, `size`, `color`, `minMrp`, `maxMrp`, `availability`, `featured
 - Ordering is not enabled (the brief says "if ordering is enabled"), so there is no Orders section.
 - Per-size MRP overrides are supported; product-level MRP is the default. Listings show a price range when sizes differ.
 - Prices are stored as double-precision numbers and timestamps as `timestamptz` (sent to the browser as UTC `YYYY-MM-DD HH:MM:SS`).
-- Images are stored on local disk (`UPLOAD_DIR`). JPG/PNG/WebP only, 5 MB max, content-sniffed.
+- Images are stored in Supabase Storage in production (see above), or local disk (`UPLOAD_DIR`) in development/self-hosting. JPG/PNG/WebP only, 5 MB max, content-sniffed.

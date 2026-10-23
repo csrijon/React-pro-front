@@ -18,7 +18,7 @@ router.get('/settings', async (_req, res) => {
   const s = await getSettings();
   cacheMeta(res);
   res.json({
-    shopName: s.shop_name, logoUrl: s.logo_url, phone: s.phone, address: s.address, whatsapp: s.whatsapp,
+    shopName: s.shop_name, logoUrl: svc.usableImageUrl(s.logo_url), phone: s.phone, address: s.address, whatsapp: s.whatsapp,
     facebookUrl: s.facebook_url, instagramUrl: s.instagram_url, youtubeUrl: s.youtube_url,
     wholesaleEnabled: s.wholesale_enabled !== 'false', wholesaleNote: s.wholesale_note,
     globalDiscountEnabled: s.global_discount_enabled === 'true', globalDiscountPercent: Number(s.global_discount_percent) || 0,
@@ -26,13 +26,12 @@ router.get('/settings', async (_req, res) => {
 });
 
 router.get('/brands', async (_req, res) => {
-  cacheMeta(res);
-  res.json({
-    brands: await db.all(`
+  const brands = await db.all(`
       SELECT b.id, b.name, b.slug, b.logo_url AS "logoUrl",
              (SELECT COUNT(*) FROM products p WHERE p.brand_id = b.id AND p.active = 1) AS "productCount"
-      FROM brands b WHERE b.active = 1 ORDER BY b.name`),
-  });
+      FROM brands b WHERE b.active = 1 ORDER BY b.name`);
+  cacheMeta(res);
+  res.json({ brands: brands.map((b) => ({ ...b, logoUrl: svc.usableImageUrl(b.logoUrl) })) });
 });
 
 router.get('/categories', async (_req, res) => {
@@ -41,14 +40,20 @@ router.get('/categories', async (_req, res) => {
   const [cats, subs] = await Promise.all([
     db.all(`
     SELECT c.id, c.gender, c.name, c.slug,
-           COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
+           c.image_url AS "categoryImage",
+           (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
              JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
-             ORDER BY p2.created_at DESC, pi.position LIMIT 1)) AS "imageUrl",
+             ORDER BY (pi.url LIKE 'https://%') DESC, p2.created_at DESC, pi.position LIMIT 1) AS "fallbackImage",
            (SELECT COUNT(*) FROM products p JOIN brands b ON b.id = p.brand_id WHERE p.category_id = c.id AND p.active = 1 AND b.active = 1) AS "productCount"
     FROM categories c WHERE c.active = 1 ORDER BY c.sort_order, c.name`),
     db.all('SELECT id, category_id AS "categoryId", name, slug FROM subcategories WHERE active = 1 ORDER BY name'),
   ]);
-  for (const c of cats) c.subcategories = subs.filter((s) => s.categoryId === c.id);
+  for (const c of cats) {
+    c.imageUrl = svc.usableImageUrl(c.categoryImage) || svc.usableImageUrl(c.fallbackImage);
+    delete c.categoryImage;
+    delete c.fallbackImage;
+    c.subcategories = subs.filter((s) => s.categoryId === c.id);
+  }
   cacheMeta(res);
   res.json({ categories: cats });
 });
@@ -75,16 +80,24 @@ router.get('/home', async (req, res) => {
     svc.listProducts({ sort: 'newest', limit: 8 }, { wholesale }),
     db.all(`
     SELECT c.id, c.gender, c.name, c.slug,
-           COALESCE(c.image_url, (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
+           c.image_url AS "categoryImage",
+           (SELECT pi.url FROM product_images pi JOIN products p2 ON p2.id = pi.product_id
              JOIN brands b2 ON b2.id = p2.brand_id WHERE p2.category_id = c.id AND p2.active = 1 AND b2.active = 1
-             ORDER BY p2.created_at DESC, pi.position LIMIT 1)) AS "imageUrl",
+             ORDER BY (pi.url LIKE 'https://%') DESC, p2.created_at DESC, pi.position LIMIT 1) AS "fallbackImage",
            COUNT(p.id) AS "productCount"
     FROM categories c JOIN products p ON p.category_id = c.id AND p.active = 1
     JOIN brands b ON b.id = p.brand_id AND b.active = 1
     WHERE c.active = 1 GROUP BY c.id ORDER BY COUNT(p.id) DESC, c.name LIMIT 6`),
     db.all('SELECT id, name, slug, logo_url AS "logoUrl" FROM brands WHERE active = 1 ORDER BY name'),
   ]);
-  res.json({ featured: featuredRes.items, newArrivals: newArrivalsRes.items, popularCategories: popular, brands });
+  const popularCategories = popular.map((c) => ({
+    id: c.id, gender: c.gender, name: c.name, slug: c.slug, productCount: c.productCount,
+    imageUrl: svc.usableImageUrl(c.categoryImage) || svc.usableImageUrl(c.fallbackImage),
+  }));
+  res.json({
+    featured: featuredRes.items, newArrivals: newArrivalsRes.items, popularCategories,
+    brands: brands.map((b) => ({ ...b, logoUrl: svc.usableImageUrl(b.logoUrl) })),
+  });
 });
 
 router.get('/products', async (req, res) => {

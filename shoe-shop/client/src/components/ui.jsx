@@ -44,6 +44,10 @@ export const ErrorBox = ({ error, onRetry }) => (
 const IMG_WIDTHS = [320, 480, 640, 960];
 // Responsive sizes for a product grid card (2 cols on phones, more on desktop).
 const CARD_SIZES = '(min-width: 1180px) 300px, (min-width: 760px) 30vw, 46vw';
+// Several products can share the same photo (and legacy records can share the same dead
+// /uploads/... path). Remember failures for this page session so those URLs are not requested
+// again by every card that uses them. A reload starts with a clean set.
+const failedSources = new Set();
 
 // Renders a product photo. Storage images are requested through Supabase's resizing endpoint
 // (small + edge-cached); everything else is used as-is. Falls back to the original URL if the
@@ -51,12 +55,16 @@ const CARD_SIZES = '(min-width: 1180px) 300px, (min-width: 760px) 30vw, 46vw';
 export function ShoeImage({ src, alt = '', className = '', priority = false, sizes = CARD_SIZES, widths = IMG_WIDTHS }) {
   const ref = useRef(null);
   const [loaded, setLoaded] = useState(false);
-  const [broken, setBroken] = useState(false);
+  const [broken, setBroken] = useState(() => Boolean(src && failedSources.has(src)));
   const [useOriginal, setUseOriginal] = useState(false);
 
   const resize = isSupabaseStorage(src) && !useOriginal;
   const imgSrc = resize ? optimizedImage(src, { width: 640 }) : src;
   const srcSet = resize ? optimizedSrcSet(src, widths) : undefined;
+
+  // A product card can be reused for a different photo (pagination, filters, admin edits). Clear
+  // the previous photo's load/error state so a broken URL does not hide a later valid one.
+  useEffect(() => { setLoaded(false); setBroken(Boolean(src && failedSources.has(src))); setUseOriginal(false); }, [src]);
 
   useEffect(() => {
     if (ref.current && ref.current.complete && ref.current.naturalWidth > 0) setLoaded(true);
@@ -82,7 +90,10 @@ export function ShoeImage({ src, alt = '', className = '', priority = false, siz
       decoding="async"
       draggable="false"
       onLoad={() => setLoaded(true)}
-      onError={() => { if (resize) setUseOriginal(true); else setBroken(true); }}
+      onError={() => {
+        if (resize) setUseOriginal(true);
+        else { if (src) failedSources.add(src); setBroken(true); }
+      }}
     />
   );
 }

@@ -272,4 +272,4 @@ if (require.main === module) {
   run().then(() => close()).catch((err) => { console.error(err); process.exit(1); });
 }
 
-module.exports = { importCsv, importStaging, importRows, parseSizes, expandRange };
+module.exports = { importCsv, importStaging, importRows, parseSizes, expandRange, readCsv };

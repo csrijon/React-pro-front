@@ -1,6 +1,21 @@
+const fs = require('fs');
+const path = require('path');
+const config = require('./config');
 const { db, lowStockThreshold, wholesaleEnabled, globalDiscount, applyRetail, slugify } = require('./db');
 const { HttpError, z } = require('./http');
 const { logMovement } = require('./stockLog');
+
+// A legacy `/uploads/...` URL is only usable if the file is actually on this host. On managed
+// hosts the disk is ephemeral, so old rows would otherwise make every browser request a 404.
+// Returning null lets the storefront show its placeholder immediately (and lets a product fall
+// back to its next image if it has one).
+function usableImageUrl(url) {
+  if (!url) return null;
+  if (!url.startsWith('/uploads/')) return url;
+  const filename = path.basename(url);
+  if (!filename || filename !== url.slice('/uploads/'.length)) return null;
+  return fs.existsSync(path.join(config.uploadDir, filename)) ? url : null;
+}
 
 const GENDER_ALIASES = {
   men: 'men', mens: 'men', man: 'men', male: 'men', gents: 'men',
@@ -184,7 +199,12 @@ async function hydrate(rows, { wholesale, admin, th, g = { enabled: false, perce
     db.all(`SELECT DISTINCT i.product_id, co.name FROM inventory i JOIN colors co ON co.id = i.color_id WHERE i.product_id IN (${ph}) ORDER BY co.name`, ...ids),
     db.all(`SELECT DISTINCT i.product_id, s.label, s.sort FROM inventory i JOIN sizes s ON s.id = i.size_id WHERE i.product_id IN (${ph}) ORDER BY s.sort`, ...ids),
   ]);
-  for (const r of imageRows) (images[r.product_id] ||= []).push(r.url);
+  for (const r of imageRows) {
+    // Admin screens keep broken references so saving an edit (which rewrites the image rows)
+    // does not silently discard a URL that the repair tool could still recover.
+    const url = admin ? r.url : usableImageUrl(r.url);
+    if (url) (images[r.product_id] ||= []).push(url);
+  }
   for (const r of colorRows) (colors[r.product_id] ||= []).push(r.name);
   for (const r of sizeRows) (sizes[r.product_id] ||= []).push(r.label);
   return rows.map((r) => {
@@ -233,7 +253,7 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     FROM inventory i JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
     WHERE i.product_id = ? ORDER BY co.name, s.sort`, p.id),
   ]);
-  const images = imageRows.map((r) => r.url);
+  const images = imageRows.map((r) => (admin ? r.url : usableImageUrl(r.url))).filter(Boolean);
 
   const colorMap = new Map();
   let total = 0;
@@ -453,4 +473,4 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
   return id;
 });
 
-module.exports = { listProducts, getProduct, related, saveProduct, productSchema, stockStatus, normGender, csv, placeholders, sizeSort, expandSizeFilter };
+module.exports = { listProducts, getProduct, related, saveProduct, productSchema, stockStatus, normGender, csv, placeholders, sizeSort, expandSizeFilter, usableImageUrl };

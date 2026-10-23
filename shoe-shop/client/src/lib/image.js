@@ -6,22 +6,34 @@
 // We rewrite storage URLs at render time so the browser downloads a thumbnail instead of the
 // full-resolution original, without changing anything stored in the database.
 
-const STORAGE_RE = /^(https:\/\/[^/]+)\/storage\/v1\/object\/public\/(.+)$/;
+const OBJECT_PATH = '/storage/v1/object/public/';
 
-export const isSupabaseStorage = (url) => typeof url === 'string' && STORAGE_RE.test(url);
+export const isSupabaseStorage = (url) => {
+  if (typeof url !== 'string') return false;
+  try {
+    const u = new URL(url);
+    return u.protocol === 'https:' && u.pathname.includes(OBJECT_PATH);
+  } catch {
+    return false;
+  }
+};
 
-// `format=webp` is honoured by Supabase's transform endpoint and cuts bytes ~35% at the same
+// `format=webp` is honoured by Supabase's transform endpoint and cuts bytes at the same
 // quality; the <img> onError fallback in ShoeImage reloads the original if it is ever rejected.
+// Query strings already present on the stored URL (for example a version token) are preserved.
 export function optimizedImage(url, { width, quality = 70, format = 'webp' } = {}) {
   if (!url) return url;
-  const m = STORAGE_RE.exec(url);
-  if (!m) return url;
-  const params = new URLSearchParams();
-  if (width) params.set('width', String(width));
-  if (quality) params.set('quality', String(quality));
-  if (format) params.set('format', format);
-  const q = params.toString();
-  return `${m[1]}/storage/v1/render/image/public/${m[2]}${q ? `?${q}` : ''}`;
+  let u;
+  try { u = new URL(url); } catch { return url; }
+  const at = u.pathname.indexOf(OBJECT_PATH);
+  if (at < 0) return url;
+  const objectPath = u.pathname.slice(at + OBJECT_PATH.length);
+  if (!objectPath) return url;
+  if (width) u.searchParams.set('width', String(width));
+  if (quality) u.searchParams.set('quality', String(quality));
+  if (format) u.searchParams.set('format', format);
+  const q = u.searchParams.toString();
+  return `${u.origin}/storage/v1/render/image/public/${objectPath}${q ? `?${q}` : ''}`;
 }
 
 export function optimizedSrcSet(url, widths = [320, 480, 640, 960], quality = 70, format = 'webp') {

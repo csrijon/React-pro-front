@@ -7,6 +7,8 @@ process.env.ADMIN_PASSWORD = 'TestAdmin#123';
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const http = require('node:http');
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
 
 // A fake Supabase Storage that records what the server sends it.
 const received = [];
@@ -86,4 +88,36 @@ test('storage errors become a clean 502, not a crash', async () => {
   failWith = 500;
   assert.equal((await send(PNG)).status, 502);
   failWith = null;
+});
+
+test('legacy local image URLs are exposed only when the file exists', () => {
+  const fs = require('node:fs');
+  const { usableImageUrl } = require('../src/productService');
+  fs.mkdirSync(process.env.UPLOAD_DIR, { recursive: true });
+  fs.writeFileSync(path.join(process.env.UPLOAD_DIR, 'present.png'), 'x');
+  assert.equal(usableImageUrl('/uploads/present.png'), '/uploads/present.png');
+  assert.equal(usableImageUrl('/uploads/missing.png'), null);
+  assert.equal(usableImageUrl('/uploads/../package.json'), null);
+  assert.equal(usableImageUrl(null), null);
+  assert.equal(usableImageUrl('https://cdn.example.com/a.jpg'), 'https://cdn.example.com/a.jpg');
+});
+
+test('production refuses to write uploads to ephemeral local disk', () => {
+  // Run in a child so config.js is loaded with NODE_ENV=production and no Supabase settings.
+  const script = "require('./src/storage').saveImage(Buffer.from([1]), 'x.png', 'image/png').then(() => console.log('UNEXPECTED'), (e) => console.log(e.status + ':' + e.message));";
+  const r = spawnSync(process.execPath, ['-e', script], {
+    cwd: path.join(__dirname, '..'),
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      NODE_ENV: 'production',
+      DATABASE_URL: 'postgres://user:pass@127.0.0.1:1/db',
+      JWT_SECRET: 'test-secret',
+      SUPABASE_URL: '',
+      SUPABASE_SERVICE_ROLE_KEY: '',
+      ALLOW_LOCAL_UPLOADS: '',
+    },
+  });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stdout, /^503:Image storage is not configured/m);
 });
