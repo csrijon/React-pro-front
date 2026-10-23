@@ -194,6 +194,45 @@ test('product create/update validation and rules', async () => {
   assert.equal((await admin.del(`/api/admin/categories/${cat.data.id}`)).status, 200);
 });
 
+test('product listing and detail return hydrated product_images URLs', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const brands = (await admin.get('/api/admin/brands')).data.brands;
+  const cats = (await admin.get('/api/admin/categories')).data.categories;
+  const menSports = cats.find((c) => c.gender === 'men' && c.name === 'Sports Shoes');
+  const images = ['https://cdn.example.test/first.jpg', 'https://cdn.example.test/second.jpg'];
+
+  const created = await admin.post('/api/admin/products', {
+    name: 'Image Hydration Shoe', sku: 'IMG-HYD-1', brandId: brands[0].id, categoryId: menSports.id, mrp: 499,
+    images, variants: [{ color: 'Black', sizes: [{ size: '8', quantity: 3 }] }],
+  });
+  assert.equal(created.status, 201);
+  const id = created.data.product.id;
+  assert.equal(created.data.product.image, images[0]);
+  assert.deepEqual(created.data.product.images, images);
+
+  const listed = await client().get('/api/products?q=IMG-HYD-1');
+  assert.equal(listed.status, 200);
+  assert.equal(listed.data.total, 1);
+  assert.equal(listed.data.items[0].id, id);
+  assert.equal(listed.data.items[0].image, images[0]);
+  assert.deepEqual(listed.data.items[0].images, images);
+
+  const detail = (await client().get(`/api/products/${created.data.product.slug}`)).data.product;
+  assert.equal(detail.id, id);
+  assert.equal(detail.image, images[0]);
+  assert.deepEqual(detail.images, images);
+
+  const without = (await client().get('/api/products?q=PAR-SP-101')).data.items[0];
+  assert.equal(without.image, null);
+  assert.deepEqual(without.images, []);
+
+  const all = (await client().get('/api/products?limit=100')).data.items;
+  assert.equal(new Set(all.map((p) => p.id)).size, all.length, 'listing must not duplicate products');
+
+  assert.equal((await admin.del(`/api/admin/products/${id}`)).status, 200);
+});
+
 test('related products are same-gender and exclude the product itself', async () => {
   const c = client();
   const d = (await c.get('/api/products/paragon-runner-pro')).data;

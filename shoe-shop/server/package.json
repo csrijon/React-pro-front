@@ -12,7 +12,8 @@
     "import-staging:dry": "node src/importCsv.js --staging --dry-run",
     "test": "node --test test/",
     "set-admin": "node src/setAdmin.js",
-    "repair-images": "node src/repairImages.js"
+    "repair-images": "node src/repairImages.js",
+    "diagnose-images": "node src/diagnoseImages.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.0",

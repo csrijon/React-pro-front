@@ -287,7 +287,7 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     brand: { id: p.brand_id, name: p.brand_name, slug: p.brand_slug, logo: p.brand_logo },
     category: { id: p.category_id, name: p.category_name, slug: p.category_slug },
     subcategory: p.subcategory_id ? { id: p.subcategory_id, name: p.subcategory_name, slug: p.subcategory_slug } : null,
-    mrp: p.mrp, images, variants,
+    mrp: p.mrp, image: images[0] || null, images, variants,
     retail: retailValues.length ? { min: Math.min(...retailValues), max: Math.max(...retailValues) } : { min: applyRetail(p.mrp, p.retail_price, g), max: applyRetail(p.mrp, p.retail_price, g) },
     retailPrice: applyRetail(p.mrp, p.retail_price, g),
     discountPct: p.mrp > 0 && applyRetail(p.mrp, p.retail_price, g) < p.mrp ? Math.round((1 - applyRetail(p.mrp, p.retail_price, g) / p.mrp) * 100) : 0,
