@@ -23,57 +23,66 @@ router.get('/dashboard', async (_req, res) => {
   const perProduct = `SELECT p.id, p.active, COALESCE(SUM(i.quantity),0) t FROM products p LEFT JOIN inventory i ON i.product_id = p.id GROUP BY p.id`;
   const [total, active, featured, lowStock, outOfStock, lowStockVariants, outOfStockVariants, totalUnits,
     cTotal, cPending, cApproved, cSuspended, categoryInventory, brandCounts, lowStockList, pendingCustomers, value, cost, profitByProduct] = await Promise.all([
-    one('SELECT COUNT(*) n FROM products'),
-    one('SELECT COUNT(*) n FROM products WHERE active = 1'),
-    one('SELECT COUNT(*) n FROM products WHERE featured = 1 AND active = 1'),
-    one(`SELECT COUNT(*) n FROM (${perProduct}) pp WHERE active = 1 AND t > 0 AND t <= ?`, th),
-    one(`SELECT COUNT(*) n FROM (${perProduct}) pp WHERE active = 1 AND t = 0`),
-    one('SELECT COUNT(*) n FROM inventory WHERE quantity > 0 AND quantity <= ?', th),
-    one('SELECT COUNT(*) n FROM inventory WHERE quantity = 0'),
-    one('SELECT COALESCE(SUM(i.quantity),0) n FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1'),
-    one('SELECT COUNT(*) n FROM customers'),
-    one("SELECT COUNT(*) n FROM customers WHERE status = 'PENDING'"),
-    one("SELECT COUNT(*) n FROM customers WHERE status = 'APPROVED'"),
-    one("SELECT COUNT(*) n FROM customers WHERE status IN ('SUSPENDED','REJECTED')"),
-    db.all(`
+      one('SELECT COUNT(*) n FROM products'),
+      one('SELECT COUNT(*) n FROM products WHERE active = 1'),
+      one('SELECT COUNT(*) n FROM products WHERE featured = 1 AND active = 1'),
+      one(`SELECT COUNT(*) n FROM (${perProduct}) pp WHERE active = 1 AND t > 0 AND t <= ?`, th),
+      one(`SELECT COUNT(*) n FROM (${perProduct}) pp WHERE active = 1 AND t = 0`),
+      one('SELECT COUNT(*) n FROM inventory WHERE quantity > 0 AND quantity <= ?', th),
+      one('SELECT COUNT(*) n FROM inventory WHERE quantity = 0'),
+      one('SELECT COALESCE(SUM(i.quantity),0) n FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1'),
+      one('SELECT COUNT(*) n FROM customers'),
+      one("SELECT COUNT(*) n FROM customers WHERE status = 'PENDING'"),
+      one("SELECT COUNT(*) n FROM customers WHERE status = 'APPROVED'"),
+      one("SELECT COUNT(*) n FROM customers WHERE status IN ('SUSPENDED','REJECTED')"),
+      db.all(`
       SELECT c.gender, c.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
              COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
       FROM categories c INNER JOIN products p ON p.category_id = c.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
       GROUP BY c.id ORDER BY units DESC`),
-    db.all(`
-      SELECT b.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
-             COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
-      FROM brands b LEFT JOIN products p ON p.brand_id = b.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
-      GROUP BY b.id HAVING COUNT(DINCT p.id) > 0 ORDER BY products DESC, b.name`),
-    db.all(`
+      db.all(`
+  SELECT b.name, COUNT(DISTINCT p.id) AS products,
+         COALESCE(SUM(i.quantity),0) AS units,
+         COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue",
+         COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
+  FROM brands b
+  LEFT JOIN products p ON p.brand_id = b.id AND p.active = 1
+  LEFT JOIN inventory i ON i.product_id = p.id
+  GROUP BY b.id
+  HAVING COUNT(DISTINCT p.id) > 0
+  ORDER BY products DESC, b.name
+`),
+      db.all(`
       SELECT p.id, p.name, p.sku, COALESCE(SUM(i.quantity),0) AS units
       FROM products p LEFT JOIN inventory i ON i.product_id = p.id WHERE p.active = 1
       GROUP BY p.id HAVING COALESCE(SUM(i.quantity),0) <= ? ORDER BY units, p.name LIMIT 8`, th),
-    db.all(`SELECT id, shop_name AS "shopName", owner_name AS "ownerName", mobile, created_at AS "createdAt"
+      db.all(`SELECT id, shop_name AS "shopName", owner_name AS "ownerName", mobile, created_at AS "createdAt"
       FROM customers WHERE status = 'PENDING' ORDER BY created_at DESC LIMIT 5`),
-    db.get(`SELECT COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue",
+      db.get(`SELECT COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue",
         COUNT(*) FILTER (WHERE i.quantity > 0 AND COALESCE(i.wholesale_price, p.wholesale_price) IS NULL) AS "unpriced"
       FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1`),
-    db.get(`SELECT COALESCE(SUM(i.quantity * p.cost_price),0) AS "stockCost",
+      db.get(`SELECT COALESCE(SUM(i.quantity * p.cost_price),0) AS "stockCost",
         COALESCE(SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)),0) AS "costedWholesaleValue",
         COALESCE(SUM(i.quantity),0) AS "costedUnits"
       FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1 AND p.cost_price IS NOT NULL`),
-    db.all(`SELECT p.id, p.name, p.sku, SUM(i.quantity) AS units, p.cost_price AS "costPrice",
+      db.all(`SELECT p.id, p.name, p.sku, SUM(i.quantity) AS units, p.cost_price AS "costPrice",
         SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)) AS "wholesaleValue",
         SUM(i.quantity * p.cost_price) AS "stockCost",
         SUM(i.quantity * (COALESCE(i.wholesale_price, p.wholesale_price, 0) - p.cost_price)) AS profit
       FROM products p JOIN inventory i ON i.product_id = p.id WHERE p.cost_price IS NOT NULL AND p.active = 1
       GROUP BY p.id, p.name, p.sku HAVING SUM(i.quantity) > 0 ORDER BY profit DESC LIMIT 8`),
-  ]);
+    ]);
   const [uncosted] = [await db.get(`SELECT COALESCE(SUM(i.quantity),0) AS units, COUNT(DISTINCT p.id) AS products
       FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.cost_price IS NULL AND p.active = 1 AND i.quantity > 0`)];
   res.json({
     threshold: th,
-    products: { total, active, featured, lowStock, outOfStock, lowStockVariants, outOfStockVariants, totalUnits,
+    products: {
+      total, active, featured, lowStock, outOfStock, lowStockVariants, outOfStockVariants, totalUnits,
       stockValueWholesale: value.wholesaleValue, stockValueMrp: value.mrpValue, unpricedVariants: value.unpriced,
       stockCost: cost.stockCost, expectedProfit: cost.costedWholesaleValue - cost.stockCost,
       marginPct: cost.costedWholesaleValue > 0 ? Math.round(((cost.costedWholesaleValue - cost.stockCost) / cost.costedWholesaleValue) * 1000) / 10 : null,
-      costedUnits: cost.costedUnits, uncostedUnits: uncosted.units, uncostedProducts: uncosted.products },
+      costedUnits: cost.costedUnits, uncostedUnits: uncosted.units, uncostedProducts: uncosted.products
+    },
     customers: { total: cTotal, pending: cPending, approved: cApproved, suspended: cSuspended },
     categoryInventory, brandCounts, lowStockList, pendingCustomers,
     profitByProduct: profitByProduct.map((r) => ({ ...r, marginPct: r.wholesaleValue > 0 ? Math.round((r.profit / r.wholesaleValue) * 1000) / 10 : null })),
@@ -485,4 +494,4 @@ router.post('/upload', upload.array('files', 10), async (req, res) => {
 
 module.exports = router;
 router.get('/companies', async (req, res) => { res.json(await db.all('SELECT * FROM companies ORDER BY name')); });
-router.post('/companies', async (req, res) => { const {name,address}=req.body; const slug=require('../lib/slugify')(name); await db.insert('INSERT INTO companies (name,slug,address,active) VALUES (?,?,?,1)',name,slug,address||null); res.status(201).json({ok:true}); });
+router.post('/companies', async (req, res) => { const { name, address } = req.body; const slug = require('../lib/slugify')(name); await db.insert('INSERT INTO companies (name,slug,address,active) VALUES (?,?,?,1)', name, slug, address || null); res.status(201).json({ ok: true }); });
