@@ -342,7 +342,8 @@ textarea { resize: vertical; min-height: 78px; }
 .section-head a:hover { text-decoration: none; color: var(--accent); border-color: var(--accent); }
 
 .grid { display: grid; gap: clamp(14px, 1.8vw, 24px); }
-.grid.products { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); min-height: 320px; }
+.grid.products { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); min-height: 320px; }
+@media (min-width: 1280px) { .grid.products { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
 .grid.products .product-card { min-height: 360px; }
 .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 .brand-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
@@ -1048,13 +1049,11 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 
 /* ==========================================================================
    Product image sizing fix — shared storefront cards and galleries
-   Keep the full source image visible without stretching or cropping it.
+   Every card image fills a uniform square frame (no narrow strips).
    ========================================================================== */
 .product-card .card-img {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
   min-width: 0;
   aspect-ratio: 1 / 1;
@@ -1067,24 +1066,26 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 .product-card .card-img > img,
 .product-card .card-img > .img-ph {
   display: block;
-  flex: 0 0 100%;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  min-width: 0;
-  max-width: 100%;
   height: 100%;
+  max-width: none;
+  min-width: 0;
   min-height: 0;
   box-sizing: border-box;
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;          /* frame puro bhore dibe, strip hobe na */
+  object-position: center;    /* fixed: age 'cover' chilo, eta bhul */
+  padding: 0;
 }
 
-/* Avoid accidental zoom/cropping from inherited hover transforms. */
+/* Keep hover zoom subtle, no layout shift */
 .product-card:hover .card-img > img,
 .product-card:hover .card-img > .img-ph {
-  transform: none;
+  transform: scale(1.04);
 }
 
-/* Make product thumbnails consistent while preserving their whole image. */
+/* Product detail gallery thumbnails */
 .thumbs .thumb,
 .thumbs button {
   overflow: hidden;
@@ -1098,7 +1099,7 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
   width: 100%;
   height: 100%;
   max-width: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
 }
 
