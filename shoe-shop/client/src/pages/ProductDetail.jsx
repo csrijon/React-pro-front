@@ -56,7 +56,7 @@ export default function ProductDetail() {
       </nav>
       <div className="detail">
         <div className="gallery">
-          <div className="gallery-main"><ShoeImage key={p.images[img] || 'none'} src={p.images[img]} alt={p.name} className="fade-in" priority sizes="(min-width: 900px) 46vw, 92vw" widths={[480, 720, 960, 1280]} /></div>
+          <div className="gallery-main" ><ShoeImage key={p.images[img] || 'none'} src={p.images[img]} alt={p.name} className="fade-in" priority sizes="(min-width: 900px) 46vw, 92vw" widths={[480, 720, 960, 1280]} /></div>
           {p.images.length > 1 && (
             <div className="thumbs">{p.images.map((u, i) => (
               <button key={u} className={i === img ? 'on' : ''} onClick={() => setImg(i)} aria-label={`Image ${i + 1}`}><ShoeImage src={u} alt="" sizes="70px" widths={[70, 140]} /></button>

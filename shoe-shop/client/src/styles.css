@@ -1048,48 +1048,69 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 }
 
 /* ==========================================================================
-   Product image sizing fix — shared storefront cards and galleries
-   Every card image fills a uniform square frame (no narrow strips).
+   Product image fix — storefront cards
+   - The WHOLE photo is always visible (object-fit: contain, never cropped).
+   - Narrow / wide photos no longer leave empty bars: a blurred copy of the
+     same photo fills the frame behind it (set via --img on .card-img).
+   - Every card uses the same 4:5 frame so the grid stays tidy.
    ========================================================================== */
 .product-card .card-img {
   position: relative;
   display: block;
   width: 100%;
   min-width: 0;
-  aspect-ratio: 1 / 1;
+  /* aspect-ratio: 4 / 5;  */
   overflow: hidden;
+  isolation: isolate;
   box-sizing: border-box;
-  background: var(--surface-2, #faf8f4);
+  background: var(--surface-3);
 }
 
+/* blurred backdrop (needs style="--img: url(...)" on .card-img; harmless if missing) */
+.product-card .card-img::before {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  z-index: 0;
+  pointer-events: none;
+  background-image: var(--img, none);
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px) saturate(1.15);
+  opacity: .6;
+  transform: scale(1.1);
+}
+
+/* the real photo, always fully visible on top of the backdrop */
 .product-card .card-img > .shoe-img,
 .product-card .card-img > img,
 .product-card .card-img > .img-ph {
-  display: block;
   position: absolute;
   inset: 0;
+  z-index: 1;
+  display: block;
   width: 100%;
   height: 100%;
   max-width: none;
   min-width: 0;
   min-height: 0;
   box-sizing: border-box;
-  object-fit: cover;          /* frame puro bhore dibe, strip hobe na */
-  object-position: center;    /* fixed: age 'cover' chilo, eta bhul */
+  object-fit: contain;
+  object-position: center;
   padding: 0;
 }
 
-/* Keep hover zoom subtle, no layout shift */
-.product-card:hover .card-img > img,
-.product-card:hover .card-img > .img-ph {
-  transform: scale(1.04);
-}
+/* badge + "View details" stay above the photo */
+.product-card .card-img .badge,
+.product-card .card-img .card-quick { z-index: 3; }
 
-/* Product detail gallery thumbnails */
+/* no hover zoom: zooming would crop the photo */
+.product-card:hover .card-img > img,
+.product-card:hover .card-img > .img-ph { transform: none; }
+
+/* product detail gallery thumbnails: whole image, no crop */
 .thumbs .thumb,
-.thumbs button {
-  overflow: hidden;
-}
+.thumbs button { overflow: hidden; }
 
 .thumbs .thumb img,
 .thumbs button img,
@@ -1099,12 +1120,12 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
   width: 100%;
   height: 100%;
   max-width: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  background: #fff;
 }
 
 @media (max-width: 480px) {
-  .product-card .card-img { aspect-ratio: 4 / 5; }
   .product-card .card-body { min-width: 0; padding: 8px 10px 10px; gap: 2px; }
   .card-body h3 { font-size: .88rem; line-height: 1.25; margin: 0; }
   .p-meta { gap: 1px; font-size: .78rem; }

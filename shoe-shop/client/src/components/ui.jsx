@@ -58,7 +58,7 @@ export function ShoeImage({ src, alt = '', className = '', priority = false, siz
   const [broken, setBroken] = useState(() => Boolean(src && failedSources.has(src)));
   const [useOriginal, setUseOriginal] = useState(false);
 
-  const resize = isSupabaseStorage(src) && !useOriginal;
+const resize = false;
   const imgSrc = resize ? optimizedImage(src, { width: 640 }) : src;
   const srcSet = resize ? optimizedSrcSet(src, widths) : undefined;
 
