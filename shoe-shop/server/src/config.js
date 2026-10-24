@@ -5,6 +5,19 @@ require('dotenv').config({ path: [path.join(__dirname, '..', '.env'), path.join(
 
 const isProd = process.env.NODE_ENV === 'production';
 
+// Supabase project root only (e.g. https://usiyhwimzmcabcgzfvge.supabase.co). Trailing slashes and
+// API paths such as /rest/v1 are not part of the Storage base URL and would break uploads otherwise.
+function normalizeSupabaseUrl(raw) {
+  let u = String(raw || '').trim().replace(/\/+$/, '');
+  if (/\/rest\/v1\/?$/i.test(u)) u = u.replace(/\/rest\/v1\/?$/i, '');
+  try {
+    const p = new URL(u);
+    p.pathname = p.pathname.replace(/\/+$/, '');
+    u = p.toString().replace(/\/+$/, '');
+  } catch { /* keep the string as-is when it is not absolute URL shaped */ }
+  return u;
+}
+
 if (!process.env.DATABASE_URL) {
   console.error('FATAL: DATABASE_URL must be set (e.g. postgres://user:password@localhost:5432/shoeshop).');
   process.exit(1);
@@ -29,7 +42,9 @@ module.exports = {
   dbSchema: process.env.DB_SCHEMA || '',
   uploadDir: process.env.UPLOAD_DIR || path.join(__dirname, '..', 'uploads'),
   // Cloud image storage (Supabase Storage). When both are set, uploads go to the bucket instead of local disk.
-  supabaseUrl: (process.env.SUPABASE_URL || '').replace(/\/+$/, ''),
+  // Normalized to the project root URL: trailing slashes and any /rest/v1 API path are stripped so the
+  // Storage endpoints below always point at the object storage of the right project.
+  supabaseUrl: normalizeSupabaseUrl(process.env.SUPABASE_URL),
   supabaseServiceKey: process.env.SUPABASE_SERVICE_ROLE_KEY || '',
   supabaseBucket: process.env.SUPABASE_BUCKET || 'product-images',
   clientDist: path.join(__dirname, '..', '..', 'client', 'dist'),

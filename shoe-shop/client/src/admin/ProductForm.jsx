@@ -93,10 +93,14 @@ export default function ProductForm() {
     e.target.value = '';
     if (!files.length) return;
     if (images.length + files.length > 10) return toast.error('A product can have at most 10 images');
+    // Preview locally first so the admin sees the photo before it leaves the browser, then swap in
+    // the server URLs once the upload succeeded (cleaned up again if it did not).
+    const previews = files.map((x) => URL.createObjectURL(x));
+    setImages((i) => [...i, ...previews]);
     const fd = new FormData();
     files.forEach((x) => fd.append('files', x));
     setUploading(true);
-    try { const { urls } = await api.post('/api/admin/upload', fd); setImages((i) => [...i, ...urls]); } catch (ex) { toast.error(ex.message); } finally { setUploading(false); }
+    try { const { urls } = await api.post('/api/admin/upload', fd); setImages((i) => [...i.slice(0, i.length - previews.length), ...urls]); } catch (ex) { toast.error(ex.message); setImages((i) => i.filter((u) => !previews.includes(u))); } finally { setUploading(false); }
   }
 
   async function saveEditedImage(blob) {
