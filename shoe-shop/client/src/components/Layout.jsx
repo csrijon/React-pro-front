@@ -72,11 +72,13 @@ export default function Layout() {
                 </div>
               </div>
             ))}
-            <NavLink to="/categories" className="nav-link">Categories</NavLink>
+            <Link to="/categories" className="nav-link">Categories</Link>
             <NavLink to="/brands" className="nav-link">Brands</NavLink>
             <Link to="/products?sort=newest" className="nav-link">New arrivals</Link>
             <Link to="/products?featured=1" className="nav-link">Featured</Link>
             <NavLink to="/products" end className="nav-link">All products</NavLink>
+            <Link to="/products/kids/junior" className="nav-link">Junior</Link>
+            <Link to="/products?category=school-shoes" className="nav-link">School Shoe</Link>
           </div>
         </nav>
       </header>
