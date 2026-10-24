@@ -72,6 +72,7 @@ router.get('/filters', async (_req, res) => {
 });
 
 router.get('/home', async (req, res) => {
+  try {
   const wholesale = await canSeeWholesale(req);
   // Four independent sections; run them together so the homepage costs one wait, not four
   // sequential waits, against the remote database.
@@ -98,6 +99,10 @@ router.get('/home', async (req, res) => {
     featured: featuredRes.items, newArrivals: newArrivalsRes.items, popularCategories,
     brands: brands.map((b) => ({ ...b, logoUrl: svc.usableImageUrl(b.logoUrl) })),
   });
+  } catch (err) {
+    console.error('[home error]', err.message || err);
+    res.status(500).json({ error: 'Something went wrong on the server' });
+  }
 });
 
 router.get('/products', async (req, res) => {
