@@ -30,7 +30,7 @@ router.get('/dashboard', async (_req, res) => {
     one(`SELECT COUNT(*) n FROM (${perProduct}) pp WHERE active = 1 AND t = 0`),
     one('SELECT COUNT(*) n FROM inventory WHERE quantity > 0 AND quantity <= ?', th),
     one('SELECT COUNT(*) n FROM inventory WHERE quantity = 0'),
-    one('SELECT COALESCE(SUM(quantity),0) n FROM inventory'),
+    one('SELECT COALESCE(SUM(i.quantity),0) n FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1'),
     one('SELECT COUNT(*) n FROM customers'),
     one("SELECT COUNT(*) n FROM customers WHERE status = 'PENDING'"),
     one("SELECT COUNT(*) n FROM customers WHERE status = 'APPROVED'"),
@@ -38,13 +38,13 @@ router.get('/dashboard', async (_req, res) => {
     db.all(`
       SELECT c.gender, c.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
              COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
-      FROM categories c LEFT JOIN products p ON p.category_id = c.id LEFT JOIN inventory i ON i.product_id = p.id
+      FROM categories c LEFT JOIN products p ON p.category_id = c.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
       GROUP BY c.id HAVING COUNT(DISTINCT p.id) > 0 ORDER BY units DESC`),
     db.all(`
       SELECT b.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
              COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
-      FROM brands b LEFT JOIN products p ON p.brand_id = b.id LEFT JOIN inventory i ON i.product_id = p.id
-      GROUP BY b.id HAVING COUNT(DISTINCT p.id) > 0 ORDER BY products DESC, b.name`),
+      FROM brands b LEFT JOIN products p ON p.brand_id = b.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
+      GROUP BY b.id HAVING COUNT(DINCT p.id) > 0 ORDER BY products DESC, b.name`),
     db.all(`
       SELECT p.id, p.name, p.sku, COALESCE(SUM(i.quantity),0) AS units
       FROM products p LEFT JOIN inventory i ON i.product_id = p.id WHERE p.active = 1
@@ -53,11 +53,11 @@ router.get('/dashboard', async (_req, res) => {
       FROM customers WHERE status = 'PENDING' ORDER BY created_at DESC LIMIT 5`),
     db.get(`SELECT COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue",
         COUNT(*) FILTER (WHERE i.quantity > 0 AND COALESCE(i.wholesale_price, p.wholesale_price) IS NULL) AS "unpriced"
-      FROM inventory i JOIN products p ON p.id = i.product_id`),
+      FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1`),
     db.get(`SELECT COALESCE(SUM(i.quantity * p.cost_price),0) AS "stockCost",
         COALESCE(SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)),0) AS "costedWholesaleValue",
         COALESCE(SUM(i.quantity),0) AS "costedUnits"
-      FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.cost_price IS NOT NULL`),
+      FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.active = 1 AND p.cost_price IS NOT NULL`),
     db.all(`SELECT p.id, p.name, p.sku, SUM(i.quantity) AS units, p.cost_price AS "costPrice",
         SUM(i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0)) AS "wholesaleValue",
         SUM(i.quantity * p.cost_price) AS "stockCost",
@@ -66,7 +66,7 @@ router.get('/dashboard', async (_req, res) => {
       GROUP BY p.id HAVING SUM(i.quantity) > 0 ORDER BY profit DESC LIMIT 8`),
   ]);
   const [uncosted] = [await db.get(`SELECT COALESCE(SUM(i.quantity),0) AS units, COUNT(DISTINCT p.id) AS products
-      FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.cost_price IS NULL AND i.quantity > 0`)];
+      FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.cost_price IS NULL AND p.active = 1 AND i.quantity > 0`)];
   res.json({
     threshold: th,
     products: { total, active, featured, lowStock, outOfStock, lowStockVariants, outOfStockVariants, totalUnits,
