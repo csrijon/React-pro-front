@@ -38,8 +38,8 @@ router.get('/dashboard', async (_req, res) => {
     db.all(`
       SELECT c.gender, c.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
              COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
-      FROM categories c LEFT JOIN products p ON p.category_id = c.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
-      GROUP BY c.id HAVING COUNT(DISTINCT p.id) > 0 ORDER BY units DESC`),
+      FROM categories c INNER JOIN products p ON p.category_id = c.id AND p.active = 1 LEFT JOIN inventory i ON i.product_id = p.id
+      GROUP BY c.id ORDER BY units DESC`),
     db.all(`
       SELECT b.name, COUNT(DISTINCT p.id) AS products, COALESCE(SUM(i.quantity),0) AS units,
              COALESCE(SUM((i.quantity * COALESCE(i.wholesale_price, p.wholesale_price, 0))),0) AS "wholesaleValue", COALESCE(SUM((i.quantity * COALESCE(i.mrp, p.mrp))),0) AS "mrpValue"
@@ -63,7 +63,7 @@ router.get('/dashboard', async (_req, res) => {
         SUM(i.quantity * p.cost_price) AS "stockCost",
         SUM(i.quantity * (COALESCE(i.wholesale_price, p.wholesale_price, 0) - p.cost_price)) AS profit
       FROM products p JOIN inventory i ON i.product_id = p.id WHERE p.cost_price IS NOT NULL AND p.active = 1
-      GROUP BY p.id HAVING SUM(i.quantity) > 0 ORDER BY profit DESC LIMIT 8`),
+      GROUP BY p.id, p.name, p.sku HAVING SUM(i.quantity) > 0 ORDER BY profit DESC LIMIT 8`),
   ]);
   const [uncosted] = [await db.get(`SELECT COALESCE(SUM(i.quantity),0) AS units, COUNT(DISTINCT p.id) AS products
       FROM inventory i JOIN products p ON p.id = i.product_id WHERE p.cost_price IS NULL AND p.active = 1 AND i.quantity > 0`)];
