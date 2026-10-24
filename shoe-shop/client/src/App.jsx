@@ -17,6 +17,8 @@ import Inventory from './admin/Inventory.jsx';
 import StockHistory from './admin/StockHistory.jsx';
 import Reorder from './admin/Reorder.jsx';
 import Featured from './admin/Featured.jsx';
+import BulkShare from './admin/BulkShare.jsx';
+import Companies from './admin/Companies.jsx';
 import Settings from './admin/Settings.jsx';
 import Profile from './admin/Profile.jsx';
 import { Empty } from './components/ui.jsx';
@@ -52,6 +54,8 @@ export default function App() {
         <Route path="inventory" element={<Inventory />} />
         <Route path="stock-history" element={<StockHistory />} />
         <Route path="reorder" element={<Reorder />} />
+    <Route path="bulk-share" element={<BulkShare />} />
+    <Route path="companies" element={<Companies />} />
         <Route path="featured" element={<Featured />} />
         <Route path="settings" element={<Settings />} />
         <Route path="profile" element={<Profile />} />

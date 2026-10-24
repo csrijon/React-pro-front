@@ -86,6 +86,9 @@ export default function ProductDetail() {
             {hasWs ? (
               <div className="ws-big"><span>Your wholesale price</span> <strong>{size?.wholesalePrice != null ? inr(size.wholesalePrice) : fmtRange(wsAll)}</strong></div>
             ) : <WholesaleCTA />}
+            {hasWs && (size?.wholesalePrice != null && size?.mrp != null && size.mrp > 0) && (
+              <div className="small muted">{Math.round(((size.mrp - size.wholesalePrice) / size.mrp) * 100)}% discount</div>
+            )}
           </div>
 
           <div className="selector">
@@ -120,6 +123,7 @@ export default function ProductDetail() {
               Enquire on WhatsApp
             </a>
           )}
+          <a className="btn sm ghost" href={`https://wa.me/?text=${encodeURIComponent(`${p.name} — ${window.location.href}`)}`} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
 
           {p.description && <section className="desc"><h2>Description</h2><p>{p.description}</p></section>}
         </div>

@@ -35,6 +35,7 @@ export default function ProductForm() {
   const [f, setF] = useState({ name: '', modelNumber: '', brandId: '', gender: 'men', categoryId: '', subcategoryId: '', description: '', mrp: '', retailMode: 'mrp', discountPct: '10', retailPrice: '', wsDiscountPct: '', wholesalePrice: '', costPrice: '', featured: false, active: true });
   const [variants, setVariants] = useState([blankColor()]);
   const [images, setImages] = useState([]);
+  const [imageColors, setImageColors] = useState([]);
   const [errs, setErrs] = useState([]);
   const [busy, setBusy] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -54,6 +55,7 @@ export default function ProductForm() {
     });
     setVariants(p.variants.map((v) => ({ color: v.color, sizes: v.sizes.map((s) => ({ size: s.size, quantity: String(s.quantity), mrp: s.mrpOverride != null ? String(s.mrpOverride) : '', retailPrice: s.retailOverride != null ? String(s.retailOverride) : '', wholesalePrice: s.wholesalePriceOverride != null ? String(s.wholesalePriceOverride) : '' })) })));
     setImages(p.images);
+    setImageColors(p.variants ? p.variants.map((v) => v.color || '') : []);
   }, [existing.data]);
 
   const set = (k) => (e) => setF((x) => ({ ...x, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
@@ -97,10 +99,11 @@ export default function ProductForm() {
     // the server URLs once the upload succeeded (cleaned up again if it did not).
     const previews = files.map((x) => URL.createObjectURL(x));
     setImages((i) => [...i, ...previews]);
+    setImageColors((c) => [...c, ...previews.map(() => '')]);
     const fd = new FormData();
     files.forEach((x) => fd.append('files', x));
     setUploading(true);
-    try { const { urls } = await api.post('/api/admin/upload', fd); setImages((i) => [...i.slice(0, i.length - previews.length), ...urls]); } catch (ex) { toast.error(ex.message); setImages((i) => i.filter((u) => !previews.includes(u))); } finally { setUploading(false); }
+    try { const { urls } = await api.post('/api/admin/upload', fd); setImages((i) => [...i.slice(0, i.length - previews.length), ...urls]); } catch (ex) { toast.error("Upload failed: " + ex.message + " — retry by selecting again."); setImages((i) => i.filter((u) => !previews.includes(u))); } finally { setUploading(false); }
   }
 
   async function saveEditedImage(blob) {
@@ -151,7 +154,7 @@ export default function ProductForm() {
     if (e.length) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const body = {
       name: f.name.trim(), modelNumber: f.modelNumber.trim(), sku: f.modelNumber.trim(), brandId: Number(f.brandId), categoryId: Number(f.categoryId), subcategoryId: f.subcategoryId ? Number(f.subcategoryId) : null,
-      description: f.description, mrp: Number(f.mrp), retailPrice: retailOut, wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, images,
+      description: f.description, mrp: Number(f.mrp), retailPrice: retailOut, wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, images, imageColors,
       variants: variants.map((c) => ({ color: c.color.trim(), sizes: c.sizes.map((s) => ({ size: s.size.trim(), quantity: Number(s.quantity), mrp: num(s.mrp), retailPrice: num(s.retailPrice), wholesalePrice: num(s.wholesalePrice) })) })),
     };
     setBusy(true);
@@ -246,10 +249,16 @@ export default function ProductForm() {
           {images.map((u, i) => (
             <div key={u} className="img-tile"><img src={u} alt={`Product ${i + 1}`} />
               {i === 0 && <span className="badge featured">Main</span>}
+              <div style={{padding:'6px'}}>
+                <select value={imageColors[i] || ''} onChange={e => setImageColors(a => { const n=[...a]; n[i]=e.target.value; return n; })} className="btn sm" style={{fontSize:'12px',padding:'4px 6px'}}>
+                  <option value="">No color</option>
+                  {variants.map((v,vi) => <option key={vi} value={v.color}>{v.color}</option>)}
+                </select>
+              </div>
               <div className="img-actions">
                 <button type="button" className="btn sm" onClick={() => setEditingImg({ url: u, index: i })}>Edit &amp; crop</button>
                 {i > 0 && <button type="button" className="btn sm" onClick={() => setImages((a) => [u, ...a.filter((x) => x !== u)])}>Make main</button>}
-                <button type="button" className="btn sm danger-o" onClick={() => setImages((a) => a.filter((x) => x !== u))}>Remove</button>
+                <button type="button" className="btn sm danger-o" onClick={() => { const idx = images.indexOf(u); setImages(a => a.filter((_,j)=>j!==idx)); setImageColors(a => a.filter((_,j)=>j!==idx)); }}>Remove</button>
               </div>
             </div>
           ))}

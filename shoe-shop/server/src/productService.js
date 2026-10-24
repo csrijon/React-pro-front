@@ -195,7 +195,7 @@ async function hydrate(rows, { wholesale, admin, th, g = { enabled: false, perce
   // These three batch lookups are independent of each other and of the listing rows, so run
   // them concurrently instead of as three sequential round trips to the remote database.
   const [imageRows, colorRows, sizeRows] = await Promise.all([
-    db.all(`SELECT product_id, url FROM product_images WHERE product_id IN (${ph}) ORDER BY position, id`, ...ids),
+    db.all(`SELECT product_id, url, color_id FROM product_images WHERE product_id IN (${ph}) ORDER BY position, id`, ...ids),
     db.all(`SELECT DISTINCT i.product_id, co.name FROM inventory i JOIN colors co ON co.id = i.color_id WHERE i.product_id IN (${ph}) ORDER BY co.name`, ...ids),
     db.all(`SELECT DISTINCT i.product_id, s.label, s.sort FROM inventory i JOIN sizes s ON s.id = i.size_id WHERE i.product_id IN (${ph}) ORDER BY s.sort`, ...ids),
   ]);
@@ -247,7 +247,7 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
 
   // Images and the inventory variant matrix are independent lookups; fetch them together.
   const [imageRows, inv] = await Promise.all([
-    db.all('SELECT url FROM product_images WHERE product_id = ? ORDER BY position, id', p.id),
+    db.all('SELECT url, color_id FROM product_images WHERE product_id = ? ORDER BY position, id', p.id),
     db.all(`
     SELECT i.color_id, co.name color, i.size_id, s.label size, s.sort, i.quantity, i.mrp, i.retail_price, i.wholesale_price
     FROM inventory i JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
@@ -469,7 +469,15 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
       await logMovement({ productId: id, productName: name, sku, color: old.color, size: old.size, change: -old.quantity, quantityAfter: 0, type: 'REMOVED', reason: 'Size/colour removed in edit', actor });
     }
   }
-  for (const [i, u] of data.images.entries()) await db.run('INSERT INTO product_images (product_id, url, position) VALUES (?,?,?)', id, u, i);
+  for (const [i, u] of data.images.entries()) {
+    const colorName = (data.imageColors || [])[i];
+    let colorId = null;
+    if (colorName) {
+      const c = await db.get('SELECT id FROM colors WHERE name = ?', colorName.trim());
+      if (c) colorId = c.id;
+    }
+    await db.run('INSERT INTO product_images (product_id, url, position, color_id) VALUES (?,?,?,?)', id, u, i, colorId);
+  }
   return id;
 });
 

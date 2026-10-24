@@ -484,3 +484,5 @@ router.post('/upload', upload.array('files', 10), async (req, res) => {
 });
 
 module.exports = router;
+router.get('/companies', async (req, res) => { res.json(await db.all('SELECT * FROM companies ORDER BY name')); });
+router.post('/companies', async (req, res) => { const {name,address}=req.body; const slug=require('../lib/slugify')(name); await db.insert('INSERT INTO companies (name,slug,address,active) VALUES (?,?,?,1)',name,slug,address||null); res.status(201).json({ok:true}); });
