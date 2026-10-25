@@ -7,12 +7,27 @@ const { errorHandler } = require('./http');
 const { attachUser } = require('./auth');
 const { db } = require('./db');
 
+const cors = require('cors');
 function createApp() {
   const app = express();
   app.disable('x-powered-by');
   if (config.isProd) app.set('trust proxy', 1);
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'same-site' }, contentSecurityPolicy: { directives: { 'default-src': ["'self'"], 'img-src': ["'self'", 'data:', 'https:'], 'style-src': ["'self'", "'unsafe-inline'"], 'script-src': ["'self'"] } } }));
   app.use(express.json({ limit: '200kb' }));
+
+  const allowedOrigins = ['https://mordern-shoe-house.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173'];
+  app.use(cors({
+    origin: (origin, callback) => {
+      // Allow requests with no Origin header (server-to-server, CLI, health checks)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+    credentials: true,
+    preflightContinue: false,
+  }));
 
   app.use('/uploads', express.static(config.uploadDir, { maxAge: '7d', index: false, dotfiles: 'deny' }));
 
