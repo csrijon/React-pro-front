@@ -32,7 +32,7 @@ export default function ProductForm() {
   const { data: brands } = useFetch('/api/admin/brands');
   const existing = useFetch(editing ? `/api/admin/products/${id}` : null);
 
-  const [f, setF] = useState({ name: '', modelNumber: '', brandId: '', gender: 'men', categoryId: '', subcategoryId: '', description: '', mrp: '', retailMode: 'mrp', discountPct: '10', retailPrice: '', wsDiscountPct: '', wholesalePrice: '', costPrice: '', featured: false, active: true });
+  const [f, setF] = useState({ name: '', modelNumber: '', brandId: '', gender: 'men', categoryId: '', subcategoryId: '', description: '', mrp: '', retailMode: 'mrp', discountPct: '10', retailPrice: '', wsDiscountPct: '', wholesalePrice: '', costPrice: '', featured: false, active: true, stockStatus: 'IN' });
   const [variants, setVariants] = useState([blankColor()]);
   const [images, setImages] = useState([]);
   const [imageColors, setImageColors] = useState([]);
@@ -51,7 +51,7 @@ export default function ProductForm() {
       subcategoryId: p.subcategory ? String(p.subcategory.id) : '', description: p.description, mrp: String(p.mrp),
       retailMode: mode, discountPct: '10', retailPrice: p.retailPriceInput != null ? String(p.retailPriceInput) : '',
       wsDiscountPct: '', wholesalePrice: p.wholesalePrice != null ? String(p.wholesalePrice) : '',
-      costPrice: p.costPrice != null ? String(p.costPrice) : '', featured: p.featured, active: p.active,
+      costPrice: p.costPrice != null ? String(p.costPrice) : '', featured: p.featured, active: p.active, stockStatus: p.stockStatus || 'IN',
     });
     setVariants(p.variants.map((v) => ({ color: v.color, sizes: v.sizes.map((s) => ({ size: s.size, quantity: String(s.quantity), mrp: s.mrpOverride != null ? String(s.mrpOverride) : '', retailPrice: s.retailOverride != null ? String(s.retailOverride) : '', wholesalePrice: s.wholesalePriceOverride != null ? String(s.wholesalePriceOverride) : '' })) })));
     setImages(p.images);
@@ -154,7 +154,7 @@ export default function ProductForm() {
     if (e.length) { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const body = {
       name: f.name.trim(), modelNumber: f.modelNumber.trim(), sku: f.modelNumber.trim(), brandId: Number(f.brandId), categoryId: Number(f.categoryId), subcategoryId: f.subcategoryId ? Number(f.subcategoryId) : null,
-      description: f.description, mrp: Number(f.mrp), retailPrice: retailOut, wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, images, imageColors,
+      description: f.description, mrp: Number(f.mrp), retailPrice: retailOut, wholesalePrice: num(f.wholesalePrice), costPrice: num(f.costPrice), featured: f.featured, active: f.active, stockStatus: f.stockStatus, images, imageColors,
       variants: variants.map((c) => ({ color: c.color.trim(), sizes: c.sizes.map((s) => ({ size: s.size.trim(), quantity: Number(s.quantity), mrp: num(s.mrp), retailPrice: num(s.retailPrice), wholesalePrice: num(s.wholesalePrice) })) })),
     };
     setBusy(true);
@@ -200,6 +200,7 @@ export default function ProductForm() {
         </div>
         <Field label="Description"><textarea rows={4} value={f.description} onChange={set('description')} maxLength={5000} /></Field>
         <div className="toggles"><Toggle checked={f.featured} onChange={(v) => setF({ ...f, featured: v })} label="Show in the featured section" /><Toggle checked={f.active} onChange={(v) => setF({ ...f, active: v })} label="Active (visible to customers)" /></div>
+        <Field label="Stock Status"><select value={f.stockStatus} onChange={set('stockStatus')}><option value="IN">In Stock</option><option value="OUT">Out of Stock</option></select></Field>
       </section>
 
       <section className="panel">

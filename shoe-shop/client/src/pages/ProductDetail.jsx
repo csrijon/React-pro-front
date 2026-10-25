@@ -16,15 +16,34 @@ export default function ProductDetail() {
   const { settings } = useSettings();
 
   const p = data?.product;
+  const { user } = useAuth();
+  const canSeeWholesale = user?.role === 'ADMIN' || user?.wholesaleAccess === true;
+  const safeP = useMemo(() => {
+    if (!p || canSeeWholesale) return p;
+    const clean = { ...p };
+    delete clean.wholesalePrice;
+    if (clean.variants) {
+      clean.variants = clean.variants.map((v) => ({
+        ...v,
+        sizes: v.sizes.map((s) => {
+          const cs = { ...s };
+          delete cs.wholesalePrice;
+          delete cs.wholesalePriceOverride;
+          return cs;
+        }),
+      }));
+    }
+    return clean;
+  }, [p, canSeeWholesale]);
   useEffect(() => { setImg(0); }, [slug]);
-  useEffect(() => { if (p) document.title = `${p.name} · ${settings.shopName}`; }, [p, settings.shopName]);
+  useEffect(() => { if (safeP) document.title = `${safeP.name} · ${settings.shopName}`; }, [safeP, settings.shopName]);
 
   const colorName = sp.get('color');
   const variant = useMemo(() => {
-    if (!p) return null;
-    return p.variants.find((v) => v.color.toLowerCase() === (colorName || '').toLowerCase())
-      || p.variants.find((v) => v.status !== 'OUT') || p.variants[0];
-  }, [p, colorName]);
+    if (!safeP) return null;
+    return safeP.variants.find((v) => v.color.toLowerCase() === (colorName || '').toLowerCase())
+      || safeP.variants.find((v) => v.status !== 'OUT') || safeP.variants[0];
+  }, [safeP, colorName]);
   const sizeLabel = sp.get('size');
   const size = variant?.sizes.find((s) => s.size === sizeLabel) || (variant?.sizes.length === 1 ? variant.sizes[0] : null);
 
@@ -38,39 +57,41 @@ export default function ProductDetail() {
   if (error?.status === 404) return <div className="container page"><Empty title="Product not found">It may have been removed. <Link to="/products">Browse all products</Link></Empty></div>;
   if (error) return <ErrorBox error={error} onRetry={reload} />;
 
+  if (!safeP) return <Spinner />;
+
   const shownMrp = size ? size.mrp : null;
-  const shownRetail = size ? size.retail : (p.retail ? p.retail.min : null);
+  const shownRetail = size ? size.retail : (safeP.retail ? safeP.retail.min : null);
   const mrps = variant.sizes.map((s) => s.mrp);
   const wsAll = variant.sizes.map((s) => s.wholesalePrice).filter((x) => x != null);
   const hasWs = wsAll.length > 0;
   const fmtRange = (arr) => (Math.min(...arr) === Math.max(...arr) ? inr(arr[0]) : `${inr(Math.min(...arr))} – ${inr(Math.max(...arr))}`);
   const mrpMin = shownMrp != null ? shownMrp : Math.min(...mrps);
-  const retailLabel = shownRetail != null ? inr(shownRetail) : (p.retail ? fmtRange([p.retail.min, p.retail.max]) : null);
-  const retailMin = shownRetail != null ? shownRetail : (p.retail ? p.retail.min : mrpMin);
+  const retailLabel = shownRetail != null ? inr(shownRetail) : (safeP.retail ? fmtRange([safeP.retail.min, safeP.retail.max]) : null);
+  const retailMin = shownRetail != null ? shownRetail : (safeP.retail ? safeP.retail.min : mrpMin);
   const discounted = retailLabel != null && retailMin < mrpMin;
 
   return (
     <div className="container page">
       <nav className="crumbs" aria-label="Breadcrumb">
-        <Link to="/">Home</Link> / <Link to={`/products/${genderSlug(p.gender)}`}>{genderLabel(p.gender)}</Link> / <Link to={`/products/${genderSlug(p.gender)}/${p.category.slug}`}>{p.category.name}</Link> / <span>{p.name}</span>
+        <Link to="/">Home</Link> / <Link to={`/products/${genderSlug(safeP.gender)}`}>{genderLabel(safeP.gender)}</Link> / <Link to={`/products/${genderSlug(safeP.gender)}/${safeP.category.slug}`}>{safeP.category.name}</Link> / <span>{safeP.name}</span>
       </nav>
       <div className="detail">
         <div className="gallery">
-          <div className="gallery-main" ><ShoeImage key={p.images[img] || 'none'} src={p.images[img]} alt={p.name} className="fade-in" priority sizes="(min-width: 900px) 46vw, 92vw" widths={[480, 720, 960, 1280]} /></div>
-          {p.images.length > 1 && (
-            <div className="thumbs">{p.images.map((u, i) => (
+          <div className="gallery-main" ><ShoeImage key={safeP.images[img] || 'none'} src={safeP.images[img]} alt={safeP.name} className="fade-in" priority sizes="(min-width: 900px) 46vw, 92vw" widths={[480, 720, 960, 1280]} /></div>
+          {safeP.images.length > 1 && (
+            <div className="thumbs">{safeP.images.map((u, i) => (
               <button key={u} className={i === img ? 'on' : ''} onClick={() => setImg(i)} aria-label={`Image ${i + 1}`}><ShoeImage src={u} alt="" sizes="70px" widths={[70, 140]} /></button>
             ))}</div>
           )}
         </div>
 
         <div className="info">
-          <div className="detail-brand small"><Link to={`/products?brand=${p.brand.slug}`}>{p.brand.name}</Link></div>
-          <h1>{p.name}</h1>
+          <div className="detail-brand small"><Link to={`/products?brand=${safeP.brand.slug}`}>{safeP.brand.name}</Link></div>
+          <h1>{safeP.name}</h1>
           <dl className="meta">
-            <div><dt>Product code</dt><dd>{p.sku}</dd></div>
-            <div><dt>Category</dt><dd><Link to={`/products/${genderSlug(p.gender)}/${p.category.slug}`}>{p.category.name}</Link>{p.subcategory && ` · ${p.subcategory.name}`}</dd></div>
-            <div><dt>Gender</dt><dd><Link to={`/products/${genderSlug(p.gender)}`}>{genderLabel(p.gender)}</Link></dd></div>
+            <div><dt>Product code</dt><dd>{safeP.sku}</dd></div>
+            <div><dt>Category</dt><dd><Link to={`/products/${genderSlug(safeP.gender)}/${safeP.category.slug}`}>{safeP.category.name}</Link>{safeP.subcategory && ` · ${safeP.subcategory.name}`}</dd></div>
+            <div><dt>Gender</dt><dd><Link to={`/products/${genderSlug(safeP.gender)}`}>{genderLabel(safeP.gender)}</Link></dd></div>
           </dl>
 
           <div className="price-panel">
@@ -94,9 +115,9 @@ export default function ProductDetail() {
           <div className="selector">
             <h2>Colour: <span className="sel-val">{variant.color}</span></h2>
             <div className="options" role="radiogroup" aria-label="Colour">
-              {p.variants.map((v) => (
+              {safeP.variants.map((v) => (
                 <button key={v.colorId} role="radio" aria-checked={v.colorId === variant.colorId} className={`opt color ${v.colorId === variant.colorId ? 'on' : ''} ${v.status === 'OUT' ? 'out' : ''}`}
-                  onClick={() => select({ color: v.color, size: '' })}><ColorDot name={v.color} /> {v.color}</button>
+                  onClick={() => v.status !== 'OUT' && select({ color: v.color, size: '' })} disabled={v.status === 'OUT'}><ColorDot name={v.color} /> {v.color}</button>
               ))}
             </div>
           </div>
@@ -117,15 +138,16 @@ export default function ProductDetail() {
             <span className="small muted">{size ? `${variant.color}, size ${size.size}` : `${variant.color} · select a size to see its availability`}</span>
           </div>
 
-          {settings.whatsapp && (
+          {settings.whatsapp && safeP.stockStatus !== 'OUT' && (!(size && size.status === 'OUT')) && (
             <a className="btn whatsapp block" target="_blank" rel="noopener noreferrer"
-              href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi, I'd like to enquire about ${p.name} (${p.sku})${variant ? `, ${variant.color}` : ''}${size ? `, size ${size.size}` : ''}.\n${window.location.href}`)}`}>
+              href={`https://wa.me/${settings.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi, I'd like to enquire about ${safeP.name} (${safeP.sku})${variant ? `, ${variant.color}` : ''}${size ? `, size ${size.size}` : ''}.\n${window.location.href}`)}`}>
               Enquire on WhatsApp
             </a>
           )}
-          <a className="btn sm ghost" href={`https://wa.me/?text=${encodeURIComponent(`${p.name} — ${window.location.href}`)}`} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
+          {safeP.stockStatus === 'OUT' && <p className="alert error" role="alert">This product is currently out of stock.</p>}
+          <a className="btn sm ghost" href={`https://wa.me/?text=${encodeURIComponent(`${safeP.name} — ${window.location.href}`)}`} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
 
-          {p.description && <section className="desc"><h2>Description</h2><p>{p.description}</p></section>}
+          {safeP.description && <section className="desc"><h2>Description</h2><p>{safeP.description}</p></section>}
         </div>
       </div>
 

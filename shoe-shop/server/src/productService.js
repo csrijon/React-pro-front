@@ -156,8 +156,8 @@ async function listProducts(q, { wholesale = false, admin = false } = {}) {
   const [totalRow, rows] = await Promise.all([
     db.get(`SELECT COUNT(*) n ${from}`, ...args),
     db.all(`
-    SELECT p.id, p.name, p.slug, p.sku, p.gender, p.featured, p.active, p.created_at,
-           ${admin ? 'p.cost_price, p.wholesale_price,' : ''}
+    SELECT p.id, p.name, p.slug, p.sku, p.gender, p.featured, p.active, p.created_at, p.stock_status,
+            ${admin ? 'p.cost_price, p.wholesale_price,' : ''}
            p.retail_price AS product_retail,
            b.id brand_id, b.name brand_name, b.slug brand_slug,
            c.id category_id, c.name category_name, c.slug category_slug,
@@ -221,10 +221,10 @@ async function hydrate(rows, { wholesale, admin, th, g = { enabled: false, perce
       mrp: { min: r.min_mrp, max: r.max_mrp },
       retail,
       discountPct: r.max_mrp > 0 && retail.max != null && retail.max < r.max_mrp ? Math.round((1 - retail.max / r.max_mrp) * 100) : 0,
-      stockStatus: stockStatus(r.total_stock, th),
+      stockStatus: (r.stock_status === 'OUT') ? 'OUT' : stockStatus(r.total_stock, th),
       createdAt: r.created_at,
     };
-    if (admin) { o.active = !!r.active; o.totalStock = r.total_stock; o.costPrice = r.cost_price; o.wholesalePrice = r.wholesale_price;
+    if (admin) { o.active = !!r.active; o.totalStock = r.total_stock; o.stockStatus = (r.stock_status === 'OUT') ? 'OUT' : stockStatus(r.total_stock, th); o.costPrice = r.cost_price; o.wholesalePrice = r.wholesale_price;
       o.marginPct = r.cost_price != null && r.wholesale_price > 0 ? Math.round(((r.wholesale_price - r.cost_price) / r.wholesale_price) * 1000) / 10 : null; o.stockValueWholesale = r.stock_value_ws; o.stockValueMrp = r.stock_value_mrp; }
     if (wholesale) o.wholesale = { min: r.min_ws ?? null, max: r.max_ws ?? null };
     return o;
@@ -291,7 +291,7 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     retail: retailValues.length ? { min: Math.min(...retailValues), max: Math.max(...retailValues) } : { min: applyRetail(p.mrp, p.retail_price, g), max: applyRetail(p.mrp, p.retail_price, g) },
     retailPrice: applyRetail(p.mrp, p.retail_price, g),
     discountPct: p.mrp > 0 && applyRetail(p.mrp, p.retail_price, g) < p.mrp ? Math.round((1 - applyRetail(p.mrp, p.retail_price, g) / p.mrp) * 100) : 0,
-    stockStatus: stockStatus(total, th),
+    stockStatus: (p.stock_status === 'OUT') ? 'OUT' : stockStatus(total, th),
     createdAt: p.created_at,
   };
   if (admin) { out.active = !!p.active; out.totalStock = total; out.costPrice = p.cost_price; out.retailPriceInput = p.retail_price; }
@@ -354,6 +354,7 @@ const productSchema = z.object({
   costPrice: money.optional().default(null),
   featured: z.boolean().optional().default(false),
   active: z.boolean().optional().default(true),
+  stockStatus: z.enum(['IN', 'OUT']).optional().default('IN'),
   images: z.array(imageUrl).max(10).optional().default([]),
   variants: z.array(colorEntry).min(1, 'Add at least one colour with sizes'),
 });
@@ -417,18 +418,18 @@ const saveProduct = (data, existingId, actor = null) => db.transaction(async () 
     const cur = await db.get('SELECT name, slug FROM products WHERE id = ?', existingId);
     if (!cur) throw new HttpError(404, 'Product not found');
     await db.run(`UPDATE products SET name=?, sku=?, brand_id=?, category_id=?, subcategory_id=?, gender=?, description=?, mrp=?,
-                retail_price=?, wholesale_price=?, cost_price=?, featured=?, active=?, updated_at=now() WHERE id=?`,
+                retail_price=?, wholesale_price=?, cost_price=?, featured=?, active=?, stock_status=?, updated_at=now() WHERE id=?`,
       name, sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender, data.description, data.mrp,
-      data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active, existingId);
+      data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active, data.stockStatus || 'IN', existingId);
     await db.run('DELETE FROM inventory WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_colors WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_sizes WHERE product_id = ?', existingId);
     await db.run('DELETE FROM product_images WHERE product_id = ?', existingId);
   } else {
-    id = await db.insert(`INSERT INTO products (name, slug, sku, brand_id, category_id, subcategory_id, gender, description, mrp, retail_price, wholesale_price, cost_price, featured, active)
-                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+    id = await db.insert(`INSERT INTO products (name, slug, sku, brand_id, category_id, subcategory_id, gender, description, mrp, retail_price, wholesale_price, cost_price, featured, active, stock_status)
+                     VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
       name, await uniqueSlug(name), sku, data.brandId, data.categoryId, data.subcategoryId, cat.gender,
-      data.description, data.mrp, data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active);
+      data.description, data.mrp, data.retailPrice, data.wholesalePrice, data.costPrice, +data.featured, +data.active, data.stockStatus || 'IN');
   }
 
   // Find-or-create a colour/size row (case-insensitive; safe if another request creates it at the same moment).

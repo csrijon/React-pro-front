@@ -95,6 +95,7 @@ router.get('/home', async (req, res) => {
     id: c.id, gender: c.gender, name: c.name, slug: c.slug, productCount: c.productCount,
     imageUrl: svc.usableImageUrl(c.categoryImage) || svc.usableImageUrl(c.fallbackImage),
   }));
+  res.set('Cache-Control', 'no-store, max-age=0');
   res.json({
     featured: featuredRes.items, newArrivals: newArrivalsRes.items, popularCategories,
     brands: brands.map((b) => ({ ...b, logoUrl: svc.usableImageUrl(b.logoUrl) })),
@@ -106,6 +107,7 @@ router.get('/home', async (req, res) => {
 });
 
 router.get('/products', async (req, res) => {
+  res.set('Cache-Control', 'no-store, max-age=0');
   res.json(await svc.listProducts(req.query, { wholesale: await canSeeWholesale(req) }));
 });
 
@@ -113,6 +115,7 @@ router.get('/products/:slug', async (req, res) => {
   const wholesale = await canSeeWholesale(req);
   const p = await svc.getProduct('p.slug = ?', String(req.params.slug), { wholesale });
   if (!p) throw new HttpError(404, 'Product not found');
+  res.set('Cache-Control', 'no-store, max-age=0');
   res.json({ product: p, related: await svc.related(p, { wholesale }) });
 });
 

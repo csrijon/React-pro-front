@@ -25,9 +25,11 @@ export function WholesaleCTA({ compact }) {
 }
 
 export function PriceBlock({ product, compact }) {
+  const { user } = useAuth();
   const mrp = product.mrp;
   const retail = product.retail || mrp;
   const discounted = retail && mrp && (retail.min < mrp.min || retail.max < mrp.max);
+  const canSeeWholesale = user?.role === 'ADMIN' || user?.wholesaleAccess === true;
   return (
     <div className="prices">
       {discounted ? (
@@ -39,7 +41,7 @@ export function PriceBlock({ product, compact }) {
       ) : (
         <div className="mrp"><span className="muted small">MRP</span> <strong>{range(mrp.min, mrp.max)}</strong></div>
       )}
-      {product.wholesale && product.wholesale.min != null
+      {canSeeWholesale && product.wholesale && product.wholesale.min != null
         ? <div className="ws"><span className="small">Wholesale</span> <strong>{range(product.wholesale.min, product.wholesale.max)}</strong></div>
         : <WholesaleCTA compact={compact} />}
     </div>

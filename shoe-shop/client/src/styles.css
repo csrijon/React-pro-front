@@ -342,8 +342,7 @@ textarea { resize: vertical; min-height: 78px; }
 .section-head a:hover { text-decoration: none; color: var(--accent); border-color: var(--accent); }
 
 .grid { display: grid; gap: clamp(14px, 1.8vw, 24px); }
-.grid.products { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); min-height: 320px; }
-@media (min-width: 1280px) { .grid.products { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); } }
+.grid.products { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); min-height: 320px; }
 .grid.products .product-card { min-height: 360px; }
 .cat-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 .brand-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
@@ -1031,7 +1030,7 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 }
 
 @media (max-width: 480px) {
-  .grid.products { grid-template-columns: 1fr; gap: 12px; }
+  .grid.products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .section { padding-top: 24px; padding-bottom: 24px; }
   .section-head { margin-bottom: 10px; }
   .product-card .card-body { padding: 10px 10px 12px; }
@@ -1048,69 +1047,48 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 }
 
 /* ==========================================================================
-   Product image fix — storefront cards
-   - The WHOLE photo is always visible (object-fit: contain, never cropped).
-   - Narrow / wide photos no longer leave empty bars: a blurred copy of the
-     same photo fills the frame behind it (set via --img on .card-img).
-   - Every card uses the same 4:5 frame so the grid stays tidy.
+   Product image sizing fix — shared storefront cards and galleries
+   Keep the full source image visible without stretching or cropping it.
    ========================================================================== */
 .product-card .card-img {
   position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-width: 0;
-  /* aspect-ratio: 4 / 5;  */
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  isolation: isolate;
   box-sizing: border-box;
-  background: var(--surface-3);
+  background: var(--surface-2, #faf8f4);
 }
 
-/* blurred backdrop (needs style="--img: url(...)" on .card-img; harmless if missing) */
-.product-card .card-img::before {
-  content: '';
-  position: absolute;
-  inset: -28px;
-  z-index: 0;
-  pointer-events: none;
-  background-image: var(--img, none);
-  background-size: cover;
-  background-position: center;
-  filter: blur(24px) saturate(1.15);
-  opacity: .6;
-  transform: scale(1.1);
-}
-
-/* the real photo, always fully visible on top of the backdrop */
 .product-card .card-img > .shoe-img,
 .product-card .card-img > img,
 .product-card .card-img > .img-ph {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
   display: block;
+  flex: 0 0 100%;
   width: 100%;
-  height: 100%;
-  max-width: none;
   min-width: 0;
+  max-width: 100%;
+  height: 100%;
   min-height: 0;
   box-sizing: border-box;
   object-fit: contain;
   object-position: center;
-  padding: 0;
 }
 
-/* badge + "View details" stay above the photo */
-.product-card .card-img .badge,
-.product-card .card-img .card-quick { z-index: 3; }
-
-/* no hover zoom: zooming would crop the photo */
+/* Avoid accidental zoom/cropping from inherited hover transforms. */
 .product-card:hover .card-img > img,
-.product-card:hover .card-img > .img-ph { transform: none; }
+.product-card:hover .card-img > .img-ph {
+  transform: none;
+}
 
-/* product detail gallery thumbnails: whole image, no crop */
+/* Make product thumbnails consistent while preserving their whole image. */
 .thumbs .thumb,
-.thumbs button { overflow: hidden; }
+.thumbs button {
+  overflow: hidden;
+}
 
 .thumbs .thumb img,
 .thumbs button img,
@@ -1122,16 +1100,126 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
   max-width: 100%;
   object-fit: contain;
   object-position: center;
-  background: #fff;
 }
 
 @media (max-width: 480px) {
-  .product-card .card-body { min-width: 0; padding: 8px 10px 10px; gap: 2px; }
-  .card-body h3 { font-size: .88rem; line-height: 1.25; margin: 0; }
-  .p-meta { gap: 1px; font-size: .78rem; }
-  .prices { gap: 2px; margin: 2px 0; }
-  .p-foot { padding-top: 6px; gap: 6px; }
+  .product-card .card-img {
+    aspect-ratio: 1 / 1;
+  }
+
+  .product-card .card-body {
+    min-width: 0;
+  }
 }
-@media (min-width: 390px) and (max-width: 480px) {
-  .grid.products { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+/* =======================================================================
+   ADMIN MODAL OVERLAY FIX — appended override
+   Keeps stock adjustment/receive modals inside the viewport on mobile.
+   ======================================================================= */
+.admin .overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  margin: 0 !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  z-index: 9999 !important;
+  background: rgba(20, 16, 12, 0.52);
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin .overlay > .modal {
+  position: relative !important;
+  inset: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  min-width: 0 !important;
+  height: auto !important;
+  max-height: calc(100vh - 32px) !important;
+  max-height: calc(100dvh - 32px) !important;
+  margin: 0 auto !important;
+  padding: 0 22px 24px !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  transform: none !important;
+  animation: none !important;
+  flex: 0 1 auto !important;
+  flex-shrink: 1 !important;
+  border-radius: 16px !important;
+  background: var(--surface, #fff) !important;
+  box-shadow: var(--shadow-3, 0 24px 60px rgba(0,0,0,.22)) !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin .overlay > .modal input,
+.admin .overlay > .modal select,
+.admin .overlay > .modal textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.admin .overlay > .modal .actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .admin .overlay {
+    align-items: center !important;
+    padding: 12px !important;
+  }
+
+  .admin .overlay > .modal {
+    width: 100% !important;
+    max-width: 480px !important;
+    max-height: calc(100vh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+    padding: 0 18px 20px !important;
+    border-radius: 14px !important;
+  }
+
+  .admin .overlay > .modal .modal-head {
+    position: sticky;
+    top: 0;
+    padding-top: 16px;
+    background: var(--surface, #fff);
+  }
+
+  .admin .overlay > .modal .actions .btn,
+  .admin .overlay > .modal .actions button {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
+
+@media (max-height: 500px) {
+  .admin .overlay {
+    align-items: flex-start !important;
+  }
+
+  .admin .overlay > .modal {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    max-height: calc(100vh - 24px) !important;
+    max-height: calc(100dvh - 24px) !important;
+  }
 }
