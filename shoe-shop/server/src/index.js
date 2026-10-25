@@ -15,7 +15,7 @@ function createApp() {
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'same-site' }, contentSecurityPolicy: { directives: { 'default-src': ["'self'"], 'img-src': ["'self'", 'data:', 'https:'], 'style-src': ["'self'", "'unsafe-inline'"], 'script-src': ["'self'"] } } }));
   app.use(express.json({ limit: '200kb' }));
 
-  const allowedOrigins = ['https://mordern-shoe-house.vercel.app', 'http://localhost:5173', 'http://127.0.0.1:5173'];
+  const allowedOrigins = (process.env.CORS_ORIGINS || 'https://mordern-shoe-house.vercel.app,http://localhost:5173,http://127.0.0.1:5173').split(',').map(s => s.trim()).filter(Boolean);
   app.use(cors({
     origin: (origin, callback) => {
       // Allow requests with no Origin header (server-to-server, CLI, health checks)
