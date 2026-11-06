@@ -20,6 +20,7 @@ function usableImageUrl(url) {
 const GENDER_ALIASES = {
   men: 'men', mens: 'men', man: 'men', male: 'men', gents: 'men',
   women: 'women', womens: 'women', woman: 'women', ladies: 'women', female: 'women',
+  'junior-boy': 'junior-boy', juniorboy: 'junior-boy', 'junior-boys': 'junior-boy', 'junior-girl': 'junior-girl', juniorgirl: 'junior-girl', 'junior-girls': 'junior-girl',
   kids: 'kids', kid: 'kids', boys: 'kids', girls: 'kids', children: 'kids', child: 'kids',
 };
 const normGender = (g) => (g ? GENDER_ALIASES[String(g).toLowerCase()] || null : null);
@@ -253,7 +254,8 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     FROM inventory i JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
     WHERE i.product_id = ? ORDER BY co.name, s.sort`, p.id),
   ]);
-  const images = imageRows.map((r) => (admin ? r.url : usableImageUrl(r.url))).filter(Boolean);
+  const imageList = imageRows.map((r) => ({ url: admin ? r.url : usableImageUrl(r.url), colorId: r.color_id || null })).filter((r) => r.url);
+  const images = imageList.map((r) => r.url);
 
   const colorMap = new Map();
   let total = 0;
@@ -287,7 +289,7 @@ async function getProduct(where, arg, { wholesale = false, admin = false } = {})
     brand: { id: p.brand_id, name: p.brand_name, slug: p.brand_slug, logo: p.brand_logo },
     category: { id: p.category_id, name: p.category_name, slug: p.category_slug },
     subcategory: p.subcategory_id ? { id: p.subcategory_id, name: p.subcategory_name, slug: p.subcategory_slug } : null,
-    mrp: p.mrp, image: images[0] || null, images, variants,
+    mrp: p.mrp, image: images[0] || null, images, imageColors: imageList.map((r) => r.colorId), variants,
     retail: retailValues.length ? { min: Math.min(...retailValues), max: Math.max(...retailValues) } : { min: applyRetail(p.mrp, p.retail_price, g), max: applyRetail(p.mrp, p.retail_price, g) },
     retailPrice: applyRetail(p.mrp, p.retail_price, g),
     discountPct: p.mrp > 0 && applyRetail(p.mrp, p.retail_price, g) < p.mrp ? Math.round((1 - applyRetail(p.mrp, p.retail_price, g) / p.mrp) * 100) : 0,

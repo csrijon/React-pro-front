@@ -1236,3 +1236,5 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
 .desc-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .product-card { position: relative; }
 .pw-row { display: flex; gap: 8px; align-items: center; } .pw-row input { flex: 1; }
+.dropdown-head { display: block; padding: 8px 16px 4px; font-weight: 700; font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; opacity: .7; } .dropdown > div + div { border-top: 1px solid var(--border); margin-top: 4px; }
+.dropdown > div { display: flex; flex-direction: column; } .dropdown > div a { white-space: nowrap; } .dropdown-head { padding: 8px 14px 4px; }

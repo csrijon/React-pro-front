@@ -44,7 +44,7 @@ export default function Home() {
             <h1>Men, Women &amp; Kids <em>footwear</em> in one place</h1>
             <p>Browse the full range from trusted brands. Register your shop to unlock wholesale prices.</p>
             <div className="hero-links">
-              {GENDERS.map((g) => <Link key={g.key} className="btn light" to={`/products/${g.slug}`}>{g.label}</Link>)}
+              {[{ slug: 'mens', label: 'Men' }, { slug: 'womens', label: 'Women' }, { slug: 'junior', label: 'Junior' }, { slug: 'kids', label: 'Kids' }].map((g) => <Link key={g.slug} className="btn light" to={`/products/${g.slug}`}>{g.label}</Link>)}
             </div>
             <ul className="hero-points">
               <li>Live stock on every style</li>

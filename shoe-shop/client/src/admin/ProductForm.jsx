@@ -55,7 +55,7 @@ export default function ProductForm() {
     });
     setVariants(p.variants.map((v) => ({ color: v.color, sizes: v.sizes.map((s) => ({ size: s.size, quantity: String(s.quantity), mrp: s.mrpOverride != null ? String(s.mrpOverride) : '', retailPrice: s.retailOverride != null ? String(s.retailOverride) : '', wholesalePrice: s.wholesalePriceOverride != null ? String(s.wholesalePriceOverride) : '' })) })));
     setImages(p.images);
-    setImageColors(p.variants ? p.variants.map((v) => v.color || '') : []);
+    setImageColors((p.imageColors || []).map((id) => p.variants.find((v) => v.colorId === id)?.color || ''));
   }, [existing.data]);
 
   const set = (k) => (e) => setF((x) => ({ ...x, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }));
@@ -207,6 +207,9 @@ export default function ProductForm() {
         <h2>Pricing</h2>
         <div className="pricing-grid">
           <Field label="MRP (₹)" required><NumberInput decimal min="0" value={f.mrp} onChange={set('mrp')} /></Field>
+          <Field label="or profit on purchase cost (%)" hint="Type a % to fill MRP from the purchase cost (cost 200 + 50% = MRP 300).">
+            <NumberInput decimal min="0" value={f.mrpMarkupPct || ''} onChange={(e) => { const pct = e.target.value; setF((x) => { const c = Number(x.costPrice); return { ...x, mrpMarkupPct: pct, mrp: pct !== '' && Number.isFinite(c) && c > 0 ? String(round2(c * (1 + Number(pct) / 100))) : x.mrp }; }); }} />
+          </Field>
           <Field label="Purchase cost per pair (₹)" hint={margin == null ? 'What you pay the supplier. Only admins see this.' : <span className={margin < 0 ? 'minus' : 'plus'}>Margin at wholesale: {margin}% ({margin < 0 ? 'loss' : 'profit'} ₹{Math.abs(Number(f.wholesalePrice) - Number(f.costPrice)).toLocaleString('en-IN')} per pair)</span>}>
             <NumberInput decimal min="0" value={f.costPrice} onChange={set('costPrice')} />
           </Field>

@@ -178,7 +178,7 @@ router.delete('/products/:id', async (req, res) => {
 
 /* --------------------------------------------------------------- categories */
 const categorySchema = z.object({
-  gender: z.enum(['men', 'women', 'kids'], { error: 'Choose Men, Women or Kids' }),
+  gender: z.enum(['men', 'women', 'kids', 'junior-boy', 'junior-girl'], { error: 'Choose a section' }),
   name: z.string().trim().min(2, 'Category name is required').max(60),
   imageUrl: z.string().max(500).regex(/^(\/uploads\/[\w.-]+|https:\/\/\S+)?$/, 'Invalid image URL').optional().default(''),
   active: z.boolean().optional().default(true),

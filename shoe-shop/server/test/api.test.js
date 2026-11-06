@@ -426,3 +426,21 @@ test('move products between categories (same gender only) and delete the emptied
   assert.equal(all.find((c) => c.name === 'New Cat').productCount, 2);
   assert.equal((await admin.post('/api/admin/categories/move-products', { productIds: [a.id], toCategoryId: womenC.id })).status, 400);
 });
+
+test('Junior Boy / Junior Girl sections exist with their default categories and accept products', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const cats = (await admin.get('/api/admin/categories')).data.categories;
+  for (const g of ['junior-boy', 'junior-girl']) {
+    assert.deepEqual(cats.filter((c) => c.gender === g).map((c) => c.name).sort(),
+      ['Crocs', 'Hawai', 'Keto', 'Office Chappal', 'School Shoe', 'Shoes', 'Tennis', 'V Shape']);
+  }
+  const brands = (await admin.get('/api/admin/brands')).data.brands;
+  const cat = cats.find((c) => c.gender === 'junior-girl' && c.name === 'Crocs');
+  const r = await admin.post('/api/admin/products', { name: 'Junior Croc', sku: 'JG-1', brandId: brands[0].id, categoryId: cat.id, mrp: 400, wholesalePrice: 250, costPrice: 150,
+    variants: [{ color: 'Pink', sizes: [{ size: '11', quantity: 5 }] }] });
+  assert.equal(r.status, 201);
+  const list = (await client().get('/api/products?gender=junior-girl')).data.items;
+  assert.ok(list.some((p) => p.sku === 'JG-1'));
+  assert.equal((await client().get('/api/products?gender=junior-boy')).data.items.some((p) => p.sku === 'JG-1'), false);
+});

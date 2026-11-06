@@ -47,7 +47,9 @@ export const inr = (n) => (n == null ? '' : '₹' + Number(n).toLocaleString('en
 export const GENDERS = [
   { key: 'men', slug: 'mens', label: 'Men' },
   { key: 'women', slug: 'womens', label: 'Women' },
-  { key: 'kids', slug: 'kids', label: 'Kids' },
+  { key: 'junior-boy', slug: 'junior-boy', label: 'Junior Boy', group: 'Junior', sizes: '11–13, 1–3, 4–5' },
+  { key: 'junior-girl', slug: 'junior-girl', label: 'Junior Girl', group: 'Junior', sizes: '11–13, 1–3, 4–5' },
+  { key: 'kids', slug: 'kids', label: 'Kids', flat: true, sizes: '5–10, 2–4, 5–7, 8–10' },
 ];
 export const genderLabel = (g) => (GENDERS.find((x) => x.key === g || x.slug === g) || {}).label || g;
 export const genderSlug = (g) => (GENDERS.find((x) => x.key === g || x.slug === g) || {}).slug || g;

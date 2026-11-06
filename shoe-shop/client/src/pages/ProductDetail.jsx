@@ -44,6 +44,12 @@ export default function ProductDetail() {
     return safeP.variants.find((v) => v.color.toLowerCase() === (colorName || '').toLowerCase())
       || safeP.variants.find((v) => v.status !== 'OUT') || safeP.variants[0];
   }, [safeP, colorName]);
+  // Picking a colour jumps the gallery to that colour's first photo (images are tagged with a colour in admin).
+  useEffect(() => {
+    if (!safeP || !variant) return;
+    const i = (safeP.imageColors || []).indexOf(variant.colorId);
+    if (i >= 0) setImg(i);
+  }, [safeP, variant?.colorId]); // eslint-disable-line
   const sizeLabel = sp.get('size');
   const size = variant?.sizes.find((s) => s.size === sizeLabel) || (variant?.sizes.length === 1 ? variant.sizes[0] : null);
 
@@ -60,13 +66,15 @@ export default function ProductDetail() {
   if (!safeP) return <Spinner />;
 
   const shownMrp = size ? size.mrp : null;
-  const shownRetail = size ? size.retail : (safeP.retail ? safeP.retail.min : null);
+  // Prices follow the selected colour: with no size picked, show the range across this colour's sizes.
+  const variantRetails = variant.sizes.map((s) => s.retail).filter((x) => x != null);
+  const shownRetail = size ? size.retail : (variantRetails.length ? Math.min(...variantRetails) : (safeP.retail ? safeP.retail.min : null));
   const mrps = variant.sizes.map((s) => s.mrp);
   const wsAll = variant.sizes.map((s) => s.wholesalePrice).filter((x) => x != null);
   const hasWs = wsAll.length > 0;
   const fmtRange = (arr) => (Math.min(...arr) === Math.max(...arr) ? inr(arr[0]) : `${inr(Math.min(...arr))} – ${inr(Math.max(...arr))}`);
   const mrpMin = shownMrp != null ? shownMrp : Math.min(...mrps);
-  const retailLabel = shownRetail != null ? inr(shownRetail) : (safeP.retail ? fmtRange([safeP.retail.min, safeP.retail.max]) : null);
+  const retailLabel = size && shownRetail != null ? inr(shownRetail) : variantRetails.length ? fmtRange(variantRetails) : (safeP.retail ? fmtRange([safeP.retail.min, safeP.retail.max]) : null);
   const retailMin = shownRetail != null ? shownRetail : (safeP.retail ? safeP.retail.min : mrpMin);
   const discounted = retailLabel != null && retailMin < mrpMin;
 

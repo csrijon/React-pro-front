@@ -26,6 +26,14 @@ function SearchBar({ onDone }) {
   );
 }
 
+// Top-level menu: Men, Women, Junior (Boy / Girl dropdown), Kids — built from GENDERS.
+const NAV_ITEMS = GENDERS.reduce((acc, g) => {
+  if (!g.group) return [...acc, { g }];
+  const ex = acc.find((i) => i.group === g.group);
+  if (ex) ex.genders.push(g); else acc.push({ group: g.group, genders: [g] });
+  return acc;
+}, []);
+
 export default function Layout() {
   const { settings } = useSettings();
   const { user, logout } = useAuth();
@@ -62,14 +70,28 @@ export default function Layout() {
         <div className="container mobile-only header-search-m"><SearchBar /></div>
         <nav id="main-nav" className={`nav ${open ? 'open' : ''}`} aria-label="Main">
           <div className="container nav-row">
-            {GENDERS.map((g) => (
-              <div className="nav-item" key={g.key}>
-                <NavLink to={`/products/${g.slug}`} end className="nav-link">{g.label}</NavLink>
+            {NAV_ITEMS.map((item) => item.group ? (
+              <div className="nav-item" key={item.group}>
+                <span className="nav-link" tabIndex={0}>{item.group} ▾</span>
                 <div className="dropdown">
-                  {(cats?.categories || []).filter((c) => c.gender === g.key).map((c) => (
-                    <Link key={c.id} to={`/products/${g.slug}/${c.slug}`}>{c.name}</Link>
+                  {item.genders.map((g) => (
+                    <div key={g.key}>
+                      <NavLink to={`/products/${g.slug}`} end className="dropdown-head">{g.label.replace(`${item.group} `, '')}</NavLink>
+                      {(cats?.categories || []).filter((c) => c.gender === g.key).map((c) => (
+                        <Link key={c.id} to={`/products/${g.slug}/${c.slug}`}>{c.name}</Link>
+                      ))}
+                    </div>
                   ))}
                 </div>
+              </div>
+            ) : (
+              <div className="nav-item" key={item.g.key}>
+                <NavLink to={`/products/${item.g.slug}`} end className="nav-link">{item.g.label}</NavLink>
+                {!item.g.flat && <div className="dropdown">
+                  {(cats?.categories || []).filter((c) => c.gender === item.g.key).map((c) => (
+                    <Link key={c.id} to={`/products/${item.g.slug}/${c.slug}`}>{c.name}</Link>
+                  ))}
+                </div>}
               </div>
             ))}
             <Link to="/categories" className="nav-link">Categories</Link>
@@ -77,7 +99,6 @@ export default function Layout() {
             <Link to="/products?sort=newest" className="nav-link">New arrivals</Link>
             <Link to="/products?featured=1" className="nav-link">Featured</Link>
             <NavLink to="/products" end className="nav-link">All products</NavLink>
-            <Link to="/products/kids/junior" className="nav-link">Junior</Link>
             <Link to="/products?category=school-shoes" className="nav-link">School Shoe</Link>
           </div>
         </nav>

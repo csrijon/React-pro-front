@@ -25,7 +25,7 @@ export default function Products() {
   }), [sp, gender, cSlug]);
 
   // Opening Men / Women / Kids (no category, search or filter yet) first shows the categories that have products.
-  const chooser = Boolean(gender) && !cSlug && sp.toString() === '';
+  const chooser = Boolean(gender) && !gender.flat && !cSlug && sp.toString() === '';
   const url = invalidGender || chooser ? null : `/api/products${qs(query)}`;
   const { data, error, loading, reload } = useFetch(url);
   const { data: cats } = useFetch('/api/categories');
@@ -73,6 +73,7 @@ export default function Products() {
         <nav className="crumbs" aria-label="Breadcrumb"><Link to="/">Home</Link> / <span>{gender.label}</span></nav>
         <h1>{gender.label}&apos;s shoes</h1>
         <p className="muted">Choose a category to see its products.</p>
+        {gender.sizes && <p className="small muted">Sizes: {gender.sizes}</p>}
         {!cats ? <Spinner /> : available.length === 0 ? <Empty title="No products yet">Nothing is available in this section right now.</Empty> : (
           <div className="grid cat-grid">
             {available.map((c) => (
@@ -88,6 +89,19 @@ export default function Products() {
     );
   }
 
+  if (gSlug === 'junior') {
+    return (
+      <div className="container page">
+        <nav className="crumbs" aria-label="Breadcrumb"><Link to="/">Home</Link> / <span>Junior</span></nav>
+        <h1>Junior shoes</h1>
+        <p className="muted">Choose Boy or Girl.</p>
+        <p className="small muted">Sizes: {GENDERS.find((g) => g.group === 'Junior').sizes}</p>
+        <div className="hero-links">
+          {GENDERS.filter((g) => g.group === 'Junior').map((g) => <Link key={g.key} className="btn primary" to={`/products/${g.slug}`}>{g.label.replace('Junior ', '')}</Link>)}
+        </div>
+      </div>
+    );
+  }
   if (invalidGender) return <div className="container"><Empty title="Page not found">That section does not exist. <Link to="/products">Browse all products</Link></Empty></div>;
 
   const filters = (
@@ -163,6 +177,7 @@ export default function Products() {
       </nav>
       <div className="list-head">
         <h1>{title}</h1>
+        {gender?.sizes && <p className="small muted">Sizes: {gender.sizes}</p>}
         <div className="list-tools">
           <button className="btn mobile-only" onClick={() => setShowFilters(!showFilters)} aria-expanded={showFilters}>Filters{activeCount ? ` (${activeCount})` : ''}</button>
           <label className="sort"><span className="small muted">Sort by</span>

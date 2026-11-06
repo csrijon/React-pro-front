@@ -129,7 +129,7 @@ router.get('/reorder', async (req, res) => {
   if (status === 'OUT') where.push('i.quantity = 0');
   if (status === 'LOW') where.push('i.quantity > 0');
   if (req.query.brand) { where.push('b.slug = ?'); args.push(String(req.query.brand)); }
-  const gender = { men: 'men', women: 'women', kids: 'kids' }[String(req.query.gender)];
+  const gender = ['men', 'women', 'kids', 'junior-boy', 'junior-girl'].includes(String(req.query.gender)) ? String(req.query.gender) : null;
   if (gender) { where.push('p.gender = ?'); args.push(gender); }
   const rows = await db.all(`
     SELECT b.name AS brand, p.id AS "productId", p.name AS product, p.sku, p.gender, c.name AS category, co.name AS color, s.label AS size,
