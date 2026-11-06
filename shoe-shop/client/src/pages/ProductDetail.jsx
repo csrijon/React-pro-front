@@ -3,7 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { genderLabel, genderSlug, inr } from '../lib/api.js';
 import { useAuth, useFetch, useSettings } from '../lib/hooks.jsx';
 import ProductCard, { WholesaleCTA } from '../components/ProductCard.jsx';
-import { ColorDot, Empty, ErrorBox, ShoeImage, Spinner, StockBadge } from '../components/ui.jsx';
+import { ColorDot, Empty, ErrorBox, ShareButton, ShoeImage, Spinner, StockBadge } from '../components/ui.jsx';
 
 export default function ProductDetail() {
   const { slug } = useParams();
@@ -145,9 +145,10 @@ export default function ProductDetail() {
             </a>
           )}
           {safeP.stockStatus === 'OUT' && <p className="alert error" role="alert">This product is currently out of stock.</p>}
-          <a className="btn sm ghost" href={`https://wa.me/?text=${encodeURIComponent(`${safeP.name} — ${window.location.href}`)}`} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a>
+<ShareButton title={safeP.name} url={window.location.href}
+            text={`Check out ${safeP.name} (${safeP.sku})${variant ? `, ${variant.color}` : ''} – ${(retailLabel || (shownMrp != null ? inr(shownMrp) : fmtRange(mrps)))}`} />
 
-          {safeP.description && <section className="desc"><h2>Description</h2><p>{safeP.description}</p></section>}
+          {safeP.description && <Description text={safeP.description} />}
         </div>
       </div>
 
@@ -157,5 +158,17 @@ export default function ProductDetail() {
           : <div className="grid products">{data.related.map((r) => <ProductCard key={r.id} product={r} />)}</div>}
       </section>
     </div>
+  );
+}
+
+function Description({ text }) {
+  const [open, setOpen] = useState(false);
+  const long = text.length > 160;
+  return (
+    <section className="desc">
+      <h2>Description</h2>
+      <p className={long && !open ? 'desc-clamp' : ''}>{text}</p>
+      {long && <button type="button" className="more-link" onClick={() => setOpen(!open)}>{open ? 'Show less' : 'Read more'}</button>}
+    </section>
   );
 }

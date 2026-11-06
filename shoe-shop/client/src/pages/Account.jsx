@@ -84,11 +84,11 @@ export default function Account() {
         <div>
           <form className="panel" onSubmit={saveProfile} noValidate>
             <h2>Edit profile</h2>
-            {isShop && <Field label="Shop name" required error={err.shopName}><input value={form.shopName} onChange={(e) => setForm({ ...form, shopName: e.target.value })} /></Field>}
-            <Field label={isShop ? 'Proprietor name' : 'Your name'} required error={err.ownerName}><input value={form.ownerName} onChange={(e) => setForm({ ...form, ownerName: e.target.value })} /></Field>
+            {isShop && <Field label="Shop name" required error={err.shopName}><input autoComplete="organization" value={form.shopName} onChange={(e) => setForm({ ...form, shopName: e.target.value })} /></Field>}
+            <Field label={isShop ? 'Proprietor name' : 'Your name'} required error={err.ownerName}><input autoComplete="name" value={form.ownerName} onChange={(e) => setForm({ ...form, ownerName: e.target.value })} /></Field>
             <Field label="Mobile number" hint="Your mobile number is your login and cannot be changed here."><input value={user.mobile} disabled /></Field>
-            <Field label="Email" error={err.email}><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
-            <Field label={isShop ? 'Shop address' : 'Address'} error={err.address}><textarea rows={2} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
+            <Field label="Email" error={err.email}><input type="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></Field>
+            <Field label={isShop ? 'Shop address' : 'Address'} error={err.address}><textarea rows={2} autoComplete="street-address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></Field>
             <button className="btn primary" disabled={busy}>Save changes</button>
           </form>
           <form className="panel" onSubmit={savePw} noValidate>

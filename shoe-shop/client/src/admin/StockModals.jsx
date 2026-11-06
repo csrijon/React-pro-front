@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { api } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
-import { Field, Modal } from '../components/ui.jsx';
+import { Field, Modal, NumberInput } from '../components/ui.jsx';
 
 const title = (r) => `${r.product} · ${r.color} · size ${r.size}`;
 
@@ -26,7 +26,7 @@ export function ReceiveModal({ row, onClose, onDone }) {
     <Modal title="Receive stock" onClose={onClose}>
       <p><strong>{title(row)}</strong><br /><span className="muted small">Current stock: {row.quantity} pairs</span></p>
       <form onSubmit={submit} noValidate>
-        <Field label="Pairs received" required><input type="number" min="1" step="1" inputMode="numeric" value={quantity} onChange={(e) => setQuantity(e.target.value)} autoFocus /></Field>
+        <Field label="Pairs received" required><NumberInput min="1" value={quantity} onChange={(e) => setQuantity(e.target.value)} autoFocus /></Field>
         <Field label="Supplier / invoice no. (optional)"><input value={note} maxLength={200} onChange={(e) => setNote(e.target.value)} /></Field>
         {Number.isFinite(n) && n > 0 && <p className="small">New stock will be <strong>{row.quantity + n}</strong> pairs.</p>}
         {err && <div className="alert error" role="alert">{err}</div>}
@@ -80,7 +80,7 @@ export function AdjustModal({ row, onClose, onDone }) {
             <button key={v} type="button" role="radio" aria-checked={mode === v} className={mode === v ? 'on' : ''} disabled={!!locked && locked !== v} onClick={() => setMode(v)}>{l}</button>
           ))}
         </div>
-        <Field label={mode === 'SET' ? 'New pair count' : 'Pairs'} required><input type="number" min="0" step="1" inputMode="numeric" value={quantity} onChange={(e) => setQuantity(e.target.value)} autoFocus /></Field>
+        <Field label={mode === 'SET' ? 'New pair count' : 'Pairs'} required><NumberInput min="0" value={quantity} onChange={(e) => setQuantity(e.target.value)} autoFocus /></Field>
         <Field label={`Note${cur?.noteRequired ? '' : ' (optional)'}`} required={cur?.noteRequired}><input value={note} maxLength={200} onChange={(e) => setNote(e.target.value)} /></Field>
         {next != null && <p className="small">Stock will change <strong>{row.quantity} → {next}</strong> ({next - row.quantity > 0 ? '+' : ''}{next - row.quantity}).</p>}
         {err && <div className="alert error" role="alert">{err}</div>}

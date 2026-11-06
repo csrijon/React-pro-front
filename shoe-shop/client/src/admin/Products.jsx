@@ -46,6 +46,13 @@ export default function Products() {
     try { await api.del(`/api/admin/products/${p.id}`); toast.success('Product deleted'); reload(); } catch (e) { toast.error(e.message); }
   }
 
+  async function changeCategory(toCategoryId) {
+    const c = (cats?.categories || []).find((x) => x.id === toCategoryId);
+    if (!(await confirm({ title: 'Change category?', message: `Move ${sel.size} product${sel.size > 1 ? 's' : ''} to “${c.name}” (${genderLabel(c.gender)})? Subcategory will be cleared.`, confirmLabel: 'Move' }))) return;
+    setBulkBusy(true);
+    try { const r = await api.post('/api/admin/categories/move-products', { productIds: [...sel], toCategoryId }); toast.success(`${r.moved} moved to ${c.name}`); setSel(new Set()); reload(); }
+    catch (ex) { toast.error(ex.message); } finally { setBulkBusy(false); }
+  }
   async function bulkActive(active) {
     const n = selected.length;
     if (!n) return;
@@ -127,6 +134,10 @@ export default function Products() {
             <button className="btn sm" onClick={downloadImages}>Download images</button>
             <button className="btn sm primary" onClick={() => bulkActive(true)} disabled={bulkBusy}>Activate</button>
             <button className="btn sm danger-o" onClick={() => bulkActive(false)} disabled={bulkBusy}>Deactivate</button>
+            <select className="sm" aria-label="Change category of selected" value="" disabled={bulkBusy} onChange={(e) => e.target.value && changeCategory(Number(e.target.value))}>
+              <option value="">Change category…</option>
+              {(cats?.categories || []).map((c) => <option key={c.id} value={c.id}>{genderLabel(c.gender)} · {c.name}</option>)}
+            </select>
             <button className="btn sm ghost" onClick={() => setSel(new Set())}>Clear</button>
           </div>
         </div>

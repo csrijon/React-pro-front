@@ -198,3 +198,55 @@ export function Toggle({ checked, onChange, label, disabled }) {
 }
 
 export const fmtDate = (s) => (s ? new Date(s.replace(' ', 'T') + 'Z').toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '');
+
+// Number field without the browser's spinner quirks: no wheel/arrow changes, can be fully cleared, digits only.
+// `decimal` allows one decimal point. Emits a synthetic-like event ({ target: { value } }) so it drops in for <input type="number">.
+export function NumberInput({ value, onChange, decimal = false, min, max, ...rest }) {
+  const handle = (e) => {
+    let v = e.target.value.replace(decimal ? /[^\d.]/g : /\D/g, '');
+    if (decimal) { const [a, ...b] = v.split('.'); v = b.length ? `${a}.${b.join('')}` : a; }
+    onChange({ target: { value: v } });
+  };
+  return (
+    <input {...rest} type="text" inputMode={decimal ? 'decimal' : 'numeric'} autoComplete="off" value={value ?? ''} onChange={handle}
+      onWheel={(e) => e.currentTarget.blur()} aria-valuemin={min} aria-valuemax={max} />
+  );
+}
+
+const SHARE_TARGETS = [
+  ['WhatsApp', (t, u) => `https://wa.me/?text=${encodeURIComponent(`${t} ${u}`)}`],
+  ['Telegram', (t, u) => `https://t.me/share/url?url=${encodeURIComponent(u)}&text=${encodeURIComponent(t)}`],
+  ['Facebook', (t, u) => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`],
+  ['X', (t, u) => `https://twitter.com/intent/tweet?text=${encodeURIComponent(t)}&url=${encodeURIComponent(u)}`],
+  ['Email', (t, u) => `mailto:?subject=${encodeURIComponent(t)}&body=${encodeURIComponent(`${t}\n${u}`)}`],
+];
+
+// Share button: native share sheet when the device has one (phones), otherwise a small menu of targets + copy link.
+export function ShareButton({ title, text, url, icon, className = 'btn sm' }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const link = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const msg = text || title;
+  async function click(e) {
+    e.preventDefault(); e.stopPropagation();
+    if (navigator.share) {
+      try { await navigator.share({ title, text: msg, url: link }); } catch { /* cancelled */ }
+      return;
+    }
+    setOpen((o) => !o);
+  }
+  async function copy() {
+    try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1500); } catch { window.prompt('Copy this link', link); }
+  }
+  return (
+    <span className="share-wrap" onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}>
+      <button type="button" className={className} onClick={click} aria-haspopup="menu" aria-expanded={open} aria-label={icon ? `Share ${title}` : undefined}>{icon ? '⤴' : '⤴ Share'}</button>
+      {open && (
+        <span className="share-menu" role="menu">
+          {SHARE_TARGETS.map(([n, f]) => <a key={n} role="menuitem" href={f(msg, link)} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>{n}</a>)}
+          <button type="button" role="menuitem" onClick={copy}>{copied ? 'Copied ✓' : 'Copy link'}</button>
+        </span>
+      )}
+    </span>
+  );
+}

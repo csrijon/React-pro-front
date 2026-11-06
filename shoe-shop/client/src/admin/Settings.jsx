@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../lib/api.js';
 import { useFetch, useSettings, useToast } from '../lib/hooks.jsx';
-import { ErrorBox, Field, Spinner, Toggle } from '../components/ui.jsx';
+import { ErrorBox, Field, Spinner, Toggle, NumberInput } from '../components/ui.jsx';
 import { uploadImage } from '../lib/upload.js';
 
 export default function Settings() {
@@ -63,10 +63,10 @@ export default function Settings() {
         <h2>Inventory &amp; wholesale pricing</h2>
         <div className="form-grid">
           <Field label="Low stock threshold" hint="A size or product with stock at or below this number is “Low stock”. 0 stock is always “Out of stock”." error={err.lowStockThreshold}>
-            <input type="number" min="0" step="1" value={f.lowStockThreshold} onChange={set('lowStockThreshold')} />
+            <NumberInput min="0" value={f.lowStockThreshold} onChange={set('lowStockThreshold')} />
           </Field>
           <Field label="Reorder up to (pairs)" hint="The reorder report suggests ordering enough to bring each low size back up to this quantity." error={err.reorderTarget}>
-            <input type="number" min="1" step="1" value={f.reorderTarget} onChange={set('reorderTarget')} />
+            <NumberInput min="1" value={f.reorderTarget} onChange={set('reorderTarget')} />
           </Field>
         </div>
         <Toggle checked={f.wholesaleEnabled} onChange={(v) => setF({ ...f, wholesaleEnabled: v })} label="Show wholesale prices to approved customers" />
@@ -79,7 +79,7 @@ export default function Settings() {
         <Toggle checked={f.globalDiscountEnabled} onChange={(v) => setF({ ...f, globalDiscountEnabled: v })} label="Enable a global discount on MRP" />
         <div className="form-grid" style={{ marginTop: 12 }}>
           <Field label="Discount (%)" hint="0–90%. Retail price = MRP × (1 − discount ÷ 100)." error={err.globalDiscountPercent}>
-            <input type="number" min="0" max="90" step="0.01" value={f.globalDiscountPercent} onChange={set('globalDiscountPercent')} />
+            <NumberInput decimal min="0" max="90" value={f.globalDiscountPercent} onChange={set('globalDiscountPercent')} />
           </Field>
         </div>
         <div className="actions" style={{ justifyContent: 'flex-start' }}>

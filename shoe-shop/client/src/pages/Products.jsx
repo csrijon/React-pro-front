@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { GENDERS, qs } from '../lib/api.js';
 import { useFetch } from '../lib/hooks.jsx';
 import ProductCard from '../components/ProductCard.jsx';
-import { Empty, ErrorBox, Pagination, ProductSkeletons, ShoeImage, Spinner } from '../components/ui.jsx';
+import { Empty, ErrorBox, Pagination, ProductSkeletons, ShoeImage, Spinner, NumberInput } from '../components/ui.jsx';
 
 const csv = (v) => (v ? v.split(',').filter(Boolean) : []);
 const SORTS = [['newest', 'Newest'], ['price_asc', 'Price: low → high'], ['price_desc', 'Price: high → low'], ['name', 'Product name']];
@@ -138,9 +138,9 @@ export default function Products() {
 
       <fieldset><legend>MRP (₹)</legend>
         <div className="range">
-          <input type="number" min="0" placeholder={facets?.mrp?.min ?? 'Min'} value={mrp.min} onChange={(e) => setMrp({ ...mrp, min: e.target.value })} aria-label="Minimum MRP" />
+          <NumberInput min="0" placeholder={facets?.mrp?.min ?? 'Min'} value={mrp.min} onChange={(e) => setMrp({ ...mrp, min: e.target.value })} aria-label="Minimum MRP" />
           <span>–</span>
-          <input type="number" min="0" placeholder={facets?.mrp?.max ?? 'Max'} value={mrp.max} onChange={(e) => setMrp({ ...mrp, max: e.target.value })} aria-label="Maximum MRP" />
+          <NumberInput min="0" placeholder={facets?.mrp?.max ?? 'Max'} value={mrp.max} onChange={(e) => setMrp({ ...mrp, max: e.target.value })} aria-label="Maximum MRP" />
           <button className="btn sm" onClick={() => setParam({ minMrp: mrp.min, maxMrp: mrp.max })}>Go</button>
         </div>
       </fieldset>

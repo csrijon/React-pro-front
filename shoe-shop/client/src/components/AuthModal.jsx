@@ -24,6 +24,8 @@ function AuthModal({ mode, setMode, onClose }) {
   const [form, setForm] = useState(BLANK);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+  const [more, setMore] = useState(false);
+  const [showPw, setShowPw] = useState(false);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
   const fe = (k) => err?.fields?.[k];
   const isShop = form.accountType === 'SHOP_OWNER';
@@ -60,28 +62,28 @@ function AuthModal({ mode, setMode, onClose }) {
             </button>
           </div>
         )}
-        {mode === 'register' && <p className="muted small">{isShop ? 'Register your shop. After admin approval you can view wholesale prices.' : 'Create a free account to save your details.'}</p>}
+        {mode === 'register' && isShop && <p className="muted small">Wholesale prices unlock after admin approval.</p>}
         {mode === 'register' && (
           <Field label="Your name" required error={fe('name')}><input value={form.name} onChange={set('name')} autoComplete="name" /></Field>
         )}
         <Field label="Mobile number" required error={fe('mobile') || fe('username')}>
-          <input type="tel" inputMode="numeric" value={form.mobile} onChange={set('mobile')} autoComplete="tel" placeholder="10-digit mobile" />
+          <input type="tel" inputMode="numeric" maxLength={10} value={form.mobile} onChange={(e) => setForm((f) => ({ ...f, mobile: e.target.value.replace(/\D/g, '') }))} autoComplete="tel-national" placeholder="10-digit mobile" />
         </Field>
         <Field label="Password" required error={fe('password')} hint={mode === 'register' ? 'At least 8 characters' : undefined}>
-          <input type="password" value={form.password} onChange={set('password')} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} />
+          <span className="pw-row"><input type={showPw ? 'text' : 'password'} value={form.password} onChange={set('password')} autoComplete={mode === 'login' ? 'current-password' : 'new-password'} /><button type="button" className="btn sm" onClick={() => setShowPw(!showPw)}>{showPw ? 'Hide' : 'Show'}</button></span>
         </Field>
         {mode === 'register' && (
           <>
-            {isShop && (
+            {isShop && <Field label="Shop name" required error={fe('shopName')}><input value={form.shopName} onChange={set('shopName')} autoComplete="organization" /></Field>}
+            {!more && <button type="button" className="more-link" onClick={() => setMore(true)}>+ Add address / email (optional)</button>}
+            {more && (
               <>
-                <Field label="Shop name" required error={fe('shopName')}><input value={form.shopName} onChange={set('shopName')} autoComplete="organization" /></Field>
-                <Field label="Shop address" error={fe('shopAddress')}><textarea rows={2} value={form.shopAddress} onChange={set('shopAddress')} /></Field>
+                <Field label={isShop ? 'Shop address' : 'Address'} error={fe('shopAddress') || fe('address')}>
+                  <textarea rows={2} value={isShop ? form.shopAddress : form.address} onChange={set(isShop ? 'shopAddress' : 'address')} autoComplete="street-address" />
+                </Field>
+                <Field label="Email" error={fe('email')}><input type="email" value={form.email} onChange={set('email')} autoComplete="email" /></Field>
               </>
             )}
-            {!isShop && (
-              <Field label="Address (optional)" error={fe('address')}><textarea rows={2} value={form.address} onChange={set('address')} autoComplete="street-address" /></Field>
-            )}
-            <Field label="Email (optional)" error={fe('email')}><input type="email" value={form.email} onChange={set('email')} autoComplete="email" /></Field>
           </>
         )}
         {err && !Object.keys(err.fields || {}).length && <div className="alert error" role="alert">{err.message}</div>}

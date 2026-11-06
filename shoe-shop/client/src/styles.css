@@ -1223,3 +1223,16 @@ a.stat:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
     max-height: calc(100dvh - 24px) !important;
   }
 }
+
+/* share menu */
+.share-wrap { position: relative; display: inline-block; }
+.share-menu { position: absolute; z-index: 30; top: 100%; left: 0; margin-top: 6px; min-width: 150px; display: flex; flex-direction: column; background: var(--surface, #fff); border: 1px solid var(--border, #ddd); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.15); padding: 4px; }
+.share-menu a, .share-menu button { text-align: left; padding: 8px 12px; border: 0; background: none; border-radius: 6px; color: inherit; font: inherit; cursor: pointer; text-decoration: none; }
+.share-menu a:hover, .share-menu button:hover { background: rgba(127,127,127,.15); }
+.card-share { position: absolute; top: 8px; right: 8px; z-index: 2; }
+.card-share .btn { min-height: 34px; width: 34px; padding: 0; border-radius: 50%; }
+.card-share .share-menu { left: auto; right: 0; }
+.more-link { background: none; border: 0; padding: 0; color: var(--accent, #c2410c); cursor: pointer; font: inherit; text-decoration: underline; margin: 4px 0 8px; }
+.desc-clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.product-card { position: relative; }
+.pw-row { display: flex; gap: 8px; align-items: center; } .pw-row input { flex: 1; }

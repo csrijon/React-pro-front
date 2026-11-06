@@ -233,6 +233,41 @@ router.delete('/categories/:id', async (req, res) => {
   res.json({ ok: true });
 });
 
+// Moves products to another category of the same gender (clears their subcategory). Either explicit product ids
+// or every product of `fromCategoryId`. With `deleteSource` the emptied source category is removed afterwards.
+router.post('/categories/move-products', async (req, res) => {
+  const d = parse(z.object({
+    toCategoryId: z.coerce.number().int().positive(),
+    fromCategoryId: z.coerce.number().int().positive().optional(),
+    productIds: z.array(z.coerce.number().int().positive()).max(1000).optional(),
+    deleteSource: z.boolean().optional().default(false),
+  }), req.body);
+  if (!d.fromCategoryId && !d.productIds?.length) throw new HttpError(400, 'Choose products or a source category');
+  if (d.fromCategoryId === d.toCategoryId) throw new HttpError(400, 'Pick a different category to move to');
+  const out = await db.transaction(async () => {
+    const to = await db.get('SELECT id, gender FROM categories WHERE id = ?', d.toCategoryId);
+    if (!to) throw new HttpError(400, 'Target category not found');
+    let ids = d.productIds || [];
+    if (d.fromCategoryId) {
+      const from = await db.get('SELECT id, gender FROM categories WHERE id = ?', d.fromCategoryId);
+      if (!from) throw new HttpError(404, 'Category not found');
+      if (from.gender !== to.gender) throw new HttpError(400, 'Move products only within the same gender');
+      ids = (await db.all('SELECT id FROM products WHERE category_id = ?', d.fromCategoryId)).map((r) => r.id);
+    }
+    let moved = 0;
+    for (const id of ids) {
+      const pr = await db.get('SELECT gender FROM products WHERE id = ?', id);
+      if (!pr) continue;
+      if (pr.gender !== to.gender) throw new HttpError(400, 'Move products only within the same gender');
+      await db.run('UPDATE products SET category_id = ?, subcategory_id = NULL WHERE id = ?', d.toCategoryId, id);
+      moved++;
+    }
+    if (d.deleteSource && d.fromCategoryId) await db.run('DELETE FROM categories WHERE id = ?', d.fromCategoryId);
+    return { moved };
+  });
+  res.json(out);
+});
+
 const subSchema = z.object({ categoryId: z.coerce.number().int().positive(), name: z.string().trim().min(2, 'Name is required').max(60), active: z.boolean().optional().default(true) });
 const subSlug = async (cid, name, ignoreId = 0) => {
   let slug = slugify(name), n = 1;

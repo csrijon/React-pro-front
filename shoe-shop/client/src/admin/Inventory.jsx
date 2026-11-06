@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { GENDERS, api, genderLabel, inr, qs } from '../lib/api.js';
 import { useDebounced, useFetch, useToast } from '../lib/hooks.jsx';
-import { Empty, ErrorBox, Pagination, Spinner, StockBadge } from '../components/ui.jsx';
+import { Empty, ErrorBox, Pagination, Spinner, StockBadge, useConfirm } from '../components/ui.jsx';
 import { AdjustModal, ReceiveModal } from './StockModals.jsx';
 
 const VIEWS = [['none', 'Detailed (product → colour → size)'], ['category', 'By category'], ['brand', 'By brand'], ['product', 'By product'], ['color', 'By colour'], ['size', 'By size']];
@@ -22,6 +22,22 @@ export default function Inventory() {
   const catOptions = [...new Map((cats?.categories || []).filter((c) => !f.gender || c.gender === f.gender).map((c) => [c.slug, c])).values()];
   const s = data?.summary;
   const [act, setAct] = useState(null);
+  const toast = useToast();
+  const confirm = useConfirm();
+  const [sel, setSel] = useState(new Set());
+  const rk = (r) => `${r.productId}-${r.colorId}-${r.sizeId}`;
+  useEffect(() => { setSel(new Set()); }, [data]);
+  const toggleSel = (r) => setSel((p) => { const n = new Set(p); n.has(rk(r)) ? n.delete(rk(r)) : n.add(rk(r)); return n; });
+  async function zero(rows) {
+    const withStock = rows.filter((r) => r.quantity > 0);
+    if (!withStock.length) return toast.error('Selected sizes are already out of stock');
+    const pairs = withStock.reduce((a, r) => a + r.quantity, 0);
+    if (!(await confirm({ title: 'Mark out of stock?', message: `Set ${withStock.length} size${withStock.length > 1 ? 's' : ''} (${pairs} pairs) to 0. This is recorded in stock history.`, confirmLabel: 'Mark out of stock', danger: true }))) return;
+    try {
+      const r = await api.post('/api/admin/stock/zero', { items: rows.map(({ productId, colorId, sizeId }) => ({ productId, colorId, sizeId })) });
+      toast.success(`${r.updated} size${r.updated === 1 ? '' : 's'} marked out of stock`); reload();
+    } catch (ex) { toast.error(ex.message); }
+  }
 
   return (
     <>
@@ -44,11 +60,18 @@ export default function Inventory() {
         <select value={f.status} onChange={(e) => set({ status: e.target.value })} aria-label="Stock status"><option value="">Any status</option><option value="IN">In stock</option><option value="LOW">Low stock</option><option value="OUT">Out of stock</option></select>
         <select value={f.groupBy} onChange={(e) => set({ groupBy: e.target.value })} aria-label="View">{VIEWS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select>
       </div>
+      {sel.size > 0 && (
+        <div className="toolbar bulk-bar" role="region" aria-label="Bulk actions">
+          <strong>{sel.size} selected</strong>
+          <button className="btn danger" onClick={() => zero(data.rows.filter((r) => sel.has(rk(r))))}>Mark selected out of stock</button>
+          <button className="btn" onClick={() => setSel(new Set())}>Clear</button>
+        </div>
+      )}
       {loading ? <Spinner /> : error ? <ErrorBox error={error} onRetry={reload} /> : data.rows.length === 0 ? <Empty title="No inventory matches these filters" /> : data.groupBy === 'none' ? (
         <>
           <div className="table-wrap"><table className="table">
-            <thead><tr><th>Product</th><th>Brand</th><th>Category</th><th>Colour</th><th>Size</th><th className="num">Stock</th><th className="num">Value (wholesale)</th><th className="num">Value (MRP)</th><th>Status</th><th>Stock actions</th></tr></thead>
-            <tbody>{data.rows.map((r) => <Row key={`${r.productId}-${r.colorId}-${r.sizeId}`} r={r} onAct={(kind, row) => setAct({ kind, row })} />)}</tbody>
+            <thead><tr><th><input type="checkbox" aria-label="Select all" checked={sel.size > 0 && sel.size === data.rows.length} onChange={(e) => setSel(e.target.checked ? new Set(data.rows.map(rk)) : new Set())} /></th><th>Product</th><th>Brand</th><th>Category</th><th>Colour</th><th>Size</th><th className="num">Stock</th><th className="num">Value (wholesale)</th><th className="num">Value (MRP)</th><th>Status</th><th>Stock actions</th></tr></thead>
+            <tbody>{data.rows.map((r) => <Row key={rk(r)} r={r} checked={sel.has(rk(r))} onCheck={() => toggleSel(r)} onAct={(kind, row) => kind === 'zero' ? zero([row]) : setAct({ kind, row })} />)}</tbody>
           </table></div>
           <Pagination page={data.page} pages={data.pages} onChange={(n) => set({ page: String(n) })} />
         </>
@@ -65,15 +88,16 @@ export default function Inventory() {
   );
 }
 
-function Row({ r, onAct }) {
+function Row({ r, onAct, checked, onCheck }) {
   return (
     <tr>
+      <td><input type="checkbox" checked={checked} onChange={onCheck} aria-label={`Select ${r.product} ${r.color} ${r.size}`} /></td>
       <td><Link to={`/admin/products/${r.productId}`}><strong>{r.product}</strong></Link><div className="small muted">{r.sku}</div></td>
       <td>{r.brand}</td><td>{genderLabel(r.gender)} · {r.category}</td><td>{r.color}</td><td>{r.size}</td>
       <td className="num"><strong>{r.quantity}</strong></td>
       <td className="num">{inr(r.wholesaleValue)}</td><td className="num">{inr(r.mrpValue)}</td>
       <td><StockBadge status={r.status} /></td>
-      <td className="actions-cell"><button className="btn sm primary" onClick={() => onAct('receive', r)}>Receive</button><button className="btn sm" onClick={() => onAct('adjust', r)}>Adjust</button></td>
+      <td className="actions-cell"><button className="btn sm primary" onClick={() => onAct('receive', r)}>Receive</button><button className="btn sm" onClick={() => onAct('adjust', r)}>Adjust</button>{r.quantity > 0 && <button className="btn sm danger-o" onClick={() => onAct('zero', r)}>Out of stock</button>}</td>
     </tr>
   );
 }

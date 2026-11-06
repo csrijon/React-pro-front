@@ -61,6 +61,27 @@ router.post('/adjust', async (req, res) => {
   res.status(201).json(await change(req, d, compute, { type: 'ADJUST', reason: d.reason, note: d.note }));
 });
 
+// Sets many sizes to 0 in one transaction. Sizes already at 0 are skipped. All-or-nothing on missing rows.
+router.post('/zero', async (req, res) => {
+  const d = parse(z.object({ items: z.array(target).min(1, 'Select at least one row').max(500) }), req.body);
+  const out = await db.transaction(async () => {
+    let updated = 0, skipped = 0;
+    for (const t of d.items) {
+      const row = await db.get(`
+        SELECT i.quantity, p.name, p.sku, co.name AS color, s.label AS size
+        FROM inventory i JOIN products p ON p.id = i.product_id JOIN colors co ON co.id = i.color_id JOIN sizes s ON s.id = i.size_id
+        WHERE i.product_id = ? AND i.color_id = ? AND i.size_id = ? FOR UPDATE OF i`, t.productId, t.colorId, t.sizeId);
+      if (!row) throw new HttpError(404, 'Inventory row not found');
+      if (row.quantity === 0) { skipped++; continue; }
+      await db.run('UPDATE inventory SET quantity = 0 WHERE product_id = ? AND color_id = ? AND size_id = ?', t.productId, t.colorId, t.sizeId);
+      await logMovement({ productId: t.productId, productName: row.name, sku: row.sku, color: row.color, size: row.size, change: -row.quantity, quantityAfter: 0, actor: actorOf(req), type: 'ADJUST', reason: 'Out of stock', note: '' });
+      updated++;
+    }
+    return { updated, skipped };
+  });
+  res.json(out);
+});
+
 router.get('/reasons', (_req, res) => res.json({ reasons: Object.entries(REASONS).map(([name, mode]) => ({ name, mode, noteRequired: NOTE_REQUIRED.has(name) })) }));
 
 /* ------------------------------------------------------------------ history */

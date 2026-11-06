@@ -385,3 +385,44 @@ test('global discount applies at render time without rewriting product records',
   assert.equal(reverted.discountPct, 0);
   assert.equal(reverted.retail.min, before.retail.min);
 });
+
+test('bulk out-of-stock zeroes many sizes, skips ones already at 0, and logs it', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const brands = (await admin.get('/api/admin/brands')).data.brands;
+  const cat = (await admin.get('/api/admin/categories')).data.categories.find((c) => c.gender === 'men' && c.name === 'Slippers');
+  const body = { name: 'Zero Shoe', sku: 'ZERO-1', brandId: brands[0].id, categoryId: cat.id, mrp: 500, wholesalePrice: 300, costPrice: 200,
+    variants: [{ color: 'Black', sizes: [{ size: '7', quantity: 10 }, { size: '8', quantity: 0 }] }] };
+  const p = (await admin.post('/api/admin/products', body)).data.product;
+  const v = p.variants[0];
+  const items = v.sizes.map((s) => ({ productId: p.id, colorId: v.colorId, sizeId: s.sizeId }));
+  assert.equal((await admin.post('/api/admin/stock/zero', { items: [] })).status, 400);
+  const r = await admin.post('/api/admin/stock/zero', { items });
+  assert.deepEqual(r.data, { updated: 1, skipped: 1 });
+  const h = (await admin.get(`/api/admin/stock/history?productId=${p.id}&limit=100`)).data.rows;
+  assert.ok(h.some((x) => x.reason === 'Out of stock' && x.change === -10 && x.quantityAfter === 0));
+  assert.equal((await client().post('/api/admin/stock/zero', { items })).status, 401);
+});
+
+test('move products between categories (same gender only) and delete the emptied category', async () => {
+  const admin = client();
+  await admin.post('/api/auth/login', { username: 'admin', password: 'TestAdmin#123' });
+  const brands = (await admin.get('/api/admin/brands')).data.brands;
+  const mk = async (gender, name) => (await admin.post('/api/admin/categories', { gender, name, active: true, sortOrder: 0 }));
+  await mk('men', 'Old Cat'); await mk('men', 'New Cat'); await mk('women', 'Women Cat');
+  const cats = () => admin.get('/api/admin/categories').then((r) => r.data.categories);
+  let all = await cats();
+  const oldC = all.find((c) => c.name === 'Old Cat'), newC = all.find((c) => c.name === 'New Cat'), womenC = all.find((c) => c.name === 'Women Cat');
+  const prod = async (sku, cat) => (await admin.post('/api/admin/products', { name: sku, sku, brandId: brands[0].id, categoryId: cat.id, mrp: 500, wholesalePrice: 300, costPrice: 200,
+    variants: [{ color: 'Black', sizes: [{ size: '7', quantity: 1 }] }] })).data.product;
+  const a = await prod('MV-1', oldC); await prod('MV-2', oldC);
+  assert.equal((await admin.del(`/api/admin/categories/${oldC.id}`)).status, 409);
+  assert.equal((await admin.post('/api/admin/categories/move-products', { fromCategoryId: oldC.id, toCategoryId: womenC.id })).status, 400, 'gender mismatch');
+  assert.equal((await admin.post('/api/admin/categories/move-products', { fromCategoryId: oldC.id, toCategoryId: oldC.id })).status, 400);
+  const r = await admin.post('/api/admin/categories/move-products', { fromCategoryId: oldC.id, toCategoryId: newC.id, deleteSource: true });
+  assert.equal(r.data.moved, 2);
+  all = await cats();
+  assert.equal(all.find((c) => c.name === 'Old Cat'), undefined);
+  assert.equal(all.find((c) => c.name === 'New Cat').productCount, 2);
+  assert.equal((await admin.post('/api/admin/categories/move-products', { productIds: [a.id], toCategoryId: womenC.id })).status, 400);
+});

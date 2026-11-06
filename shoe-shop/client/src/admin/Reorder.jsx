@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { GENDERS, genderLabel, inr, qs } from '../lib/api.js';
 import { useFetch, useSettings } from '../lib/hooks.jsx';
-import { Empty, ErrorBox, Spinner, StockBadge } from '../components/ui.jsx';
+import { Empty, ErrorBox, Spinner, StockBadge, NumberInput } from '../components/ui.jsx';
 
 // Spreadsheet apps run text starting with = + - @ as formulas; prefix such cells with a quote.
 const csvCell = (v) => {
@@ -82,7 +82,7 @@ export default function Reorder() {
                         <td>{r.color}</td><td>{r.size}</td>
                         <td className="num">{r.quantity} <span className="no-print"><StockBadge status={r.status} /></span></td>
                         <td className="num">{r.sold30 || '–'}</td>
-                        <td className="num"><input className="qty-input no-print" type="number" min="0" step="1" value={qty(r)} onChange={(e) => setOrder({ ...order, [key(r)]: Math.max(0, parseInt(e.target.value, 10) || 0) })} aria-label="Order quantity" /><span className="print-only">{off ? '–' : qty(r)}</span></td>
+                        <td className="num"><NumberInput className="qty-input no-print" min="0" value={qty(r)} onChange={(e) => setOrder({ ...order, [key(r)]: Math.max(0, parseInt(e.target.value, 10) || 0) })} aria-label="Order quantity" /><span className="print-only">{off ? '–' : qty(r)}</span></td>
                       </tr>);
                   })}</tbody>
                 </table></div>

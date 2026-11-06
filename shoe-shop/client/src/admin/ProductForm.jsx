@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { GENDERS, api, inr } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
 import { uploadImage } from '../lib/upload.js';
-import { ColorDot, ErrorBox, Field, Spinner, Toggle, useConfirm } from '../components/ui.jsx';
+import { ColorDot, ErrorBox, Field, Spinner, Toggle, useConfirm, NumberInput } from '../components/ui.jsx';
 import ImageEditor from '../components/ImageEditor.jsx';
 
 const blankSize = () => ({ size: '', quantity: '', mrp: '', retailPrice: '', wholesalePrice: '' });
@@ -206,9 +206,9 @@ export default function ProductForm() {
       <section className="panel">
         <h2>Pricing</h2>
         <div className="pricing-grid">
-          <Field label="MRP (₹)" required><input type="number" min="0" step="0.01" inputMode="decimal" value={f.mrp} onChange={set('mrp')} /></Field>
+          <Field label="MRP (₹)" required><NumberInput decimal min="0" value={f.mrp} onChange={set('mrp')} /></Field>
           <Field label="Purchase cost per pair (₹)" hint={margin == null ? 'What you pay the supplier. Only admins see this.' : <span className={margin < 0 ? 'minus' : 'plus'}>Margin at wholesale: {margin}% ({margin < 0 ? 'loss' : 'profit'} ₹{Math.abs(Number(f.wholesalePrice) - Number(f.costPrice)).toLocaleString('en-IN')} per pair)</span>}>
-            <input type="number" min="0" step="0.01" inputMode="decimal" value={f.costPrice} onChange={set('costPrice')} />
+            <NumberInput decimal min="0" value={f.costPrice} onChange={set('costPrice')} />
           </Field>
         </div>
 
@@ -221,10 +221,10 @@ export default function ProductForm() {
           </div>
           <div className="pricing-grid">
             {f.retailMode === 'percent' && (
-              <Field label="Discount on MRP (%)" hint="Retail = MRP × (1 − discount ÷ 100)"><input type="number" min="0" max="90" step="0.01" inputMode="decimal" value={f.discountPct} onChange={set('discountPct')} /></Field>
+              <Field label="Discount on MRP (%)" hint="Retail = MRP × (1 − discount ÷ 100)"><NumberInput decimal min="0" max="90" value={f.discountPct} onChange={set('discountPct')} /></Field>
             )}
             {f.retailMode === 'direct' && (
-              <Field label="Retail price (₹)"><input type="number" min="0" step="0.01" inputMode="decimal" value={f.retailPrice} onChange={set('retailPrice')} /></Field>
+              <Field label="Retail price (₹)"><NumberInput decimal min="0" value={f.retailPrice} onChange={set('retailPrice')} /></Field>
             )}
           </div>
           <p className="price-preview">
@@ -237,8 +237,8 @@ export default function ProductForm() {
         <fieldset className="price-block">
           <legend>Wholesale price <span className="muted small">(approved shop owners only)</span></legend>
           <div className="pricing-grid">
-            <Field label="Wholesale price (₹)" hint="Default for all sizes. Leave blank if not sold wholesale."><input type="number" min="0" step="0.01" inputMode="decimal" value={f.wholesalePrice} onChange={(e) => setF({ ...f, wholesalePrice: e.target.value })} /></Field>
-            <Field label="or discount on MRP (%)" hint="Type a percentage to fill the wholesale price."><input type="number" min="0" max="90" step="0.01" inputMode="decimal" value={f.wsDiscountPct} onChange={(e) => { const pct = e.target.value; setF((x) => ({ ...x, wsDiscountPct: pct, wholesalePrice: pct !== '' && Number.isFinite(Number(x.mrp)) ? String(round2(Number(x.mrp) * (1 - Math.min(90, Math.max(0, Number(pct))) / 100))) : x.wholesalePrice })); }} /></Field>
+            <Field label="Wholesale price (₹)" hint="Default for all sizes. Leave blank if not sold wholesale."><NumberInput decimal min="0" value={f.wholesalePrice} onChange={(e) => setF({ ...f, wholesalePrice: e.target.value })} /></Field>
+            <Field label="or discount on MRP (%)" hint="Type a percentage to fill the wholesale price."><NumberInput decimal min="0" max="90" value={f.wsDiscountPct} onChange={(e) => { const pct = e.target.value; setF((x) => ({ ...x, wsDiscountPct: pct, wholesalePrice: pct !== '' && Number.isFinite(Number(x.mrp)) ? String(round2(Number(x.mrp) * (1 - Math.min(90, Math.max(0, Number(pct))) / 100))) : x.wholesalePrice })); }} /></Field>
           </div>
           <p className="price-preview"><span className="final">Wholesale price <strong>{f.wholesalePrice === '' ? 'Not set' : inr(Number(f.wholesalePrice))}</strong></span></p>
         </fieldset>
@@ -285,9 +285,9 @@ export default function ProductForm() {
               {c.sizes.map((s, si) => (
                 <div className="size-row" key={si}>
                   <input placeholder="e.g. 8" value={s.size} onChange={(e) => updSize(ci, si, { size: e.target.value })} aria-label="Size" maxLength={10} />
-                  <input type="number" min="0" step="1" inputMode="numeric" placeholder="0" value={s.quantity} onChange={(e) => updSize(ci, si, { quantity: e.target.value })} aria-label="Stock quantity" />
-                  <input type="number" min="0" step="0.01" inputMode="decimal" value={s.mrp} onChange={(e) => updSize(ci, si, { mrp: e.target.value })} aria-label="Optional MRP" />
-                  <input type="number" min="0" step="0.01" inputMode="decimal" value={s.wholesalePrice} onChange={(e) => updSize(ci, si, { wholesalePrice: e.target.value })} aria-label="Optional wholesale price" />
+                  <NumberInput min="0" placeholder="0" value={s.quantity} onChange={(e) => updSize(ci, si, { quantity: e.target.value })} aria-label="Stock quantity" />
+                  <NumberInput decimal min="0" value={s.mrp} onChange={(e) => updSize(ci, si, { mrp: e.target.value })} aria-label="Optional MRP" />
+                  <NumberInput decimal min="0" value={s.wholesalePrice} onChange={(e) => updSize(ci, si, { wholesalePrice: e.target.value })} aria-label="Optional wholesale price" />
                   <button type="button" className="icon-btn" aria-label="Remove size" onClick={() => delSize(ci, si)} disabled={c.sizes.length === 1}>✕</button>
                 </div>
               ))}

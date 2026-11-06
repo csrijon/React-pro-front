@@ -222,6 +222,8 @@ CREATE TABLE IF NOT EXISTS settings (
 
 -- Purchase cost per pair (admin-only; never exposed on the storefront).
 ALTER TABLE products ADD COLUMN IF NOT EXISTS cost_price DOUBLE PRECISION CHECK (cost_price IS NULL OR cost_price >= 0);
+ALTER TABLE products ADD COLUMN IF NOT EXISTS stock_status TEXT NOT NULL DEFAULT 'IN';
+ALTER TABLE product_images ADD COLUMN IF NOT EXISTS color_id INTEGER REFERENCES colors(id) ON DELETE SET NULL;
 
 -- Retail (selling) price. NULL means "sell at MRP"; a per-size override lives in inventory.retail_price.
 ALTER TABLE products  ADD COLUMN IF NOT EXISTS retail_price DOUBLE PRECISION CHECK (retail_price IS NULL OR retail_price >= 0);

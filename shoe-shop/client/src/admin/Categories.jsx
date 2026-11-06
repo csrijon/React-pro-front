@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GENDERS, api, genderLabel } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
 import { uploadImage } from '../lib/upload.js';
-import { Empty, ErrorBox, Field, Modal, Spinner, Toggle, useConfirm } from '../components/ui.jsx';
+import { Empty, ErrorBox, Field, Modal, Spinner, Toggle, useConfirm, NumberInput } from '../components/ui.jsx';
 
 export default function Categories() {
   const { data, error, loading, reload } = useFetch('/api/admin/categories');
@@ -11,6 +11,7 @@ export default function Categories() {
   const [edit, setEdit] = useState(null);   // category form
   const [sub, setSub] = useState(null);     // subcategory form
   const [err, setErr] = useState(null);
+  const [mv, setMv] = useState(null);     // move-products dialog
 
   const save = async (kind, form, close) => {
     setErr(null);
@@ -25,6 +26,7 @@ export default function Categories() {
   };
   const del = async (kind, row) => {
     const what = kind === 'cat' ? 'category' : 'subcategory';
+    if (kind === 'cat' && row.productCount > 0) return setMv({ from: row, to: '', del: true });
     if (!(await confirm({ title: `Delete ${what}?`, message: `Delete “${row.name}”? ${kind === 'cat' ? 'Its subcategories will be deleted too.' : 'Products in it will stay but lose their subcategory.'}`, confirmLabel: 'Delete', danger: true }))) return;
     try { await api.del(`/api/admin/${kind === 'cat' ? 'categories' : 'subcategories'}/${row.id}`); toast.success('Deleted'); reload(); } catch (e) { toast.error(e.message); }
   };
@@ -54,7 +56,7 @@ export default function Categories() {
                     ))} <button className="btn sm ghost" onClick={() => { setErr(null); setSub({ categoryId: c.id, name: '', active: true }); }}>+ Subcategory</button></td>
                     <td className="num">{c.productCount}</td>
                     <td><Toggle checked={c.active} onChange={(v) => toggle(c, v)} /></td>
-                    <td className="actions-cell"><button className="btn sm" onClick={() => { setErr(null); setEdit(c); }}>Edit</button> <button className="btn sm danger-o" onClick={() => del('cat', c)}>Delete</button></td>
+                    <td className="actions-cell"><button className="btn sm" onClick={() => { setErr(null); setEdit(c); }}>Edit</button> <button className="btn sm danger-o" onClick={() => del('cat', c)}>{c.productCount > 0 ? 'Move / delete' : 'Delete'}</button></td>
                   </tr>))}
                 </tbody>
               </table></div>
@@ -63,6 +65,25 @@ export default function Categories() {
         );
       })}
 
+      {mv && (() => {
+        const targets = data.categories.filter((c) => c.gender === mv.from.gender && c.id !== mv.from.id);
+        const run = async () => {
+          if (!mv.to) return toast.error('Choose a category to move the products to');
+          try {
+            const r = await api.post('/api/admin/categories/move-products', { fromCategoryId: mv.from.id, toCategoryId: Number(mv.to), deleteSource: mv.del });
+            toast.success(`${r.moved} product${r.moved === 1 ? '' : 's'} moved${mv.del ? ` and “${mv.from.name}” deleted` : ''}`); setMv(null); reload();
+          } catch (ex) { toast.error(ex.message); }
+        };
+        return (
+          <FormModal title={`Move products out of “${mv.from.name}”`} onClose={() => setMv(null)} onSubmit={run} err={null}>
+            <p>{mv.from.productCount} product{mv.from.productCount > 1 ? 's' : ''} will move (subcategory is cleared).</p>
+            <Field label={`Move to (${genderLabel(mv.from.gender)} categories)`} required>
+              <select value={mv.to} onChange={(e) => setMv({ ...mv, to: e.target.value })} autoFocus><option value="">Choose category…</option>{targets.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
+            </Field>
+            <Toggle checked={mv.del} onChange={(v) => setMv({ ...mv, del: v })} label={`Delete “${mv.from.name}” afterwards`} />
+          </FormModal>
+        );
+      })()}
       {edit && <FormModal title={edit.id ? `Edit ${genderLabel(edit.gender)} category` : 'Add category'} onClose={() => setEdit(null)} onSubmit={() => save('cat', edit, setEdit)} err={err}>
         <Field label="Gender" required error={err?.fields?.gender}><select value={edit.gender} onChange={(e) => setEdit({ ...edit, gender: e.target.value })}>{GENDERS.map((g) => <option key={g.key} value={g.key}>{g.label}</option>)}</select></Field>
         <Field label="Category name" required error={err?.fields?.name}><input value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} autoFocus /></Field>
@@ -73,7 +94,7 @@ export default function Categories() {
             {edit.imageUrl && <button type="button" className="btn sm" onClick={() => setEdit({ ...edit, imageUrl: '' })}>Remove</button>}
           </div>
         </Field>
-        <Field label="Display order" hint="Lower numbers appear first"><input type="number" min="0" value={edit.sortOrder} onChange={(e) => setEdit({ ...edit, sortOrder: e.target.value })} /></Field>
+        <Field label="Display order" hint="Lower numbers appear first"><NumberInput min="0" value={edit.sortOrder} onChange={(e) => setEdit({ ...edit, sortOrder: e.target.value })} /></Field>
         <Toggle checked={edit.active} onChange={(v) => setEdit({ ...edit, active: v })} label="Active" />
       </FormModal>}
       {sub && <FormModal title={sub.id ? 'Edit subcategory' : 'Add subcategory'} onClose={() => setSub(null)} onSubmit={() => save('sub', sub, setSub)} err={err}>

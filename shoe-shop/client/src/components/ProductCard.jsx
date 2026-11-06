@@ -4,7 +4,7 @@ import { genderLabel, inr } from '../lib/api.js';
 import { useAuth, useSettings } from '../lib/hooks.jsx';
 import { useAuthModal } from './AuthModal.jsx';
 import { useReveal } from '../lib/motion.jsx';
-import { ColorDot, ShoeImage, StockBadge } from './ui.jsx';
+import { ColorDot, ShareButton, ShoeImage, StockBadge } from './ui.jsx';
 
 export const range = (min, max) => (min === max ? inr(min) : `${inr(min)} – ${inr(max)}`);
 
@@ -48,6 +48,8 @@ export function PriceBlock({ product, compact }) {
   );
 }
 
+const shareText = (p) => `Check out ${p.name} (${p.brand.name})${p.retail || p.mrp ? ` – ${range((p.retail || p.mrp).min, (p.retail || p.mrp).max)}` : ''}`;
+
 function ProductCard({ product: p }) {
   const [ref, shown] = useReveal();
   return (
@@ -57,13 +59,13 @@ function ProductCard({ product: p }) {
         {p.featured && <span className="badge featured">Featured</span>}
         <span className="card-quick" aria-hidden="true">View details</span>
       </Link>
+      <span className="card-share"><ShareButton icon className="btn sm" title={p.name} text={shareText(p)} url={`${window.location.origin}/product/${p.slug}`} /></span>
       <div className="card-body">
         <div className="p-eyebrow">{p.brand.name}</div>
         <h3><Link to={`/product/${p.slug}`}>{p.name}</Link></h3>
         <div className="p-meta">
           <span className="small muted">{genderLabel(p.gender)} · {p.category.name}</span>
-          <span className="small muted">Code: {p.sku}</span>
-          <span className="small muted">Sizes: {p.sizes.join(', ')}</span>
+          <span className="small muted">{p.sku} · Sizes {p.sizes.join(', ')}</span>
         </div>
         <div className="swatches"><span className="small muted swatch-label">Colours</span>{p.colors.slice(0, 6).map((c) => <span key={c} title={c}><ColorDot name={c} /></span>)}</div>
         <PriceBlock product={p} compact />
