@@ -85,6 +85,13 @@ export default function ProductForm() {
     return null;
   })();
   const retailOut = f.retailMode === 'mrp' ? null : computedRetail;
+  const computedWholesale = (() => {
+    if (!Number.isFinite(mrpN) || mrpN < 0) return null;
+    if (f.retailMode === 'mrp') return round2(mrpN);
+    if (f.retailMode === 'percent') { const p = Number(f.wsDiscountPct); return Number.isFinite(p) && p >= 0 && p <= 90 ? round2(mrpN * (1 - p / 100)) : null; }
+    if (f.retailMode === 'direct') { const v = Number(f.retailPrice); return Number.isFinite(v) && v >= 0 ? round2(v) : null; }
+    return null;
+  })();
 
   const margin = f.costPrice !== '' && Number(f.wholesalePrice) > 0 && f.wholesalePrice !== '' ? Math.round(((Number(f.wholesalePrice) - Number(f.costPrice)) / Number(f.wholesalePrice)) * 1000) / 10 : null;
   const colorTotal = (c) => c.sizes.reduce((a, s) => a + (parseInt(s.quantity, 10) || 0), 0);
@@ -243,7 +250,7 @@ export default function ProductForm() {
             <Field label="Wholesale price (₹)" hint="Default for all sizes. Leave blank if not sold wholesale."><NumberInput decimal min="0" value={f.wholesalePrice} onChange={(e) => setF({ ...f, wholesalePrice: e.target.value })} /></Field>
             <Field label="or discount on MRP (%)" hint="Type a percentage to fill the wholesale price."><NumberInput decimal min="0" max="90" value={f.wsDiscountPct} onChange={(e) => { const pct = e.target.value; setF((x) => ({ ...x, wsDiscountPct: pct, wholesalePrice: pct !== '' && Number.isFinite(Number(x.mrp)) ? String(round2(Number(x.mrp) * (1 - Math.min(90, Math.max(0, Number(pct))) / 100))) : x.wholesalePrice })); }} /></Field>
           </div>
-          <p className="price-preview"><span className="final">Wholesale price <strong>{f.wholesalePrice === '' ? 'Not set' : inr(Number(f.wholesalePrice))}</strong></span></p>
+          <p className="price-preview"><span className="final">Wholesale price <strong>{f.wholesalePrice === '' ? (Number.isFinite(mrpN) ? inr(mrpN) : '—') : inr(Number(f.wholesalePrice))}</strong></span></p>
         </fieldset>
       </section>
 

@@ -141,7 +141,11 @@ export function Modal({ title, onClose, children, wide }) {
     document.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    ref.current?.focus();
+    // Focus the container only when no element inside the modal already has focus,
+    // so keystrokes in modal inputs are not stolen on re-render.
+    if (ref.current && !ref.current.contains(document.activeElement)) {
+      ref.current.focus();
+    }
     return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
   }, [onClose]);
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { GENDERS, api, genderLabel } from '../lib/api.js';
 import { useFetch, useToast } from '../lib/hooks.jsx';
 import { uploadImage } from '../lib/upload.js';
@@ -12,6 +12,10 @@ export default function Categories() {
   const [sub, setSub] = useState(null);     // subcategory form
   const [err, setErr] = useState(null);
   const [mv, setMv] = useState(null);     // move-products dialog
+
+  const closeEdit = useCallback(() => setEdit(null), []);
+  const closeSub = useCallback(() => setSub(null), []);
+  const closeMv = useCallback(() => setMv(null), []);
 
   const save = async (kind, form, close) => {
     setErr(null);
@@ -75,7 +79,7 @@ export default function Categories() {
           } catch (ex) { toast.error(ex.message); }
         };
         return (
-          <FormModal title={`Move products out of “${mv.from.name}”`} onClose={() => setMv(null)} onSubmit={run} err={null}>
+          <FormModal title={`Move products out of “${mv.from.name}”`} onClose={closeMv} onSubmit={run} err={null}>
             <p>{mv.from.productCount} product{mv.from.productCount > 1 ? 's' : ''} will move (subcategory is cleared).</p>
             <Field label={`Move to (${genderLabel(mv.from.gender)} categories)`} required>
               <select value={mv.to} onChange={(e) => setMv({ ...mv, to: e.target.value })} autoFocus><option value="">Choose category…</option>{targets.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
@@ -84,7 +88,7 @@ export default function Categories() {
           </FormModal>
         );
       })()}
-      {edit && <FormModal title={edit.id ? `Edit ${genderLabel(edit.gender)} category` : 'Add category'} onClose={() => setEdit(null)} onSubmit={() => save('cat', edit, setEdit)} err={err}>
+      {edit && <FormModal title={edit.id ? `Edit ${genderLabel(edit.gender)} category` : 'Add category'} onClose={closeEdit} onSubmit={() => save('cat', edit, setEdit)} err={err}>
         <Field label="Gender" required error={err?.fields?.gender}><select value={edit.gender} onChange={(e) => setEdit({ ...edit, gender: e.target.value })}>{GENDERS.map((g) => <option key={g.key} value={g.key}>{g.label}</option>)}</select></Field>
         <Field label="Category name" required error={err?.fields?.name}><input value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} autoFocus /></Field>
         <Field label="Category image" error={err?.fields?.imageUrl} hint="Optional. If none is set, a product photo from this category is shown automatically.">
@@ -97,7 +101,7 @@ export default function Categories() {
         <Field label="Display order" hint="Lower numbers appear first"><NumberInput min="0" value={edit.sortOrder} onChange={(e) => setEdit({ ...edit, sortOrder: e.target.value })} /></Field>
         <Toggle checked={edit.active} onChange={(v) => setEdit({ ...edit, active: v })} label="Active" />
       </FormModal>}
-      {sub && <FormModal title={sub.id ? 'Edit subcategory' : 'Add subcategory'} onClose={() => setSub(null)} onSubmit={() => save('sub', sub, setSub)} err={err}>
+      {sub && <FormModal title={sub.id ? 'Edit subcategory' : 'Add subcategory'} onClose={closeSub} onSubmit={() => save('sub', sub, setSub)} err={err}>
         <Field label="Subcategory name" required error={err?.fields?.name}><input value={sub.name} onChange={(e) => setSub({ ...sub, name: e.target.value })} autoFocus /></Field>
         <Toggle checked={sub.active} onChange={(v) => setSub({ ...sub, active: v })} label="Active" />
       </FormModal>}
