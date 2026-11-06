@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { GENDERS, api, genderLabel, inr, qs } from '../lib/api.js';
 import { useDebounced, useFetch, useToast } from '../lib/hooks.jsx';
-import { Empty, ErrorBox, Pagination, Spinner, StockBadge, useConfirm } from '../components/ui.jsx';
+import { Empty, ErrorBox, Pagination, Spinner, StockBadge, Toggle, useConfirm } from '../components/ui.jsx';
 import { AdjustModal, ReceiveModal } from './StockModals.jsx';
 
 const VIEWS = [['none', 'Detailed (product → colour → size)'], ['category', 'By category'], ['brand', 'By brand'], ['product', 'By product'], ['color', 'By colour'], ['size', 'By size']];
@@ -97,7 +97,7 @@ function Row({ r, onAct, checked, onCheck }) {
       <td className="num"><strong>{r.quantity}</strong></td>
       <td className="num">{inr(r.wholesaleValue)}</td><td className="num">{inr(r.mrpValue)}</td>
       <td><StockBadge status={r.status} /></td>
-      <td className="actions-cell"><button className="btn sm primary" onClick={() => onAct('receive', r)}>Receive</button><button className="btn sm" onClick={() => onAct('adjust', r)}>Adjust</button>{r.quantity > 0 && <button className="btn sm danger-o" onClick={() => onAct('zero', r)}>Out of stock</button>}</td>
+      <td className="actions-cell"><button className="btn sm primary" onClick={() => onAct('receive', r)}>Receive</button><button className="btn sm" onClick={() => onAct('adjust', r)}>Adjust</button><Toggle checked={r.quantity > 0} onChange={(on) => onAct(on ? 'receive' : 'zero', r)} label={r.quantity > 0 ? 'In stock' : 'Out of stock'} /></td>
     </tr>
   );
 }
