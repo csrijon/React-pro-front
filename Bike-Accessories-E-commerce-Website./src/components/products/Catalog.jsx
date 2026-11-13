@@ -132,7 +132,7 @@ export default function Catalog({ fixed = {}, hide = [], title, subtitle, header
             {chips.map((c, i) => (
               <button key={i} onClick={c.remove} className="chip border-brand/40 bg-brand-soft text-white transition hover:bg-brand-solid">{c.label}<X size={12} /></button>
             ))}
-            <button onClick={() => { setTerm(''); clear() }} className="text-xs font-semibold text-brand-light hover:underline">Clear all</button>
+            <button onClick={() => { setTerm(''); clear() }} className="py-2 text-xs font-semibold text-brand-light hover:underline">Clear all</button>
           </div>
         )}
 

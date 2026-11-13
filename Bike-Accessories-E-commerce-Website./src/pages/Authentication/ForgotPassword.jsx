@@ -19,7 +19,7 @@ export default function ForgotPassword() {
   return (
     <AuthShell photo="cruiser" title={sent ? 'Check your inbox' : 'Forgot password?'}
       subtitle={sent ? undefined : 'Enter the email linked to your account and we’ll send you a reset link.'}
-      footer={<Link to="/login" className="inline-flex items-center gap-1.5 font-semibold text-brand hover:underline"><ArrowLeft size={15} /> Back to sign in</Link>}>
+      footer={<Link to="/login" className="inline-flex items-center gap-1.5 py-2 font-semibold text-brand hover:underline"><ArrowLeft size={15} /> Back to sign in</Link>}>
       {sent ? (
         <div className="rounded-2xl border border-line bg-ink-800 p-6 text-center">
           <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400"><MailCheck size={28} /></span>

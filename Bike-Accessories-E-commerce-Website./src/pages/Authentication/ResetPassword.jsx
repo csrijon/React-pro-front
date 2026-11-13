@@ -21,7 +21,7 @@ export default function ResetPassword() {
   }))
   const onSubmit = form.submit(async (v) => { await authService.resetPassword(token, v.password); setDone(true) })
 
-  const back = <Link to="/login" className="inline-flex items-center gap-1.5 font-semibold text-brand hover:underline"><ArrowLeft size={15} /> Back to sign in</Link>
+  const back = <Link to="/login" className="inline-flex items-center gap-1.5 py-2 font-semibold text-brand hover:underline"><ArrowLeft size={15} /> Back to sign in</Link>
 
   if (!token)
     return (

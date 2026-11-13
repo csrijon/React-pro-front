@@ -10,7 +10,7 @@ export default function SectionHeading({ eyebrow, title, subtitle, to, linkLabel
         {subtitle && <p className="mt-2 text-sm text-muted sm:text-base">{subtitle}</p>}
       </div>
       {to && (
-        <Link to={to} className="group inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light hover:text-white">
+        <Link to={to} className="group inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-brand-light hover:text-white">
           {linkLabel}
           <ArrowRight size={16} className="transition group-hover:translate-x-1" />
         </Link>

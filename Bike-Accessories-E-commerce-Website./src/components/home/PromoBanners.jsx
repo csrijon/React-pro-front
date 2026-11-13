@@ -42,7 +42,7 @@ export default function PromoBanners() {
             <span className="eyebrow">Bike Care Week</span>
             <h3 className="mt-1 font-display text-2xl font-bold">Keep Her Gleaming</h3>
             <p className="mt-1 text-sm text-white/80">Chain lubes, polishes &amp; detailing kits from ₹249.</p>
-            <Link to="/category/bike-care" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-light hover:text-white">Explore <ArrowRight size={15} /></Link>
+            <Link to="/category/bike-care" className="mt-4 inline-flex items-center gap-1.5 py-2 text-sm font-semibold text-brand-light hover:text-white">Explore <ArrowRight size={15} /></Link>
           </div>
         </Reveal>
       </div>

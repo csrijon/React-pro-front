@@ -112,7 +112,7 @@ function Details({ product, recent }) {
           <div className="flex flex-wrap items-center gap-2">
             {product.bestseller && <span className="rounded bg-brand-solid px-2 py-0.5 text-[11px] font-bold uppercase">Bestseller</span>}
             {product.isNew && <span className="rounded bg-white px-2 py-0.5 text-[11px] font-bold uppercase text-ink">New</span>}
-            <Link to={`/brands/${product.brand}`} className="text-sm font-semibold uppercase tracking-wider text-brand-light hover:underline">{product.brandName}</Link>
+            <Link to={`/brands/${product.brand}`} className="inline-block py-1.5 text-sm font-semibold uppercase tracking-wider text-brand-light hover:underline">{product.brandName}</Link>
           </div>
           <h1 className="mt-2 font-display text-2xl font-bold leading-tight sm:text-4xl">{product.name}</h1>
           <button onClick={() => { setTab('reviews'); document.getElementById('details-tabs')?.scrollIntoView({ behavior: 'smooth' }) }} className="mt-3 flex items-center gap-2" aria-label="Jump to reviews">
