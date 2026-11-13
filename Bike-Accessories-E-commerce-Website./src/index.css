@@ -1,0 +1,105 @@
+/* Self-hosted fonts (latin subset). font-display:swap + metric-matched fallbacks keep text visible and prevent layout shift. */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('/fonts/inter-latin-var-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/poppins-latin-500-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/poppins-latin-600-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/poppins-latin-700-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 800; font-display: swap; src: url('/fonts/poppins-latin-800-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 700; font-display: swap; src: url('/fonts/poppins-latin-700-italic-v1.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: italic; font-weight: 800; font-display: swap; src: url('/fonts/poppins-latin-800-italic-v1.woff2') format('woff2'); }
+/* Fallbacks sized to match the web fonts so the swap does not move the layout */
+@font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 107.4%; ascent-override: 90.2%; descent-override: 22.5%; line-gap-override: 0%; }
+@font-face { font-family: 'Poppins Fallback'; src: local('Arial'); size-adjust: 112.1%; ascent-override: 93.8%; descent-override: 31.3%; line-gap-override: 8.3%; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0d10;
+  --panel: #15181d;
+  --card: #1c2026;
+  --brand: #ef252b;
+  --brand-dark: #b91c24;
+  --muted: #a7adb5;
+  --line: #30343b;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ink text-white font-sans antialiased;
+    margin: 0;
+    overflow-x: hidden;
+    min-width: 320px;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  img, svg { max-width: 100%; }
+  ::selection { background: var(--brand); color: #fff; }
+  *:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  input, select, textarea, button { font-family: inherit; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #2b3038; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--brand-dark); }
+}
+
+@layer utilities {
+  /* Route change: a short slide only (never opacity 0, so text is visible immediately) */
+  .page-in { animation: page-in 0.25s ease-out both; }
+  @keyframes page-in { from { transform: translateY(8px); } to { transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .page-in { animation: none; } }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1320px] px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-60 select-none whitespace-nowrap;
+  }
+  .btn-primary {
+    @apply btn bg-brand-solid text-white shadow-glow hover:bg-brand-dark active:scale-[0.98];
+  }
+  .btn-outline {
+    @apply btn border border-brand text-brand-light hover:bg-brand-solid hover:text-white active:scale-[0.98];
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-ink-800/60 text-white backdrop-blur hover:border-white/40 hover:bg-ink-700 active:scale-[0.98];
+  }
+  .input {
+    @apply w-full rounded-lg border border-line bg-ink-800 px-4 py-3 text-sm text-white placeholder-muted/70 transition focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25;
+  }
+  .input-error { @apply border-brand; }
+  .card {
+    @apply rounded-2xl border border-line bg-ink-700;
+  }
+  .panel {
+    @apply rounded-2xl border border-line bg-ink-800;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-line bg-ink-800 px-3 py-1 text-xs font-medium text-muted;
+  }
+  .section-title {
+    @apply font-display text-2xl font-bold tracking-tight sm:text-3xl;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-light;
+  }
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-ink-600;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent;
+    animation: shimmer 1.4s infinite;
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .prose-moto p { @apply mb-4 leading-relaxed text-muted; }
+  .prose-moto h2 { @apply mb-3 mt-8 text-xl font-bold text-white; }
+}
