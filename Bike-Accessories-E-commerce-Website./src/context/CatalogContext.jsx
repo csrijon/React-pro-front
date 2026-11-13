@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import categoryService from '../services/categoryService'
 import contentService from '../services/contentService'
 import { categories as staticCategories } from '../data/categories'
@@ -17,17 +17,24 @@ export function CatalogProvider({ children }) {
   const [categories, setCategories] = useState(cached?.categories || staticCategories)
   const [brands, setBrands] = useState(cached?.brands || staticBrands)
 
-  useEffect(() => {
+  const refresh = useCallback(() =>
     Promise.all([categoryService.list(), contentService.brands()])
       .then(([c, b]) => {
         setCategories(c)
         setBrands(b)
         storage.set(CACHE, { categories: c, brands: b })
       })
-      .catch(() => {}) // keep cached/fallback data when the API is unreachable
-  }, [])
+      .catch(() => {}), // keep cached/fallback data when the API is unreachable
+  [])
 
-  const value = useMemo(() => ({ categories, brands }), [categories, brands])
+  useEffect(() => {
+    refresh()
+    // an admin added/edited/deleted a brand or category: reload the lists everywhere
+    window.addEventListener('mg:catalog-changed', refresh)
+    return () => window.removeEventListener('mg:catalog-changed', refresh)
+  }, [refresh])
+
+  const value = useMemo(() => ({ categories, brands, refresh }), [categories, brands, refresh])
   return <CatalogContext.Provider value={value}>{children}</CatalogContext.Provider>
 }
 

@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import { m as motion } from 'framer-motion'
-import { Check, CalendarClock, MapPin, CreditCard, Package, Copy } from 'lucide-react'
+import { Check, CalendarClock, MapPin, CreditCard, Package, Copy, Volume2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import OrderSummary from '../../components/cart/OrderSummary'
 import PayNowButton from '../../components/cart/PayNowButton'
@@ -11,6 +12,7 @@ import useFetch from '../../hooks/useFetch'
 import usePageTitle from '../../hooks/usePageTitle'
 import orderService from '../../services/orderService'
 import { useAuth } from '../../context/AuthContext'
+import { playSuccessSound } from '../../utils/sounds'
 import { formatDate, formatPrice } from '../../utils/format'
 import { PAYMENT_METHODS } from '../../utils/constants'
 
@@ -21,6 +23,19 @@ export default function OrderSuccess() {
   const { isAuthenticated, booting } = useAuth()
   const location = useLocation()
   const { data: order, loading, error, reload } = useFetch(() => orderService.get(id), [id], { enabled: !!id && isAuthenticated })
+
+  // Chime once per confirmed order (not for orders still waiting for payment, and not again on page refresh)
+  const [soundBlocked, setSoundBlocked] = useState(false)
+  const confirmedId = order && order.status !== 'Pending Payment' && order.status !== 'Cancelled' ? order.id : null
+  useEffect(() => {
+    if (!confirmedId) return
+    const key = `mg_chime_${confirmedId}`
+    try {
+      if (sessionStorage.getItem(key)) return
+      sessionStorage.setItem(key, '1')
+    } catch { /* storage blocked: just play */ }
+    playSuccessSound().then((ok) => { if (!ok) setSoundBlocked(true) })
+  }, [confirmedId])
 
   if (!id) return <Navigate to="/" replace />
   // order details are private: sign in as the customer who placed it
@@ -44,6 +59,11 @@ export default function OrderSuccess() {
           <button onClick={() => { navigator.clipboard?.writeText(order.id); toast.success('Order ID copied') }} className="mt-5 inline-flex items-center gap-2 rounded-lg border border-dashed border-brand/60 bg-brand-soft px-4 py-2 font-mono text-sm font-bold tracking-wider" aria-label="Copy order ID">
             Order ID: {order.id} <Copy size={14} />
           </button>
+          {!pending && (
+            <button onClick={() => playSuccessSound({ force: true }).then((ok) => setSoundBlocked(!ok))} className="mx-auto mt-3 flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-muted transition hover:border-brand hover:text-white" aria-label="Play confirmation sound">
+              <Volume2 size={16} /> {soundBlocked ? 'Tap to hear the confirmation sound' : 'Play sound again'}
+            </button>
+          )}
         </div>
 
         <div className="mt-10 grid gap-5 md:grid-cols-3">

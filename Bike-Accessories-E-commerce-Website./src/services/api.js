@@ -64,7 +64,9 @@ async function send(method, path, { params, data, headers = {}, timeout = TIMEOU
   const timer = setTimeout(() => ctrl.abort(), timeout)
   let res
   try {
-    res = await fetch(API_URL + url, { method: method.toUpperCase(), headers: h, body: data === undefined ? undefined : isForm ? data : JSON.stringify(data), signal: ctrl.signal })
+    // cache: 'no-cache' = always ask the server (cheap 304 via ETag when nothing changed). Without it the browser could
+    // keep showing a catalogue list for up to ~2 minutes after an admin edit. The server's own micro-cache keeps this fast.
+    res = await fetch(API_URL + url, { method: method.toUpperCase(), headers: h, body: data === undefined ? undefined : isForm ? data : JSON.stringify(data), signal: ctrl.signal, cache: 'no-cache' })
   } catch (e) {
     throw new ApiError(e.name === 'AbortError' ? 'Request timed out. Please try again.' : 'Network error. Please check your connection.')
   } finally {
