@@ -4,3 +4,4 @@ uploads-test
 .env
 *.log
 .env.example
+SECURITY.md

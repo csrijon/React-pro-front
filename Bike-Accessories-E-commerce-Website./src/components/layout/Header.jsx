@@ -1,16 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, m as motion } from 'framer-motion'
 import { Search, User, Heart, ShoppingCart, Menu, X, ChevronDown, LogOut, Package, UserCircle, MapPin, Truck, Shield } from 'lucide-react'
 import Logo from '../common/Logo'
 import ProductArt from '../common/ProductArt'
-import SearchOverlay from './SearchOverlay'
 import { useCatalog } from '../../context/CatalogContext'
 import { useCart } from '../../context/CartContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useAuth } from '../../context/AuthContext'
 import useClickOutside from '../../hooks/useClickOutside'
 import toast from 'react-hot-toast'
+
+// Only needed once the visitor clicks the search icon, so it is not part of the startup bundle
+const SearchOverlay = lazy(() => import('./SearchOverlay'))
 
 const links = [
   { to: '/', label: 'Home', end: true },
@@ -261,7 +263,7 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>{searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}</AnimatePresence>
+      <Suspense fallback={null}><AnimatePresence>{searchOpen && <SearchOverlay onClose={() => setSearchOpen(false)} />}</AnimatePresence></Suspense>
     </>
   )
 }

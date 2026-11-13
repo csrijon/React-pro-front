@@ -84,6 +84,9 @@ Without keys the storefront automatically hides online methods and offers Cash o
 ## Email setup
 Any SMTP provider works (SES, SendGrid, Brevo, Gmail app password...). Set `SMTP_HOST/PORT/USER/PASS` and `MAIL_FROM` (use an address on a domain you've authenticated with SPF/DKIM). Set `ADMIN_NOTIFY_EMAIL` to receive new-order and contact-form alerts.
 
+## Upgrading an existing database (performance indexes)
+After deploying this version run once: `docker compose exec api npm run db:sync-indexes` (or `cd server && npm run db:sync-indexes`). It builds the new compound indexes and removes superseded ones. See PERFORMANCE_AUDIT.md.
+
 ## Operations notes
 - The API validates its environment at start-up and exits with a clear message if something is missing or insecure.
 - Graceful shutdown (SIGTERM) finishes in-flight requests; Docker healthchecks are built in.

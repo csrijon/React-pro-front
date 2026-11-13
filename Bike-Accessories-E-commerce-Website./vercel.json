@@ -1,0 +1,16 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "http://localhost:5000/api/:path*"
+        },
+        {
+            "source": "/uploads/:path*",
+            "destination": "http://localhost:5000/uploads/:path*"
+        },
+        {
+            "source": "/((?!assets/|fonts/|img/|favicon.svg|robots.txt).*)",
+            "destination": "/index.html"
+        }
+    ]
+}

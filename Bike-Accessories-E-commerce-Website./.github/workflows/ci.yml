@@ -1,0 +1,43 @@
+# Continuous checks: lint, build, performance budgets, Lighthouse CI (shell page) and the full API test suite.
+# NOTE: GitHub only reads workflows from the repository root. If this project lives in a sub-folder of a bigger
+# repository, move this file there and set `defaults.run.working-directory` to the project path.
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - name: Performance budgets (bundle size, no third-party render blockers, hero image weight)
+        run: npm run perf:budget
+      - name: Lighthouse CI (desktop, 3 runs, thresholds in lighthouserc.json)
+        run: npx --yes @lhci/cli@0.14 autorun
+      - run: npm audit --omit=dev --audit-level=high
+
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      mongo:
+        image: mongo:7
+        ports: ["27017:27017"]
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: server/package-lock.json }
+      - run: npm ci
+      - name: API tests (functional, security, payments, caching/index-usage performance)
+        run: npm test
+        env:
+          MONGODB_URI: mongodb://127.0.0.1:27017
+      - run: npm audit --omit=dev --audit-level=high

@@ -10,7 +10,7 @@ A complete online store for motorcycle gear:
 | **Payments** | Razorpay (verified server-side) + Cash on Delivery | `server/src/routes/shop.js` |
 | **Deployment** | Docker, nginx, docker-compose | `Dockerfile`, `server/Dockerfile`, `docker-compose.yml` |
 
-See **[SECURITY.md](SECURITY.md)** for every protection in place, **[DEPLOYMENT.md](DEPLOYMENT.md)** to go live and **[server/README.md](server/README.md)** for the API.
+See **[PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md)** for measured speed results, **[SECURITY.md](SECURITY.md)** for every protection in place, **[DEPLOYMENT.md](DEPLOYMENT.md)** to go live and **[server/README.md](server/README.md)** for the API.
 
 ---
 

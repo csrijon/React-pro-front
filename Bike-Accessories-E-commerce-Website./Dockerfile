@@ -7,7 +7,9 @@ COPY . .
 # Relative /api means "same domain" - nginx below proxies it to the API container.
 ARG VITE_API_URL=/api
 ARG VITE_USE_MOCK=false
-ENV VITE_API_URL=$VITE_API_URL VITE_USE_MOCK=$VITE_USE_MOCK
+ARG INLINE_CSS=0
+ARG ROUTE_PRELOAD=0
+ENV VITE_API_URL=$VITE_API_URL VITE_USE_MOCK=$VITE_USE_MOCK INLINE_CSS=$INLINE_CSS ROUTE_PRELOAD=$ROUTE_PRELOAD
 RUN npm run build
 
 # ---------- serve with nginx ----------
@@ -17,6 +19,7 @@ FROM nginxinc/nginx-unprivileged:1.27-alpine
 ENV API_UPSTREAM=http://api:5000
 COPY deploy/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY deploy/security-headers.conf /etc/nginx/snippets/security-headers.conf
+COPY deploy/html-headers.conf /etc/nginx/snippets/html-headers.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://127.0.0.1:8080/healthz || exit 1
