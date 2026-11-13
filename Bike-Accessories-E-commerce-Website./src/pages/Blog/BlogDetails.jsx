@@ -47,7 +47,7 @@ export default function BlogDetails() {
         </div>
       </header>
 
-      <div className="container-x grid max-w-5xl gap-10 py-10 lg:grid-cols-[1fr_200px]">
+      <div className="container-x grid grid-cols-1 max-w-5xl gap-10 py-10 lg:grid-cols-[1fr_200px]">
         <article className="prose-moto max-w-3xl">
           <p className="mb-8 border-l-4 border-brand pl-5 text-lg italic leading-relaxed text-white/90">{post.excerpt}</p>
           {post.body.map(([type, text], i) => type === 'h' ? <h2 key={i}>{text}</h2> : <p key={i}>{text}</p>)}
@@ -65,7 +65,7 @@ export default function BlogDetails() {
         </aside>
       </div>
 
-      <section className="container-x pb-6"><h2 className="section-title mb-6">Related articles</h2><div className="grid gap-5 md:grid-cols-3">{related.map((b) => <BlogCard key={b.slug} post={b} />)}</div></section>
+      <section className="container-x pb-6"><h2 className="section-title mb-6">Related articles</h2><div className="grid grid-cols-1 gap-5 md:grid-cols-3">{related.map((b) => <BlogCard key={b.slug} post={b} />)}</div></section>
       <section className="container-x mt-12"><div className="rounded-3xl border border-line bg-ink-800 p-8 sm:p-10 md:flex md:items-center md:justify-between md:gap-10"><div className="mb-5 md:mb-0"><h2 className="font-display text-2xl font-bold">Never miss a ride tip</h2><p className="mt-1 text-sm text-muted">Fresh guides and gear reviews, delivered monthly.</p></div><div className="md:w-96"><NewsletterForm /></div></div></section>
     </>
   )

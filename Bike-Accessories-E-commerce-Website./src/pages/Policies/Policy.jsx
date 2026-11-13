@@ -20,7 +20,7 @@ export default function Policy({ slug }) {
       {loading ? <div className="space-y-4"><Skeleton className="h-12 w-1/2" /><Skeleton className="h-64" /></div>
         : error ? <ErrorState message={error.message} onRetry={reload} />
         : (
-          <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[260px_1fr]">
             <aside className="lg:sticky lg:top-24 lg:self-start">
               <div className="rounded-2xl border border-line bg-ink-800 p-5">
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-muted">On this page</p>

@@ -98,7 +98,7 @@ export default function Catalog({ fixed = {}, hide = [], title, subtitle, header
   const sidebar = <FilterSidebar filters={filters} update={update} clear={clear} facets={facets} hide={hide} priceMax={facets ? Math.ceil(facets.maxPrice / 1000) * 1000 : 12000} activeCount={activeCount} />
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[260px_1fr]">
       <aside className="hidden lg:block">
         <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto rounded-2xl border border-line bg-ink-800 p-5 no-scrollbar">{sidebar}</div>
       </aside>

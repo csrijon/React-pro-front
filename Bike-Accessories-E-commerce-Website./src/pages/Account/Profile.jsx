@@ -31,7 +31,7 @@ export default function Profile() {
       <PageHeading title="My Profile" text="Manage your personal information and security." />
       <form onSubmit={saveProfile} noValidate className="rounded-2xl border border-line bg-ink-800 p-5 sm:p-6">
         <h2 className="mb-5 text-lg font-bold">Personal information</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField label="Full name" icon={User} error={profile.errors.name} {...profile.field('name')} />
           <FormField label="Email" icon={Mail} value={user.email} readOnly disabled hint="Email cannot be changed" />
           <FormField label="Mobile number" icon={Phone} type="tel" error={profile.errors.phone} {...profile.field('phone')} />
@@ -45,7 +45,7 @@ export default function Profile() {
 
       <form onSubmit={savePw} noValidate className="mt-6 rounded-2xl border border-line bg-ink-800 p-5 sm:p-6">
         <h2 className="mb-5 text-lg font-bold">Change password</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField className="sm:col-span-2" label="Current password" type="password" icon={Lock} autoComplete="current-password" error={pw.errors.currentPassword} {...pw.field('currentPassword')} />
           <div><FormField label="New password" type="password" icon={Lock} autoComplete="new-password" error={pw.errors.newPassword} {...pw.field('newPassword')} /><StrengthMeter value={pw.values.newPassword} /></div>
           <FormField label="Confirm new password" type="password" icon={Lock} autoComplete="new-password" error={pw.errors.confirm} {...pw.field('confirm')} />

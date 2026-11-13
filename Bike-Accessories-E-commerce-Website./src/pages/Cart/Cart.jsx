@@ -36,7 +36,7 @@ export default function Cart() {
         <button onClick={clear} className="flex items-center gap-1.5 text-sm text-muted transition hover:text-brand-light"><Trash2 size={15} /> Clear cart</button>
       </div>
 
-      <div className="grid items-start gap-8 lg:grid-cols-[1fr_380px]">
+      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_380px]">
         <div>
           <div className="mb-4 rounded-2xl border border-line bg-ink-800 p-4">
             <p className="mb-2 flex items-center gap-2 text-sm"><Truck size={16} className="text-brand-light" />

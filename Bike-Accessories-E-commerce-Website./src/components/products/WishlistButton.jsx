@@ -16,7 +16,7 @@ export default function WishlistButton({ product, className = '', size = 18 }) {
       }}
       aria-pressed={active}
       aria-label={active ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
-      className={`flex h-9 w-9 items-center justify-center rounded-full border border-line bg-ink/70 backdrop-blur transition hover:border-brand ${className}`}
+      className={`flex h-10 w-10 items-center justify-center rounded-full border border-line bg-ink/70 backdrop-blur transition hover:border-brand ${className}`}
     >
       <Heart size={size} className={active ? 'fill-brand text-brand' : 'text-white'} />
     </motion.button>

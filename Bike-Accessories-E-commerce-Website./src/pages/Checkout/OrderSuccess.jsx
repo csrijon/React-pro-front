@@ -66,7 +66,7 @@ export default function OrderSuccess() {
           )}
         </div>
 
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
           {[
             [CalendarClock, 'Estimated Delivery', formatDate(order.estimatedDelivery), order.delivery?.label],
             [MapPin, 'Shipping To', order.shippingAddress?.name, `${order.shippingAddress?.line1}, ${order.shippingAddress?.city} - ${order.shippingAddress?.pincode}`],
@@ -81,7 +81,7 @@ export default function OrderSuccess() {
           ))}
         </div>
 
-        <div className="mt-6 grid items-start gap-6 md:grid-cols-[1fr_340px]">
+        <div className="mt-6 grid grid-cols-1 items-start gap-6 md:grid-cols-[1fr_340px]">
           <div className="rounded-2xl border border-line bg-ink-800 p-5">
             <h2 className="mb-4 flex items-center gap-2 text-lg font-bold"><Package size={18} className="text-brand" /> Items in your order</h2>
             <ul className="divide-y divide-line">

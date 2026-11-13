@@ -22,7 +22,7 @@ export default function Logo({ size = 'md', to = '/', asLink = false }) {
     </span>
   )
   return asLink ? (
-    <Link to={to} aria-label="MotoGear home">
+    <Link to={to} aria-label="MotoGear home" className="inline-flex items-center py-1.5">
       {inner}
     </Link>
   ) : (

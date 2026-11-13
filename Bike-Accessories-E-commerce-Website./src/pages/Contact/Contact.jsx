@@ -35,7 +35,7 @@ export default function Contact() {
         <p className="mt-3 text-muted">We’d love to hear from you. Reach out for support, queries or business enquiries - a real rider will reply.</p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[400px_1fr]">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[400px_1fr]">
         <div className="space-y-4">
           <div className="rounded-2xl border border-line bg-ink-800 p-3">
             {info.map(([Icon, label, value, href]) => {
@@ -79,7 +79,7 @@ export default function Contact() {
           ) : (
             <form onSubmit={onSubmit} noValidate className="space-y-5">
               <h2 className="text-xl font-bold">Send us a message</h2>
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <FormField label="Your name" required autoComplete="name" error={form.errors.name} {...form.field('name')} />
                 <FormField label="Your email" required type="email" autoComplete="email" error={form.errors.email} {...form.field('email')} />
               </div>

@@ -29,8 +29,8 @@ export function ProductsPage() {
           <div className="min-w-0"><p className="max-w-[240px] truncate font-semibold">{p.name}</p><p className="text-xs text-muted">{p.brandName} · {p.categoryName}</p></div></div>) },
       { label: 'Price', render: (p) => <><b>{formatPrice(p.price)}</b><span className="ml-1.5 text-xs text-muted line-through">{formatPrice(p.mrp)}</span></> },
       { label: 'Stock', render: (p) => <Badge tone={p.stock === 0 ? 'red' : p.stock <= 5 ? 'amber' : 'green'}>{p.stock === 0 ? 'Out of stock' : `${p.stock} in stock`}</Badge> },
-      { label: 'Sold', key: 'sold' },
-      { label: 'Rating', render: (p) => (p.reviewCount ? <Rating value={p.rating} count={p.reviewCount} /> : <span className="text-xs text-muted">No reviews</span>) },
+      { label: 'Sold', key: 'sold', className: 'hidden lg:table-cell' },
+      { label: 'Rating', render: (p) => (p.reviewCount ? <Rating value={p.rating} count={p.reviewCount} /> : <span className="text-xs text-muted">No reviews</span>), className: 'hidden xl:table-cell' },
       { label: 'Status', render: (p) => <div className="flex flex-wrap gap-1">{yesNo(p.isActive)}{p.bestseller && <Badge tone="amber">Bestseller</Badge>}{p.isNew && <Badge tone="blue">New</Badge>}{p.trending && <Badge tone="violet">Trending</Badge>}</div> },
     ],
     fields: [
@@ -182,7 +182,7 @@ export const MessagesPage = () => (
     ],
     detail: (m) => (
       <div className="space-y-4 text-sm">
-        <div className="grid gap-3 sm:grid-cols-2"><div><p className="text-xs text-muted">From</p><p className="font-semibold">{m.name}</p><a href={`mailto:${m.email}?subject=Re: ${m.subject} [${m.ticket}]`} className="text-brand-light hover:underline">{m.email}</a></div><div><p className="text-xs text-muted">Ticket</p><p className="font-mono">{m.ticket}</p><p className="text-xs text-muted">{formatDate(m.createdAt)}</p></div></div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2"><div><p className="text-xs text-muted">From</p><p className="font-semibold">{m.name}</p><a href={`mailto:${m.email}?subject=Re: ${m.subject} [${m.ticket}]`} className="text-brand-light hover:underline">{m.email}</a></div><div><p className="text-xs text-muted">Ticket</p><p className="font-mono">{m.ticket}</p><p className="text-xs text-muted">{formatDate(m.createdAt)}</p></div></div>
         <div><p className="text-xs text-muted">Subject</p><p className="font-semibold">{m.subject}</p></div>
         <p className="whitespace-pre-wrap rounded-xl border border-line bg-ink p-4 leading-relaxed">{m.message}</p>
         <a href={`mailto:${m.email}?subject=Re: ${m.subject} [${m.ticket}]`} className="btn-primary w-full">Reply by email</a>

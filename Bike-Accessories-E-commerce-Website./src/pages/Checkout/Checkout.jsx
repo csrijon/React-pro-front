@@ -111,10 +111,10 @@ export default function Checkout() {
       </div>
 
 
-      <form onSubmit={place} noValidate className="grid items-start gap-8 lg:grid-cols-[1fr_400px]">
-        <div className="space-y-6">
+      <form onSubmit={place} noValidate className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1fr_400px]">
+        <div className="min-w-0 space-y-6">
           <Section n={1} title="Customer information">
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <FormField className="sm:col-span-2" label="Full name" required icon={User} autoComplete="name" error={form.errors.name} {...form.field('name')} />
               <FormField label="Email" required type="email" icon={Mail} autoComplete="email" error={form.errors.email} {...form.field('email')} />
               <FormField label="Mobile number" required type="tel" icon={Phone} autoComplete="tel" placeholder="10-digit mobile" error={form.errors.phone} {...form.field('phone')} />
@@ -155,7 +155,7 @@ export default function Checkout() {
           </Section>
 
           <Section n={5} title="Payment method">
-            <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Payment method">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Payment method">
               {methods.map((m) => {
                 const Icon = PAY_ICONS[m.id]
                 const active = method === m.id
@@ -174,7 +174,7 @@ export default function Checkout() {
           </Section>
         </div>
 
-        <aside className="space-y-5 lg:sticky lg:top-24">
+        <aside className="min-w-0 space-y-5 lg:sticky lg:top-24">
           <div className="rounded-2xl border border-line bg-ink-800 p-5">
             <h2 className="mb-4 text-lg font-bold">Your items</h2>
             <ul className="max-h-64 space-y-3 overflow-y-auto pr-1">

@@ -40,7 +40,7 @@ export default function ReviewsTab({ product }) {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[300px_1fr]">
       <div className="space-y-6">
         <div className="rounded-2xl border border-line bg-ink-800 p-5">
           <div className="flex items-end gap-3">

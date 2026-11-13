@@ -24,7 +24,7 @@ export default function BrandDetails() {
         <div aria-hidden className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand/25 blur-3xl" />
         <div className="container-x relative py-10 sm:py-14">
           <Breadcrumbs className="mb-6" items={[{ label: 'Brands', to: '/brands' }, { label: brand.name }]} />
-          <div className="grid items-center gap-8 md:grid-cols-[auto_1fr]">
+          <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-[auto_1fr]">
             <div className="flex h-32 w-full items-center justify-center rounded-2xl border border-line bg-ink px-10 shadow-card md:w-72"><BrandMark brand={brand} className="text-4xl" /></div>
             <div>
               <p className="eyebrow">Official brand store</p>

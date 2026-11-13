@@ -44,8 +44,22 @@ export function OrdersList() {
           <label className="flex items-center gap-2 text-xs text-muted">To <input type="date" value={to} onChange={(e) => setParam('to', e.target.value)} className="input w-auto py-2" /></label>
         </div>
         {error ? <div className="p-6"><ErrorState message={error.message} onRetry={reload} /></div> : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[760px] text-left text-sm">
+          <>
+          <ul className="divide-y divide-line md:hidden" aria-label="Orders list">
+            {loading ? Array.from({ length: 4 }, (_, i) => <li key={i} className="p-4"><Skeleton className="h-20" /></li>)
+              : !data.items.length ? <li className="px-4 py-12 text-center text-sm text-muted">No orders found.</li>
+              : data.items.map((o) => (
+                <li key={o.id}>
+                  <Link to={`/admin/orders/${o.id}`} className="block space-y-2 p-4 transition hover:bg-ink-700/40">
+                    <div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="truncate font-mono text-sm font-semibold">#{o.id}</p><p className="text-xs text-muted">{formatDate(o.createdAt)}</p></div><Badge tone={ORDER_TONE[o.status]}>{o.status}</Badge></div>
+                    <div className="flex items-center justify-between gap-3 text-sm"><span className="min-w-0 truncate"><b>{o.customer?.name}</b> <span className="text-muted">· {o.totals?.count} item(s)</span></span><b>{formatPrice(o.totals?.total)}</b></div>
+                    <Badge tone={PAY_TONE[o.payment?.status]}>{o.payment?.status} · {String(o.payment?.method || '').toUpperCase()}</Badge>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+          <div className="hidden overflow-x-auto md:block">
+            <table className="w-full min-w-[640px] text-left text-sm">
               <thead className="border-b border-line bg-ink-700/50 text-xs uppercase tracking-wide text-muted"><tr>{['Order', 'Customer', 'Items', 'Total', 'Payment', 'Status', ''].map((h) => <th key={h} className="px-4 py-3 font-semibold">{h}</th>)}</tr></thead>
               <tbody className="divide-y divide-line">
                 {loading ? Array.from({ length: 6 }, (_, i) => <tr key={i}><td colSpan={7} className="px-4 py-3"><Skeleton className="h-8" /></td></tr>)
@@ -64,6 +78,7 @@ export function OrdersList() {
               </tbody>
             </table>
           </div>
+          </>
         )}
         {data && <Pager page={data.page} pages={data.pages} total={data.total} onChange={setPage} />}
       </Card>
@@ -113,8 +128,8 @@ export function OrderDetail() {
         <button onClick={() => window.print()} className="btn-ghost px-3 py-2 print:hidden"><Printer size={15} /> Print</button>
       </PageTitle>
 
-      <div className="grid items-start gap-6 xl:grid-cols-[1fr_380px]">
-        <div className="space-y-6">
+      <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-[1fr_380px]">
+        <div className="min-w-0 space-y-6">
           <Card className="p-5">
             <h2 className="mb-4 font-bold">Items ({o.items.length})</h2>
             <ul className="divide-y divide-line">
@@ -127,7 +142,7 @@ export function OrderDetail() {
               ))}
             </ul>
           </Card>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <Card className="p-5"><h3 className="mb-2 font-bold">Customer</h3><p className="text-sm"><b>{o.customer?.name}</b></p><p className="text-sm text-muted">{o.customer?.email}<br />{o.customer?.phone}</p>{o.user && <p className="mt-2 text-xs text-muted">Registered customer: {o.user.name}</p>}{!o.user && <p className="mt-2 text-xs text-muted">Guest checkout</p>}</Card>
             <Card className="p-5"><h3 className="mb-2 font-bold">Shipping to</h3>{addr(o.shippingAddress)}</Card>
             <Card className="p-5"><h3 className="mb-2 font-bold">Delivery &amp; payment</h3><p className="text-sm text-muted">{o.delivery?.label}<br />ETA {formatDate(o.estimatedDelivery)}<br /><span className="uppercase">{o.payment?.method}</span>{o.payment?.razorpayPaymentId && <><br /><span className="break-all font-mono text-xs">{o.payment.razorpayPaymentId}</span></>}</p></Card>
@@ -143,7 +158,7 @@ export function OrderDetail() {
           </Card>
         </div>
 
-        <div className="space-y-6">
+        <div className="min-w-0 space-y-6">
           <Card className="p-5"><OrderSummary totals={o.totals} coupon={o.coupon ? { code: o.coupon } : null} /></Card>
           <Card className="p-5 print:hidden">
             <h2 className="mb-4 font-bold">Update order</h2>

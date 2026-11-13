@@ -13,7 +13,7 @@ const copy = (code) => {
 
 export default function PromoBanners() {
   return (
-    <section className="container-x grid gap-4 py-6 lg:grid-cols-5 lg:gap-6">
+    <section className="container-x grid grid-cols-1 gap-4 py-6 lg:grid-cols-5 lg:gap-6">
       <Reveal className="relative isolate min-h-[260px] overflow-hidden rounded-3xl border border-line lg:col-span-3 lg:min-h-[320px]">
         <SmartImage photoKey="kawasaki" w={1400} sizes="(min-width: 1024px) 60vw, 100vw" className="absolute inset-0 -z-10 h-full w-full" alt="" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-transparent" />

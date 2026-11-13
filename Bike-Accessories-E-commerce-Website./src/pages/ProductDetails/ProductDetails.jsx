@@ -24,7 +24,7 @@ import NotFound from '../NotFound'
 
 function Loading() {
   return (
-    <div className="container-x grid gap-10 py-10 lg:grid-cols-2" role="status" aria-label="Loading product">
+    <div className="container-x grid grid-cols-1 gap-10 py-10 lg:grid-cols-2" role="status" aria-label="Loading product">
       <Skeleton className="aspect-square w-full" />
       <div className="space-y-4"><Skeleton className="h-4 w-1/4" /><Skeleton className="h-10 w-3/4" /><Skeleton className="h-5 w-1/3" /><Skeleton className="h-12 w-1/2" /><Skeleton className="h-24 w-full" /><Skeleton className="h-12 w-full" /></div>
     </div>
@@ -105,7 +105,7 @@ function Details({ product, recent }) {
     <div className="container-x pb-28 pt-6 lg:pb-8">
       <Breadcrumbs className="mb-6" items={[{ label: product.categoryName, to: `/category/${product.category}` }, { label: product.name }]} />
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
         <ProductGallery product={product} color={color.hex} />
 
         <div>
@@ -172,7 +172,7 @@ function Details({ product, recent }) {
             <button onClick={share} aria-label="Share product" className="flex h-10 w-10 items-center justify-center rounded-lg border border-line transition hover:border-brand"><Share2 size={18} /></button>
           </div>
 
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <button onClick={add} disabled={soldOut} className="btn-primary py-3.5">
               {added ? <><Check size={18} /> Added to Cart</> : <><ShoppingCart size={18} /> {soldOut ? 'Out of Stock' : 'Add to Cart'}</>}
             </button>
@@ -210,7 +210,7 @@ function Details({ product, recent }) {
             <div className="max-w-3xl">
               <p className="leading-relaxed text-muted">{product.description}</p>
               <h2 className="mb-3 mt-6 font-bold">Highlights</h2>
-              <ul className="grid gap-2 sm:grid-cols-2">{product.features.map((f) => <li key={f} className="flex items-center gap-2 text-sm text-white/85"><Check size={15} className="text-brand-light" />{f}</li>)}</ul>
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">{product.features.map((f) => <li key={f} className="flex items-center gap-2 text-sm text-white/85"><Check size={15} className="text-brand-light" />{f}</li>)}</ul>
             </div>
           )}
           {tab === 'specs' && (

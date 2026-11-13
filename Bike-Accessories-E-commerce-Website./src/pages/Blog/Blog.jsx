@@ -29,7 +29,7 @@ export default function Blog() {
         </div>
       </div>
 
-      {loading ? <div className="space-y-5"><Skeleton className="h-80" /><div className="grid gap-5 md:grid-cols-3">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-72" />)}</div></div>
+      {loading ? <div className="space-y-5"><Skeleton className="h-80" /><div className="grid grid-cols-1 gap-5 md:grid-cols-3">{[0, 1, 2].map((i) => <Skeleton key={i} className="h-72" />)}</div></div>
         : error ? <ErrorState message={error.message} onRetry={reload} />
         : !feat ? <EmptyState title="No articles in this category" />
         : (
@@ -44,7 +44,7 @@ export default function Blog() {
                 <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-white/70"><span>{feat.author}</span><span aria-hidden>•</span><span>{formatDate(feat.date)}</span><span aria-hidden>•</span><span className="inline-flex items-center gap-1"><Clock size={13} /> {feat.readTime} min read</span><span className="ml-auto hidden items-center gap-1 font-semibold text-brand-light sm:inline-flex">Read article <ArrowUpRight size={16} /></span></div>
               </Link>
             </article>
-            {rest.length > 0 && <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{rest.map((b) => <BlogCard key={b.slug} post={b} />)}</div>}
+            {rest.length > 0 && <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">{rest.map((b) => <BlogCard key={b.slug} post={b} />)}</div>}
           </>
         )}
     </div>

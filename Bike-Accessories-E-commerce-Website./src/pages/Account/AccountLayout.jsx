@@ -1,4 +1,5 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, UserCircle, Package, Heart, MapPin, LogOut } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '../../context/AuthContext'
@@ -16,6 +17,10 @@ export default function AccountLayout() {
   usePageTitle('My Account')
   const { user, logout } = useAuth()
   const navigate = useNavigate()
+  const navRef = useRef(null)
+  const { pathname } = useLocation()
+  // on phones the tabs scroll sideways: bring the active one into view
+  useEffect(() => { navRef.current?.querySelector('[aria-current=page]')?.scrollIntoView({ inline: 'center', block: 'nearest' }) }, [pathname])
   const out = () => { logout(); toast.success('Signed out'); navigate('/') }
 
   return (
@@ -28,7 +33,7 @@ export default function AccountLayout() {
               <div className="min-w-0"><p className="truncate font-bold">{user.name}</p><p className="truncate text-xs text-muted">{user.email}</p></div>
             </div>
           </div>
-          <nav aria-label="Account" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-4 lg:flex-col lg:gap-1 lg:overflow-visible lg:rounded-2xl lg:border lg:border-line lg:bg-ink-800 lg:p-2">
+          <nav ref={navRef} aria-label="Account" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:mt-4 lg:flex-col lg:gap-1 lg:overflow-visible lg:rounded-2xl lg:border lg:border-line lg:bg-ink-800 lg:p-2">
             {nav.map(({ to, label, icon: Icon, end }) => (
               <NavLink key={to} to={to} end={end} className={({ isActive }) => `flex shrink-0 items-center gap-2.5 rounded-xl px-4 py-2.5 text-sm font-medium transition lg:py-3 ${isActive ? 'bg-brand-solid text-white shadow-glow' : 'border border-line bg-ink-800 text-white/80 hover:text-white lg:border-0 lg:bg-transparent lg:hover:bg-ink-700'}`}>
                 <Icon size={18} />{label}

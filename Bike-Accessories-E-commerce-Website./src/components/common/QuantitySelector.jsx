@@ -1,7 +1,7 @@
 import { Minus, Plus } from 'lucide-react'
 
 export default function QuantitySelector({ value, onChange, min = 1, max = 10, size = 'md' }) {
-  const pad = size === 'sm' ? 'h-8 w-8' : 'h-10 w-10'
+  const pad = size === 'sm' ? 'h-10 w-10' : 'h-11 w-11'
   return (
     <div className="inline-flex items-center rounded-lg border border-line bg-ink-800" role="group" aria-label="Quantity">
       <button type="button" aria-label="Decrease quantity" disabled={value <= min} onClick={() => onChange(value - 1)}

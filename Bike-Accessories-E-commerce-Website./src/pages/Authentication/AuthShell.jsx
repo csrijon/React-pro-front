@@ -13,7 +13,7 @@ const perks = [
 /** Split-screen layout shared by all authentication pages. */
 export default function AuthShell({ title, subtitle, children, footer, photo = 'harley' }) {
   return (
-    <div className="grid min-h-[calc(100vh-110px)] lg:grid-cols-2">
+    <div className="grid grid-cols-1 min-h-[calc(100vh-110px)] lg:grid-cols-2">
       <aside className="relative hidden overflow-hidden lg:block">
         <SmartImage photoKey={photo} w={1400} alt="" className="absolute inset-0 h-full w-full" priority />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/30" />

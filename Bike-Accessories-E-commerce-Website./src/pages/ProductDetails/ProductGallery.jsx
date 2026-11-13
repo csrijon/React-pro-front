@@ -35,8 +35,8 @@ export default function ProductGallery({ product, color }) {
   }
 
   return (
-    <div className="flex flex-col-reverse gap-3 sm:flex-row sm:gap-4">
-      <div className="flex gap-2.5 sm:flex-col" role="tablist" aria-label="Product images">
+    <div className="flex flex-col-reverse gap-3 lg:flex-row lg:gap-4">
+      <div className="flex gap-2.5 lg:flex-col" role="tablist" aria-label="Product images">
         {views.map((v, i) => (
           <button key={i} role="tab" aria-selected={i === active} aria-label={`View ${i + 1}`} onClick={() => setActive(i)}
             className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 transition sm:h-20 sm:w-20 ${i === active ? 'border-brand' : 'border-line opacity-70 hover:opacity-100'}`}>

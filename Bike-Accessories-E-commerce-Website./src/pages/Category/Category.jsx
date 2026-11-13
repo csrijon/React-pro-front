@@ -27,7 +27,7 @@ export default function Category() {
         <SmartImage src={cat.image} photoKey={cat.photo} w={1800} alt="" className="absolute inset-0 -z-10 h-full w-full" priority />
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/30" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink to-transparent" />
-        <div className="container-x grid items-center gap-6 py-10 sm:py-14 md:grid-cols-[1fr_260px] lg:py-16">
+        <div className="container-x grid grid-cols-1 items-center gap-6 py-10 sm:py-14 md:grid-cols-[1fr_260px] lg:py-16">
           <div>
             <Breadcrumbs items={[{ label: 'Categories', to: '/shop' }, { label: cat.name }]} className="mb-5" />
             <p className="eyebrow">{cat.tagline}</p>

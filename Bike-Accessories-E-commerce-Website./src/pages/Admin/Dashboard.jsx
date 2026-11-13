@@ -45,7 +45,7 @@ export default function Dashboard() {
   const { data: s, loading, error, reload } = useFetch(() => adminService.stats(), [])
 
   if (error) return <ErrorState message={error.message} onRetry={reload} />
-  if (loading) return <div className="space-y-4"><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-24" />)}</div><Skeleton className="h-64" /></div>
+  if (loading) return <div className="space-y-4"><div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">{[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-24" />)}</div><Skeleton className="h-64" /></div>
 
   const statuses = ['Processing', 'Packed', 'Shipped', 'Out for Delivery', 'Delivered', 'Cancelled', 'Pending Payment']
   const totalOrders = Object.values(s.byStatus).reduce((a, b) => a + b, 0) || 1
@@ -53,7 +53,7 @@ export default function Dashboard() {
   return (
     <>
       <PageTitle title="Dashboard" text="How your store is doing." />
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <Stat icon={IndianRupee} label="Total revenue" value={formatPrice(s.revenue)} sub={`${formatPrice(s.last30Revenue)} in last 30 days`} />
         <Stat icon={ShoppingBag} label="Orders" value={s.orders} sub={`${s.toProcess} waiting to be processed`} to="/admin/orders" tone="text-sky-300 bg-sky-500/15" />
         <Stat icon={Users} label="Customers" value={s.customers} sub={`${s.subscribers} newsletter subscribers`} to="/admin/customers" tone="text-emerald-300 bg-emerald-500/15" />
@@ -67,7 +67,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="p-5 xl:col-span-2">
           <div className="mb-4 flex items-center justify-between"><h2 className="flex items-center gap-2 font-bold"><TrendingUp size={18} className="text-brand-light" /> Revenue · last 30 days</h2><span className="text-sm text-muted">{formatPrice(s.last30Revenue)}</span></div>
           <RevenueChart series={s.series} />
@@ -86,7 +86,7 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
         <Card className="overflow-hidden xl:col-span-2">
           <div className="flex items-center justify-between border-b border-line p-5"><h2 className="font-bold">Recent orders</h2><Link to="/admin/orders" className="text-sm font-semibold text-brand-light hover:underline">View all</Link></div>
           {!s.recentOrders.length ? <p className="p-6 text-sm text-muted">No orders yet. They will appear here as customers check out.</p> : (

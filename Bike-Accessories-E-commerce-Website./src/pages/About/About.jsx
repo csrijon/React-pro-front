@@ -39,7 +39,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="container-x grid gap-6 py-14 md:grid-cols-2">
+      <section className="container-x grid grid-cols-1 gap-6 py-14 md:grid-cols-2">
         <Reveal className="relative overflow-hidden rounded-3xl border border-brand/40 bg-gradient-to-br from-brand-dark to-brand p-8 shadow-glow">
           <Target size={32} /><h2 className="mt-4 font-display text-2xl font-bold">Our Mission</h2>
           <p className="mt-2 leading-relaxed text-white/90">To empower riders with high-quality, reliable and innovative motorcycle accessories - at fair prices, delivered fast.</p>
@@ -51,7 +51,7 @@ export default function About() {
       </section>
 
       <section className="container-x py-10">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
           <Reveal>
             <p className="eyebrow">Our story</p>
             <h2 className="section-title mt-2">From a garage to 50,000 garages</h2>
@@ -84,7 +84,7 @@ export default function About() {
 
       <section className="container-x py-6">
         <SectionHeading align="center" eyebrow="Why MotoGear" title="What sets us apart" />
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {[['01', 'Rider-tested', 'Every product is evaluated by our riders before it reaches the catalogue.'], ['02', 'Genuine only', 'Direct from brands and authorised distributors - always with warranty.'], ['03', 'Honest advice', 'Real riders on support who’ll tell you what not to buy, too.']].map(([n, t, d], i) => (
             <Reveal key={n} delay={i * 0.08} className="rounded-2xl border border-line bg-ink-700 p-6"><span className="font-display text-5xl font-extrabold text-brand-light/30">{n}</span><h3 className="mt-2 text-lg font-bold">{t}</h3><p className="mt-1 text-sm text-muted">{d}</p></Reveal>
           ))}

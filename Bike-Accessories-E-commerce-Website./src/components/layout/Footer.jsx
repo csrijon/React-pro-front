@@ -10,11 +10,11 @@ const support = [['FAQs', '/faq'], ['Returns & Refunds', '/return-policy'], ['Sh
 const Col = ({ title, children }) => (
   <div>
     <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-white">{title}</h2>
-    <ul className="space-y-2.5 text-sm text-muted">{children}</ul>
+    <ul className="text-sm text-muted">{children}</ul>
   </div>
 )
 const L = ({ to, children }) => (
-  <li><Link to={to} className="transition hover:text-white hover:underline hover:decoration-brand hover:underline-offset-4">{children}</Link></li>
+  <li><Link to={to} className="inline-block py-1.5 transition hover:text-white hover:underline hover:decoration-brand hover:underline-offset-4">{children}</Link></li>
 )
 
 /** Payment badges are typographic marks - swap for official brand assets when you integrate payments. */
@@ -36,7 +36,7 @@ export default function Footer() {
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 right-0 h-72 w-[60%] bg-[radial-gradient(closest-side,rgba(239,37,43,0.35),transparent)] blur-2xl" />
 
       <div className="container-x relative pb-8 pt-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           <div className="sm:col-span-2 lg:col-span-4">
             <Logo size="lg" asLink />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">Your one-stop destination for premium bike accessories, riding gear and performance upgrades.</p>

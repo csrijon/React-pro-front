@@ -3,7 +3,7 @@ import { ImagePlus, Loader2, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import adminService from '../../services/adminService'
 
-export const Card = ({ children, className = '' }) => <div className={`rounded-2xl border border-line bg-ink-800 ${className}`}>{children}</div>
+export const Card = ({ children, className = '' }) => <div className={`min-w-0 rounded-2xl border border-line bg-ink-800 ${className}`}>{children}</div>
 
 export const PageTitle = ({ title, text, children }) => (
   <div className="mb-6 flex flex-wrap items-end justify-between gap-3">

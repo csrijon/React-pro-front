@@ -72,8 +72,8 @@ export default function OrderDetails() {
       </div>
       )}
 
-      <div className="mt-6 grid items-start gap-6 xl:grid-cols-[1fr_340px]">
-        <div className="space-y-6">
+      <div className="mt-6 grid grid-cols-1 items-start gap-6 xl:grid-cols-[1fr_340px]">
+        <div className="min-w-0 space-y-6">
           <div className="rounded-2xl border border-line bg-ink-800 p-5">
             <h2 className="mb-4 text-lg font-bold">Items ({o.items.length})</h2>
             <ul className="divide-y divide-line">
@@ -86,7 +86,7 @@ export default function OrderDetails() {
               ))}
             </ul>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="rounded-2xl border border-line bg-ink-800 p-5">
               <h3 className="mb-2 flex items-center gap-2 font-bold"><MapPin size={17} className="text-brand" /> Shipping address</h3>
               <p className="text-sm font-medium">{o.shippingAddress.name}</p>
@@ -99,7 +99,7 @@ export default function OrderDetails() {
             </div>
           </div>
         </div>
-        <aside className="space-y-4">
+        <aside className="min-w-0 space-y-4">
           <div className="rounded-2xl border border-line bg-ink-800 p-5"><OrderSummary totals={o.totals} coupon={o.coupon ? { code: o.coupon } : null} /></div>
           <button onClick={reorder} className="btn-primary w-full"><RotateCcw size={16} /> Reorder these items</button>
           {canCancel && <button onClick={cancel} disabled={cancelling} className="btn-ghost w-full text-brand"><XCircle size={16} /> {cancelling ? 'Cancelling...' : 'Cancel order'}</button>}

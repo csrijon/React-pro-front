@@ -26,11 +26,11 @@ export default function Brands() {
         </div>
       </div>
 
-      {loading ? <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{Array.from({ length: 8 }, (_, i) => <Skeleton key={i} className="h-48" />)}</div>
+      {loading ? <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{Array.from({ length: 8 }, (_, i) => <Skeleton key={i} className="h-48" />)}</div>
         : error ? <ErrorState message={error.message} onRetry={reload} />
         : !list.length ? <EmptyState title={`No brands match “${q}”`} text="Check the spelling or try another name." action={<button onClick={() => setQ('')} className="btn-primary">Clear search</button>} />
         : (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((b) => (
               <div key={b.slug}>
                 <Link to={`/brands/${b.slug}`} className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-ink-700 transition hover:-translate-y-1 hover:border-brand/70 hover:shadow-glow">

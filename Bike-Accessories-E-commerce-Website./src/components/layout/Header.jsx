@@ -89,7 +89,7 @@ export default function Header() {
     navigate('/')
   }
 
-  const iconBtn = 'relative flex h-10 w-10 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white'
+  const iconBtn = 'relative flex h-11 w-11 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 hover:text-white'
 
   return (
     <>

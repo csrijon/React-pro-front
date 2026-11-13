@@ -31,7 +31,7 @@ function AddressForm({ initial, onDone }) {
           <button type="button" key={l} role="radio" aria-checked={form.values.label === l} onClick={() => form.setValue('label', l)} className={`chip px-4 py-2 text-sm transition ${form.values.label === l ? 'border-brand bg-brand-solid text-white' : 'hover:border-brand'}`}>{l}</button>
         ))}
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FormField label="Full name" required error={form.errors.name} {...form.field('name')} />
         <FormField label="Mobile number" required type="tel" error={form.errors.phone} {...form.field('phone')} />
       </div>
@@ -56,11 +56,11 @@ export default function Addresses() {
   return (
     <>
       <PageHeading title="Manage Addresses" text="Save addresses for faster checkout." action={<button onClick={() => setModal('new')} className="btn-primary"><Plus size={16} /> Add New Address</button>} />
-      {loading ? <div className="grid gap-4 sm:grid-cols-2"><Skeleton className="h-44" /><Skeleton className="h-44" /></div>
+      {loading ? <div className="grid grid-cols-1 gap-4 sm:grid-cols-2"><Skeleton className="h-44" /><Skeleton className="h-44" /></div>
         : error ? <ErrorState message={error.message} onRetry={reload} />
         : !data.length ? <EmptyState icon={MapPin} title="No saved addresses" text="Add a delivery address to speed up checkout." action={<button onClick={() => setModal('new')} className="btn-primary"><Plus size={16} /> Add Address</button>} />
         : (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {data.map((a) => {
               const Icon = ICONS[a.label] || MapPin
               return (

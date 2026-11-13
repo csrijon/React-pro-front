@@ -106,6 +106,15 @@ export default function ResourcePage({ config }) {
     try { await adminService.remove(deleteResource || resource, row.id); toast.success('Deleted'); reload() } catch (err) { toast.error(err.message) }
   }
 
+  const RowActions = ({ row }) => (
+    <div className="flex justify-end gap-1">
+      {rowActions?.(row, reload)}
+      {detail && <button onClick={() => setModal({ view: row })} aria-label="View" title="View" className="flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-ink-600 hover:text-white"><Eye size={17} /></button>}
+      {canEdit && fields.length > 0 && <button onClick={() => open(row)} aria-label="Edit" title="Edit" className="flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-ink-600 hover:text-white"><Pencil size={17} /></button>}
+      {canDelete && <button onClick={() => remove(row)} aria-label="Delete" title="Delete" className="flex h-10 w-10 items-center justify-center rounded-lg text-muted hover:bg-brand-soft hover:text-brand"><Trash2 size={17} /></button>}
+    </div>
+  )
+
   return (
     <>
       <PageTitle title={title} text={text}>
@@ -128,8 +137,29 @@ export default function ResourcePage({ config }) {
         </div>
 
         {error ? <div className="p-6"><ErrorState message={error.message} onRetry={reload} /></div> : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[640px] text-left text-sm">
+          <>
+          {/* Phones: one readable card per row (no sideways scrolling) */}
+          <ul className="divide-y divide-line md:hidden" aria-label={`${title} list`}>
+            {loading ? Array.from({ length: 4 }, (_, i) => <li key={i} className="p-4"><Skeleton className="h-20" /></li>)
+              : !data.items.length ? <li className="px-4 py-12 text-center text-sm text-muted">{dq || Object.keys(filterVals).length ? 'Nothing matches your search.' : `No ${noun}s yet.`}</li>
+              : data.items.map((row) => (
+                <li key={row.id} className="space-y-3 p-4">
+                  <div className="min-w-0">{columns[0].render ? columns[0].render(row) : String(row[columns[0].key] ?? '–')}</div>
+                  <dl className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
+                    {columns.slice(1).map((c) => (
+                      <div key={c.label} className="min-w-0">
+                        <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted">{c.label}</dt>
+                        <dd className="mt-0.5 break-words">{c.render ? c.render(row) : String(row[c.key] ?? '–')}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <div className="flex justify-end gap-1 border-t border-line pt-2"><RowActions row={row} /></div>
+                </li>
+              ))}
+          </ul>
+          {/* Tablet and up: table */}
+          <div className="hidden overflow-x-auto md:block">
+            <table className="w-full min-w-[560px] text-left text-sm">
               <thead className="border-b border-line bg-ink-700/50 text-xs uppercase tracking-wide text-muted">
                 <tr>{columns.map((c) => <th key={c.label} className={`px-4 py-3 font-semibold ${c.className || ''}`}>{c.label}</th>)}<th className="px-4 py-3 text-right font-semibold">Actions</th></tr>
               </thead>
@@ -140,18 +170,14 @@ export default function ResourcePage({ config }) {
                     <tr key={row.id} className="transition hover:bg-ink-700/40">
                       {columns.map((c) => <td key={c.label} className={`px-4 py-3 align-middle ${c.className || ''}`}>{c.render ? c.render(row) : String(row[c.key] ?? '–')}</td>)}
                       <td className="px-4 py-3 text-right">
-                        <div className="flex justify-end gap-1.5">
-                          {rowActions?.(row, reload)}
-                          {detail && <button onClick={() => setModal({ view: row })} aria-label="View" title="View" className="rounded-lg p-2 text-muted hover:bg-ink-600 hover:text-white"><Eye size={16} /></button>}
-                          {canEdit && fields.length > 0 && <button onClick={() => open(row)} aria-label="Edit" title="Edit" className="rounded-lg p-2 text-muted hover:bg-ink-600 hover:text-white"><Pencil size={16} /></button>}
-                          {canDelete && <button onClick={() => remove(row)} aria-label="Delete" title="Delete" className="rounded-lg p-2 text-muted hover:bg-brand-soft hover:text-brand"><Trash2 size={16} /></button>}
-                        </div>
+                        <RowActions row={row} />
                       </td>
                     </tr>
                   ))}
               </tbody>
             </table>
           </div>
+          </>
         )}
         {data && <Pager page={data.page} pages={data.pages} total={data.total} onChange={setPage} />}
       </Card>
@@ -160,7 +186,7 @@ export default function ResourcePage({ config }) {
         {modal?.view && detail?.(modal.view)}
         {modal && !modal.view && (
           <form onSubmit={save} noValidate className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {fields.map((f) => <Field key={f.name} f={f} values={values} set={set} error={errors[f.name]} />)}
             </div>
             <LoadingButton type="submit" loading={saving} loadingText="Saving..." className="btn-primary w-full">{modal.row ? 'Save changes' : `Create ${noun}`}</LoadingButton>
