@@ -4,22 +4,23 @@ import Modal from '../common/Modal'
 import Field from '../common/Field'
 import { rules } from './EnquiryForm'
 import { inquiryService } from '../../services/inquiryService'
+import { useSite } from '../../context/SiteContext'
 
-const TIMES = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00']
 const today = () => new Date().toISOString().slice(0, 10)
 
-export default function BookVisitModal({ open, onClose, property, agentId }) {
+export default function BookVisitModal({ open, onClose, property }) {
+  const TIMES = useSite().site.options.timeSlots
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
   const onSubmit = async (d) => {
     try {
-      await inquiryService.appointments.create({ ...d, property, agentId })
+      await inquiryService.appointments.create({ ...d, property })
       toast.success(`Visit booked for ${new Date(d.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })} at ${d.time}`)
       reset(); onClose()
     } catch (e) { toast.error(e.message || 'Could not book the visit. Please try again.') }
   }
   return (
     <Modal open={open} onClose={onClose} title="Book a visit">
-      <p className="mb-4 text-sm text-muted">Choose a time to see <strong className="text-ink">{property}</strong>. The agent will confirm by phone.</p>
+      <p className="mb-4 text-sm text-muted">Choose a time to see <strong className="text-ink">{property}</strong>. We will confirm by phone.</p>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3.5">
         <Field label="Full name" error={errors.name}><input className={`input ${errors.name ? 'input-error' : ''}`} {...register('name', rules.name)} /></Field>
         <Field label="Phone number" error={errors.phone}><input type="tel" className={`input ${errors.phone ? 'input-error' : ''}`} {...register('phone', rules.phone)} /></Field>

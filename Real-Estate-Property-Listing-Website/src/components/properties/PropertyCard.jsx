@@ -1,7 +1,8 @@
 import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Heart, MapPin, BedDouble, Bath, Maximize } from 'lucide-react'
+import { Heart, MapPin, BedDouble, Bath, Maximize, GitCompareArrows } from 'lucide-react'
+import { useCompare } from '../../context/CompareContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { formatPrice, formatArea } from '../../utils/format'
 import Img from '../common/Img'
@@ -9,6 +10,8 @@ import Img from '../common/Img'
 function PropertyCard({ property: p, layout = 'grid' }) {
   const { has, toggle } = useWishlist()
   const saved = has(p.id)
+  const cmp = useCompare()
+  const comparing = cmp.has(p.id)
   const list = layout === 'list'
   return (
     <motion.article whileHover={{ y: -4 }} transition={{ duration: 0.2 }}
@@ -19,15 +22,19 @@ function PropertyCard({ property: p, layout = 'grid' }) {
         </Link>
         <span className={`absolute left-3 top-3 rounded-lg px-2.5 py-1 text-xs font-semibold text-white ${p.purpose === 'Rent' ? 'bg-amber-600' : 'bg-accent'}`}>{p.status}</span>
         <button onClick={() => toggle(p.id)} aria-pressed={saved} aria-label={saved ? 'Remove from wishlist' : 'Save to wishlist'}
-          className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-white/95 shadow transition hover:scale-110">
+          className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-white/95 shadow transition hover:scale-110">
           <Heart size={17} className={saved ? 'fill-red-500 text-red-500' : 'text-slate-600'} />
+        </button>
+        <button onClick={() => cmp.toggle(p.id)} aria-pressed={comparing} aria-label={comparing ? 'Remove from comparison' : 'Add to comparison'}
+          className={`absolute right-3 top-[3.75rem] grid h-10 w-10 place-items-center rounded-full shadow transition hover:scale-110 ${comparing ? 'bg-accent text-white' : 'bg-white/95 text-slate-600'}`}>
+          <GitCompareArrows size={16} />
         </button>
       </div>
       <div className="flex flex-1 flex-col p-4 sm:p-5">
         <p className="font-heading text-xl font-semibold text-primary">
           {formatPrice(p.price, p.purpose)}{p.purpose === 'Rent' && <span className="text-sm font-normal text-muted"> /month</span>}
         </p>
-        <h3 className="mt-1 text-base font-semibold leading-snug"><Link to={`/properties/${p.id}`} className="hover:text-accent">{p.title}</Link></h3>
+        <h3 className="mt-1 text-base font-semibold leading-snug"><Link to={`/properties/${p.id}`} className="tap hover:text-accent">{p.title}</Link></h3>
         <p className="mt-1 flex items-center gap-1 text-sm text-muted"><MapPin size={14} />{p.location}, {p.city}</p>
         {list && <p className="mt-2 line-clamp-2 hidden text-sm text-muted md:block">{p.description}</p>}
         <div className="mt-4 flex items-center gap-4 border-t border-line pt-3 text-sm text-muted">

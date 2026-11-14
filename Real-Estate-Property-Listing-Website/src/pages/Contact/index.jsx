@@ -6,11 +6,13 @@ import { inquiryService } from '../../services/inquiryService'
 import PageHeader from '../../components/common/PageHeader'
 import Field from '../../components/common/Field'
 import { rules } from '../../components/forms/EnquiryForm'
+import { useSiteSettings } from '../../hooks/useSiteSettings'
 
-const info = [[Mail, 'Email', 'support@estatehub.com', 'mailto:support@estatehub.com'], [Phone, 'Phone', '+91 98765 43210', 'tel:+919876543210'], [MapPin, 'Address', 'New Town, Kolkata, West Bengal – 700156'], [Clock, 'Working hours', 'Mon – Sat: 9:00 AM – 7:00 PM']]
 
 export default function Contact() {
-  useSEO('Contact Us', 'Have a question or need assistance? Contact the EstateHub team by phone, email or message.')
+  const site = useSiteSettings()
+  useSEO('Contact Us', `Have a question or need assistance? Contact the ${site.company} team by phone, email or message.`)
+  const info = [[Mail, 'Email', site.email, `mailto:${site.email}`], [Phone, 'Phone', site.phone, `tel:${site.phone.replace(/[^\d+]/g, '')}`], [MapPin, 'Address', site.address], ...(site.workingHours ? [[Clock, 'Working hours', site.workingHours]] : [])]
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm()
   const onSubmit = async (d) => {
     try { await inquiryService.submit({ ...d, property: `Contact: ${d.subject}` }); toast.success('Message sent. We will reply within one business day.'); reset() }

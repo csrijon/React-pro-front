@@ -24,5 +24,9 @@ export const authService = {
     return user
   },
   async forgotPassword(email) { if (!USE_MOCK) return http('/auth/forgot-password', { method: 'POST', body: { email } }); await delay(700); return { ok: true } },
+  async me() { return http('/auth/me') },
+  async updateProfile(d) { if (!USE_MOCK) { const u = await http('/auth/me', { method: 'PUT', body: d }); localStorage.setItem(KEY, JSON.stringify(u)); return u } await delay(300); const u = { ...authService.current(), ...d }; localStorage.setItem(KEY, JSON.stringify(u)); return u },
+  async changePassword(d) { if (!USE_MOCK) return http('/auth/password', { method: 'PUT', body: d }); await delay(400); return { ok: true } },
+  async resetPassword(d) { if (!USE_MOCK) return http('/auth/reset-password', { method: 'POST', body: d }); await delay(500); return { ok: true } },
   logout() { localStorage.removeItem(KEY); localStorage.removeItem('estatehub:token') },
 }

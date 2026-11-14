@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --c-forest: 23 61 46; --c-forest-700: 31 77 59; --c-forest-800: 16 44 33; --c-forest-900: 11 31 23;
+    --c-cream: 245 240 231; --c-cream-200: 236 229 216;
+    --c-sage: 167 180 155; --c-sage-600: 127 143 115;
+    --c-beige: 216 200 180; --c-beige-600: 185 166 142;
+    --font-display: 'Cormorant Garamond'; --font-sans: 'Manrope';
+  }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-cream text-charcoal font-sans antialiased; overflow-x: hidden; }
+  h1, h2, h3, h4 { @apply font-display font-medium tracking-tight; }
+  :focus-visible { outline: 2px solid #A7B49B; outline-offset: 3px; }
+  img { @apply block; }
+  ::selection { background: #173D2E; color: #F5F0E7; }
+}
+
+@layer components {
+  .shell { @apply mx-auto w-full max-w-shell px-5 sm:px-8 lg:px-12; }
+  .display-xl { @apply font-display font-medium leading-[0.98] text-[3.4rem] sm:text-[4.6rem] lg:text-[6rem]; }
+  .display-lg { @apply font-display font-medium leading-[1.02] text-[2.6rem] sm:text-5xl lg:text-[4rem]; }
+  .display-md { @apply font-display font-medium leading-tight text-3xl sm:text-4xl; }
+  .arch { border-radius: 999px 999px 0 0; }
+  .btn { @apply inline-flex items-center justify-center gap-2 px-6 min-h-[46px] text-sm font-semibold transition-all duration-300 select-none disabled:opacity-60 disabled:cursor-not-allowed; }
+  .btn-primary { @apply bg-forest text-cream hover:bg-forest-800 hover:gap-3; }
+  .btn-outline { @apply border border-forest text-forest hover:bg-forest hover:text-cream; }
+  .btn-light { @apply bg-cream text-forest hover:bg-white; }
+  .link-u { @apply relative inline-block after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full; }
+  .field { @apply w-full bg-transparent border-b border-charcoal/30 py-3 text-[15px] outline-none transition-colors focus:border-forest placeholder:text-charcoal/40; }
+  .field-err { @apply border-red-700; }
+  .skeleton { @apply animate-pulse bg-beige/50; }
+
+  /* admin */
+  .a-card { @apply bg-charcoal-700/60 border border-white/[0.06] rounded-lg; }
+  .a-input { @apply w-full bg-charcoal-800 border border-white/10 rounded-md px-3 min-h-[42px] text-sm text-cream placeholder:text-white/30 outline-none focus:border-sage focus:ring-1 focus:ring-sage/40; }
+  .a-btn { @apply inline-flex items-center justify-center gap-2 rounded-md px-4 min-h-[40px] text-sm font-semibold transition-colors disabled:opacity-60; }
+  .a-btn-primary { @apply bg-forest-700 text-cream hover:bg-forest border border-sage/20; }
+  .a-btn-ghost { @apply border border-white/10 text-cream/80 hover:bg-white/5; }
+  .a-btn-danger { @apply bg-red-900/70 text-red-100 hover:bg-red-800; }
+  .a-label { @apply block text-xs font-semibold text-cream/60 mb-1.5; }
+  .a-err { @apply text-xs text-red-400 mt-1; }
+}
+
+/* ---------- dropdowns (native <select>, restyled so the closed state and the popup match each theme) ---------- */
+select.a-input, select.field {
+  appearance: none; -webkit-appearance: none; cursor: pointer; text-overflow: ellipsis;
+  background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;
+  padding-right: 2.25rem;
+}
+select.a-input {
+  color-scheme: dark;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A7B49B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+select.a-input option, select.a-input optgroup { background-color: #181a19; color: #F5F0E7; }
+select.a-input:hover { border-color: rgba(167, 180, 155, 0.5); }
+select.a-input:disabled { opacity: .5; cursor: not-allowed; }
+select.field {
+  background-position: right 0.25rem center;
+  padding-right: 1.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23173D2E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+select.field option { background-color: #fff; color: #202321; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

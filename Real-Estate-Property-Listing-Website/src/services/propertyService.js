@@ -15,7 +15,4 @@ export const propertyService = {
     ? store.update(id, { ...data, ...(data.purpose ? { status: data.purpose === 'Rent' ? 'For Rent' : 'For Sale' } : {}) })
     : http(`/properties/${id}`, { method: 'PUT', body: data })),
   remove: (id) => (USE_MOCK ? store.remove(id) : http(`/properties/${id}`, { method: 'DELETE' })),
-  submitListing: (data) => (USE_MOCK
-    ? new Promise((r) => setTimeout(() => r({ ok: true, reference: uid('LST').toUpperCase() }), 900))
-    : http('/property-submissions', { method: 'POST', body: data })),
 }

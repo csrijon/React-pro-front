@@ -13,7 +13,7 @@ export const SearchBox = ({ value, onChange, placeholder = 'Search' }) => (
 const tones = {
   green: 'bg-green-50 text-green-700', amber: 'bg-amber-50 text-amber-700', blue: 'bg-sky-50 text-sky-700', red: 'bg-red-50 text-red-700', gray: 'bg-slate-100 text-slate-600',
 }
-const map = { New: 'blue', Contacted: 'amber', Converted: 'green', Closed: 'gray', Active: 'green', Inactive: 'gray', Pending: 'amber', Confirmed: 'green', Completed: 'gray', Cancelled: 'red', Published: 'green', Hidden: 'gray', 'For Sale': 'green', 'For Rent': 'amber', Sold: 'gray', Rented: 'gray', Draft: 'gray', 'Ready to Move': 'green', 'Under Construction': 'amber', Upcoming: 'blue', Verified: 'green', Unverified: 'gray' }
+const map = { New: 'blue', Contacted: 'amber', Converted: 'green', Closed: 'gray', Active: 'green', Inactive: 'gray', Pending: 'amber', Confirmed: 'green', Completed: 'gray', Cancelled: 'red', Published: 'green', Hidden: 'gray', 'For Sale': 'green', 'For Rent': 'amber', Sold: 'gray', Rented: 'gray', Draft: 'gray', 'Ready to Move': 'green', 'Under Construction': 'amber', Upcoming: 'blue', Verified: 'green', Approved: 'green', Rejected: 'red', 'Pending review': 'amber', Unverified: 'gray' }
 export const StatusBadge = ({ status }) => <span className={`inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium ${tones[map[status] || 'gray']}`}>{status}</span>
 
 export const Table = ({ head, children, empty }) => (

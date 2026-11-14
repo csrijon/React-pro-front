@@ -11,6 +11,10 @@ export async function http(path, { method = 'GET', body, headers } = {}) {
     headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...headers },
     body: body ? JSON.stringify(body) : undefined,
   })
+  if (res.status === 401 && token) { // token expired, revoked, or from another database: end the session everywhere
+    localStorage.removeItem('estatehub:token'); localStorage.removeItem('estatehub:user')
+    window.dispatchEvent(new Event('estatehub:unauthorized'))
+  }
   if (!res.ok) {
     let msg = res.statusText
     try { msg = (await res.json()).message || msg } catch { /* ignore */ }

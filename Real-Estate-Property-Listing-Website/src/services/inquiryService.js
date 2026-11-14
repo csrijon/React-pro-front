@@ -12,10 +12,10 @@ export const inquiryService = {
   list: () => (USE_MOCK ? inq.all() : http('/inquiries')),
   update: (id, d) => (USE_MOCK ? inq.update(id, d) : http(`/inquiries/${id}`, { method: 'PUT', body: d })),
   remove: (id) => (USE_MOCK ? inq.remove(id) : http(`/inquiries/${id}`, { method: 'DELETE' })),
-  // Public enquiry (property, project, agent or contact form)
+  // Public enquiry (property, project or contact form)
   submit: (d) => (USE_MOCK ? inq.add({ id: uid('q'), status: 'New', createdAt: new Date().toISOString(), property: d.property || 'General enquiry', ...d }) : http('/inquiries', { method: 'POST', body: d })),
   subscribe: async (email) => (USE_MOCK ? (await delay(500), { ok: true }) : http('/newsletter', { method: 'POST', body: { email } })),
-  testimonials: async () => (USE_MOCK ? testimonials : http('/testimonials')),
+  testimonials: async () => { if (!USE_MOCK) return http('/testimonials'); try { return JSON.parse(localStorage.getItem('estatehub:mock:testimonials')) || testimonials } catch { return testimonials } },
   appointments: {
     list: () => (USE_MOCK ? apt.all() : http('/appointments')),
     create: (d) => (USE_MOCK ? apt.add({ id: uid('ap'), status: 'Pending', ...d }) : http('/appointments', { method: 'POST', body: d })),

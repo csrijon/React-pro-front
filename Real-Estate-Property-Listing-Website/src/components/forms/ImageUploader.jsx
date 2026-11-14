@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
 import { ImagePlus, X } from 'lucide-react'
 import { toast } from 'sonner'
-import { validateFiles, fileToDataUrl, MAX_FILES, MAX_MB } from '../../utils/images'
+import { validateFiles, MAX_FILES, MAX_MB } from '../../utils/images'
+import { uploadImages } from '../../services/uploadService'
 
 export default function ImageUploader({ value, onChange, error }) {
   const ref = useRef(null)
@@ -11,7 +12,7 @@ export default function ImageUploader({ value, onChange, error }) {
     errors.forEach((e) => toast.error(e))
     if (!ok.length) return
     setBusy(true)
-    try { onChange([...value, ...(await Promise.all(ok.map((f) => fileToDataUrl(f))))]) } catch (e) { toast.error(e.message) } finally { setBusy(false); if (ref.current) ref.current.value = '' }
+    try { onChange([...value, ...(await uploadImages(ok))]) } catch (e) { toast.error(e.message) } finally { setBusy(false); if (ref.current) ref.current.value = '' }
   }
   return (
     <div>

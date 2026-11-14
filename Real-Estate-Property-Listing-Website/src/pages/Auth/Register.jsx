@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useSEO } from '../../utils/seo'
 import { useAuth } from '../../context/AuthContext'
+import { useSite } from '../../context/SiteContext'
 import Field from '../../components/common/Field'
 import { rules } from '../../components/forms/EnquiryForm'
 
 export default function Register() {
   useSEO('Create account')
+  const { site, tx } = useSite()
   const { register: signup } = useAuth(); const nav = useNavigate()
   const { register, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm()
   const onSubmit = async (d) => {
@@ -16,7 +18,7 @@ export default function Register() {
   const c = (e) => `input ${e ? 'input-error' : ''}`
   return (
     <div>
-      <h1 className="text-3xl font-semibold">Create account</h1><p className="mt-1 text-muted">Save properties and track your enquiries.</p>
+      <h1 className="text-3xl font-semibold">{tx(site.pages.register.title)}</h1><p className="mt-1 text-muted">{tx(site.pages.register.subtitle)}</p>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-6 space-y-4">
         <Field label="Full name" error={errors.name}><input className={c(errors.name)} autoComplete="name" {...register('name', rules.name)} /></Field>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -25,7 +27,7 @@ export default function Register() {
         </div>
         <Field label="Password" error={errors.password}><input type="password" autoComplete="new-password" className={c(errors.password)} {...register('password', { required: 'Please choose a password', minLength: { value: 8, message: 'Use at least 8 characters' }, pattern: { value: /(?=.*\d)(?=.*[A-Za-z])/, message: 'Include letters and numbers' } })} /></Field>
         <Field label="Confirm password" error={errors.confirm}><input type="password" autoComplete="new-password" className={c(errors.confirm)} {...register('confirm', { required: 'Please confirm your password', validate: (v) => v === watch('password') || 'Passwords do not match' })} /></Field>
-        <label className="flex items-start gap-2 text-sm text-muted"><input type="checkbox" className="mt-0.5 h-4 w-4 accent-[#267032]" {...register('terms', { required: 'Please accept the terms to continue' })} />I agree to the terms of service and privacy policy.</label>
+        <label className="flex items-start gap-2 text-sm text-muted"><input type="checkbox" className="mt-0.5 h-4 w-4 accent-accent" {...register('terms', { required: 'Please accept the terms to continue' })} />I agree to the terms of service and privacy policy.</label>
         {errors.terms && <p className="field-error">{errors.terms.message}</p>}
         <button className="btn-primary w-full" disabled={isSubmitting}>{isSubmitting ? 'Creating…' : 'Create account'}</button>
       </form>

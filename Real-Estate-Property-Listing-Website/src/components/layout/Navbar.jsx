@@ -3,15 +3,18 @@ import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Heart, User, Menu, X, LogOut, LayoutDashboard } from 'lucide-react'
 import Logo from '../common/Logo'
+import SiteLink from '../common/SiteLink'
+import { useSite } from '../../context/SiteContext'
 import { useWishlist } from '../../context/WishlistContext'
 import { useAuth } from '../../context/AuthContext'
 
-const links = [['/', 'Home'], ['/properties', 'Properties'], ['/projects', 'Projects'], ['/agents', 'Agents'], ['/about', 'About'], ['/contact', 'Contact']]
 
 export default function Navbar({ overlay = false }) {
   const [open, setOpen] = useState(false)
   const [menu, setMenu] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { site, tx } = useSite()
+  const links = site.nav.map((i) => [i.to, i.label])
   const { count } = useWishlist()
   const { user, logout, isAdmin } = useAuth()
   const { pathname } = useLocation()
@@ -29,7 +32,7 @@ export default function Navbar({ overlay = false }) {
       <div className="container-x flex h-16 items-center justify-between gap-4">
         <Logo />
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Main">
-          {links.map(([to, label]) => <NavLink key={to} to={to} end={to === '/'} className={linkCls}>{label}</NavLink>)}
+          {links.map(([to, label]) => <SiteLink key={to + label} to={to} nav className={linkCls}>{label}</SiteLink>)}
         </nav>
         <div className="flex items-center gap-2">
           <Link to="/wishlist" className="relative grid h-10 w-10 place-items-center rounded-full text-ink hover:bg-primary-50" aria-label={`Wishlist, ${count} saved`}>
@@ -46,6 +49,7 @@ export default function Navbar({ overlay = false }) {
                   {user ? (<>
                     <p className="truncate px-3 py-2 text-xs text-muted">{user.email}</p>
                     {isAdmin && <Link to="/admin" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-primary-50"><LayoutDashboard size={15} />Admin dashboard</Link>}
+                    <Link to="/account" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-primary-50"><User size={15} />My account</Link>
                     <Link to="/wishlist" className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-primary-50"><Heart size={15} />My wishlist</Link>
                     <button onClick={logout} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-red-600 hover:bg-red-50"><LogOut size={15} />Log out</button>
                   </>) : (<>
@@ -56,7 +60,7 @@ export default function Navbar({ overlay = false }) {
               )}
             </AnimatePresence>
           </div>
-          <Link to="/list-property" className="btn-primary hidden sm:inline-flex">List your property</Link>
+          <Link to="/list-property" className="btn-primary hidden sm:inline-flex">{site.home.cta.button}</Link>
           <button className="grid h-10 w-10 place-items-center rounded-full hover:bg-primary-50 lg:hidden" onClick={() => setOpen((o) => !o)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}>
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -67,9 +71,9 @@ export default function Navbar({ overlay = false }) {
           <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden border-t border-line bg-white lg:hidden" aria-label="Mobile">
             <div className="container-x flex flex-col py-3">
               {links.map(([to, label]) => (
-                <NavLink key={to} to={to} end={to === '/'} className={({ isActive }) => `rounded-lg px-3 py-3 text-base font-medium ${isActive ? 'bg-primary-50 text-accent' : 'text-ink'}`}>{label}</NavLink>
+                <SiteLink key={to + label} to={to} nav className={({ isActive }) => `rounded-lg px-3 py-3 text-base font-medium ${isActive ? 'bg-primary-50 text-accent' : 'text-ink'}`}>{label}</SiteLink>
               ))}
-              <Link to="/list-property" className="btn-primary mt-3">List your property</Link>
+              <Link to="/list-property" className="btn-primary mt-3">{site.home.cta.button}</Link>
             </div>
           </motion.nav>
         )}

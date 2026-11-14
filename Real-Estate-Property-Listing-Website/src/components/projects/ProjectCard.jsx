@@ -14,7 +14,7 @@ export default function ProjectCard({ project: p }) {
         <span className={`absolute left-3 top-3 rounded-lg px-2.5 py-1 text-xs font-semibold text-white ${tone[p.status] || 'bg-accent'}`}>{p.status}</span>
       </div>
       <div className="p-5">
-        <h3 className="text-lg font-semibold"><Link to={`/projects/${p.id}`} className="hover:text-accent">{p.name}</Link></h3>
+        <h3 className="text-lg font-semibold"><Link to={`/projects/${p.id}`} className="tap hover:text-accent">{p.name}</Link></h3>
         <p className="mt-1 flex items-center gap-1 text-sm text-muted"><MapPin size={14} />{p.location}</p>
         <div className="mt-3 flex items-center justify-between text-sm">
           <span className="text-muted">From <strong className="font-heading text-base text-primary">{formatBudget(p.priceFrom)}</strong></span>

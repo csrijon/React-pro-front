@@ -1,4 +1,4 @@
-import { avatar } from './images'
+import { avatar } from './images.js'
 
 export const testimonials = [
   { id: 't1', name: 'Rahul & Anjali Mehta', role: 'Bought a 3 BHK in New Town', avatar: avatar('men', 41), rating: 5, text: 'We compared dozens of listings in one evening. Every detail was accurate, and our agent never pushed us. We moved in within two months.' },
@@ -19,11 +19,11 @@ export const inquiries = [
 ]
 
 export const appointments = [
-  { id: 'ap1', name: 'Rahul Sharma', phone: '+91 98300 11122', property: '3 BHK Luxury Apartment', date: '2026-11-15', time: '11:00', status: 'Confirmed', agentId: 'a1' },
-  { id: 'ap2', name: 'Moumita Paul', phone: '+91 98311 90012', property: '2 BHK Builder Floor', date: '2026-11-16', time: '15:30', status: 'Pending', agentId: 'a6' },
-  { id: 'ap3', name: 'Vikash Gupta', phone: '+91 98000 34567', property: 'Commercial Office Space', date: '2026-11-17', time: '10:00', status: 'Confirmed', agentId: 'a5' },
-  { id: 'ap4', name: 'Tanvi Shah', phone: '+91 97480 55600', property: 'Skyline Residency', date: '2026-11-18', time: '12:30', status: 'Pending', agentId: 'a2' },
-  { id: 'ap5', name: 'Amit Mondal', phone: '+91 97490 88810', property: '4 BHK Villa', date: '2026-11-10', time: '16:00', status: 'Completed', agentId: 'a5' },
+  { id: 'ap1', name: 'Rahul Sharma', phone: '+91 98300 11122', property: '3 BHK Luxury Apartment', date: '2026-11-15', time: '11:00', status: 'Confirmed' },
+  { id: 'ap2', name: 'Moumita Paul', phone: '+91 98311 90012', property: '2 BHK Builder Floor', date: '2026-11-16', time: '15:30', status: 'Pending' },
+  { id: 'ap3', name: 'Vikash Gupta', phone: '+91 98000 34567', property: 'Commercial Office Space', date: '2026-11-17', time: '10:00', status: 'Confirmed' },
+  { id: 'ap4', name: 'Tanvi Shah', phone: '+91 97480 55600', property: 'Skyline Residency', date: '2026-11-18', time: '12:30', status: 'Pending' },
+  { id: 'ap5', name: 'Amit Mondal', phone: '+91 97490 88810', property: '4 BHK Villa', date: '2026-11-10', time: '16:00', status: 'Completed' },
 ]
 
 export const customers = [
@@ -36,8 +36,8 @@ export const customers = [
 
 export const users = [
   { id: 'u1', name: 'Admin User', email: 'admin@estatehub.com', role: 'Admin', status: 'Active' },
-  { id: 'u2', name: 'Pallavi Roy', email: 'pallavi@estatehub.com', role: 'Agent', status: 'Active' },
-  { id: 'u3', name: 'Arindam Sen', email: 'arindam@estatehub.com', role: 'Agent', status: 'Active' },
+  { id: 'u2', name: 'Pallavi Roy', email: 'pallavi@estatehub.com', role: 'Editor', status: 'Active' },
+  { id: 'u3', name: 'Arindam Sen', email: 'arindam@estatehub.com', role: 'Editor', status: 'Active' },
   { id: 'u4', name: 'Content Editor', email: 'editor@estatehub.com', role: 'Editor', status: 'Inactive' },
 ]
 

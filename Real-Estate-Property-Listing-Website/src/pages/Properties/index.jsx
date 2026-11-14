@@ -1,10 +1,15 @@
 import { useMemo, useState, useCallback } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { Search, SlidersHorizontal, LayoutGrid, List, X } from 'lucide-react'
+import { Search, SlidersHorizontal, LayoutGrid, List, X, BookmarkPlus, MapIcon } from 'lucide-react'
+import { toast } from 'sonner'
+import { accountService } from '../../services/accountService'
+import { useAuth } from '../../context/AuthContext'
+import { useRecentlyViewed } from '../../hooks/useRecentlyViewed'
 import { useSEO } from '../../utils/seo'
 import { useAsync } from '../../hooks/useAsync'
 import { useLockBody } from '../../hooks/useLockBody'
 import { propertyService } from '../../services/propertyService'
+import { lazy, Suspense } from 'react'
 import PropertyCard from '../../components/properties/PropertyCard'
 import FilterPanel from '../../components/properties/FilterPanel'
 import PageHeader from '../../components/common/PageHeader'
@@ -12,6 +17,7 @@ import Pagination from '../../components/common/Pagination'
 import { CardSkeleton, EmptyState, ErrorState } from '../../components/common/States'
 import { formatBudget } from '../../utils/format'
 
+const PropertyMap = lazy(() => import('../../components/properties/PropertyMap'))
 const PAGE_SIZE = 6
 const DEFAULTS = { q: '', purpose: '', type: '', min: '', max: '', beds: '', baths: '', location: '', furnishing: '', status: '', amin: '', amax: '', sort: 'latest', view: 'grid', page: '1' }
 
@@ -19,6 +25,14 @@ export default function Properties() {
   useSEO('Explore Properties', 'Search and filter apartments, villas, builder floors, plots and commercial spaces for sale and rent.')
   const [sp, setSp] = useSearchParams()
   const [drawer, setDrawer] = useState(false)
+  const { user } = useAuth()
+  const recent = useRecentlyViewed()
+  const saveSearch = async () => {
+    if (!user) return toast.error('Log in to save searches')
+    const name = window.prompt('Name this search', chips.map((c) => c.label).slice(0, 3).join(', ') || 'My search')
+    if (!name) return
+    try { await accountService.savedSearches.create({ name: name.slice(0, 80), query: sp.toString() }); toast.success('Search saved to your account') } catch (e) { toast.error(e.message) }
+  }
   useLockBody(drawer)
   const { data, loading, error, reload } = useAsync(() => propertyService.list(), [])
   const f = useMemo(() => Object.fromEntries(Object.keys(DEFAULTS).map((k) => [k, sp.get(k) ?? DEFAULTS[k]])), [sp])
@@ -88,13 +102,13 @@ export default function Properties() {
         <section aria-live="polite">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-muted"><strong className="text-ink">{loading ? '…' : results.length}</strong> properties found</p>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button className="btn-outline btn-sm lg:hidden" onClick={() => setDrawer(true)}><SlidersHorizontal size={14} />Filters{chips.length ? ` (${chips.length})` : ''}</button>
               <select className="input w-auto py-2" aria-label="Sort by" value={f.sort} onChange={(e) => set({ sort: e.target.value })}>
                 <option value="latest">Sort: Latest</option><option value="price-asc">Price: Low to High</option><option value="price-desc">Price: High to Low</option>
               </select>
-              <div className="hidden overflow-hidden rounded-xl border border-line bg-white sm:flex">
-                {[['grid', LayoutGrid], ['list', List]].map(([v, I]) => (
+              <div className="flex overflow-hidden rounded-xl border border-line bg-white">
+                {[['grid', LayoutGrid], ['list', List], ['map', MapIcon]].map(([v, I]) => (
                   <button key={v} onClick={() => set({ view: v })} aria-label={`${v} view`} aria-pressed={f.view === v} className={`grid h-10 w-10 place-items-center ${f.view === v ? 'bg-primary text-white' : 'text-muted hover:text-primary'}`}><I size={17} /></button>
                 ))}
               </div>
@@ -104,15 +118,19 @@ export default function Properties() {
             <div className="mt-4 flex flex-wrap items-center gap-2">
               {chips.map((c) => <button key={c.label} className="chip hover:bg-primary-50/60" onClick={() => set(c.patch)} aria-label={`Remove filter ${c.label}`}>{c.label}<X size={12} /></button>)}
               <button onClick={reset} className="text-xs font-medium text-accent hover:underline">Clear all filters</button>
+              <button onClick={saveSearch} className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"><BookmarkPlus size={13} />Save this search</button>
             </div>
           )}
-          <div className={`mt-5 grid gap-6 ${f.view === 'list' ? 'grid-cols-1' : 'sm:grid-cols-2 xl:grid-cols-3'}`}>
+          {f.view === 'map' && !loading && <div className="mt-5"><Suspense fallback={<div className="skeleton h-[560px]" />}><PropertyMap properties={results} /></Suspense><p className="mt-2 text-xs text-muted">Showing all {results.length} matching properties. Marker positions are approximate.</p></div>}
+          <div className={`mt-5 grid gap-6 ${f.view === 'map' ? 'hidden' : ''} ${f.view === 'list' ? 'grid-cols-1' : 'sm:grid-cols-2 xl:grid-cols-3'}`}>
             {loading && <CardSkeleton count={6} />}
             {!loading && !error && shown.map((p) => <PropertyCard key={p.id} property={p} layout={f.view === 'list' ? 'list' : 'grid'} />)}
           </div>
           {error && <ErrorState error={error} onRetry={reload} />}
           {!loading && !error && results.length === 0 && <EmptyState title="No properties match your filters" text="Try widening your budget or removing a filter." action={<button className="btn-primary" onClick={reset}>Clear all filters</button>} />}
-          {!loading && <Pagination page={page} pages={pages} onChange={(n) => { set({ page: String(n) }); window.scrollTo({ top: 0, behavior: 'smooth' }) }} />}
+          {!loading && recent.ids.length > 0 && chips.length === 0 && f.view !== 'map' && (() => { const rv = recent.ids.map((id) => (data || []).find((p) => p.id === id)).filter(Boolean).slice(0, 3); return rv.length ? (
+            <div className="mt-12"><h2 className="text-lg font-semibold">Recently viewed</h2><div className="mt-4 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">{rv.map((p) => <PropertyCard key={p.id} property={p} />)}</div></div>) : null })()}
+          {!loading && f.view !== 'map' && <Pagination page={page} pages={pages} onChange={(n) => { set({ page: String(n) }); window.scrollTo({ top: 0, behavior: 'smooth' }) }} />}
         </section>
       </div>
       {drawer && (

@@ -4,22 +4,24 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianG
 import { useAsync } from '../../hooks/useAsync'
 import { propertyService } from '../../services/propertyService'
 import { projectService } from '../../services/projectService'
-import { agentService } from '../../services/agentService'
+import { teamService } from '../../services/teamService'
 import { inquiryService } from '../../services/inquiryService'
-import { viewsSeries } from '../../data/misc'
+import { useSite } from '../../context/SiteContext'
+import { statsService } from '../../services/statsService'
 import { formatPrice, timeAgo, formatDate } from '../../utils/format'
 import { AdminHeader, StatusBadge, TableSkeleton } from '../../components/admin/AdminUI'
 import { ErrorState } from '../../components/common/States'
 
-const COLORS = ['#063E2F', '#267032', '#d97706', '#94a3b8']
 
 export default function Dashboard() {
-  const d = useAsync(() => Promise.all([propertyService.list(), projectService.list(), agentService.list(), inquiryService.list(), inquiryService.appointments.list()]), [])
+  const { site } = useSite()
+  const COLORS = [site.theme.primary, site.theme.accent, '#d97706', '#94a3b8']
+  const d = useAsync(() => Promise.all([propertyService.list(), projectService.list(), teamService.list({ all: true }), inquiryService.list(), inquiryService.appointments.list(), statsService.views()]), [])
   if (d.loading) return <><AdminHeader title="Dashboard" /><TableSkeleton /></>
   if (d.error) return <ErrorState error={d.error} onRetry={d.reload} />
-  const [props, projs, agents, inqs, apts] = d.data
+  const [props, projs, team, inqs, apts, viewsSeries] = d.data
   const total = props.reduce((s, p) => s + (p.purpose === 'Buy' ? p.price : 0), 0)
-  const stats = [[Building2, 'Total properties', props.length], [CheckCircle2, 'Active listings', props.filter((p) => !['Sold', 'Rented', 'Draft'].includes(p.status)).length], [Users, 'Total agents', agents.length], [MessageSquare, 'New enquiries', inqs.filter((i) => i.status === 'New').length], [FolderKanban, 'Total projects', projs.length], [IndianRupee, 'Total property value', formatPrice(total)]]
+  const stats = [[Building2, 'Total properties', props.length], [CheckCircle2, 'Active listings', props.filter((p) => !['Sold', 'Rented', 'Draft'].includes(p.status)).length], [Users, 'Team members', team.length], [MessageSquare, 'New enquiries', inqs.filter((i) => i.status === 'New').length], [FolderKanban, 'Total projects', projs.length], [IndianRupee, 'Total property value', formatPrice(total)]]
   const dist = ['For Sale', 'For Rent', 'Sold', 'Rented'].map((s) => ({ name: s, value: props.filter((p) => p.status === s).length })).filter((x) => x.value)
   const recent = [...props].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4)
   return (
@@ -30,8 +32,8 @@ export default function Dashboard() {
       </div>
       <div className="mt-6 grid gap-6 xl:grid-cols-[2fr_1fr]">
         <section className="card min-w-0 p-5"><h2 className="font-semibold">Property views</h2><p className="text-xs text-muted">Last 30 days</p>
-          <div className="mt-4 h-64"><ResponsiveContainer width="100%" height="100%"><AreaChart data={viewsSeries} margin={{ left: -20, right: 8 }}><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#267032" stopOpacity={0.3} /><stop offset="100%" stopColor="#267032" stopOpacity={0} /></linearGradient></defs>
-            <CartesianGrid stroke="#E5E7EB" vertical={false} /><XAxis dataKey="day" tickLine={false} axisLine={false} fontSize={12} /><YAxis tickLine={false} axisLine={false} fontSize={12} /><Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E5E7EB' }} /><Area type="monotone" dataKey="views" stroke="#267032" strokeWidth={2.5} fill="url(#g)" /></AreaChart></ResponsiveContainer></div></section>
+          <div className="mt-4 h-64"><ResponsiveContainer width="100%" height="100%"><AreaChart data={viewsSeries} margin={{ left: -20, right: 8 }}><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={site.theme.accent} stopOpacity={0.3} /><stop offset="100%" stopColor={site.theme.accent} stopOpacity={0} /></linearGradient></defs>
+            <CartesianGrid stroke="#E5E7EB" vertical={false} /><XAxis dataKey="day" tickLine={false} axisLine={false} fontSize={12} /><YAxis tickLine={false} axisLine={false} fontSize={12} /><Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #E5E7EB' }} /><Area type="monotone" dataKey="views" stroke={site.theme.accent} strokeWidth={2.5} fill="url(#g)" /></AreaChart></ResponsiveContainer></div></section>
         <section className="card min-w-0 p-5"><h2 className="font-semibold">Property status</h2>
           <div className="mt-4 h-44"><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={dist} dataKey="value" nameKey="name" innerRadius={45} outerRadius={70} paddingAngle={3}>{dist.map((_, i) => <Cell key={i} fill={COLORS[i % 4]} />)}</Pie><Tooltip /></PieChart></ResponsiveContainer></div>
           <ul className="mt-2 space-y-1.5 text-sm">{dist.map((x, i) => <li key={x.name} className="flex items-center justify-between"><span className="flex items-center gap-2"><i className="h-2.5 w-2.5 rounded-full" style={{ background: COLORS[i % 4] }} />{x.name}</span><strong>{x.value}</strong></li>)}</ul></section>

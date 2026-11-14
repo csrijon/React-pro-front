@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import CompareBar from '../components/properties/CompareBar'
 
 export default function MainLayout() {
   const { pathname } = useLocation()
@@ -15,6 +16,7 @@ export default function MainLayout() {
         <Outlet />
       </motion.main>
       <Footer />
+      <CompareBar />
     </div>
   )
 }

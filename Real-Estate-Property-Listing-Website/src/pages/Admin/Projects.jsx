@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, useFieldArray } from 'react-hook-form'
 import { Pencil, Trash2, Plus, FolderKanban } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAsync } from '../../hooks/useAsync'
 import { projectService } from '../../services/projectService'
-import { formatBudget } from '../../utils/format'
+import { formatBudget, currencySymbol } from '../../utils/format'
 import { AdminHeader, SearchBox, Table, TableSkeleton, StatusBadge } from '../../components/admin/AdminUI'
-import Modal from '../../components/common/Modal'
+import Drawer from '../../components/common/Drawer'
 import ConfirmDialog from '../../components/common/ConfirmDialog'
 import Field from '../../components/common/Field'
 import ImageUploader from '../../components/forms/ImageUploader'
@@ -16,10 +16,11 @@ const STATUS = ['Upcoming', 'Under Construction', 'Ready to Move']
 const n = (l) => ({ required: `Enter ${l}`, valueAsNumber: true, min: { value: 0, message: 'Cannot be negative' } })
 
 function ProjectForm({ project, onSaved, onClose }) {
-  const { register, control, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({ defaultValues: { category: 'Residential', status: 'Upcoming', progress: 0, images: [], ...project, amenities: project?.amenities?.join(', ') || '' } })
+  const { register, control, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm({ defaultValues: { category: 'Residential', status: 'Upcoming', progress: 0, images: [], configurations: [], ...project, amenities: project?.amenities?.join(', ') || '' } })
+  const cfg = useFieldArray({ control, name: 'configurations' })
   const c = (e) => `input ${e ? 'input-error' : ''}`
   const submit = async (d) => {
-    const body = { ...d, units: +d.units, towers: +d.towers, priceFrom: +d.priceFrom, priceTo: +d.priceTo, progress: +d.progress, amenities: d.amenities.split(',').map((s) => s.trim()).filter(Boolean), configurations: project?.configurations || [], rera: d.rera || 'Applied', developer: d.developer }
+    const body = { ...d, units: +d.units, towers: +d.towers, priceFrom: +d.priceFrom, priceTo: +d.priceTo, progress: +d.progress, amenities: d.amenities.split(',').map((s) => s.trim()).filter(Boolean), configurations: (d.configurations || []).filter((r) => r.type?.trim()), rera: d.rera?.trim() || 'Applied', developer: d.developer }
     try { project ? await projectService.update(project.id, body) : await projectService.create(body); toast.success(project ? 'Project updated' : 'Project created'); onSaved() } catch (e) { toast.error(e.message) }
   }
   return (
@@ -30,12 +31,27 @@ function ProjectForm({ project, onSaved, onClose }) {
         <Field label="Location" error={errors.location}><input className={c(errors.location)} {...register('location', { required: 'Enter the location' })} /></Field>
         <Field label="Category"><select className="input" {...register('category')}><option>Residential</option><option>Commercial</option></select></Field>
         <Field label="Construction status"><select className="input" {...register('status')}>{STATUS.map((s) => <option key={s}>{s}</option>)}</select></Field>
-        <Field label="Price from (₹)" error={errors.priceFrom}><input type="number" className={c(errors.priceFrom)} {...register('priceFrom', n('a starting price'))} /></Field>
-        <Field label="Price to (₹)" error={errors.priceTo}><input type="number" className={c(errors.priceTo)} {...register('priceTo', { ...n('a maximum price'), validate: (v) => v >= +watch('priceFrom') || 'Must be at least the starting price' })} /></Field>
+        <Field label={`Price from (${currencySymbol()})`} error={errors.priceFrom}><input type="number" className={c(errors.priceFrom)} {...register('priceFrom', n('a starting price'))} /></Field>
+        <Field label={`Price to (${currencySymbol()})`} error={errors.priceTo}><input type="number" className={c(errors.priceTo)} {...register('priceTo', { ...n('a maximum price'), validate: (v) => v >= +watch('priceFrom') || 'Must be at least the starting price' })} /></Field>
         <Field label="Units" error={errors.units}><input type="number" className={c(errors.units)} {...register('units', n('number of units'))} /></Field>
         <Field label="Towers" error={errors.towers}><input type="number" className={c(errors.towers)} {...register('towers', n('number of towers'))} /></Field>
         <Field label="Possession" error={errors.possession}><input className={c(errors.possession)} placeholder="Dec 2028" {...register('possession', { required: 'Enter possession date' })} /></Field>
-        <Field label={`Construction progress (${watch('progress')}%)`}><input type="range" min="0" max="100" className="w-full accent-[#267032]" {...register('progress')} /></Field>
+        <Field label={`Construction progress (${watch('progress')}%)`}><input type="range" min="0" max="100" className="w-full accent-accent" {...register('progress')} /></Field>
+      </div>
+      <Field label="RERA registration number"><input className="input" placeholder="Applied" {...register('rera')} /></Field>
+      <div>
+        <span className="label">Available configurations</span>
+        <div className="space-y-2">
+          {cfg.fields.map((f, i) => (
+            <div key={f.id} className="grid grid-cols-[1fr_1fr_1fr_auto] gap-2">
+              <input className="input" aria-label={`Configuration ${i + 1} type`} placeholder="2 BHK" maxLength={40} {...register(`configurations.${i}.type`)} />
+              <input className="input" aria-label={`Configuration ${i + 1} area`} placeholder="980 – 1,120 sq ft" maxLength={60} {...register(`configurations.${i}.area`)} />
+              <input className="input" aria-label={`Configuration ${i + 1} price`} placeholder="From 75 Lakh" maxLength={60} {...register(`configurations.${i}.price`)} />
+              <button type="button" className="btn-outline btn-sm hover:!text-red-600" onClick={() => cfg.remove(i)} aria-label={`Remove configuration ${i + 1}`}><Trash2 size={14} /></button>
+            </div>
+          ))}
+        </div>
+        <button type="button" className="btn-ghost btn-sm mt-2" onClick={() => cfg.append({ type: '', area: '', price: '' })}><Plus size={14} />Add configuration</button>
       </div>
       <Field label="Amenities (comma separated)"><input className="input" {...register('amenities')} /></Field>
       <Field label="Description" error={errors.description}><textarea rows={3} className={`${c(errors.description)} resize-none`} {...register('description', { required: 'Add a description' })} /></Field>
@@ -67,7 +83,7 @@ export default function AdminProjects() {
           ))}
         </Table>
       )}
-      <Modal open={!!edit} onClose={() => setEdit(null)} title={edit?.id ? 'Edit project' : 'Create project'} size="max-w-2xl">{edit && <ProjectForm project={edit.id ? edit : null} onClose={() => setEdit(null)} onSaved={() => { setEdit(null); reload() }} />}</Modal>
+      <Drawer open={!!edit} onClose={() => setEdit(null)} title={edit?.id ? 'Edit project' : 'Create project'} width="max-w-2xl">{edit && <ProjectForm project={edit.id ? edit : null} onClose={() => setEdit(null)} onSaved={() => { setEdit(null); reload() }} />}</Drawer>
       <ConfirmDialog open={!!del} onClose={() => setDel(null)} onConfirm={remove} title="Delete project?" message={`“${del?.name}” will be permanently removed. This cannot be undone.`} />
     </>
   )

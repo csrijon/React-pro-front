@@ -1,6 +1,6 @@
 // Reads image files, validates them and downsizes to compact JPEG data URLs (demo-safe for localStorage).
 export const MAX_FILES = 8
-export const MAX_MB = 8
+export const MAX_MB = 5
 
 export function validateFiles(files, existing = 0) {
   const errors = []
@@ -14,7 +14,7 @@ export function validateFiles(files, existing = 0) {
   return { ok, errors }
 }
 
-export function fileToDataUrl(file, max = 1000) {
+export function fileToDataUrl(file, max = 1000, type = 'image/jpeg') {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file)
     const img = new Image()
@@ -24,7 +24,7 @@ export function fileToDataUrl(file, max = 1000) {
       c.width = Math.round(img.width * s); c.height = Math.round(img.height * s)
       c.getContext('2d').drawImage(img, 0, 0, c.width, c.height)
       URL.revokeObjectURL(url)
-      resolve(c.toDataURL('image/jpeg', 0.75))
+      resolve(c.toDataURL(type, 0.75))
     }
     img.onerror = () => { URL.revokeObjectURL(url); reject(new Error(`${file.name} could not be read`)) }
     img.src = url

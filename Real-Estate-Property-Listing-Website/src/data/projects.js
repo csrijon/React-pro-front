@@ -1,4 +1,4 @@
-import { TOWERS, HOMES, INTERIORS, pick } from './images'
+import { TOWERS, HOMES, INTERIORS, pick } from './images.js'
 
 const mk = (id, i, pool, o) => ({
   id, images: [...pick(pool, i, 2), ...pick(INTERIORS, i + 2, 3)], ...o,
